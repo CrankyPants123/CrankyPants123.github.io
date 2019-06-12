@@ -88,7 +88,7 @@
 <meta property="og:description" content="介绍AplayerAPlayer是目前广泛使用的HTML5音乐播放器。具体资料可以参见官方的白皮书。准确的说，我在Hexo中使用的并不是APlayer播放器，而是基于APlayer的Hexo标签插件——hexo-tag-aplayer。 MetingJSMetingJS是基于Meting API的一款APlayer衍生播放器，具有播放外链的功能。能够播放QQ音乐，酷狗音乐，网易云音乐等等平台。新版">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://psxovh0zl.bkt.clouddn.com/musicurl.png">
-<meta property="og:updated_time" content="2019-06-12T08:44:13.037Z">
+<meta property="og:updated_time" content="2019-06-12T08:55:49.109Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo——APlayer插件">
 <meta name="twitter:description" content="介绍AplayerAPlayer是目前广泛使用的HTML5音乐播放器。具体资料可以参见官方的白皮书。准确的说，我在Hexo中使用的并不是APlayer播放器，而是基于APlayer的Hexo标签插件——hexo-tag-aplayer。 MetingJSMetingJS是基于Meting API的一款APlayer衍生播放器，具有播放外链的功能。能够播放QQ音乐，酷狗音乐，网易云音乐等等平台。新版">
@@ -319,9 +319,111 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% meting <span class="string">"2839900843"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 
-    <div id="aplayer-ZXcrqyWU" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+    <div id="aplayer-NLHdRNrK" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
 <p>这里的数字”2839900843”指的是你的歌单id号，可以通过在web端打开你的以后的音乐平台查看到:</p>
 <p><img src="http://psxovh0zl.bkt.clouddn.com/musicurl.png" alt></p>
+<h2 id="4-个性化配置"><a href="#4-个性化配置" class="headerlink" title="4.个性化配置"></a>4.个性化配置</h2><p>播放器的样式并非一成不变。我们可以通过修改上述的引入语句来进行个性化配置。举例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 简单示例 (id, server, type)  --&gt;</span><br><span class="line">&#123;% meting <span class="string">"60198"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 进阶示例 --&gt;</span><br><span class="line">&#123;% meting <span class="string">"60198"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> <span class="string">"autoplay"</span> <span class="string">"mutex:false"</span> <span class="string">"listmaxheight:340px"</span> <span class="string">"preload:none"</span> <span class="string">"theme:#ad7a86"</span>%&#125;</span><br></pre></td></tr></table></figure>
+<p>有关 <code>
+    <div id="aplayer-ATiazNhS" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div></code> 的选项列表如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">选项</td>
+<td style="text-align:center">默认值</td>
+<td style="text-align:center">描述</td>
+</tr>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center"><strong>必须值</strong></td>
+<td style="text-align:center">歌曲 id / 播放列表 id / 相册 id / 搜索关键字</td>
+</tr>
+<tr>
+<td style="text-align:center">server</td>
+<td style="text-align:center"><strong>必须值</strong></td>
+<td style="text-align:center">音乐平台: <code>netease</code>, <code>tencent</code>, <code>kugou</code>, <code>xiami</code>, <code>baidu</code></td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center"><strong>必须值</strong></td>
+<td style="text-align:center"><code>song</code>, <code>playlist</code>, <code>album</code>, <code>search</code>, <code>artist</code></td>
+</tr>
+<tr>
+<td style="text-align:center">fixed</td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center">开启固定模式</td>
+</tr>
+<tr>
+<td style="text-align:center">mini</td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center">开启迷你模式</td>
+</tr>
+<tr>
+<td style="text-align:center">loop</td>
+<td style="text-align:center"><code>all</code></td>
+<td style="text-align:center">列表循环模式：<code>all</code>, <code>one</code>,<code>none</code></td>
+</tr>
+<tr>
+<td style="text-align:center">order</td>
+<td style="text-align:center"><code>list</code></td>
+<td style="text-align:center">列表播放模式： <code>list</code>, <code>random</code></td>
+</tr>
+<tr>
+<td style="text-align:center">volume</td>
+<td style="text-align:center">0.7</td>
+<td style="text-align:center">播放器音量</td>
+</tr>
+<tr>
+<td style="text-align:center">lrctype</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">歌词格式类型</td>
+</tr>
+<tr>
+<td style="text-align:center">listfolded</td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center">指定音乐播放列表是否折叠</td>
+</tr>
+<tr>
+<td style="text-align:center">storagename</td>
+<td style="text-align:center"><code>metingjs</code></td>
+<td style="text-align:center">LocalStorage 中存储播放器设定的键名</td>
+</tr>
+<tr>
+<td style="text-align:center">autoplay</td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center">自动播放，移动端浏览器暂时不支持此功能</td>
+</tr>
+<tr>
+<td style="text-align:center">mutex</td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center">该选项开启时，如果同页面有其他 aplayer 播放，该播放器会暂停</td>
+</tr>
+<tr>
+<td style="text-align:center">listmaxheight</td>
+<td style="text-align:center"><code>340px</code></td>
+<td style="text-align:center">播放列表的最大长度</td>
+</tr>
+<tr>
+<td style="text-align:center">preload</td>
+<td style="text-align:center"><code>auto</code></td>
+<td style="text-align:center">音乐文件预载入模式，可选项： <code>none</code>, <code>metadata</code>, <code>auto</code></td>
+</tr>
+<tr>
+<td style="text-align:center">theme</td>
+<td style="text-align:center"><code>#ad7a86</code></td>
+<td style="text-align:center">播放器风格色彩设置</td>
+</tr>
+</tbody>
+</table>
+<h1 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h1><h2 id="1-歌单无法更新"><a href="#1-歌单无法更新" class="headerlink" title="1.歌单无法更新"></a>1.歌单无法更新</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>在第一次引用歌单id的时候，可以加载歌单的信息。但是继续向歌单中添加歌曲后，被引用的歌单并不会有对应的更新。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>重新建立歌单，添加完需要添加的语句之后，再进行引用。重新deploy之后，修改的歌单就会生效。</p>
 
       
     </div>
@@ -552,7 +654,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Aplayer"><span class="nav-number">1.1.</span> <span class="nav-text">Aplayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MetingJS"><span class="nav-number">1.2.</span> <span class="nav-text">MetingJS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装与使用"><span class="nav-number">2.</span> <span class="nav-text">安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装hexo-tag-player"><span class="nav-number">2.1.</span> <span class="nav-text">1.安装hexo-tag-player</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-启用MetingJS"><span class="nav-number">2.2.</span> <span class="nav-text">2.启用MetingJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-引入播放器"><span class="nav-number">2.3.</span> <span class="nav-text">3.引入播放器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Aplayer"><span class="nav-number">1.1.</span> <span class="nav-text">Aplayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MetingJS"><span class="nav-number">1.2.</span> <span class="nav-text">MetingJS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装与使用"><span class="nav-number">2.</span> <span class="nav-text">安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装hexo-tag-player"><span class="nav-number">2.1.</span> <span class="nav-text">1.安装hexo-tag-player</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-启用MetingJS"><span class="nav-number">2.2.</span> <span class="nav-text">2.启用MetingJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-引入播放器"><span class="nav-number">2.3.</span> <span class="nav-text">3.引入播放器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-个性化配置"><span class="nav-number">2.4.</span> <span class="nav-text">4.个性化配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些问题"><span class="nav-number">3.</span> <span class="nav-text">一些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-歌单无法更新"><span class="nav-number">3.1.</span> <span class="nav-text">1.歌单无法更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述"><span class="nav-number">3.1.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-number">3.1.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
