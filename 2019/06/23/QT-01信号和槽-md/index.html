@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="随便记记button指定父对象的两种写法1234QPushButton b1;QPushBUtton *b2;b1.setParent(this);b2 = new QPushButton(this); connect函数connect是QT中的连接函数。功能是将sender对象中的Signal和receiver中的member槽函数联系起来。 举例： 12345678910//	函数原型conn">
+<meta name="description" content="信号与槽button指定父对象的两种写法1234QPushButton b1;QPushBUtton *b2;b1.setParent(this);b2 = new QPushButton(this); connect函数connect是QT中的连接函数。功能是将sender对象中的Signal和receiver中的member槽函数联系起来。 举例： 12345678910//	函数原型conn">
 <meta name="keywords" content="QT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="QT-01信号和槽.md">
+<meta property="og:title" content="QT-01信号和槽">
 <meta property="og:url" content="47.168.200.88/2019/06/23/QT-01信号和槽-md/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="随便记记button指定父对象的两种写法1234QPushButton b1;QPushBUtton *b2;b1.setParent(this);b2 = new QPushButton(this); connect函数connect是QT中的连接函数。功能是将sender对象中的Signal和receiver中的member槽函数联系起来。 举例： 12345678910//	函数原型conn">
+<meta property="og:description" content="信号与槽button指定父对象的两种写法1234QPushButton b1;QPushBUtton *b2;b1.setParent(this);b2 = new QPushButton(this); connect函数connect是QT中的连接函数。功能是将sender对象中的Signal和receiver中的member槽函数联系起来。 举例： 12345678910//	函数原型conn">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-23T12:34:23.745Z">
+<meta property="og:updated_time" content="2019-06-23T12:39:17.536Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QT-01信号和槽.md">
-<meta name="twitter:description" content="随便记记button指定父对象的两种写法1234QPushButton b1;QPushBUtton *b2;b1.setParent(this);b2 = new QPushButton(this); connect函数connect是QT中的连接函数。功能是将sender对象中的Signal和receiver中的member槽函数联系起来。 举例： 12345678910//	函数原型conn">
+<meta name="twitter:title" content="QT-01信号和槽">
+<meta name="twitter:description" content="信号与槽button指定父对象的两种写法1234QPushButton b1;QPushBUtton *b2;b1.setParent(this);b2 = new QPushButton(this); connect函数connect是QT中的连接函数。功能是将sender对象中的Signal和receiver中的member槽函数联系起来。 举例： 12345678910//	函数原型conn">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>QT-01信号和槽.md | Andrew's Blog</title>
+  <title>QT-01信号和槽 | Andrew's Blog</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">QT-01信号和槽.md</h1>
+          <h1 class="post-title" itemprop="name headline">QT-01信号和槽</h1>
         
 
         <div class="post-meta">
@@ -300,7 +300,7 @@
       
 
       
-        <h1 id="随便记记"><a href="#随便记记" class="headerlink" title="随便记记"></a>随便记记</h1><h2 id="button指定父对象的两种写法"><a href="#button指定父对象的两种写法" class="headerlink" title="button指定父对象的两种写法"></a>button指定父对象的两种写法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">QPushButton b1;</span><br><span class="line">QPushBUtton *b2;</span><br><span class="line">b1.setParent(<span class="keyword">this</span>);</span><br><span class="line">b2 = <span class="keyword">new</span> QPushButton(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+        <h1 id="信号与槽"><a href="#信号与槽" class="headerlink" title="信号与槽"></a>信号与槽</h1><h2 id="button指定父对象的两种写法"><a href="#button指定父对象的两种写法" class="headerlink" title="button指定父对象的两种写法"></a>button指定父对象的两种写法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">QPushButton b1;</span><br><span class="line">QPushBUtton *b2;</span><br><span class="line">b1.setParent(<span class="keyword">this</span>);</span><br><span class="line">b2 = <span class="keyword">new</span> QPushButton(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
 <h2 id="connect函数"><a href="#connect函数" class="headerlink" title="connect函数"></a>connect函数</h2><p>connect是QT中的连接函数。功能是将sender对象中的Signal和receiver中的member槽函数联系起来。</p>
 <p>举例：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//	函数原型</span></span><br><span class="line">connect(<span class="keyword">const</span> QObject *sender,<span class="keyword">const</span> <span class="keyword">char</span> *signal,<span class="keyword">const</span> QObject *receiver,<span class="keyword">const</span> <span class="keyword">char</span> *member, Qt::ConnectionType = Qt::AutoConnection)</span><br><span class="line">    </span><br><span class="line"><span class="comment">//	举例</span></span><br><span class="line">   connect(&amp;b1,&amp;QPushButton::pressed,<span class="keyword">this</span>,&amp;MainWidget::close);</span><br><span class="line"><span class="comment">//	当Button b1触发pressed的时候this对象close</span></span><br><span class="line"><span class="comment">//	&amp;b1:信号的发出者，指针类型</span></span><br><span class="line"><span class="comment">//	&amp;QPushButton::pressed:需要处理的信号	格式：发送者的类名::信号的名字</span></span><br><span class="line"><span class="comment">//	this:信号的接受者，指针类型</span></span><br><span class="line"><span class="comment">//	&amp;MainWidget::close:槽函数。信号处理函数	格式：接收者的类名::槽函数名字</span></span><br></pre></td></tr></table></figure>
@@ -569,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#随便记记"><span class="nav-number">1.</span> <span class="nav-text">随便记记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#button指定父对象的两种写法"><span class="nav-number">1.1.</span> <span class="nav-text">button指定父对象的两种写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect函数"><span class="nav-number">1.2.</span> <span class="nav-text">connect函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#槽函数自定义"><span class="nav-number">1.3.</span> <span class="nav-text">槽函数自定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号自定义"><span class="nav-number">1.4.</span> <span class="nav-text">信号自定义</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#信号与槽"><span class="nav-number">1.</span> <span class="nav-text">信号与槽</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#button指定父对象的两种写法"><span class="nav-number">1.1.</span> <span class="nav-text">button指定父对象的两种写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect函数"><span class="nav-number">1.2.</span> <span class="nav-text">connect函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#槽函数自定义"><span class="nav-number">1.3.</span> <span class="nav-text">槽函数自定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号自定义"><span class="nav-number">1.4.</span> <span class="nav-text">信号自定义</span></a></li></ol></li></ol></div>
             
 
           </div>
