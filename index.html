@@ -235,6 +235,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/23/QT-01信号和槽-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/23/QT-01信号和槽-md/" itemprop="url">QT-01信号和槽.md</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-23T15:14:09+08:00">
+                2019-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="随便记记"><a href="#随便记记" class="headerlink" title="随便记记"></a>随便记记</h1><h2 id="button指定父对象的两种写法"><a href="#button指定父对象的两种写法" class="headerlink" title="button指定父对象的两种写法"></a>button指定父对象的两种写法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">QPushButton b1;</span><br><span class="line">QPushBUtton *b2;</span><br><span class="line">b1.setParent(<span class="keyword">this</span>);</span><br><span class="line">b2 = <span class="keyword">new</span> QPushButton(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="connect函数"><a href="#connect函数" class="headerlink" title="connect函数"></a>connect函数</h2><p>connect是QT中的连接函数。功能是将sender对象中的Signal和receiver中的member槽函数联系起来。</p>
+<p>举例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//	函数原型</span></span><br><span class="line">connect(<span class="keyword">const</span> QObject *sender,<span class="keyword">const</span> <span class="keyword">char</span> *signal,<span class="keyword">const</span> QObject *receiver,<span class="keyword">const</span> <span class="keyword">char</span> *member, Qt::ConnectionType = Qt::AutoConnection)</span><br><span class="line">    </span><br><span class="line"><span class="comment">//	举例</span></span><br><span class="line">   connect(&amp;b1,&amp;QPushButton::pressed,<span class="keyword">this</span>,&amp;MainWidget::close);</span><br><span class="line"><span class="comment">//	当Button b1触发pressed的时候this对象close</span></span><br><span class="line"><span class="comment">//	&amp;b1:信号的发出者，指针类型</span></span><br><span class="line"><span class="comment">//	&amp;QPushButton::pressed:需要处理的信号	格式：发送者的类名::信号的名字</span></span><br><span class="line"><span class="comment">//	this:信号的接受者，指针类型</span></span><br><span class="line"><span class="comment">//	&amp;MainWidget::close:槽函数。信号处理函数	格式：接收者的类名::槽函数名字</span></span><br></pre></td></tr></table></figure>
+<h2 id="槽函数自定义"><a href="#槽函数自定义" class="headerlink" title="槽函数自定义"></a>槽函数自定义</h2><p>槽函数不仅可以用类自带的函数，还可以通过自定义来完成以系列的操作。比如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">connect(&amp;main_button,&amp;QPushButton::released,<span class="keyword">this</span>,&amp;MainWidget::hide);</span><br><span class="line">connect(&amp;main_button,&amp;QPushButton::released,&amp;sw,&amp;SubWidget::show);</span><br></pre></td></tr></table></figure>
+<p>可以看到，当main_button发生released事件之后，Main窗口执行了隐藏,Sub窗口执行了显示。</p>
+<p>这样的操作需要两个connect语句来完成，但是当通过自定义槽函数之后。一句connect就可以做到。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">connect(&amp;main_button,&amp;QPushButton,<span class="keyword">this</span>,&amp;MainWidget::MySlot);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MySlot</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;hide();</span><br><span class="line">	sw.show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="信号自定义"><a href="#信号自定义" class="headerlink" title="信号自定义"></a>信号自定义</h2><p>槽函数都可以自定义了，自然而然就能猜到信号也是可以自定义的。实际上确实也是可以自定义的。怎么自定义？let me show u</p>
+<p>首先看一下我的文件结构</p>
+<p>Headers</p>
+<ul>
+<li>subwidget.h</li>
+<li>widget.h</li>
+</ul>
+<p>Sources</p>
+<ul>
+<li>main.cpp</li>
+<li>subwidget.cpp</li>
+<li>widget.cpp</li>
+</ul>
+<p>(SM.MS图床今天维护，所以就这样将就看吧不截图了)</p>
+<p>有两个窗口main_window和sub_window。main_window是主窗口。我们现在要设置一个clicked事件，让sub_window中的按钮sb按下之后，关闭sub_window然后再显示main_window。</p>
+<p>首先，我们需要在subwidget.cpp中设置一个connect函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connect(&amp;sb,&amp;QPushButton::clicked,<span class="keyword">this</span>,&amp;SubWidget::ShowMainWindow);</span><br></pre></td></tr></table></figure>
+<p>当sb按钮触发clicked事件之后，SubWidget就会响应并执行ShowMainWindow槽函数。</p>
+<p>这时我们先自定义一个信号。在subwidget.h中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">signals:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Sig_ShowMainWindow</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这样，我们就成功定义了一个信号Sig_ShowMainWindow.需要注意的是：</p>
+<ul>
+<li>信号的声明必须有Signals关键字来声明。</li>
+<li>信号没有返回值，但是可以有参数。</li>
+<li>信号就是函数的声明，在这里只需声明，不需要定义。</li>
+<li>在信号的定义中需要用到emit关键字。比如 emit My-Signal</li>
+</ul>
+<p>然后我们继续写槽函数，在subwidget.cpp中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SubWidget</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">emit <span class="title">Sig_ShowMainWindow</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="keyword">this</span>-&gt;hide();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 到这里，就完成了利用自定义信号来实现的两个窗口的切换。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/12/Hexo——APlayer插件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -320,7 +478,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% meting <span class="string">"2839900843"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 
-    <div id="aplayer-pEVhdwxl" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+    <div id="aplayer-MJJFcpZK" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
 <p>这里的数字”2839900843”指的是你的歌单id号，可以通过在web端打开你的以后的音乐平台查看到:</p>
 <p><img src="https://i.loli.net/2019/06/12/5d00f383f11d932552.png" alt></p>
 <h2 id="4-个性化配置"><a href="#4-个性化配置" class="headerlink" title="4.个性化配置"></a>4.个性化配置</h2><p>播放器的样式并非一成不变。我们可以通过修改上述的引入语句来进行个性化配置。举例：</p>
@@ -687,7 +845,7 @@
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>上网机制和不同骨干网都有一个共同特点，用大白话说就是：</p>
 <p>“用的人多了，就会变慢！”</p>
 <p>“挑没人用的时候最快”</p>
-<h1 id="加速"><a href="#加速" class="headerlink" title="加速"></a>加速</h1><h2 id="先说结论：没找到方法"><a href="#先说结论：没找到方法" class="headerlink" title="先说结论：没找到方法"></a>先说结论：没找到方法</h2><p>搜狗浏览器曾经有教育网——&gt;公网加速，到后来教育网&lt;——&gt;公网双向加速的功能，直到现在的全网加速功能。但是亲测使用了搜狗的全网加速功能之后，速度仍旧没有得到提升。</p>
+<h1 id="加速"><a href="#加速" class="headerlink" title="加速"></a>加速</h1><h2 id="先说结论：没找到方法"><a href="#先说结论：没找到方法" class="headerlink" title="先说结论：没找到方法"></a>先说结论：没找到方法</h2><p>搜狗浏览器曾经有教育网——&gt;公网加速，到后来教育网&lt;——&gt;公网双向加速的功能，直到现在的全网加速功能。但是亲测使用了搜狗的全网加速功能之后，速度仍旧没有得到明显提升。之前我想的是：搜狗的加速技术，应该是通过自建加速服务器或者通过CDN加速实现的。后来发现我想多了。在我查询了我电脑的流量记录后发现</p>
 <p>后来想到用SSR在国内搭建代理服务器，用来转发我的流量。搭建后测本地测试的结果为下载3.6Mbps，上传1.5Mbps。而此时我的服务器端测速结果为下载116Mbps，上传5Mbps。测试时间为16：33🤦🏽‍♂️。测速结果甚至不如不使用代理。而且速度瓶颈也不在服务器端。</p>
 <p>大概分析了一下，使用代理并不能解决上述所说”跨骨干网”和”出口带宽有限”的问题。</p>
 <p>还有就是app store中的各种游戏加速软件，下载之后发现现在的加速软件对加速做了限制。并不是全局的对所有流量都进行加速，而是选择性的，只对指定游戏的流量做加速。</p>
@@ -1565,7 +1723,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1587,7 +1745,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
