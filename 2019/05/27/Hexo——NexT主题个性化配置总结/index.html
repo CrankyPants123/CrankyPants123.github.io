@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="在网站底部加上访问量具体方法：打开/themes/next/layout/_partials/_partials/footer.swig文件，在第一行之前加上这一句： 123456&amp;lt;script async src=&amp;quot;https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&amp;quot;&amp;gt;&amp;lt;/scrip">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-08T14:09:58.701Z">
+<meta property="og:image" content="https://i.loli.net/2019/06/27/5d139eb48defd41592.png">
+<meta property="og:image" content="https://i.loli.net/2019/06/27/5d13a0fdc8de379741.png">
+<meta property="og:updated_time" content="2019-06-26T16:49:48.341Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo——NexT主题个性化配置总结">
 <meta name="twitter:description" content="在网站底部加上访问量具体方法：打开/themes/next/layout/_partials/_partials/footer.swig文件，在第一行之前加上这一句： 123456&amp;lt;script async src=&amp;quot;https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&amp;quot;&amp;gt;&amp;lt;/scrip">
+<meta name="twitter:image" content="https://i.loli.net/2019/06/27/5d139eb48defd41592.png">
 
 
 
@@ -320,6 +323,25 @@
 <li>pv方式(第二句)，是单个用户连续点击n篇文章，记录n次的访问量</li>
 </ol>
 <p>因此，以uv方式来统计的访客次数相对pv来说更少一些。</p>
+<h2 id="添加分类界面"><a href="#添加分类界面" class="headerlink" title="添加分类界面"></a>添加分类界面</h2><p>首先先看实现效果：</p>
+<p><img src="https://i.loli.net/2019/06/27/5d139eb48defd41592.png" alt></p>
+<p>就是将我所有文章进行分类，方便读者按照分类进行阅读。不多bb。看实现步骤：</p>
+<ol>
+<li>首先在hexo的目录中,输入指令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page "tags"</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>打开tags页面，路径是/source/tags/index.html</li>
+</ol>
+<p>将备注中的type属性改为tags(注意type后先跟空格）</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 所有标签</span><br><span class="line">date: 2019-05-27 15:50:38</span><br><span class="line">type: "tags"</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>打开主题的配置文件_config.xml，/menu 查找。将tags属性改为：</li>
+</ol>
+<p><img src="https://i.loli.net/2019/06/27/5d13a0fdc8de379741.png" alt></p>
+<ul>
+<li>“||”之后的内容是用来显示对应图标的，不用理会。*</li>
+</ul>
 
       
     </div>
@@ -554,7 +576,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在网站底部加上访问量"><span class="nav-number">1.</span> <span class="nav-text">在网站底部加上访问量</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在网站底部加上访问量"><span class="nav-number">1.</span> <span class="nav-text">在网站底部加上访问量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加分类界面"><span class="nav-number">2.</span> <span class="nav-text">添加分类界面</span></a></li></ol></div>
             
 
           </div>
