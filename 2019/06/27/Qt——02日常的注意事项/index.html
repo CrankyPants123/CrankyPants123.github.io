@@ -89,7 +89,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/06/27/5d14612fe8e6767805.png">
 <meta property="og:image" content="https://i.loli.net/2019/06/27/5d14621bbacab29204.png">
-<meta property="og:updated_time" content="2019-06-27T06:34:18.973Z">
+<meta property="og:image" content="https://i.loli.net/2019/06/27/5d147053c0e2026395.png">
+<meta property="og:updated_time" content="2019-06-27T07:50:06.419Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Qt——02日常的注意事项">
 <meta name="twitter:description" content="定义窗口大小1resize(300,200); 窗口显示在未特别指定的时候，显示可能会出现异常，文字显示不全，button显示不全等等问题。所以在有时候需要特别指定一下窗口的大小，以保证窗口及内容的正常显示。 this指针问题近来的编码中频频遇到问题。好多的问题解决之后发现，都是因为没有灵活的运用this指针。比如： 问题1：  在窗口中定义的子按钮，需要指定父对象的时候，因为主窗口mw定义mai">
@@ -323,6 +324,12 @@
 <p><img src="https://i.loli.net/2019/06/27/5d14621bbacab29204.png" alt></p>
 <p>在书写响应函数ChangeWindow()的时候，需要执行两个操作——隐藏主窗口和显示子窗口。在这个时候同问题1，使用mw.hide()的时候，程序也会报错。这个时候如果使用this-&gt;hide();问题也就能很轻松的解决。</p>
 <p>记一下。倒不是什么大问题，就是老卡在this过不去，所以就写一下强化一下记忆。</p>
+<h2 id="pro-user问题"><a href="#pro-user问题" class="headerlink" title=".pro.user问题"></a>.pro.user问题</h2><p>先看一眼一个项目的文件结构</p>
+<p><img src="https://i.loli.net/2019/06/27/5d147053c0e2026395.png" alt></p>
+<p>除过头文件和源文件之外，还有一个.pro文件和.pro.user文件。</p>
+<p>我们有时在将整个项目直接打包发给别人之后，别的用户打开的时候会出现无法打开的情况出现。</p>
+<p>究其原因，就是因为这个.pro.user文件。因为这个文件保存着，当前用户的信息，包括工程的路径，所用的编译器，构建的工具链，生成目录，打开工程的qt-creator版本等等。of course直接迁移了项目的时候就不能用。</p>
+<h3 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h3><p>删掉就行，这样就会重新生成新的.pro.user文件而不是重新加载</p>
 
       
     </div>
@@ -553,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义窗口大小"><span class="nav-number">1.</span> <span class="nav-text">定义窗口大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this指针问题"><span class="nav-number">2.</span> <span class="nav-text">this指针问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义窗口大小"><span class="nav-number">1.</span> <span class="nav-text">定义窗口大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this指针问题"><span class="nav-number">2.</span> <span class="nav-text">this指针问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pro-user问题"><span class="nav-number">3.</span> <span class="nav-text">.pro.user问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法："><span class="nav-number">3.1.</span> <span class="nav-text">解决办法：</span></a></li></ol></li></ol></div>
             
 
           </div>
