@@ -314,25 +314,25 @@
         
           
             <p>vim在两年前就已经接触。不过到现在为止感觉自己还只是略知皮毛。用到的最最高阶的操作也就是dd pp基础查找之类的。用的vscode和sublime还是最多——因为我感觉方便。不过在b站看那些科技从业者一直在强调vim才是最终的效率解决方案。让我开始怀疑。我以为的方便，或许真的可能就只是学习成本低而已。</p>
-<p>打算在日常中尝试更多的去使用vim了。所以才有了这篇blog。指在收集一些高阶的使用技巧从而提升自己的效率摆脱鼠标。关联性可能不强，只是一些零散的收集。不一定都是自己写的。网上有好的可能就直接复制下来了。</p>
+<p>打算在日常中尝试更多的去使用vim了。所以才有了这篇blog。旨在收集一些高阶的使用技巧从而提升自己的效率摆脱鼠标。关联性可能不强，只是一些零散的收集。不一定都是自己写的。网上有好的可能就直接复制下来了。如果你正在阅读这篇博文，那么你有可能因为没有太多的解释而看不懂。没关系！因为这是给我自己写的。</p>
 <h1 id="Vim指南"><a href="#Vim指南" class="headerlink" title="Vim指南"></a>Vim指南</h1><h2 id="多窗口-amp-多文件切换"><a href="#多窗口-amp-多文件切换" class="headerlink" title="多窗口&amp;多文件切换"></a>多窗口&amp;多文件切换</h2><ol>
-<li>打开多个文件</li>
-</ol>
+<li><p>打开多个文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim file1 file2 ... filen</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>在已打开的文件上再打开文件</li>
-</ol>
+</li>
+<li><p>在已打开的文件上再打开文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:e file2</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>同时打开多个文件</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">窗口水平切分</span></span><br><span class="line">：sp </span><br><span class="line"><span class="meta">#</span><span class="bash">窗口垂直切分</span></span><br><span class="line">:sp</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>文件间切换</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下一个文件</span></span><br><span class="line">:bn</span><br><span class="line"><span class="meta">#</span><span class="bash">上一个文件</span></span><br><span class="line">:bp</span><br><span class="line"><span class="meta">#</span><span class="bash">切换到第n个文件</span></span><br><span class="line">:b1~n</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>打开的窗口间切换<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">切换到前/后/上/下的窗口</span></span><br><span class="line">ctrl+w+导航键</span><br><span class="line">ctrl+w+h/j/k/l/</span><br><span class="line"><span class="meta">#</span><span class="bash">向后切换到下一个窗格中</span></span><br><span class="line">ctrl+w+w</span><br></pre></td></tr></table></figure></li>
+</li>
+<li><p>同时打开多个文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>窗口水平切分</span><br><span class="line">：sp </span><br><span class="line"><span class="meta">#</span>窗口垂直切分</span><br><span class="line">:sp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件间切换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>下一个文件</span><br><span class="line">:bn</span><br><span class="line"><span class="meta">#</span>上一个文件</span><br><span class="line">:bp</span><br><span class="line"><span class="meta">#</span>切换到第n个文件</span><br><span class="line">:b1~n</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开的窗口间切换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>切换到前/后/上/下的窗口</span><br><span class="line">ctrl+w+导航键</span><br><span class="line">ctrl+w+h/j/k/l/</span><br><span class="line"><span class="meta">#</span>向后切换到下一个窗格中</span><br><span class="line">ctrl+w+w</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开文件目录树</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>当前窗口下打开</span><br><span class="line">:Ex(Explore的意思)</span><br><span class="line"><span class="meta">#</span>竖直分割打开</span><br><span class="line">:Ve(Vexplore)</span><br><span class="line"><span class="meta">#</span>水平分割窗口打开</span><br><span class="line">:Se(Sexplore)</span><br></pre></td></tr></table></figure></li>
 </ol>
 
           
