@@ -1266,7 +1266,10 @@
 <li>子窗口信号重载的实现</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (SubWidget::*show1)() = &amp;SubWidget::Sig_ShowMainWindow;</span><br><span class="line"><span class="keyword">void</span> (SubWidget::*show2)(<span class="keyword">int</span>,QString) = &amp;SubWidget::Sig_ShowMainWindow;</span><br></pre></td></tr></table></figure>
-<p> 这样，一次完整的重载就实现了。    </p>
+<p> 这样，一次完整的重载就实现了。 </p>
+<blockquote>
+<p>Qt4的语法因为易于出错，且没有Qt5灵活。故不打算再做探究。</p>
+</blockquote>
 
           
         
