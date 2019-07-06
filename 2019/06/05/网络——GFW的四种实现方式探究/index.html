@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="简介GFW，即Great FireWall（of the People’s Republic of China）。中文称为“中国国家防火墙”。是中国政府过滤和监控互联网的一套软硬件系统。由前北邮校长方滨兴在1998年开始主持建设。GFW的主要功能就是分析和过滤中国境内外网络间的互相访问。阻止中国网民访问境外非法站点。需要注意的是GFW是双向的，中国网民无法访问的域名和IP，同样也是无法访问中国境内">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-26T16:53:04.474Z">
+<meta property="og:updated_time" content="2019-07-06T07:01:31.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络——GFW的四种实现方式探究">
 <meta name="twitter:description" content="简介GFW，即Great FireWall（of the People’s Republic of China）。中文称为“中国国家防火墙”。是中国政府过滤和监控互联网的一套软硬件系统。由前北邮校长方滨兴在1998年开始主持建设。GFW的主要功能就是分析和过滤中国境内外网络间的互相访问。阻止中国网民访问境外非法站点。需要注意的是GFW是双向的，中国网民无法访问的域名和IP，同样也是无法访问中国境内">
@@ -319,7 +319,7 @@
 <p><strong>绿坝·花季护航</strong>（简称<strong>绿坝</strong>或<strong>绿航</strong>）是一款客户端的网络过滤软件。中国政府称安装软件的目的在于保护未成年计算机用户，误闯入色情网站等有害内容，但过滤的准确度过低。另外该软件可过滤一些政治敏感的信息，因而有观点认为这一软件是当局进行网络审查的工具之一。政府大规模的推行软件预装措施招致诸多民众和媒体异议。中国政府预定于2009年7月1日起，要求在中国大陆新生产和销售的计算机进行全面预装，后迫于舆论压力而表示暂缓。</p>
 </blockquote>
 <p>本篇Blog只是探究GFW的实现方式，对于突破GFW限制，并不做研究。^ _ ^</p>
-<h1 id="实现方式："><a href="#实现方式：" class="headerlink" title="实现方式："></a>实现方式：</h1><h1 id="一、DNS污染-amp-劫持"><a href="#一、DNS污染-amp-劫持" class="headerlink" title="一、DNS污染&amp;劫持"></a>一、DNS污染&amp;劫持</h1><p>这是早期GFW的实现手段，由于现阶段我们访问网站都需要通过域名来进行访问，</p>
+<h1 id="实现方式："><a href="#实现方式：" class="headerlink" title="实现方式："></a>实现方式：</h1><h2 id="一、DNS污染-amp-劫持"><a href="#一、DNS污染-amp-劫持" class="headerlink" title="一、DNS污染&amp;劫持"></a>一、DNS污染&amp;劫持</h2><p>这是早期GFW的实现手段，由于现阶段我们访问网站都需要通过域名来进行访问，</p>
 <h1 id="坑太大了慢慢埋吧！！！！！"><a href="#坑太大了慢慢埋吧！！！！！" class="headerlink" title="坑太大了慢慢埋吧！！！！！"></a>坑太大了慢慢埋吧！！！！！</h1><h2 id="二、IP封锁"><a href="#二、IP封锁" class="headerlink" title="二、IP封锁"></a>二、IP封锁</h2><h2 id="三、HTTP代理封锁"><a href="#三、HTTP代理封锁" class="headerlink" title="三、HTTP代理封锁"></a>三、HTTP代理封锁</h2><h2 id="四、封锁VPN"><a href="#四、封锁VPN" class="headerlink" title="四、封锁VPN"></a>四、封锁VPN</h2>
       
     </div>
@@ -554,7 +554,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现方式："><span class="nav-number">2.</span> <span class="nav-text">实现方式：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、DNS污染-amp-劫持"><span class="nav-number">3.</span> <span class="nav-text">一、DNS污染&amp;劫持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#坑太大了慢慢埋吧！！！！！"><span class="nav-number">4.</span> <span class="nav-text">坑太大了慢慢埋吧！！！！！</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二、IP封锁"><span class="nav-number">4.1.</span> <span class="nav-text">二、IP封锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、HTTP代理封锁"><span class="nav-number">4.2.</span> <span class="nav-text">三、HTTP代理封锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、封锁VPN"><span class="nav-number">4.3.</span> <span class="nav-text">四、封锁VPN</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现方式："><span class="nav-number">2.</span> <span class="nav-text">实现方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、DNS污染-amp-劫持"><span class="nav-number">2.1.</span> <span class="nav-text">一、DNS污染&amp;劫持</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#坑太大了慢慢埋吧！！！！！"><span class="nav-number">3.</span> <span class="nav-text">坑太大了慢慢埋吧！！！！！</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二、IP封锁"><span class="nav-number">3.1.</span> <span class="nav-text">二、IP封锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、HTTP代理封锁"><span class="nav-number">3.2.</span> <span class="nav-text">三、HTTP代理封锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、封锁VPN"><span class="nav-number">3.3.</span> <span class="nav-text">四、封锁VPN</span></a></li></ol></li></ol></div>
             
 
           </div>
