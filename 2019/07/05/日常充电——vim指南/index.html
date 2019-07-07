@@ -320,16 +320,16 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:e file2</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>同时打开多个文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>窗口水平切分</span><br><span class="line">：sp </span><br><span class="line"><span class="meta">#</span>窗口垂直切分</span><br><span class="line">:sp</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">窗口水平切分</span></span><br><span class="line">：sp </span><br><span class="line"><span class="meta">#</span><span class="bash">窗口垂直切分</span></span><br><span class="line">:sp</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>文件间切换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>下一个文件</span><br><span class="line">:bn</span><br><span class="line"><span class="meta">#</span>上一个文件</span><br><span class="line">:bp</span><br><span class="line"><span class="meta">#</span>切换到第n个文件</span><br><span class="line">:b1~n</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下一个文件</span></span><br><span class="line">:bn</span><br><span class="line"><span class="meta">#</span><span class="bash">上一个文件</span></span><br><span class="line">:bp</span><br><span class="line"><span class="meta">#</span><span class="bash">切换到第n个文件</span></span><br><span class="line">:b1~n</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>打开的窗口间切换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>切换到前/后/上/下的窗口</span><br><span class="line">ctrl+w+导航键</span><br><span class="line">ctrl+w+h/j/k/l/</span><br><span class="line"><span class="meta">#</span>向后切换到下一个窗格中</span><br><span class="line">ctrl+w+w</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">切换到前/后/上/下的窗口</span></span><br><span class="line">ctrl+w+导航键</span><br><span class="line">ctrl+w+h/j/k/l/</span><br><span class="line"><span class="meta">#</span><span class="bash">向后切换到下一个窗格中</span></span><br><span class="line">ctrl+w+w</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>打开文件目录树</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>当前窗口下打开</span><br><span class="line">:Ex(Explore的意思)</span><br><span class="line"><span class="meta">#</span>竖直分割打开</span><br><span class="line">:Ve(Vexplore)</span><br><span class="line"><span class="meta">#</span>水平分割窗口打开</span><br><span class="line">:Se(Sexplore)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">当前窗口下打开</span></span><br><span class="line">:Ex(Explore的意思)</span><br><span class="line"><span class="meta">#</span><span class="bash">竖直分割打开</span></span><br><span class="line">:Ve(Vexplore)</span><br><span class="line"><span class="meta">#</span><span class="bash">水平分割窗口打开</span></span><br><span class="line">:Se(Sexplore)</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -370,6 +370,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/06/Qt——04Lambda表达式和信号/" rel="prev" title="Qt——04Lambda表达式和信号">
+                Qt——04Lambda表达式和信号 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -446,7 +450,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
