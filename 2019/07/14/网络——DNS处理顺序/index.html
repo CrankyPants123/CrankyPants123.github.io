@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/07/14/5d2adce4be5c565538.png">
 <meta property="og:image" content="https://i.loli.net/2019/07/14/5d2af637e1b0921322.png">
-<meta property="og:updated_time" content="2019-07-14T10:03:57.477Z">
+<meta property="og:updated_time" content="2019-07-14T10:05:26.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络——DNS处理顺序">
 <meta name="twitter:description" content="引自Wikipedia: DNS(Domain Name System)。是互联网的一项服务。他作为将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网。  DNS处理顺序以chrome为例，整理一下DNS的完整处理顺序。 1. Chrome搜索自身的DNS缓存在浏览器的地址栏，我们输入了www.baidu.com，按下回车键，浏览器对于我们URL的解析就开始了。假如在我们最近曾经">
@@ -339,7 +339,6 @@
 <p>Linux环境下可以使用指令<code>cat /etc/resolv.conf</code>来查看DNS服务器的地址，Window使用<code>ipconfig</code>查看，在OS X上可以使用<code>nslookup www.baidu.com</code>指令来查看自己的DNS服务器地址。</p>
 <p><img src="https://i.loli.net/2019/07/14/5d2af637e1b0921322.png" alt></p>
 <h2 id="5-使用根域名服务器解析"><a href="#5-使用根域名服务器解析" class="headerlink" title="5. 使用根域名服务器解析"></a>5. 使用根域名服务器解析</h2><p>LDNS若是还没有命中，那么LDNS就会向Root Server域名服务器请求解析。精力有限在此不详细对根域名服务器的解析过程做更加深入的研究。根域名进行解析之后会将结果返回给LDNS，LDNS接受返回的IP值和TTL并返回给用户。用户根据TTL将解析结构存在本地的系统缓存中。域名解析结束。</p>
-<p>## </p>
 
       
     </div>
