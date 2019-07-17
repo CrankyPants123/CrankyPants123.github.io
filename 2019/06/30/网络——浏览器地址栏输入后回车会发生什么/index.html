@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="浏览器地址栏输入后回车会发生什么相信好多人的面经中都写到过这道题了。可以说是一道网络方向的上古经典面试题，久盛不衰！有的人足够了解，这个问题能回答10分钟。不是很了解的童鞋，可能只能用寥寥数字来进行简单不完全的描述。写下这篇博客的目的就是——对这个问题做一个很好的总结。相信在接下来的面试中还很有可能被问到。希望到时候能用这个回答征服面试官哈哈哈。不过更加希望的是自己能思考明白这其中各个环节发生了什">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-17T02:21:03.023Z">
+<meta property="og:updated_time" content="2019-07-17T07:27:43.027Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络——浏览器地址栏输入后回车会发生什么">
 <meta name="twitter:description" content="浏览器地址栏输入后回车会发生什么相信好多人的面经中都写到过这道题了。可以说是一道网络方向的上古经典面试题，久盛不衰！有的人足够了解，这个问题能回答10分钟。不是很了解的童鞋，可能只能用寥寥数字来进行简单不完全的描述。写下这篇博客的目的就是——对这个问题做一个很好的总结。相信在接下来的面试中还很有可能被问到。希望到时候能用这个回答征服面试官哈哈哈。不过更加希望的是自己能思考明白这其中各个环节发生了什">
@@ -358,7 +358,7 @@
 <li>浏览器解析HTML代码，并请求HTML代码中的资源(js、css、图片等)</li>
 <li>浏览器对页面进行渲染，并向用户呈现我们最终看到的网页</li>
 </ol>
-<h1 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h1><p>在上边所举例的三种输入样例中，按下回车其实都会转到<code>https://www.baidu.com</code>。但是其中的原理却不尽相同。在我们输入<code>https://www.baidu.com</code>的时候，说明我们是使用https协议来访问，这个并不是很难理解。<br>在输入<code>baidu.com</code>和<code>www.baidu.com</code>之后,这其中涉及到的是”预加载HSTS”的问题。详细内容在我单独写的一个博客###########中。<br>而<code>http://www.baidu.com</code>也会自动重定向到<code>https://www.baidu.com</code>这是因为浏览器和服务器在其中做了很多。在我们使用HTTP去向网站发起连接请求，会得到服务器的响应。但是不是常规响应而是一个重定向响应，而后浏览器收到响应，会重新发起HTTPS请求和网站进行通信。这其实是一次有风险的操作，因为我们可能会因此受到downgrade attack的攻击。</p>
+<h1 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h1><p>在上边所举例的三种输入样例中，按下回车其实都会转到<code>https://www.baidu.com</code>。但是其中的原理却不尽相同。在我们输入<code>https://www.baidu.com</code>的时候，说明我们是使用https协议来访问，这个并不是很难理解。<br>在输入<code>baidu.com</code>和<code>www.baidu.com</code>之后,这其中涉及到的是”预加载HSTS”的问题。详细内容在我单独写的一个博客<a href="http://47.106.200.88/2019/07/17/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94HSTS%E7%AE%80%E5%8D%95%E6%8E%A2%E7%A9%B6/" target="_blank" rel="noopener">《HSTS简单探究》</a>中。<br>而<code>http://www.baidu.com</code>也会自动重定向到<code>https://www.baidu.com</code>这是因为浏览器和服务器在其中做了很多。在我们使用HTTP去向网站发起连接请求，会得到服务器的响应。但是不是常规响应而是一个重定向响应，而后浏览器收到响应，会重新发起HTTPS请求和网站进行通信。这其实是一次有风险的操作，因为我们可能会因此受到downgrade attack的攻击。</p>
 <p>本文参考：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/c2bf75485c15" target="_blank" rel="noopener">《浏览器、HTTP、SSL、HTTPS执行流程》</a></li>
