@@ -450,7 +450,7 @@
           
             <h1 id="浏览器地址栏输入后回车会发生什么"><a href="#浏览器地址栏输入后回车会发生什么" class="headerlink" title="浏览器地址栏输入后回车会发生什么"></a>浏览器地址栏输入后回车会发生什么</h1><p>相信好多人的面经中都写到过这道题了。可以说是一道网络方向的上古经典面试题，久盛不衰！有的人足够了解，这个问题能回答10分钟。不是很了解的童鞋，可能只能用寥寥数字来进行简单不完全的描述。写下这篇博客的目的就是——对这个问题做一个很好的总结。相信在接下来的面试中还很有可能被问到。希望到时候能用这个回答征服面试官哈哈哈。不过更加希望的是自己能思考明白这其中各个环节发生了什么，并能够利用这个知识真正变现成为生产力去解决问题。</p>
 <p>这篇可能会很臭很长。我只想写的足够详细。</p>
-<p><del>让我们先从按下回车键的电流回路开始讲起吧</del></p>
+<p><del>让我们先从按下键盘的电流回路开始讲起吧</del></p>
 <p>开个玩笑，不过我看到有人真的这么分析了。也真是个狼人🐺</p>
 <h2 id><a href="#" class="headerlink" title></a><!--浏览器会做什么--></h2><!--首先，浏览器会分析我输入的内容。-->
 <!--通常，如果输入的内容中包含了字段".com"，那么浏览器不会认为我输入的是一个关键字。在确定用户输入的是一个URL而不是一个搜索关键字之后。浏览器就会检查，我所输入的URL是否指明了某种协议。如果没有，就会在开头加上"https://"。因为我没有指定具体的HTTP协议选项，所以浏览器就会使用默认值来填充：端口 80、GET方法、不使用基本的身份验证。-->
@@ -464,7 +464,7 @@
 </li>
 <li><p>百度</p>
 </li>
-<li><p><a href="http://www.baidu,com" target="_blank" rel="noopener">www.baidu,com</a> (注意这里使用的是逗号)<br> 输入文本后回车，如果浏览器判定所输入的内容不是一个URL。那么浏览器就会调用默认的搜索引擎对输入的内容进行搜索。其过程只比直接</p>
+<li><p><a href="http://www.baidu,com" target="_blank" rel="noopener">www.baidu,com</a> (注意这里使用的是逗号)<br> 输入文本后回车，如果浏览器判定所输入的内容不是一个URL。那么浏览器就会调用默认的搜索引擎对输入的内容进行搜索。其过程只比直接输入URL多了一步。</p>
 </li>
 </ul>
 </li>
@@ -473,7 +473,7 @@
 
 ![](https://i.loli.net/2019/07/16/5d2de94c5781b11972.png)
 
-浏览器进行判定。判定结果是非URL链接，接下来浏览器会将地址栏中输入的文字传给默认的搜索引擎，自动生成一个带有我们搜索关键字的URL，向默认的搜索引擎发起连接请求。接下来的步骤就和输入一个URL链接一样啦。
+浏览器进行判定。判定结果是非URL链接，接下来浏览器自动生成一个带有我们搜索关键字的URL，向默认的搜索引擎发起连接请求。接下来的步骤就和输入一个URL链接一样啦。
 
 ![](https://i.loli.net/2019/07/16/5d2debd55417830040.png)
 </code></pre><ol start="2">
@@ -501,8 +501,9 @@
 <li>连接建立成功之后，发起HTTP/HTTPS连接请求</li>
 <li>服务器响应请求，浏览器得到HTML代码</li>
 <li>浏览器解析HTML代码，并请求HTML代码中的资源(js、css、图片等)</li>
-<li>浏览器对页面进行渲染，并向用户呈现我们最终看到的网页。</li>
+<li>浏览器对页面进行渲染，并向用户呈现我们最终看到的网页</li>
 </ol>
+<h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>在上边所举例的三种输入样例中，按下回车其实都会转到<code>https://www.baidu.com</code>。但是其中的原理却不尽相同。在我们输入<code>https://www.baidu/com</code>的时候，说明我们是使用https协议来访问，这个并不是很难理解。<br>在输入<code>baidu.com</code>和<code>www.baidu.com</code>之后,这其中涉及到的是”预加载HSTS”的问题。详细内容在我单独写的一个博客###########中。<br>而<code>http://www.baidu.com</code>也会自动重定向到<code>https://www.baidu.com</code>这是因为浏览器和服务器在其中做了很多</p>
 <p>本文参考：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/c2bf75485c15" target="_blank" rel="noopener">《浏览器、HTTP、SSL、HTTPS执行流程》</a></li>
@@ -1376,7 +1377,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% meting <span class="string">"2839900843"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 
-    <div id="aplayer-aIUDbxoc" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+    <div id="aplayer-xEUbvKAG" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
 <p>这里的数字”2839900843”指的是你的歌单id号，可以通过在web端打开你的以后的音乐平台查看到:</p>
 <p><img src="https://i.loli.net/2019/06/12/5d00f383f11d932552.png" alt></p>
 <h2 id="4-个性化配置"><a href="#4-个性化配置" class="headerlink" title="4.个性化配置"></a>4.个性化配置</h2><p>播放器的样式并非一成不变。我们可以通过修改上述的引入语句来进行个性化配置。举例：</p>
