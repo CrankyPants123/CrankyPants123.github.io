@@ -754,8 +754,25 @@
 <li>浏览器解析HTML代码，并请求HTML代码中的资源(js、css、图片等)</li>
 <li>浏览器对页面进行渲染，并向用户呈现我们最终看到的网页</li>
 </ol>
-<h1 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h1><h2 id="转换非ASCII的Unicode字符"><a href="#转换非ASCII的Unicode字符" class="headerlink" title="转换非ASCII的Unicode字符"></a>转换非ASCII的Unicode字符</h2><p>如果输入的是非<code>a-z</code>、<code>A-Z</code>、<code>0-9</code>、<code>-</code>、<code>.</code>的字符，浏览器会对主机名部分使用Punycode编码</p>
-<h2 id="HSTS相关操作"><a href="#HSTS相关操作" class="headerlink" title="HSTS相关操作"></a>HSTS相关操作</h2><p>在上边所举例的三种输入样例中，按下回车其实都会转到<code>https://www.baidu.com</code>。但是其中的原理却不尽相同。在我们输入<code>https://www.baidu.com</code>的时候，说明我们是使用https协议来访问，这个并不是很难理解。<br>在输入<code>baidu.com</code>和<code>www.baidu.com</code>之后,这其中涉及到的是”预加载HSTS”的问题。详细内容在我单独写的一个博客<a href="http://47.106.200.88/2019/07/17/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94HSTS%E7%AE%80%E5%8D%95%E6%8E%A2%E7%A9%B6/" target="_blank" rel="noopener">《HSTS简单探究》</a>中。简而言之是浏览器会内置一个列表，记录了一些域名。如果我们访问的域名在这个列表中，浏览器就会自动将网络协议补全成为<code>HTTPS</code>。<br>而<code>http://www.baidu.com</code>也会使用<code>3XX</code>自动重定向到<code>https://www.baidu.com</code>这是因为浏览器和服务器在其中做了很多。在我们使用HTTP去向网站发起连接请求，会得到服务器的响应。但是不是常规响应而是一个重定向响应，而后浏览器收到响应，会重新发起HTTPS请求和网站进行通信。这其实是一次有风险的操作，因为我们可能会因此受到downgrade attack的攻击。</p>
+<h2 id="所用到的协议"><a href="#所用到的协议" class="headerlink" title="所用到的协议"></a>所用到的协议</h2><p>想了一段时间，但是还是有点理不清思绪，所以列举一下各层所用到的协议。在之后的文章会都写到的。</p>
+<p>应用层：发起请求的逻辑</p>
+<p>表示层：HTTP/HTTPS</p>
+<p>会话层：TLS</p>
+<p>传输层：TCP</p>
+<p>网络层：IP</p>
+<p>数据链路层：帧</p>
+<p>物理层：比特流</p>
+<h1 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h1><h2 id="字符转换"><a href="#字符转换" class="headerlink" title="字符转换"></a>字符转换</h2><p>如果输入的是非<code>a-z</code>、<code>A-Z</code>、<code>0-9</code>、<code>-</code>、<code>.</code>的非ASCII的Unicode字符字符，浏览器会对主机名部分使用Punycode编码</p>
+<h2 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h2><p>在上边所举例的三种输入样例中，按下回车其实都会转到<code>https://www.baidu.com</code>。但是其中的原理却不尽相同。在我们输入<code>https://www.baidu.com</code>的时候，说明我们是使用https协议来访问，这个并不是很难理解。<br>在输入<code>baidu.com</code>和<code>www.baidu.com</code>之后,这其中涉及到的是”预加载HSTS”的问题。详细内容在我单独写的一个博客<a href="http://47.106.200.88/2019/07/17/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94HSTS%E7%AE%80%E5%8D%95%E6%8E%A2%E7%A9%B6/" target="_blank" rel="noopener">《HSTS简单探究》</a>中。简而言之就是现代浏览器会内置一个列表，记录了一些域名。如果我们访问的域名在这个列表中，浏览器就会自动将网络协议补全成为<code>HTTPS</code>。另外提一点，假如<code>baidu.com</code>不在浏览器的HSTS列表中，那么也会被自动补全成<code>HTTPS</code>。</p>
+<blockquote>
+<p>只要网站支持，用https总是好的，安全的！</p>
+<p>​                                                                            ——一位不愿透漏姓名的网友</p>
+</blockquote>
+<p>在输入<code>http://www.baidu.com</code>也会使用<code>301</code>自动重定向到<code>https://www.baidu.com</code>这是因为浏览器和服务器在其中做了很多。在我们使用HTTP去向网站发起连接请求，这时会得到服务器的响应。但是不是常规响应，而是一个重定向的301响应，而后浏览器收到响应，会重新发起HTTPS请求和网站进行通信。这其实是一次有风险的操作，因为我们可能会因此受到downgrade attack的攻击。还有一点就是在服务器和浏览器之间会发生TLS握手。这个马上就说。</p>
+<h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>Transport Layer Security：传输层安全协议。有SSL1.0、SSL 2.0、SSL3.0三个版本。作为初学者，我的理解就是HTTPS = HTTP + TLS(其实是我在google到的)。我看了关于TLS的介绍，有点头大。。。<img src="https://i.loli.net/2019/07/18/5d307050c6e7e23021.png" alt></p>
+<p>所以我就不多讲了，不过可以写写关于OpenSSL和SSL的关系。倒是蛮有意思的。</p>
+<p>之前看罗永浩的发布会。罗说卖门票就是用来做一个观众的筛选，不是为挣钱，就是交个朋友。所以他把门票收入都捐了。捐给了谁呢？那就是OpenSSL组织。界面新闻曾经写过一篇名叫《<a href="https://www.jiemian.com/article/231843.html?utm_source=qdan.me#/" target="_blank" rel="noopener">隐形战友</a>》的文章，文中的OpenSSL一副惨兮兮的样子，开源组织在作者笔下仿佛没有锤子的捐款明天就要倒闭的样子。我真的不是很赞同文章的立场。OpenSSL作为一个开源组织，最大的贡献当然是OpenSSL工具集。并没有什么精确的办法来判断HTTPS是否是使用OpenSSL的，不过在apache和nginx上肯定是使用了OpenSSL的。这么来推理的话，保守估计全球70%以上的网站都是使用了OpenSSL的</p>
+<p>HeartBleeding事件相信对很多科技从业者来说都有听过。这事就是和OpenSSL有关。</p>
 <h2 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h2><p>此时域名解析才真正开始。解析过程为</p>
 <ol>
 <li>搜索浏览器自身DNS缓存</li>
@@ -764,7 +781,7 @@
 <li>使用DNS服务器查询</li>
 </ol>
 <p>详细的解析过程请看我的另一篇关于DNS解析顺序的Blog<a href="http://47.106.200.88/2019/07/14/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94DNS%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F/" target="_blank" rel="noopener">《网络——DNS解析顺序》</a>。</p>
-<h1 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h1><p>现在我们已经拿到目的服务器的IP地址了。现在，我们的浏览器就会以一个随机的端口(1024&lt;端口&lt;65535)向服务器的Web程序(常用的有tomcat，nginx)的80端口（如果是https协议的话，默认就是443端口）调用系统的<code>socket</code>，请求一个TCP流套接字。发起TCP连接请求，服务器的WEB程序收到了我们的连接请求最终建立了TCP/IP连接。以下是TCP的三次握手过程。</p>
+<h1 id="TCP三次握手与TLS"><a href="#TCP三次握手与TLS" class="headerlink" title="TCP三次握手与TLS"></a>TCP三次握手与TLS</h1><p>现在我们已经拿到目的服务器的IP地址了。现在，我们的浏览器就会以一个随机的端口(1024&lt;端口&lt;65535)向服务器的Web程序(常用的有tomcat，nginx)的80端口（如果是https协议的话，默认就是443端口）调用系统的<code>socket</code>，请求一个TCP流套接字。发起TCP连接请求，服务器的WEB程序收到了我们的连接请求最终建立了TCP/IP连接。以下是TCP的三次握手过程。</p>
 <p><img src="https://i.loli.net/2019/07/18/5d3034c062e9094804.jpg" alt></p>
 <h1 id="发起http请求"><a href="#发起http请求" class="headerlink" title="发起http请求"></a>发起http请求</h1><p>低层协议的连接建立了，就该高层的协议上场了。</p>
 <p>本文参考：</p>
