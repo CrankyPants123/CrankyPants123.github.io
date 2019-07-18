@@ -89,7 +89,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/07/16/5d2de94c5781b11972.png">
 <meta property="og:image" content="https://i.loli.net/2019/07/16/5d2debd55417830040.png">
-<meta property="og:updated_time" content="2019-07-18T08:23:03.963Z">
+<meta property="og:image" content="https://i.loli.net/2019/07/18/5d3034c062e9094804.jpg">
+<meta property="og:updated_time" content="2019-07-18T09:10:39.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络——浏览器地址栏输入后回车会发生什么">
 <meta name="twitter:description" content="浏览器地址栏输入后回车会发生什么相信好多人的面经中都写到过这道题了。可以说是一道网络方向的上古经典面试题，久盛不衰！有的人足够了解，这个问题能回答10分钟。不是很了解的童鞋，可能只能用寥寥数字来进行简单不完全的描述。写下这篇博客的目的就是——对这个问题做一个很好的总结。相信在接下来的面试中还很有可能被问到。希望到时候能用这个回答征服面试官哈哈哈。不过更加希望的是自己能思考明白这其中各个环节发生了什">
@@ -371,6 +372,9 @@
 <li>使用DNS服务器查询</li>
 </ol>
 <p>详细的解析过程请看我的另一篇关于DNS解析顺序的Blog<a href="http://47.106.200.88/2019/07/14/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94DNS%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F/" target="_blank" rel="noopener">《网络——DNS解析顺序》</a>。</p>
+<h1 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h1><p>现在我们已经拿到目的服务器的IP地址了。现在，我们的浏览器就会以一个随机的端口(1024&lt;端口&lt;65535)向服务器的Web程序(常用的有tomcat，nginx)的80端口（如果是https协议的话，默认就是443端口）调用系统的<code>socket</code>，请求一个TCP流套接字。发起TCP连接请求，服务器的WEB程序收到了我们的连接请求最终建立了TCP/IP连接。以下是TCP的三次握手过程。</p>
+<p><img src="https://i.loli.net/2019/07/18/5d3034c062e9094804.jpg" alt></p>
+<h1 id="发起http请求"><a href="#发起http请求" class="headerlink" title="发起http请求"></a>发起http请求</h1><p>低层协议的连接建立了，就该高层的协议上场了。</p>
 <p>本文参考：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/c2bf75485c15" target="_blank" rel="noopener">《浏览器、HTTP、SSL、HTTPS执行流程》</a></li>
@@ -632,7 +636,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器地址栏输入后回车会发生什么"><span class="nav-number">1.</span> <span class="nav-text">浏览器地址栏输入后回车会发生什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#会输入什么"><span class="nav-number">1.1.</span> <span class="nav-text">会输入什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入URL之后的流程"><span class="nav-number">1.2.</span> <span class="nav-text">输入URL之后的流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#域名解析"><span class="nav-number">2.</span> <span class="nav-text">域名解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#转换非ASCII的Unicode字符"><span class="nav-number">2.1.</span> <span class="nav-text">转换非ASCII的Unicode字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HSTS相关操作"><span class="nav-number">2.2.</span> <span class="nav-text">HSTS相关操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析域名"><span class="nav-number">2.3.</span> <span class="nav-text">解析域名</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器地址栏输入后回车会发生什么"><span class="nav-number">1.</span> <span class="nav-text">浏览器地址栏输入后回车会发生什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#会输入什么"><span class="nav-number">1.1.</span> <span class="nav-text">会输入什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入URL之后的流程"><span class="nav-number">1.2.</span> <span class="nav-text">输入URL之后的流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#域名解析"><span class="nav-number">2.</span> <span class="nav-text">域名解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#转换非ASCII的Unicode字符"><span class="nav-number">2.1.</span> <span class="nav-text">转换非ASCII的Unicode字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HSTS相关操作"><span class="nav-number">2.2.</span> <span class="nav-text">HSTS相关操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析域名"><span class="nav-number">2.3.</span> <span class="nav-text">解析域名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP的三次握手"><span class="nav-number">3.</span> <span class="nav-text">TCP的三次握手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发起http请求"><span class="nav-number">4.</span> <span class="nav-text">发起http请求</span></a></li></ol></div>
             
 
           </div>

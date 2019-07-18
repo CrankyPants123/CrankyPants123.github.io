@@ -764,6 +764,9 @@
 <li>使用DNS服务器查询</li>
 </ol>
 <p>详细的解析过程请看我的另一篇关于DNS解析顺序的Blog<a href="http://47.106.200.88/2019/07/14/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94DNS%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F/" target="_blank" rel="noopener">《网络——DNS解析顺序》</a>。</p>
+<h1 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h1><p>现在我们已经拿到目的服务器的IP地址了。现在，我们的浏览器就会以一个随机的端口(1024&lt;端口&lt;65535)向服务器的Web程序(常用的有tomcat，nginx)的80端口（如果是https协议的话，默认就是443端口）调用系统的<code>socket</code>，请求一个TCP流套接字。发起TCP连接请求，服务器的WEB程序收到了我们的连接请求最终建立了TCP/IP连接。以下是TCP的三次握手过程。</p>
+<p><img src="https://i.loli.net/2019/07/18/5d3034c062e9094804.jpg" alt></p>
+<h1 id="发起http请求"><a href="#发起http请求" class="headerlink" title="发起http请求"></a>发起http请求</h1><p>低层协议的连接建立了，就该高层的协议上场了。</p>
 <p>本文参考：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/c2bf75485c15" target="_blank" rel="noopener">《浏览器、HTTP、SSL、HTTPS执行流程》</a></li>
