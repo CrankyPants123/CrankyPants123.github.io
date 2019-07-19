@@ -771,8 +771,8 @@
 <p>在输入<code>http://www.baidu.com</code>也会使用<code>301</code>自动重定向到<code>https://www.baidu.com</code>这是因为浏览器和服务器在其中做了很多。在我们使用HTTP去向网站发起连接请求，这时会得到服务器的响应。但是不是常规响应，而是一个重定向的301响应，而后浏览器收到响应，会重新发起HTTPS请求和网站进行通信。这其实是一次有风险的操作，因为我们可能会因此受到downgrade attack的攻击。还有一点就是在服务器和浏览器之间会发生TLS握手。这个马上就说。</p>
 <h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>Transport Layer Security：传输层安全协议。有SSL1.0、SSL 2.0、SSL3.0三个版本。作为初学者，我的理解就是HTTPS = HTTP + TLS(其实是我在google到的)。我看了关于TLS的介绍，有点头大。。。<img src="https://i.loli.net/2019/07/18/5d307050c6e7e23021.png" alt></p>
 <p>所以我就不多讲了，不过可以写写关于OpenSSL和SSL的关系。倒是蛮有意思的。</p>
-<p>之前看罗永浩的发布会。罗说卖门票就是用来做一个观众的筛选，不是为挣钱，就是交个朋友。所以他把门票收入都捐了。捐给了谁呢？那就是OpenSSL组织。界面新闻曾经写过一篇名叫《<a href="https://www.jiemian.com/article/231843.html?utm_source=qdan.me#/" target="_blank" rel="noopener">隐形战友</a>》的文章，文中的OpenSSL一副惨兮兮的样子，开源组织在作者笔下仿佛没有锤子的捐款明天就要倒闭的样子。我真的不是很赞同文章的立场。OpenSSL作为一个开源组织，最大的贡献当然是OpenSSL工具集。并没有什么精确的办法来判断HTTPS是否是使用OpenSSL的，不过在apache和nginx上肯定是使用了OpenSSL的。这么来推理的话，保守估计全球70%以上的网站都是使用了OpenSSL的。也对！要不然HeartBleeding也不会引起那么大的关注了。</p>
-<h2 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h2><p>此时域名解析才真正开始。解析过程为</p>
+<p>之前看罗永浩的发布会。罗说卖门票就是用来做一个观众的筛选，不是为挣钱，就是交个朋友。所以他把门票收入都捐了。捐给了谁呢？那就是OpenSSL组织。界面新闻曾经写过一篇名叫《<a href="https://www.jiemian.com/article/231843.html?utm_source=qdan.me#/" target="_blank" rel="noopener">隐形战友</a>》的文章，文中的OpenSSL一副惨兮兮的样子，开源组织在作者笔下仿佛没有锤子的捐款明天就要倒闭的样子。我真的不是很赞同文章的立场。OpenSSL作为一个开源组织，最大的贡献当然是OpenSSL工具集。并没有什么精确的办法来判断HTTPS是否是使用OpenSSL的，不过在apache和nginx上肯定是使用了OpenSSL的。这么来推理的话，保守估计全球70%以上的网站都是使用了OpenSSL的。也对！要不然HeartBleeding也不会引起那么大的关注了。扯的有点远了。言归正传~</p>
+<h2 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h2><p>前面一堆吧啦吧啦之后，域名解析才真正开始。解析过程为</p>
 <ol>
 <li>搜索浏览器自身DNS缓存</li>
 <li>操作系统DNS缓存</li>
@@ -791,11 +791,19 @@
 <li>客户端验证CA证书的可靠性、若可信就生成一个对称主密钥。</li>
 <li>服务器生成对称主密钥。</li>
 <li>客户端发送<code>Finished</code>消息给服务端。</li>
-<li>服务器生成Hash，解密客户端消息</li>
-<li>接下来，TLS密钥都会加密解密传输层(http)内容</li>
+<li>服务器生成Hash，解密客户端消息。</li>
+<li>接下来，TLS密钥都会被用来加密和解密传输层(http)的内容。</li>
 </ul>
 </blockquote>
-<h1 id="发起http请求"><a href="#发起http请求" class="headerlink" title="发起http请求"></a>发起http请求</h1><p>低层协议的连接建立了，就该高层的协议上场了。</p>
+<h1 id="http层"><a href="#http层" class="headerlink" title="http层"></a>http层</h1><h2 id="客户端发送http请求"><a href="#客户端发送http请求" class="headerlink" title="客户端发送http请求"></a>客户端发送http请求</h2><p>低层协议的连接建立了，现在是高层协议的showtime了。TCP的连接已经建立了，报文也准备好了。准备发送。这是我们的请求报头：</p>
+<p><img src="https://i.loli.net/2019/07/19/5d31def04677695276.png" alt></p>
+<h2 id="服务器响应http请求"><a href="#服务器响应http请求" class="headerlink" title="服务器响应http请求"></a>服务器响应http请求</h2><p>服务器端的Web程序收到了http请求以后，就会处理客户端的请求。处理完了之后返回给浏览器请求的资源文件（HTML，CSS，JS，图片等等）。服务器的响应头：</p>
+<p><img src="https://i.loli.net/2019/07/19/5d31e6ba4602955498.png" alt></p>
+<h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><p>浏览器拿到了index.html文件了，就要开始解析其中的html代码了，遇到js/css/image这些静态资源就向服务器端去请求下载。这个时候就需要用到keep-alive特性了。建立一次HTTP连接，可以请求多个资源。</p>
+<p>浏览器在请求静态资源的时候，向服务器端发送一个http请求来询问自从上次请求之后，静态文件有没有被修改。如果服务器返回<code>304</code>状态码，那么就是没有改变的意思，浏览器就直接从本地的缓存中直接读取文件了。</p>
+<p>之后就是GPU渲染，并且把最终的网页呈现出来。</p>
+<p>我们就看到网页了。</p>
+<p>完。</p>
 <p>本文参考：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/c2bf75485c15" target="_blank" rel="noopener">《浏览器、HTTP、SSL、HTTPS执行流程》</a></li>
