@@ -771,8 +771,7 @@
 <p>在输入<code>http://www.baidu.com</code>也会使用<code>301</code>自动重定向到<code>https://www.baidu.com</code>这是因为浏览器和服务器在其中做了很多。在我们使用HTTP去向网站发起连接请求，这时会得到服务器的响应。但是不是常规响应，而是一个重定向的301响应，而后浏览器收到响应，会重新发起HTTPS请求和网站进行通信。这其实是一次有风险的操作，因为我们可能会因此受到downgrade attack的攻击。还有一点就是在服务器和浏览器之间会发生TLS握手。这个马上就说。</p>
 <h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>Transport Layer Security：传输层安全协议。有SSL1.0、SSL 2.0、SSL3.0三个版本。作为初学者，我的理解就是HTTPS = HTTP + TLS(其实是我在google到的)。我看了关于TLS的介绍，有点头大。。。<img src="https://i.loli.net/2019/07/18/5d307050c6e7e23021.png" alt></p>
 <p>所以我就不多讲了，不过可以写写关于OpenSSL和SSL的关系。倒是蛮有意思的。</p>
-<p>之前看罗永浩的发布会。罗说卖门票就是用来做一个观众的筛选，不是为挣钱，就是交个朋友。所以他把门票收入都捐了。捐给了谁呢？那就是OpenSSL组织。界面新闻曾经写过一篇名叫《<a href="https://www.jiemian.com/article/231843.html?utm_source=qdan.me#/" target="_blank" rel="noopener">隐形战友</a>》的文章，文中的OpenSSL一副惨兮兮的样子，开源组织在作者笔下仿佛没有锤子的捐款明天就要倒闭的样子。我真的不是很赞同文章的立场。OpenSSL作为一个开源组织，最大的贡献当然是OpenSSL工具集。并没有什么精确的办法来判断HTTPS是否是使用OpenSSL的，不过在apache和nginx上肯定是使用了OpenSSL的。这么来推理的话，保守估计全球70%以上的网站都是使用了OpenSSL的</p>
-<p>HeartBleeding事件相信对很多科技从业者来说都有听过。这事就是和OpenSSL有关。</p>
+<p>之前看罗永浩的发布会。罗说卖门票就是用来做一个观众的筛选，不是为挣钱，就是交个朋友。所以他把门票收入都捐了。捐给了谁呢？那就是OpenSSL组织。界面新闻曾经写过一篇名叫《<a href="https://www.jiemian.com/article/231843.html?utm_source=qdan.me#/" target="_blank" rel="noopener">隐形战友</a>》的文章，文中的OpenSSL一副惨兮兮的样子，开源组织在作者笔下仿佛没有锤子的捐款明天就要倒闭的样子。我真的不是很赞同文章的立场。OpenSSL作为一个开源组织，最大的贡献当然是OpenSSL工具集。并没有什么精确的办法来判断HTTPS是否是使用OpenSSL的，不过在apache和nginx上肯定是使用了OpenSSL的。这么来推理的话，保守估计全球70%以上的网站都是使用了OpenSSL的。也对！要不然HeartBleeding也不会引起那么大的关注了。</p>
 <h2 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h2><p>此时域名解析才真正开始。解析过程为</p>
 <ol>
 <li>搜索浏览器自身DNS缓存</li>
@@ -781,8 +780,21 @@
 <li>使用DNS服务器查询</li>
 </ol>
 <p>详细的解析过程请看我的另一篇关于DNS解析顺序的Blog<a href="http://47.106.200.88/2019/07/14/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94DNS%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F/" target="_blank" rel="noopener">《网络——DNS解析顺序》</a>。</p>
-<h1 id="TCP三次握手与TLS"><a href="#TCP三次握手与TLS" class="headerlink" title="TCP三次握手与TLS"></a>TCP三次握手与TLS</h1><p>现在我们已经拿到目的服务器的IP地址了。现在，我们的浏览器就会以一个随机的端口(1024&lt;端口&lt;65535)向服务器的Web程序(常用的有tomcat，nginx)的80端口（如果是https协议的话，默认就是443端口）调用系统的<code>socket</code>，请求一个TCP流套接字。发起TCP连接请求，服务器的WEB程序收到了我们的连接请求最终建立了TCP/IP连接。以下是TCP的三次握手过程。</p>
+<h1 id="使用套接字"><a href="#使用套接字" class="headerlink" title="使用套接字"></a>使用套接字</h1><p>现在我们已经拿到目的服务器的IP地址了。现在，我们的浏览器就会以一个随机的端口(1024&lt;端口&lt;65535)向服务器的Web程序(常用的有tomcat，nginx)的80端口（如果是https协议的话，默认就是443端口）调用系统的<code>socket</code>，请求一个TCP流套接字。这个请求首先交给传输层，请求在传输层被封装成TCP segment。TCP segment又被送往网络层，加入IP头部，封装成IP packet。然后IP packet进入了链路层，加入了本机MAC和网关MAC，最终成为了一个完整的TCP封包。如果内核不知道网关的MAC，那么它就必须进行ARP广播来进行查询。</p>
+<p>我们现在已经可以发起TCP连接请求了。请求发送，服务器的WEB程序收到了我们的连接请求最终建立了TCP/IP连接。以下是TCP的三次握手过程。</p>
 <p><img src="https://i.loli.net/2019/07/18/5d3034c062e9094804.jpg" alt></p>
+<blockquote>
+<p>如果是https的话，那么在这个时候就会进行TLS握手，握手过程如下：</p>
+<ul>
+<li>客户端发送一个<code>Clienthello</code>f到服务器端，消息中也包含了TLS版本，可用的加密算法和压缩算法。</li>
+<li>服务器收到消息之后返回<code>Serverhello</code>消息。其中也包含了服务器的TLS版本。所选择的压缩算法和加密算法，CA签发的服务器证书。证书中包含了公钥。</li>
+<li>客户端验证CA证书的可靠性、若可信就生成一个对称主密钥。</li>
+<li>服务器生成对称主密钥。</li>
+<li>客户端发送<code>Finished</code>消息给服务端。</li>
+<li>服务器生成Hash，解密客户端消息</li>
+<li>接下来，TLS密钥都会加密解密传输层(http)内容</li>
+</ul>
+</blockquote>
 <h1 id="发起http请求"><a href="#发起http请求" class="headerlink" title="发起http请求"></a>发起http请求</h1><p>低层协议的连接建立了，就该高层的协议上场了。</p>
 <p>本文参考：</p>
 <ul>
