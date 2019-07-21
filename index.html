@@ -242,6 +242,139 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/" itemprop="url">C++——查看被编译器隐藏的父类私有成员属性</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T14:31:42+08:00">
+                2019-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="查看被编译器隐藏的父类私有成员属性"><a href="#查看被编译器隐藏的父类私有成员属性" class="headerlink" title="查看被编译器隐藏的父类私有成员属性"></a>查看被编译器隐藏的父类私有成员属性</h1><h2 id="子类会继承父类的所有非静态成员。"><a href="#子类会继承父类的所有非静态成员。" class="headerlink" title="子类会继承父类的所有非静态成员。"></a>子类会继承父类的所有非静态成员。</h2><p>先简单看段代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> m_a=<span class="string">"this is a pubic member"</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> m_b=<span class="string">"this is a protected member"</span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">string</span> m_c=<span class="string">"this is a private member"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;m_a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Inherit i;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(i)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接说答案，这个程序的输出结果是72。</p>
+<p>Why 72？明明父类中的m_c是私有的，就算是public继承也不能在Inherit中访问的呀？</p>
+<p>这是我刚刚开始时候的疑惑。</p>
+<p>So 结论：一个string的大小是24。三个24刚好是72。也就是说父类中所有的非静态成员都被子类继承了。但是！我们在子类中是访问不到的——编译器隐藏了私有成员的属性。所以我们访问不了，但是不代表子类没有继承。</p>
+<h2 id="查看被编译器隐藏的父类private成员"><a href="#查看被编译器隐藏的父类private成员" class="headerlink" title="查看被编译器隐藏的父类private成员"></a>查看被编译器隐藏的父类private成员</h2><p>以下是查看的方法（win环境）：</p>
+<p>我没有win本&amp;我的mac跑不动虚拟机,所以就直接用了老师的截图。</p>
+<ul>
+<li>打开vs自带的开发人员命令提示工具</li>
+<li>跳转到项目目录</li>
+<li><code>cl /dl reportsingleClassLayoutInherit file</code>(也就是报告单个类的布局的意思,Inherit是要查看的类名。)<br>  <img src="https://i.loli.net/2019/07/21/5d340bbbd249c48575.jpeg" alt></li>
+</ul>
+<p>可以看到上图，Son类继承自Base类。继承了m_A,m_B,m_C。自带的成员是m_D。m_C是Base类中的私有属性。所以可以证实子类确实会证实父类中的私有属性也会被子类继承。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/17/胡言乱语——飞天意面神教和罗素的茶壶/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -929,6 +1062,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/Hexo——参数与选项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/Hexo——参数与选项/" itemprop="url">C++——基于环形队列的生产者消费者模型</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T23:20:41+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="基于环形队列的生产消费模型"><a href="#基于环形队列的生产消费模型" class="headerlink" title="基于环形队列的生产消费模型"></a>基于环形队列的生产消费模型</h1><ul>
+<li>环形队列采用数组模拟，用模运算来模拟环状特性</li>
+<li>环形结构起始状态和结束状态都是一样的，不好判断为空或者为满，所以就需要通过计数器或者标记位来判断满或空。另外也可以预留一个空的位置，作为满的状态<br><img src="https://i.loli.net/2019/07/10/5d25909b54c5993724.png" alt></li>
+<li>消费者总是跟在生产者的后边，且不会超过生产者</li>
+<li>生产者一直在消费者的前边，且不会超过消费者一圈</li>
+<li>head和tail指向同一个位置的时候，队列为空</li>
+<li>当head在tail的下一个位置时，环形队列为满<br>  <img src="https://i.loli.net/2019/07/10/5d25906f4969f13819.png" alt></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*#####  ringqueue.cc   ####*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"test.hpp"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> num=<span class="number">16</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">consume_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">int</span> d;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		q-&gt;PopData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"consume done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">product_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">long</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> d=rand()%<span class="number">100</span>+<span class="number">1</span>;</span><br><span class="line">		q-&gt;PushData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Product done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=<span class="keyword">new</span> RingQueue(num);</span><br><span class="line">	<span class="keyword">pthread_t</span> c,p;</span><br><span class="line">	pthread_create(&amp;c,<span class="literal">NULL</span>,consume_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line">	pthread_create(&amp;p,<span class="literal">NULL</span>,product_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	pthread_join(&amp;c,<span class="literal">NULL</span>);</span><br><span class="line">	pthread_join(&amp;p,<span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">delete</span>(q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******   test.hpp   *******/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __TEST_HPP__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __TEST_HPP__</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RingQueue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ring;</span><br><span class="line">	<span class="keyword">int</span> cap;</span><br><span class="line">	<span class="keyword">sem_t</span> blank_sem;</span><br><span class="line">	<span class="keyword">sem_t</span> data_sem;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">int</span> c_step;										<span class="comment">//consume在圈中的位置</span></span><br><span class="line">	<span class="keyword">int</span> p_step;		  								<span class="comment">//product在圈中的位置</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_wait(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">V</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_post(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	RingQueue(<span class="keyword">int</span> cap_):cap(cap_),ring(cap_)</span><br><span class="line">	&#123;</span><br><span class="line">		c_step=p_step=<span class="number">0</span>;							<span class="comment">//初始时c_step和p_step在同一格</span></span><br><span class="line">		sem_init(&amp;blank_sem,<span class="number">0</span>,cap);				<span class="comment">//初始时需要写入的输入是整个圈的容量</span></span><br><span class="line">		sem_init(&amp;data_sem,<span class="number">0</span>,<span class="number">0</span>);					<span class="comment">//初始时需要consume的值为0</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PushData</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; data)</span>					<span class="comment">//进行数据生产</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(blank_sem);</span><br><span class="line">		ring[p_step]=data;							<span class="comment">//把数据放进去</span></span><br><span class="line">		V(data_sem);</span><br><span class="line">		p_step++;</span><br><span class="line">		p_step%=cap;								<span class="comment">//进行模运算来模拟环形特性</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PopData</span><span class="params">(<span class="keyword">int</span> &amp;data  )</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(data_sem);								<span class="comment">//申请数据资源</span></span><br><span class="line">		data=ring[c_step];							<span class="comment">//拿到数据</span></span><br><span class="line">		V(blank_sem);								<span class="comment">//空出格子</span></span><br><span class="line">		c_step++;</span><br><span class="line">		c_step%=cap;</span><br><span class="line">	&#125;</span><br><span class="line">	~RingQueue()</span><br><span class="line">	&#123;</span><br><span class="line">		sem_destroy(&amp;blank_sem);</span><br><span class="line">		sem_destroy(&amp;data_sem);</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">******   makefile   ******</span><br><span class="line"> </span><br><span class="line">ringqueue:ringqueue.cc</span><br><span class="line">	g++ -o  $@ $^ -lpthread -fpermissive</span><br><span class="line">.PHONY:clean</span><br><span class="line">clean:</span><br><span class="line">	rm -f ringqueue</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/C-——基于环形队列的生产者消费者模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1312,279 +1575,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/06/Qt——04Lambda表达式和信号/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/06/Qt——04Lambda表达式和信号/" itemprop="url">Qt——04Lambda表达式和信号</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-06T20:49:13+08:00">
-                2019-07-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h1><p>直接看一个简单的例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个简单的lambda表达式</span></span><br><span class="line"><span class="keyword">auto</span> lambda_test = []&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"hello world"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</span><br><span class="line"><span class="comment">//调用</span></span><br><span class="line">lambda_test();</span><br><span class="line"><span class="comment">//这样就会输出一个hello world。</span></span><br></pre></td></tr></table></figure>
-<p><code>lambda</code>是C++11中引入的一个新的特性。可以用来编写内嵌的匿名函数来替代独立函数或者函数的对象。还能够使代码的可读性得到明显的上升。我所理解的lambda就是——将一些复杂的代码简化，提升编码的效率。</p>
-<p>上边的例子是一个最简单的没有参数的<code>lambda</code>表达式。表达式一般从[]开始在{}结束。花括号里边就像定义函数那样。</p>
-<p>如果需要参数，那么就要像函数那样，放在圆括号里面，如果有返回值，返回类型要放在<code>-&gt;</code>后面，即拖尾返回类型，当然你也可以忽略返回类型，<code>lambda</code>会帮你自动推断出返回类型：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//说明返回值类型</span></span><br><span class="line"><span class="keyword">auto</span> add = [](<span class="keyword">int</span> a,<span class="keyword">int</span> b) -&gt; <span class="keyword">int</span> &#123;<span class="keyword">return</span> a + b;&#125;;</span><br><span class="line"><span class="comment">//自动推断返回值类型</span></span><br><span class="line"><span class="keyword">auto</span> multiply = [](<span class="keyword">int</span> a,<span class="keyword">int</span> b)&#123;<span class="keyword">return</span>  a * b;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> sum = add(<span class="number">2</span>,<span class="number">5</span>);		<span class="comment">//输出7</span></span><br><span class="line"><span class="keyword">int</span> product = mulitiply(<span class="number">2</span>,<span class="number">5</span>);	<span class="comment">//输出10</span></span><br></pre></td></tr></table></figure>
-<p>关于Lambda的更多特性可以参见简书的这篇<a href="https://www.jianshu.com/p/d686ad9de817" target="_blank" rel="noopener">文章</a>。上述的总结也都是我在这篇文章中的摘抄。</p>
-<h1 id="Qt中的Lambda"><a href="#Qt中的Lambda" class="headerlink" title="Qt中的Lambda"></a>Qt中的Lambda</h1><blockquote>
-<p>注：因为是新增加的特性，所以我们需要在项目文件中加上<code>CONFIG += C==11</code>才能保证项目的正常编译。</p>
-</blockquote>
-<p>Lambda实际上是一个匿名函数，简单看一下在Qt中的实际运用。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">QpushButton *b = <span class="keyword">new</span> QPushButton(<span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">int</span> a,b;</span><br><span class="line">a=<span class="number">1</span>;</span><br><span class="line">connect(b,&amp;QPushButton::clicked,</span><br><span class="line"><span class="comment">// = :把外部所有的局部变量，类中所有成员函数以值传递的方式传进来</span></span><br><span class="line"><span class="comment">// 值传递的意思就是不能再在Lambda中修改了。除非[=]()mutable</span></span><br><span class="line"><span class="comment">// this:类中的所有成员以值传递的形式传进来</span></span><br><span class="line"><span class="comment">// &amp;:引用符号，把外部所有的局部变量引入进来</span></span><br><span class="line">        [=](<span class="keyword">bool</span> isCheck)</span><br><span class="line">        &#123;</span><br><span class="line">				b-&gt;setText(<span class="string">"button changed"</span>);</span><br><span class="line">                qDebug()&lt;&lt;isCheck;</span><br><span class="line">				qDebug()&lt;&lt;<span class="string">"1111"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">       );</span><br></pre></td></tr></table></figure>
-<p>[]代表你命函数的开始,作用是可以把外部的参数传进来虽然看起来像函数传参，但是实际上不是函数传参，()中是参数，{}中是函数体。<br>这样写的效果就是：每按下按键b，程序就会输出一个字串“111”。</p>
-<p>lambda感觉还不是很懂。但是老师就讲到这里了。就这样吧。以后卡住了再上网查资料。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/05/日常充电——vim指南/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/日常充电——vim指南/" itemprop="url">日常充电——vim指南</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-05T21:14:31+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>vim在两年前就已经接触。不过到现在为止感觉自己还只是略知皮毛。用到的最最高阶的操作也就是dd pp基础查找之类的。用的vscode和sublime还是最多——因为我感觉方便。不过在b站油管看到那些科技从业者一直在强调vim才是最终的效率解决方案。让我开始怀疑。我以为的方便，或许仅仅可能是学习成本低而已。较高学习成本的工具往往效率更高。这一点，我在生活中已经太多次感受到了！</p>
-<p>打算在日常中尝试更多的去使用vim了。所以才有了这篇blog。旨在收集一些使用技巧从而提升自己的效率摆脱鼠标。关联性可能不强，只是一些零散的收集。不一定都是自己写的。网上有好的可能就直接复制下来了。如果你正在阅读这篇博文，那么你有可能因为没有太多的注解而迷惑。没关系！因为这是给我自己写的。</p>
-<h1 id="Vim指南"><a href="#Vim指南" class="headerlink" title="Vim指南"></a>Vim指南</h1><h2 id="多窗口-amp-多文件切换"><a href="#多窗口-amp-多文件切换" class="headerlink" title="多窗口&amp;多文件切换"></a>多窗口&amp;多文件切换</h2><ol>
-<li><p>打开多个文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim file1 file2 ... filen</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在已打开的文件上再打开文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:e file2</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同时打开多个文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">窗口水平切分</span></span><br><span class="line">：sp </span><br><span class="line"><span class="meta">#</span><span class="bash">窗口垂直切分</span></span><br><span class="line">:sp</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>文件间切换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下一个文件</span></span><br><span class="line">:bn</span><br><span class="line"><span class="meta">#</span><span class="bash">上一个文件</span></span><br><span class="line">:bp</span><br><span class="line"><span class="meta">#</span><span class="bash">切换到第n个文件</span></span><br><span class="line">:b1~n</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开的窗口间切换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">切换到前/后/上/下的窗口</span></span><br><span class="line">ctrl+w+导航键</span><br><span class="line">ctrl+w+h/j/k/l/</span><br><span class="line"><span class="meta">#</span><span class="bash">向后切换到下一个窗格中</span></span><br><span class="line">ctrl+w+w</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开文件目录树</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">当前窗口下打开</span></span><br><span class="line">:Ex(Explore的意思)</span><br><span class="line"><span class="meta">#</span><span class="bash">竖直分割打开</span></span><br><span class="line">:Ve(Vexplore)</span><br><span class="line"><span class="meta">#</span><span class="bash">水平分割窗口打开</span></span><br><span class="line">:Se(Sexplore)</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1635,7 +1625,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
