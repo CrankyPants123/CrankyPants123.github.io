@@ -245,6 +245,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/30/LeetCode——001两数之和/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/30/LeetCode——001两数之和/" itemprop="url">LeetCode——001两数之和</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-30T19:37:12+08:00">
+                2019-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>回家了就很爽，晚上8点多就睡下。11点醒来睡不着，想到开了新坑还没填。不如就写写博客吧。LeetCode这个tag开之前还是有点犹豫的，怕自己坚持不下去。没办法！面试所迫。临时抱抱佛脚不亮也光嘛🌚。能做多少就多少吧。不会了就看看答案8。</p>
+<h1 id="LeetCode——001-两数之和"><a href="#LeetCode——001-两数之和" class="headerlink" title="LeetCode——001 两数之和"></a>LeetCode——001 两数之和</h1><h2 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h2><p><img src="https://i.loli.net/2019/07/02/5d1a3ecb4ad2390551.png" alt></p>
+<h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>有点迷惑这个”你可以假设每种输入都会对应一个答案”是什么意思！大概理解之后基本有思路。需要注意的是不能使用这个数组中同样的元素。</p>
+<p>首先想到的就是暴力法，遍历数组中的每一个元素，然后对比target-nums[n]是否相等。</p>
+<p>时间复杂度为O(n^2),空间复杂度为O(1)。运行速度比较慢而且内存消耗也比较大。</p>
+<h3 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> i,j;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size()<span class="number">-1</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=nums.size()<span class="number">-1</span>;j&gt;i;j--)</span><br><span class="line">            <span class="comment">// 这里应该是j&gt;i。之前这里出错写成j&lt;=i了</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">        		&#123;</span><br><span class="line">        			<span class="keyword">return</span> &#123;i,j&#125;;</span><br><span class="line">        		&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;i,j&#125;;</span><br><span class="line">        <span class="comment">//这里的return是里边的if判定未生效时执行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>执行时间200ms，击败50%。内存9MB，击败97%。</p>
+<p>击败了50%是什么意思？</p>
+<p>就是剩下的那50%，都是用15ms击败你的。</p>
+<p><img src="https://i.loli.net/2019/07/02/5d1a511cad19237517.png" alt></p>
+<p>第一次答题总算是过去了，前前后后用了将近1小时。用时感觉蛮久的。</p>
+<p>提交了14次之后才通过了。相比此时90w提交数42w通过数感觉有点惭愧呀。</p>
+<p>觉得没什么收获，就酱！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/30/网络——浏览器地址栏输入后回车会发生什么/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1287,7 +1419,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% meting <span class="string">"2839900843"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 
-    <div id="aplayer-DTSTuuBi" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+    <div id="aplayer-nNdVmicr" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
 <p>这里的数字”2839900843”指的是你的歌单id号，可以通过在web端打开你的以后的音乐平台查看到:</p>
 <p><img src="https://i.loli.net/2019/06/12/5d00f383f11d932552.png" alt></p>
 <h2 id="4-个性化配置"><a href="#4-个性化配置" class="headerlink" title="4.个性化配置"></a>4.个性化配置</h2><p>播放器的样式并非一成不变。我们可以通过修改上述的引入语句来进行个性化配置。举例：</p>
@@ -1694,135 +1826,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/05/28/胡言乱语——写在博客伊始/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/28/胡言乱语——写在博客伊始/" itemprop="url">胡言乱语——写在博客伊始</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-28T21:20:49+08:00">
-                2019-05-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="写在博客伊始"><a href="#写在博客伊始" class="headerlink" title="写在博客伊始"></a>写在博客伊始</h1><p>阿里的轻量服务器已经租用了半年，却未曾好好利用过。偶尔连接上，在上边敲俩指令。想想也是可笑。</p>
-<p>时常不能自律，萎靡在寝室打游戏三餐靠外卖活得像个寄生虫，却又常常因此坐立不安，焦躁且抑郁。</p>
-<p>写了删掉，又写又删。</p>
-<p>其实、、很早之前就了解了有自建博客这种玩意儿。不过却一直没有付诸实际行动——即使我的服务器基本已经闲置了半年，即使我的谷歌云开了一年。不过我并不后悔。后悔之于我能带来的既得利益不大还很消耗我的精力。</p>
-<p>从开始建设到目前的三篇文章，耗时一周左右。比起我的朋友，进度远落后于他们，我还没申请域名，主题设置还有好多没有摸清，不过我并不着急。我喜欢慢工出细活，域名这种事应该是想到了好的点子再买。而不是草草了事。</p>
-<p>孤独但不寂寞。我很喜欢孤独。能让人自省。“君子和而不同”，这种不同就是我孤独感的来源。由此导致我一直在深深的疑惑——这世上到底有没有和我能够契合的人？</p>
-<p>之前做了十六型的人格测试，测试的结果显示我是<strong><a href="https://www.16personalities.com/ch/enfj-%E4%BA%BA%E6%A0%BC" target="_blank" rel="noopener">主人公（ENFJ-A ）</a></strong>人格（我一直在深深怀疑这是不是利用<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%B4%8D%E5%A7%86%E6%95%88%E6%87%89" target="_blank" rel="noopener">巴纳姆效应</a>的一个心理学骗局）。不过最后我还是选择相信，因为测试说这种人格的人在人群中只占2%。这样我这样一个很少去认同其他观点的人产生了深深的认同感。除此之外的结论：“天生的领导者”、“魅力四射”等等词汇对我来说实在可笑。</p>
-<p>很晚了，不写了！回寝室打游戏了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
-<p>再见。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1873,7 +1876,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
