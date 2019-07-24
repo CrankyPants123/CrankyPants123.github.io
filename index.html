@@ -242,6 +242,271 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/24/C-——内存划分/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/24/C-——内存划分/" itemprop="url">C++——内存划分</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T16:35:04+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="C-中的内存区划分"><a href="#C-中的内存区划分" class="headerlink" title="C++中的内存区划分"></a>C++中的内存区划分</h1><p>之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊）</p>
+<p>在C++中，内存分为5区：</p>
+<ol>
+<li>栈区</li>
+<li>堆区</li>
+<li>自由存储区</li>
+<li>全局/静态存储区</li>
+<li>常量存储区</li>
+</ol>
+<h2 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h2><p>编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。</p>
+<h2 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h2><p>通过new取得的内存块就在堆区上。这个不会被自动释放，而是由开发者通过程序来释放的。一个new就要对应一个delete。如果我们没有释放所申请的内存。那么，在堆区上申请的空间会在程序结束时候，由操作系统来回收。</p>
+<h2 id="自由存储区"><a href="#自由存储区" class="headerlink" title="自由存储区"></a>自由存储区</h2><p>就是malloc分配的内存块，和new所申请到的堆空间是很相似，但是malloc是通过free来释放空间的。</p>
+<h2 id="全局-静态存储区"><a href="#全局-静态存储区" class="headerlink" title="全局/静态存储区"></a>全局/静态存储区</h2><p>在C中，全局变量是被划分成了未初始化和初始化的。但是在C++中没有这个区分了。大家都在一块内存区。</p>
+<h2 id="常量区"><a href="#常量区" class="headerlink" title="常量区"></a>常量区</h2><p>顾名思义就是存常量的。一般来说不允许修改，二班来说可以通过写非正当手段来改。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/23/C-——多态案例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/23/C-——多态案例/" itemprop="url">C++——多态案例</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-23T22:54:32+08:00">
+                2019-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="多态案例"><a href="#多态案例" class="headerlink" title="多态案例"></a>多态案例</h1><p>案例的作用是去更加的了解原理。写文字总结对我来说没有实际的案例更好消化。顺便还复习了一下操作符重载。</p>
+<p>描述；</p>
+<p>分别用普通写法和多态，设计实现两个操作数进行运算的计算器类。</p>
+<p>多态的优点：</p>
+<ol>
+<li>代码组织结构清晰</li>
+<li>可读性强</li>
+<li>有利于前期和后期的扩展以及维护</li>
+</ol>
+<h2 id="使用传统写法来实现"><a href="#使用传统写法来实现" class="headerlink" title="使用传统写法来实现"></a>使用传统写法来实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Calculator</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">GetResult</span><span class="params">(<span class="built_in">string</span> oper)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(oper==<span class="string">"+"</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> m_Num1+m_Num2;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(oper==<span class="string">"-"</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> m_Num1-m_Num2;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(oper==<span class="string">"*"</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> m_Num1*m_Num2;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m_Num1;<span class="comment">//操作数1</span></span><br><span class="line">	<span class="keyword">int</span> m_Num2;<span class="comment">//操作数2</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Calculator c;</span><br><span class="line">	c.m_Num1=<span class="number">1</span>;</span><br><span class="line">	c.m_Num2=<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> a = c.GetResult(<span class="string">"*"</span>);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 可以看到上述的代码，计算器所需要的功能都已经实现了。但是还有个问题，就是代码的升级和维护。如果我们在将来，需要添加新的功能。那么我们就不得不再修改我们的源代码。</p>
+<p>开闭原则：</p>
+<p>​        对扩展进行开放，对修改进行关闭。</p>
+<h2 id="使用多态来实现"><a href="#使用多态来实现" class="headerlink" title="使用多态来实现"></a>使用多态来实现</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/22/C-——多态/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -344,9 +609,9 @@
 <li>有继承关系</li>
 <li>子类要重写父类的虚函数</li>
 </ol>
-<p>动态多态的调用需要父类指针或引用指向子类的对象。可能有意思不太好理解，但是其实就是这两句：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoSpeak</span><span class="params">(Animal &amp;a)</span></span>;</span><br><span class="line">...</span><br><span class="line">DoSpeak(a);</span><br></pre></td></tr></table></figure>
-<p>在方法中要求传的是<code>Animal</code>类对象，但是我们却传了<code>Animal</code>子类<code>Cat</code>的。</p>
+<p>动态多态的调用需要父类指针或引用指向子类的对象。可能有意思不太好理解，但是其实就是这一句：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Animal &amp;animal = cat;</span><br></pre></td></tr></table></figure>
+<p>s在方法中要求传的是<code>Animal</code>类对象，但是我们却传了<code>Animal</code>子类<code>Cat</code>的。</p>
 <h1 id="多态原理剖析"><a href="#多态原理剖析" class="headerlink" title="多态原理剖析"></a>多态原理剖析</h1><p>看个程序</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	 <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Animal is speaking"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span>:</span><span class="keyword">public</span> Animal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"cat is speaking"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoSpeak</span><span class="params">(Animal &amp;a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	a.speak();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(Animal)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出的结果是1。当基类的speak函数改成virtual之后。程序的输出结果是8。（32位的编译器的话就是4）。就是一个指针的大小。</p>
@@ -1370,277 +1635,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/10/Hexo——在Hexo使用草稿/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/10/Hexo——在Hexo使用草稿/" itemprop="url">Hexo——在Hexo使用草稿</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T15:40:15+08:00">
-                2019-07-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="在Hexo使用草稿功能"><a href="#在Hexo使用草稿功能" class="headerlink" title="在Hexo使用草稿功能"></a>在Hexo使用草稿功能</h1><p>在开始使用Hexo的时候，就知道这个草稿功能。当时觉得没什么用就没使过。</p>
-<p>不过，在使用了一段时间之后发现这个东西还是挺重要的。因为有的时候是两篇文章一起开始写的。一篇完成了，post上去了。然后另外一篇还没有完成。这就导致会在自己的网站上看到还没有完成的文章。对我来说，这是不可忍受的！</p>
-<p><img src="https://i.loli.net/2019/07/10/5d2593d06536f74025.png" alt></p>
-<p>这玩意儿相当于一个.gitignore。</p>
-<h2 id="建立一个草稿"><a href="#建立一个草稿" class="headerlink" title="建立一个草稿"></a>建立一个草稿</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new draft 文章名</span><br></pre></td></tr></table></figure>
-<p>在hexo的目录中输入上述指令就会在<code>source/_draft</code>下生成一个草稿文章。你在这里可以继续编辑。不会被generate和deploy</p>
-<h2 id="本地预览草稿"><a href="#本地预览草稿" class="headerlink" title="本地预览草稿"></a>本地预览草稿</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo S --draft</span><br></pre></td></tr></table></figure>
-<p>一个对我来说没什么卵用的功能。这个指令的功能是在本地server预览界面。</p>
-<p>不过我都是用typeora来写的。故diss。</p>
-<blockquote>
-<p>有点意思的是，在这里可以使用<code>hexo-browsersync plugins</code>来一边写文章，一边在浏览器上实时预览。不过我没用过。</p>
-</blockquote>
-<h2 id="发布草稿"><a href="#发布草稿" class="headerlink" title="发布草稿"></a>发布草稿</h2><p>写完了就该发布了。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo P 文章名</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>文章后边不加.md</p>
-</blockquote>
-<p>之后直接generate&amp;deploy</p>
-<blockquote>
-<p>我觉得这里其实还是有一点小小的不方便。</p>
-<p>就是没有文章名的自动补全。每次我还要手动输入的完整的文章名。不过还好能忍。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/C-——基于环形队列的生产者消费者模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/09/C-——基于环形队列的生产者消费者模型/" itemprop="url">C++——基于环形队列的生产者消费者模型</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T23:20:41+08:00">
-                2019-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="基于环形队列的生产消费模型"><a href="#基于环形队列的生产消费模型" class="headerlink" title="基于环形队列的生产消费模型"></a>基于环形队列的生产消费模型</h1><ul>
-<li>环形队列采用数组模拟，用模运算来模拟环状特性</li>
-<li>环形结构起始状态和结束状态都是一样的，不好判断为空或者为满，所以就需要通过计数器或者标记位来判断满或空。另外也可以预留一个空的位置，作为满的状态<br><img src="https://i.loli.net/2019/07/10/5d25909b54c5993724.png" alt></li>
-<li>消费者总是跟在生产者的后边，且不会超过生产者</li>
-<li>生产者一直在消费者的前边，且不会超过消费者一圈</li>
-<li>head和tail指向同一个位置的时候，队列为空</li>
-<li>当head在tail的下一个位置时，环形队列为满<br>  <img src="https://i.loli.net/2019/07/10/5d25906f4969f13819.png" alt></li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*#####  ringqueue.cc   ####*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"test.hpp"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> num=<span class="number">16</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">consume_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">int</span> d;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		q-&gt;PopData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"consume done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">product_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">long</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> d=rand()%<span class="number">100</span>+<span class="number">1</span>;</span><br><span class="line">		q-&gt;PushData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Product done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=<span class="keyword">new</span> RingQueue(num);</span><br><span class="line">	<span class="keyword">pthread_t</span> c,p;</span><br><span class="line">	pthread_create(&amp;c,<span class="literal">NULL</span>,consume_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line">	pthread_create(&amp;p,<span class="literal">NULL</span>,product_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	pthread_join(&amp;c,<span class="literal">NULL</span>);</span><br><span class="line">	pthread_join(&amp;p,<span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">delete</span>(q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******   test.hpp   *******/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __TEST_HPP__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __TEST_HPP__</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RingQueue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ring;</span><br><span class="line">	<span class="keyword">int</span> cap;</span><br><span class="line">	<span class="keyword">sem_t</span> blank_sem;</span><br><span class="line">	<span class="keyword">sem_t</span> data_sem;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">int</span> c_step;										<span class="comment">//consume在圈中的位置</span></span><br><span class="line">	<span class="keyword">int</span> p_step;		  								<span class="comment">//product在圈中的位置</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_wait(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">V</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_post(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	RingQueue(<span class="keyword">int</span> cap_):cap(cap_),ring(cap_)</span><br><span class="line">	&#123;</span><br><span class="line">		c_step=p_step=<span class="number">0</span>;							<span class="comment">//初始时c_step和p_step在同一格</span></span><br><span class="line">		sem_init(&amp;blank_sem,<span class="number">0</span>,cap);				<span class="comment">//初始时需要写入的输入是整个圈的容量</span></span><br><span class="line">		sem_init(&amp;data_sem,<span class="number">0</span>,<span class="number">0</span>);					<span class="comment">//初始时需要consume的值为0</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PushData</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; data)</span>					<span class="comment">//进行数据生产</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(blank_sem);</span><br><span class="line">		ring[p_step]=data;							<span class="comment">//把数据放进去</span></span><br><span class="line">		V(data_sem);</span><br><span class="line">		p_step++;</span><br><span class="line">		p_step%=cap;								<span class="comment">//进行模运算来模拟环形特性</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PopData</span><span class="params">(<span class="keyword">int</span> &amp;data  )</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(data_sem);								<span class="comment">//申请数据资源</span></span><br><span class="line">		data=ring[c_step];							<span class="comment">//拿到数据</span></span><br><span class="line">		V(blank_sem);								<span class="comment">//空出格子</span></span><br><span class="line">		c_step++;</span><br><span class="line">		c_step%=cap;</span><br><span class="line">	&#125;</span><br><span class="line">	~RingQueue()</span><br><span class="line">	&#123;</span><br><span class="line">		sem_destroy(&amp;blank_sem);</span><br><span class="line">		sem_destroy(&amp;data_sem);</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">******   makefile   ******</span><br><span class="line"> </span><br><span class="line">ringqueue:ringqueue.cc</span><br><span class="line">	g++ -o  $@ $^ -lpthread -fpermissive</span><br><span class="line">.PHONY:clean</span><br><span class="line">clean:</span><br><span class="line">	rm -f ringqueue</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1691,7 +1685,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

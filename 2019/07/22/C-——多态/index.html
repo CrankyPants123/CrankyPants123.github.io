@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="多态多态是C++面向对象三大特性的最后一个啦。 多态分为两类：  静态多态：函数重载和运算符重载属于静态多态，复用函数名 动态多态：派生类和虚函数实现运行时多态  动静态多态区别  静态多态的函数地址早绑定（编译阶段就确定函数地址） 动态多态的函数地址晚绑定（运行阶段确定函数地址）  还有我在网上找的一些概念：  多态性是一个接口，多种实现，是面向对象的核心。分为类的多态性和函数的多态性。 带vi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-23T14:52:38.544Z">
+<meta property="og:updated_time" content="2019-07-23T16:32:23.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++——多态">
 <meta name="twitter:description" content="多态多态是C++面向对象三大特性的最后一个啦。 多态分为两类：  静态多态：函数重载和运算符重载属于静态多态，复用函数名 动态多态：派生类和虚函数实现运行时多态  动静态多态区别  静态多态的函数地址早绑定（编译阶段就确定函数地址） 动态多态的函数地址晚绑定（运行阶段确定函数地址）  还有我在网上找的一些概念：  多态性是一个接口，多种实现，是面向对象的核心。分为类的多态性和函数的多态性。 带vi">
@@ -341,9 +341,9 @@
 <li>有继承关系</li>
 <li>子类要重写父类的虚函数</li>
 </ol>
-<p>动态多态的调用需要父类指针或引用指向子类的对象。可能有意思不太好理解，但是其实就是这两句：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoSpeak</span><span class="params">(Animal &amp;a)</span></span>;</span><br><span class="line">...</span><br><span class="line">DoSpeak(a);</span><br></pre></td></tr></table></figure>
-<p>在方法中要求传的是<code>Animal</code>类对象，但是我们却传了<code>Animal</code>子类<code>Cat</code>的。</p>
+<p>动态多态的调用需要父类指针或引用指向子类的对象。可能有意思不太好理解，但是其实就是这一句：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Animal &amp;animal = cat;</span><br></pre></td></tr></table></figure>
+<p>s在方法中要求传的是<code>Animal</code>类对象，但是我们却传了<code>Animal</code>子类<code>Cat</code>的。</p>
 <h1 id="多态原理剖析"><a href="#多态原理剖析" class="headerlink" title="多态原理剖析"></a>多态原理剖析</h1><p>看个程序</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	 <span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Animal is speaking"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span>:</span><span class="keyword">public</span> Animal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"cat is speaking"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoSpeak</span><span class="params">(Animal &amp;a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	a.speak();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(Animal)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出的结果是1。当基类的speak函数改成virtual之后。程序的输出结果是8。（32位的编译器的话就是4）。就是一个指针的大小。</p>
@@ -410,6 +410,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/23/C-——多态案例/" rel="prev" title="C++——多态案例">
+                C++——多态案例 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -486,7 +490,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

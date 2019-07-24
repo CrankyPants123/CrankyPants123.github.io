@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="查看被编译器隐藏的父类私有成员属性子类会继承父类的所有非静态成员。先简单看段代码 1234567891011121314151617181920212223class Base&amp;#123;public:	string m_a=&quot;this is a pubic member&quot;;protected:	string m_b=&quot;this is a protected member&quot;;private:	st">
+<meta name="description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 堆区通过new取得的内存块就在堆区上。这个不会被自动释放，而是由">
 <meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++——查看被编译器隐藏的父类私有成员属性">
-<meta property="og:url" content="47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/index.html">
+<meta property="og:title" content="C++——内存划分">
+<meta property="og:url" content="47.168.200.88/2019/07/24/C-——内存划分/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="查看被编译器隐藏的父类私有成员属性子类会继承父类的所有非静态成员。先简单看段代码 1234567891011121314151617181920212223class Base&amp;#123;public:	string m_a=&quot;this is a pubic member&quot;;protected:	string m_b=&quot;this is a protected member&quot;;private:	st">
+<meta property="og:description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 堆区通过new取得的内存块就在堆区上。这个不会被自动释放，而是由">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.loli.net/2019/07/21/5d340bbbd249c48575.jpeg">
-<meta property="og:updated_time" content="2019-07-21T06:57:11.660Z">
+<meta property="og:updated_time" content="2019-07-24T08:56:38.156Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++——查看被编译器隐藏的父类私有成员属性">
-<meta name="twitter:description" content="查看被编译器隐藏的父类私有成员属性子类会继承父类的所有非静态成员。先简单看段代码 1234567891011121314151617181920212223class Base&amp;#123;public:	string m_a=&quot;this is a pubic member&quot;;protected:	string m_b=&quot;this is a protected member&quot;;private:	st">
-<meta name="twitter:image" content="https://i.loli.net/2019/07/21/5d340bbbd249c48575.jpeg">
+<meta name="twitter:title" content="C++——内存划分">
+<meta name="twitter:description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 堆区通过new取得的内存块就在堆区上。这个不会被自动释放，而是由">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/">
+  <link rel="canonical" href="47.168.200.88/2019/07/24/C-——内存划分/">
 
 
 
 
 
-  <title>C++——查看被编译器隐藏的父类私有成员属性 | Andrew's Blog</title>
+  <title>C++——内存划分 | Andrew's Blog</title>
   
 
 
@@ -245,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/24/C-——内存划分/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -262,7 +260,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">C++——查看被编译器隐藏的父类私有成员属性</h2>
+          <h2 class="post-title" itemprop="name headline">C++——内存划分</h2>
         
 
         <div class="post-meta">
@@ -274,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T14:31:42+08:00">
-                2019-07-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T16:35:04+08:00">
+                2019-07-24
               </time>
             
 
@@ -312,20 +310,20 @@
       
 
       
-        <h1 id="查看被编译器隐藏的父类私有成员属性"><a href="#查看被编译器隐藏的父类私有成员属性" class="headerlink" title="查看被编译器隐藏的父类私有成员属性"></a>查看被编译器隐藏的父类私有成员属性</h1><h2 id="子类会继承父类的所有非静态成员。"><a href="#子类会继承父类的所有非静态成员。" class="headerlink" title="子类会继承父类的所有非静态成员。"></a>子类会继承父类的所有非静态成员。</h2><p>先简单看段代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> m_a=<span class="string">"this is a pubic member"</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> m_b=<span class="string">"this is a protected member"</span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">string</span> m_c=<span class="string">"this is a private member"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;m_a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Inherit i;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(i)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>直接说答案，这个程序的输出结果是72。</p>
-<p>Why 72？明明父类中的m_c是私有的，就算是public继承也不能在Inherit中访问的呀？</p>
-<p>这是我刚刚开始时候的疑惑。</p>
-<p>So 结论：一个string的大小是24。三个24刚好是72。也就是说父类中所有的非静态成员都被子类继承了。但是！我们在子类中是访问不到的——编译器隐藏了私有成员的属性。所以我们访问不了，但是不代表子类没有继承。</p>
-<h2 id="查看被编译器隐藏的父类private成员"><a href="#查看被编译器隐藏的父类private成员" class="headerlink" title="查看被编译器隐藏的父类private成员"></a>查看被编译器隐藏的父类private成员</h2><p>以下是查看的方法（win环境）：</p>
-<p>我没有win本&amp;我的mac跑不动虚拟机,所以就直接用了老师的截图。</p>
-<ul>
-<li>打开vs自带的开发人员命令提示工具</li>
-<li>跳转到项目目录</li>
-<li><code>cl /dl reportsingleClassLayoutInherit file</code>(也就是报告单个类的布局的意思,Inherit是要查看的类名。)<br>  <img src="https://i.loli.net/2019/07/21/5d340bbbd249c48575.jpeg" alt></li>
-</ul>
-<p>可以看到上图，Son类继承自Base类。继承了m_A,m_B,m_C。自带的成员是m_D。m_C是Base类中的私有属性。所以可以证实子类确实会证实父类中的私有属性也会被子类继承。</p>
+        <h1 id="C-中的内存区划分"><a href="#C-中的内存区划分" class="headerlink" title="C++中的内存区划分"></a>C++中的内存区划分</h1><p>之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊）</p>
+<p>在C++中，内存分为5区：</p>
+<ol>
+<li>栈区</li>
+<li>堆区</li>
+<li>自由存储区</li>
+<li>全局/静态存储区</li>
+<li>常量存储区</li>
+</ol>
+<h2 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h2><p>编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。</p>
+<h2 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h2><p>通过new取得的内存块就在堆区上。这个不会被自动释放，而是由开发者通过程序来释放的。一个new就要对应一个delete。如果我们没有释放所申请的内存。那么，在堆区上申请的空间会在程序结束时候，由操作系统来回收。</p>
+<h2 id="自由存储区"><a href="#自由存储区" class="headerlink" title="自由存储区"></a>自由存储区</h2><p>就是malloc分配的内存块，和new所申请到的堆空间是很相似，但是malloc是通过free来释放空间的。</p>
+<h2 id="全局-静态存储区"><a href="#全局-静态存储区" class="headerlink" title="全局/静态存储区"></a>全局/静态存储区</h2><p>在C中，全局变量是被划分成了未初始化和初始化的。但是在C++中没有这个区分了。大家都在一块内存区。</p>
+<h2 id="常量区"><a href="#常量区" class="headerlink" title="常量区"></a>常量区</h2><p>顾名思义就是存常量的。一般来说不允许修改，二班来说可以通过写非正当手段来改。</p>
 
       
     </div>
@@ -346,7 +344,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/" title="C++——查看被编译器隐藏的父类私有成员属性">47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/</a>
+    <a href="47.168.200.88/2019/07/24/C-——内存划分/" title="C++——内存划分">47.168.200.88/2019/07/24/C-——内存划分/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -374,8 +372,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/17/胡言乱语——飞天意面神教和罗素的茶壶/" rel="next" title="胡言乱语——飞天意面神教和罗素的茶壶">
-                <i class="fa fa-chevron-left"></i> 胡言乱语——飞天意面神教和罗素的茶壶
+              <a href="/2019/07/23/C-——多态案例/" rel="next" title="C++——多态案例">
+                <i class="fa fa-chevron-left"></i> C++——多态案例
               </a>
             
           </div>
@@ -383,10 +381,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/21/C++——继承中的一些问题/" rel="prev" title="C++——继承中的一些问题">
-                C++——继承中的一些问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -578,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#查看被编译器隐藏的父类私有成员属性"><span class="nav-number">1.</span> <span class="nav-text">查看被编译器隐藏的父类私有成员属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#子类会继承父类的所有非静态成员。"><span class="nav-number">1.1.</span> <span class="nav-text">子类会继承父类的所有非静态成员。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看被编译器隐藏的父类private成员"><span class="nav-number">1.2.</span> <span class="nav-text">查看被编译器隐藏的父类private成员</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-中的内存区划分"><span class="nav-number">1.</span> <span class="nav-text">C++中的内存区划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈区"><span class="nav-number">1.1.</span> <span class="nav-text">栈区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆区"><span class="nav-number">1.2.</span> <span class="nav-text">堆区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自由存储区"><span class="nav-number">1.3.</span> <span class="nav-text">自由存储区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局-静态存储区"><span class="nav-number">1.4.</span> <span class="nav-text">全局/静态存储区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常量区"><span class="nav-number">1.5.</span> <span class="nav-text">常量区</span></a></li></ol></li></ol></div>
             
 
           </div>
