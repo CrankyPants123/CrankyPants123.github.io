@@ -245,6 +245,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/02/LeetCode——002两数相加/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/02/LeetCode——002两数相加/" itemprop="url">LeetCode——002两数相加</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T22:49:52+08:00">
+                2019-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是一个中等难度题。let me try 1 try！</p>
+<h1 id="LeetCode——002两数相加"><a href="#LeetCode——002两数相加" class="headerlink" title="LeetCode——002两数相加"></a>LeetCode——002两数相加</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="https://i.loli.net/2019/07/02/5d1b70af5efee23260.png" alt></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><blockquote>
+<p>题中提到了可以假设除过数字0之外，也就是说我们可以假设所有的数字都不是以0开头。</p>
+</blockquote>
+<p>大略看一下这是一个用单链表来实现按位加的功能，而且不需要逆置。需要注意的地方是因为链表是逆置的，所以发生进位的时候是要向单链表的下一位进位。除此之外貌似其他的都不难。</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>开始实际实现，发现了其中还涉及到了一些知识，比如：链表实时空间的开辟、next指针的问题、加法逻辑的判断等等。虽然之前都会，但是现在都有些生疏了，而且是之前的问题都被整合到了一块。要解决这个问题，需要好几部分的知识。忽然之间就懵了，不知道该怎么开始。</p>
+<p>学到了一个little tip。不知道怎么形容。看一下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Definition <span class="keyword">for</span> singly-linked <span class="built_in">list</span>.</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在一个Node中加上了构造函数，这样可以直接使用初始化列表进行初始化。直接传参，初始化下一个节点的值,还直接把next指针指空。之前太蠢了，都是傻傻的写专门的方法来完成这个功能的。</p>
+<h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><p>断断续续已经两天了，今儿下午结果终于对了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        ListNode* l3=<span class="keyword">new</span> ListNode(<span class="number">-1</span>);		<span class="comment">//储存加法结果</span></span><br><span class="line">        ListNode* cur=l3;		<span class="comment">//临时指针</span></span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> symb=<span class="literal">false</span>;		<span class="comment">//一个标志，为true代表当前位上一位有进位</span></span><br><span class="line">        <span class="keyword">while</span>(l1!=<span class="literal">NULL</span> || l2!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(l1!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                sum+=l1-&gt;val;</span><br><span class="line">                l1=l1-&gt;next;</span><br><span class="line"><span class="comment">//此处需要注意的是，l1和待会的l2都没有使用临时指针来替代，但是实际上，对原l1,l2链表的指针是不会产生影响的</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(l2!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                sum+=l2-&gt;val;</span><br><span class="line">                l2=l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(symb)</span><br><span class="line">            &#123;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">            cur-&gt;next=<span class="keyword">new</span> ListNode(sum%<span class="number">10</span>);</span><br><span class="line">            cur=cur-&gt;next;</span><br><span class="line">            symb=sum&gt;<span class="number">9</span>?<span class="literal">true</span>:<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//还有单独再使用一次symb的原因是怕最高位加法之后再产生进位。</span></span><br><span class="line">        <span class="keyword">if</span>(symb)</span><br><span class="line">        &#123;</span><br><span class="line">            cur-&gt;next=<span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l3-&gt;next;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="解决方法2"><a href="#解决方法2" class="headerlink" title="解决方法2"></a>解决方法2</h2><h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>把数字都提取出来-&gt;做加法-&gt;倒序写个链表-&gt;返回链表的指针</p>
+<p>基本就酱。可以见的是数字提取和倒序写链表会有点挑战。先开坑。什么时候填坑看天意。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我看答案了，不过跟我想的基本没有偏差。总的来说呢，还是菜。想法脑子能很快在脑子里成型。但是就是写不出来。面试、包括还有将来的实际生产中将想法实现也是很重要的。慢慢练习吧。之前忘了在哪看到的TED好像，讲的是在涉及某种新的领域的时候，常常会感觉很吃力，不适应。就像大脑在”舒适区”待久了，自然而然的就会产生排异反应，这个时候就需要坚持下去，难受习惯了就不会觉得难受了(哈哈开玩笑！实际上是大脑会有某种变化让你更适合去开展这种工作)。</p>
+<p>这种题一部分是需要思路。但是对我来说更重要的是要培养用流程化的思维去解决问题的能力。就像vim的键盘宏功能，而不是光有思路就行。万一哪天面试官让我手撕代码，代码写不出来？估计就凉的跟凉凉似了科科！</p>
+<p>说起键盘宏，昨晚看B站发现vim竟然还有录制键盘宏的功能。博客上传了就去玩玩🤓</p>
+<p>还有这个问题明天还得再看一次。强化一下记忆。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/30/LeetCode——001两数之和/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1419,7 +1556,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% meting <span class="string">"2839900843"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 
-    <div id="aplayer-eMELkeMl" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+    <div id="aplayer-kuWiiiVQ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
 <p>这里的数字”2839900843”指的是你的歌单id号，可以通过在web端打开你的以后的音乐平台查看到:</p>
 <p><img src="https://i.loli.net/2019/06/12/5d00f383f11d932552.png" alt></p>
 <h2 id="4-个性化配置"><a href="#4-个性化配置" class="headerlink" title="4.个性化配置"></a>4.个性化配置</h2><p>播放器的样式并非一成不变。我们可以通过修改上述的引入语句来进行个性化配置。举例：</p>
@@ -1688,144 +1825,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/03/网络——校园网限速分析及加速/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/03/网络——校园网限速分析及加速/" itemprop="url">网络——校园网限速分析及加速</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-03T20:52:47+08:00">
-                2019-06-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="校园网上网表现"><a href="#校园网上网表现" class="headerlink" title="校园网上网表现"></a>校园网上网表现</h1><p>上大学以来，寝室一直是有校园网和移动100M光纤的。但是由于这一学期移动宽带没有及时续费，导致这学期没法继续使用移动光纤只能使用校园网了。</p>
-<p>校园网也有几次小小的升级。譬如之前必须要通过网信处分配的指定静态IP才能上网、寝室只有一个网口、多设备接入要通过交换机、不能给手机联网等等。这些问题在三年来陆陆续续的都已经被解决了。</p>
-<p>但是有一样东西，是三年以来都没有改变的。那就是外网糟糕的浏览体验！具体点来说就是在浏览外网的时候，速度都很慢。比如刷微博，逛淘宝或者看视频的时候速度都很慢，</p>
-<h1 id="为什么会慢？"><a href="#为什么会慢？" class="headerlink" title="为什么会慢？"></a>为什么会慢？</h1><p>究其原因，校园网为什么相比普通ISP这上述方面表现差呢？</p>
-<h2 id="上网机制有所不同"><a href="#上网机制有所不同" class="headerlink" title="上网机制有所不同"></a>上网机制有所不同</h2><p>我们在校内使用<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E6%95%99%E8%82%B2%E5%92%8C%E7%A7%91%E7%A0%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91" target="_blank" rel="noopener">教育网</a>和使用普通ISP（电信、移动等）上网的机制并不同。高校一般都会使用以太网组网技术来实现校内上网。以太网组网决定了我们的网络出口流量带宽都是共享的，谁可以争到这个带宽，谁的上网的速度则越快。人越多，平均网速就越慢。</p>
-<p>假设一种情况：学校的出口带宽有100Mb（只是为了举例方便，一般实际出口带宽都在Gb级别），我现在需要下载一个10G的文件。那么在机能允许的情况下，我会吃满学校的带宽，持续13分钟后才能下载完成。在这13分钟内，学校的其他所有人，都是无法访问到外网的。这是一个很严重的影响。</p>
-<p>所以，为了防止被某台机器，或者少数机器占满带宽、保证大多数客户机访问网站的速度，高校会在网络核心之间增加流量控制设备来监管网络流量，限制P2P和文件下载等等。从而保证了http访问的性能。因此，我们上网的时候就会觉得慢了。(其实我不知道我们学校有没有装这玩意儿)</p>
-<p>以太网组网还会带来一个特点就是：出口流量很低的情况下(比如假期、凌晨)，校园网的网速就又会特别快。曾经在凌晨3点通过外网ip节点进行测速和下午四点对比：<img src="https://i.loli.net/2019/06/13/5d02064139da717091.jpg" alt></p>
-<p><img src="https://i.loli.net/2019/06/13/5d0206401e16d53175.jpg" alt></p>
-<p>下载带宽有了接近4倍的增长，上传带宽增长15倍多。</p>
-<h2 id="属于不同的骨干网"><a href="#属于不同的骨干网" class="headerlink" title="属于不同的骨干网"></a>属于不同的骨干网</h2><p>国内有四大骨干网，分别是中国互联网、教育网、科研网、金桥网。想了解我国四大骨干网络和ISP请看<a href="https://www.cnblogs.com/onepixel/p/10238221.html" target="_blank" rel="noopener">这里</a>。我们平常访问的微博、淘宝、还有各种视频网站都属于四大骨干网中的中国互联网。而我们，则处于另外的骨干网——教育网中。很不幸，中国教育网和中国互联网之间的访问资源并不是无限的。也就是说，类似我们在校园中所使用的以太网组网技术一样，如果负载变大，那么稳定性和速度都会下降。</p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>上网机制和不同骨干网都有一个共同特点，用大白话说就是：</p>
-<p>“用的人多了，就会变慢！”</p>
-<p>“挑没人用的时候最快”</p>
-<h1 id="加速"><a href="#加速" class="headerlink" title="加速"></a>加速</h1><h2 id="先说结论：没找到方法"><a href="#先说结论：没找到方法" class="headerlink" title="先说结论：没找到方法"></a>先说结论：没找到方法</h2><p>搜狗浏览器曾经有教育网——&gt;公网加速，到后来教育网&lt;——&gt;公网双向加速的功能，直到现在的全网加速功能。但是亲测使用了搜狗的全网加速功能之后，速度仍旧没有得到明显提升。之前我想的是：搜狗的加速技术，应该是通过自建加速服务器或者通过CDN加速实现的。后来发现我想多了。在我查询了我电脑的流量记录后发现</p>
-<p>后来想到用SSR在国内搭建代理服务器，用来转发我的流量。搭建后测本地测试的结果为下载3.6Mbps，上传1.5Mbps。而此时我的服务器端测速结果为下载116Mbps，上传5Mbps。测试时间为16：33🤦🏽‍♂️。测速结果甚至不如不使用代理。而且速度瓶颈也不在服务器端。</p>
-<p>大概分析了一下，使用代理并不能解决上述所说”跨骨干网”和”出口带宽有限”的问题。</p>
-<p>还有就是app store中的各种游戏加速软件，下载之后发现现在的加速软件对加速做了限制。并不是全局的对所有流量都进行加速，而是选择性的，只对指定游戏的流量做加速。</p>
-<p>没办法了。。。。。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1876,7 +1875,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
