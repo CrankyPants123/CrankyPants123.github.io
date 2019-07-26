@@ -313,7 +313,7 @@
       
         
           
-            <h1 id="虚析构和纯虚析构"><a href="#虚析构和纯虚析构" class="headerlink" title="虚析构和纯虚析构"></a>虚析构和纯虚析构</h1><p>症状：抽象类的析构函数要是不是虚函数，那么其派生类要是在堆区开辟的空间就会出现无法释放的情况（原因是因为在析构的时候只会调用基类的析构函数，而不会调用派生类的析构函数）。导致内存泄露。<br>        应用场景：在多态的使用中，如果子类有属性开辟到堆区。那么父类指针在释放时无法调用到子类的析构代码。</p>
+            <h1 id="虚析构和纯虚析构"><a href="#虚析构和纯虚析构" class="headerlink" title="虚析构和纯虚析构"></a>虚析构和纯虚析构</h1><p>症状：抽象类的析构函数要是不是虚函数，那么其派生类要是在堆区开辟的空间就会出现无法释放的情况（原因是因为在析构的时候只会调用基类的析构函数，而不会调用派生类的析构函数）。导致内存泄露。<br>        应用场景：在多态的使用中，如果子类有属性开辟到堆区。那么父类指针在释放时无法调用到子类的析构代码。这个时候，我们就应该使用虚析构和纯虚析构了。</p>
 <p>解决办法：将父类中的析构函数改为虚析构或者纯虚析构</p>
 <p>虚析构和纯虚析构的共性：</p>
 <ul>
@@ -344,6 +344,7 @@
 <p>将程序进行相应的修改：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Animal()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Main class is building..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">virtual</span> ~Animal()=<span class="number">0</span>;</span><br><span class="line">	<span class="comment">// &#123;</span></span><br><span class="line">	<span class="comment">// 	cout&lt;&lt;"Deconstructing main class"&lt;&lt;endl;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line">Animal::~Animal()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"纯虚析构调用"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意，<code>~Animal()</code>在类中实现的话会提示重复声明，所以我们需要在类外重写。</p>
+<p>还有一点就是，我们在有了纯虚析构之后，这个类也是属于抽象类，无法被实例化。</p>
 <p>参考Blog：</p>
 <ul>
 <li>《<a href="https://www.cnblogs.com/chio/archive/2007/09/10/888260.html" target="_blank" rel="noopener">虚析构函数(√)、纯虚析构函数(√)、虚构造函数(X)</a>》</li>
