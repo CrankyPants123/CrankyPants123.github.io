@@ -242,6 +242,266 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/" itemprop="url">C++——查看被编译器隐藏的父类私有成员属性</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T14:31:42+08:00">
+                2019-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="查看被编译器隐藏的父类私有成员属性"><a href="#查看被编译器隐藏的父类私有成员属性" class="headerlink" title="查看被编译器隐藏的父类私有成员属性"></a>查看被编译器隐藏的父类私有成员属性</h1><h2 id="子类会继承父类的所有非静态成员。"><a href="#子类会继承父类的所有非静态成员。" class="headerlink" title="子类会继承父类的所有非静态成员。"></a>子类会继承父类的所有非静态成员。</h2><p>先简单看段代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> m_a=<span class="string">"this is a pubic member"</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> m_b=<span class="string">"this is a protected member"</span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">string</span> m_c=<span class="string">"this is a private member"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;m_a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Inherit i;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(i)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接说答案，这个程序的输出结果是72。</p>
+<p>Why 72？明明父类中的m_c是私有的，就算是public继承也不能在Inherit中访问的呀？</p>
+<p>这是我刚刚开始时候的疑惑。</p>
+<p>So 结论：一个string的大小是24。三个24刚好是72。也就是说父类中所有的非静态成员都被子类继承了。但是！我们在子类中是访问不到的——编译器隐藏了私有成员的属性。所以我们访问不了，但是不代表子类没有继承。</p>
+<h2 id="查看被编译器隐藏的父类private成员"><a href="#查看被编译器隐藏的父类private成员" class="headerlink" title="查看被编译器隐藏的父类private成员"></a>查看被编译器隐藏的父类private成员</h2><p>以下是查看的方法（win环境）：</p>
+<p>我没有win本&amp;我的mac跑不动虚拟机,所以就直接用了老师的截图。</p>
+<ul>
+<li>打开vs自带的开发人员命令提示工具</li>
+<li>跳转到项目目录</li>
+<li><code>cl /dl reportsingleClassLayoutInherit file</code>(也就是报告单个类的布局的意思,Inherit是要查看的类名。)<br>  <img src="https://i.loli.net/2019/07/21/5d340bbbd249c48575.jpeg" alt></li>
+</ul>
+<p>可以看到上图，Son类继承自Base类。继承了m_A,m_B,m_C。自带的成员是m_D。m_C是Base类中的私有属性。所以可以证实子类确实会证实父类中的私有属性也会被子类继承。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/17/胡言乱语——飞天意面神教和罗素的茶壶/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/17/胡言乱语——飞天意面神教和罗素的茶壶/" itemprop="url">胡言乱语——飞天意面神教和罗素的茶壶</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T11:08:55+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>感觉这次的文章才是最最贴近我这个hashtag的。hhhh</p>
+<h1 id="Church-of-the-Flying-Spaghetti-Monster-Pastafarianism"><a href="#Church-of-the-Flying-Spaghetti-Monster-Pastafarianism" class="headerlink" title="Church of the Flying Spaghetti Monster ||  Pastafarianism"></a>Church of the Flying Spaghetti Monster ||  Pastafarianism</h1><p>中文译名飞天意面教or飞面神教。第一次见到这个名词是在微信群看到霍炬提到的。当时内心OS这tm都能是个宗教?</p>
+<p><img src="https://i.loli.net/2019/07/10/5d259c64da57b81448.png" alt></p>
+<p>好奇心使然去查了下wiki。这还真是！</p>
+<p>不过对于这是不是个宗教，不同国家与法律之间还是存在争议的。</p>
+<h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p><img src="https://i.loli.net/2019/07/15/5d2c35536dfb964924.png" alt></p>
+<p>在美国，一些宗教的教派把<a href="https://zh.wikipedia.org/wiki/%E6%99%BA%E8%83%BD%E8%AE%BE%E8%AE%A1" target="_blank" rel="noopener">智能设计论</a>（生物并非出于演化，而是源自某种超自然智能的设计）加入了公立学校的自然科学课之中。于是那些无神论者就不干啦！一场社会运动就这样被掀起。</p>
+<p>“Church of the Flying Spaghetti Monster”这个名词由Bobby Henderson在抗议Kansas教育委员会决策的讽刺性公开信中被第一次提及。然后就火了。</p>
+<h1 id="坑挖了以后填！"><a href="#坑挖了以后填！" class="headerlink" title="坑挖了以后填！"></a>坑挖了以后填！</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/17/网络——HSTS简单探究/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -654,7 +914,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/Hexo——参数与选项/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/C-——基于环形队列的生产者消费者模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -673,7 +933,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/09/Hexo——参数与选项/" itemprop="url">C++——基于环形队列的生产者消费者模型</a></h2>
+                <a class="post-title-link" href="/2019/07/09/C-——基于环形队列的生产者消费者模型/" itemprop="url">C++——基于环形队列的生产者消费者模型</a></h2>
         
 
         <div class="post-meta">
@@ -784,7 +1044,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/C-——基于环形队列的生产者消费者模型/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/Hexo——参数与选项/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -803,7 +1063,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/09/C-——基于环形队列的生产者消费者模型/" itemprop="url">C++——基于环形队列的生产者消费者模型</a></h2>
+                <a class="post-title-link" href="/2019/07/09/Hexo——参数与选项/" itemprop="url">C++——基于环形队列的生产者消费者模型</a></h2>
         
 
         <div class="post-meta">
@@ -1300,272 +1560,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/05/日常充电——vim指南/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/日常充电——vim指南/" itemprop="url">日常充电——vim指南</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-05T21:14:31+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>vim在两年前就已经接触。不过到现在为止感觉自己还只是略知皮毛。用到的最最高阶的操作也就是dd pp基础查找之类的。用的vscode和sublime还是最多——因为我感觉方便。不过在b站油管看到那些科技从业者一直在强调vim才是最终的效率解决方案。让我开始怀疑。我以为的方便，或许仅仅可能是学习成本低而已。较高学习成本的工具往往效率更高。这一点，我在生活中已经太多次感受到了！</p>
-<p>打算在日常中尝试更多的去使用vim了。所以才有了这篇blog。旨在收集一些使用技巧从而提升自己的效率摆脱鼠标。关联性可能不强，只是一些零散的收集。不一定都是自己写的。网上有好的可能就直接复制下来了。如果你正在阅读这篇博文，那么你有可能因为没有太多的注解而迷惑。没关系！因为这是给我自己写的。</p>
-<h1 id="Vim指南"><a href="#Vim指南" class="headerlink" title="Vim指南"></a>Vim指南</h1><h2 id="多窗口-amp-多文件切换"><a href="#多窗口-amp-多文件切换" class="headerlink" title="多窗口&amp;多文件切换"></a>多窗口&amp;多文件切换</h2><ol>
-<li><p>打开多个文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim file1 file2 ... filen</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在已打开的文件上再打开文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:e file2</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同时打开多个文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">窗口水平切分</span></span><br><span class="line">：sp </span><br><span class="line"><span class="meta">#</span><span class="bash">窗口垂直切分</span></span><br><span class="line">:sp</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>文件间切换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下一个文件</span></span><br><span class="line">:bn</span><br><span class="line"><span class="meta">#</span><span class="bash">上一个文件</span></span><br><span class="line">:bp</span><br><span class="line"><span class="meta">#</span><span class="bash">切换到第n个文件</span></span><br><span class="line">:b1~n</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开的窗口间切换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">切换到前/后/上/下的窗口</span></span><br><span class="line">ctrl+w+导航键</span><br><span class="line">ctrl+w+h/j/k/l/</span><br><span class="line"><span class="meta">#</span><span class="bash">向后切换到下一个窗格中</span></span><br><span class="line">ctrl+w+w</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开文件目录树</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">当前窗口下打开</span></span><br><span class="line">:Ex(Explore的意思)</span><br><span class="line"><span class="meta">#</span><span class="bash">竖直分割打开</span></span><br><span class="line">:Ve(Vexplore)</span><br><span class="line"><span class="meta">#</span><span class="bash">水平分割窗口打开</span></span><br><span class="line">:Se(Sexplore)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="多行操作"><a href="#多行操作" class="headerlink" title="多行操作"></a>多行操作</h1><ol>
-<li>删除多行</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">删除1——10行</span></span><br><span class="line">1，10d</span><br><span class="line"><span class="meta">#</span><span class="bash">删除当前光标以下的N行</span></span><br><span class="line">Ndd</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/05/LeetCode——067二进制求和/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/LeetCode——067二进制求和/" itemprop="url">LeetCode——067二进制求和</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-05T09:15:33+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="LeetCode——067二进制求和"><a href="#LeetCode——067二进制求和" class="headerlink" title="LeetCode——067二进制求和"></a>LeetCode——067二进制求和</h1><p>题目：</p>
-<p><img src="https://i.loli.net/2019/07/05/5d1ea674c30a136831.png" alt></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1616,7 +1610,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1638,7 +1632,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
