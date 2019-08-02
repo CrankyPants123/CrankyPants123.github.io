@@ -245,6 +245,141 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/27/Qt——02日常的注意事项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/27/Qt——02日常的注意事项/" itemprop="url">Qt——02日常的注意事项</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-27T14:16:07+08:00">
+                2019-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="定义窗口大小"><a href="#定义窗口大小" class="headerlink" title="定义窗口大小"></a>定义窗口大小</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resize(<span class="number">300</span>,<span class="number">200</span>);</span><br></pre></td></tr></table></figure>
+<p>窗口显示在未特别指定的时候，显示可能会出现异常，文字显示不全，button显示不全等等问题。所以在有时候需要特别指定一下窗口的大小，以保证窗口及内容的正常显示。</p>
+<h2 id="this指针问题"><a href="#this指针问题" class="headerlink" title="this指针问题"></a>this指针问题</h2><p>近来的编码中频频遇到问题。好多的问题解决之后发现，都是因为没有灵活的运用this指针。比如：</p>
+<p>问题1：</p>
+<p><img src="https://i.loli.net/2019/06/27/5d14612fe8e6767805.png" alt></p>
+<p>在窗口中定义的子按钮，需要指定父对象的时候，因为主窗口mw定义main.cpp中而不是当前的mainwidget.cpp中。所以使用mw来指定父对象的时候程序就会报错。这个时候，如果使用this来指定的话，问题就能很轻松的解决。</p>
+<p>问题2：</p>
+<p><img src="https://i.loli.net/2019/06/27/5d14621bbacab29204.png" alt></p>
+<p>在书写响应函数ChangeWindow()的时候，需要执行两个操作——隐藏主窗口和显示子窗口。在这个时候同问题1，使用mw.hide()的时候，程序也会报错。这个时候如果使用this-&gt;hide();问题也就能很轻松的解决。</p>
+<p>记一下。倒不是什么大问题，就是老卡在this过不去，所以就写一下强化一下记忆。</p>
+<h2 id="pro-user问题"><a href="#pro-user问题" class="headerlink" title=".pro.user问题"></a>.pro.user问题</h2><p>先看一眼一个项目的文件结构</p>
+<p><img src="https://i.loli.net/2019/06/27/5d147053c0e2026395.png" alt></p>
+<p>除过头文件和源文件之外，还有一个.pro文件和.pro.user文件。</p>
+<p>我们有时在将整个项目直接打包发给别人之后，别的用户打开的时候会出现无法打开的情况出现。</p>
+<p>究其原因，就是因为这个.pro.user文件。因为这个文件保存着，当前用户的信息，包括工程的路径，所用的编译器，构建的工具链，生成目录，打开工程的qt-creator版本等等。of course直接迁移了项目的时候就不能用。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>删掉就行，这样就会重新生成新的.pro.user文件而不是重新加载。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/26/日常充电——Visual Studio Code的一些配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -618,7 +753,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% meting <span class="string">"2839900843"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 
-    <div id="aplayer-bnqToOns" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+    <div id="aplayer-tUUJJANZ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
 <p>这里的数字”2839900843”指的是你的歌单id号，可以通过在web端打开你的以后的音乐平台查看到:</p>
 <p><img src="https://i.loli.net/2019/06/12/5d00f383f11d932552.png" alt></p>
 <h2 id="4-个性化配置"><a href="#4-个性化配置" class="headerlink" title="4.个性化配置"></a>4.个性化配置</h2><p>播放器的样式并非一成不变。我们可以通过修改上述的引入语句来进行个性化配置。举例：</p>
@@ -1668,7 +1803,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
