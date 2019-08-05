@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="日常充电,">
+  <meta name="keywords" content="string,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="近两日频繁使用包工具下载东西，梯子全局挂国外节点速度虽然可以，不过仍旧不喜人。遂更换国内中国科技大学源。网速瞬间4M/s！！！ 记录一下防止之后还能用的到。 brew12345678cd &quot;$(brew --repo)&quot;git remote set-url origin https://mirrors.ustc.edu.cn/brew.gitcd &quot;$(brew --repo)/Library/T">
-<meta name="keywords" content="日常充电">
+<meta name="description" content="string基本概念本质 string是c++风格的字符串，本质上是一个类  string和char*的区别 char*是一个指针 string是一个类，类的内部封装了char*，管理这个字符串的是一个char*的容器  特点string类的内部封装了很多的成员方法，比如：  查找find 拷贝copy 删除delete 替换replace 插入insert  string管理char*所分配的内">
+<meta name="keywords" content="string">
 <meta property="og:type" content="article">
-<meta property="og:title" content="日常充电——更改国内源">
-<meta property="og:url" content="47.168.200.88/2019/08/01/今日充电——更改国内源/index.html">
+<meta property="og:title" content="STL——string">
+<meta property="og:url" content="47.168.200.88/2019/08/02/STL——string/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="近两日频繁使用包工具下载东西，梯子全局挂国外节点速度虽然可以，不过仍旧不喜人。遂更换国内中国科技大学源。网速瞬间4M/s！！！ 记录一下防止之后还能用的到。 brew12345678cd &quot;$(brew --repo)&quot;git remote set-url origin https://mirrors.ustc.edu.cn/brew.gitcd &quot;$(brew --repo)/Library/T">
+<meta property="og:description" content="string基本概念本质 string是c++风格的字符串，本质上是一个类  string和char*的区别 char*是一个指针 string是一个类，类的内部封装了char*，管理这个字符串的是一个char*的容器  特点string类的内部封装了很多的成员方法，比如：  查找find 拷贝copy 删除delete 替换replace 插入insert  string管理char*所分配的内">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-01T06:36:57.104Z">
+<meta property="og:updated_time" content="2019-08-02T09:14:26.087Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="日常充电——更改国内源">
-<meta name="twitter:description" content="近两日频繁使用包工具下载东西，梯子全局挂国外节点速度虽然可以，不过仍旧不喜人。遂更换国内中国科技大学源。网速瞬间4M/s！！！ 记录一下防止之后还能用的到。 brew12345678cd &quot;$(brew --repo)&quot;git remote set-url origin https://mirrors.ustc.edu.cn/brew.gitcd &quot;$(brew --repo)/Library/T">
+<meta name="twitter:title" content="STL——string">
+<meta name="twitter:description" content="string基本概念本质 string是c++风格的字符串，本质上是一个类  string和char*的区别 char*是一个指针 string是一个类，类的内部封装了char*，管理这个字符串的是一个char*的容器  特点string类的内部封装了很多的成员方法，比如：  查找find 拷贝copy 删除delete 替换replace 插入insert  string管理char*所分配的内">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="47.168.200.88/2019/08/01/今日充电——更改国内源/">
+  <link rel="canonical" href="47.168.200.88/2019/08/02/STL——string/">
 
 
 
 
 
-  <title>日常充电——更改国内源 | Andrew's Blog</title>
+  <title>STL——string | Andrew's Blog</title>
   
 
 
@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/01/今日充电——更改国内源/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/02/STL——string/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -260,7 +260,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">日常充电——更改国内源</h2>
+          <h2 class="post-title" itemprop="name headline">STL——string</h2>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-01T01:31:59+08:00">
-                2019-08-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T16:18:25+08:00">
+                2019-08-02
               </time>
             
 
@@ -310,10 +310,37 @@
       
 
       
-        <p>近两日频繁使用包工具下载东西，梯子全局挂国外节点速度虽然可以，不过仍旧不喜人。遂更换国内中国科技大学源。网速瞬间4M/s！！！</p>
-<p>记录一下防止之后还能用的到。</p>
-<h2 id="brew"><a href="#brew" class="headerlink" title="brew"></a>brew</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd "$(brew --repo)"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line">cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line">cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line">brew update</span><br><span class="line">echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' &gt;&gt; ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' &gt;&gt; ~/.zshrc</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+        <h2 id="string基本概念"><a href="#string基本概念" class="headerlink" title="string基本概念"></a>string基本概念</h2><h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><ul>
+<li>string是c++风格的字符串，本质上是一个类</li>
+</ul>
+<h2 id="string和char-的区别"><a href="#string和char-的区别" class="headerlink" title="string和char*的区别"></a>string和char*的区别</h2><ul>
+<li>char*是一个指针</li>
+<li>string是一个类，类的内部封装了char*，管理这个字符串的是一个char*的容器</li>
+</ul>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>string类的内部封装了很多的成员方法，比如：</p>
+<ul>
+<li>查找find</li>
+<li>拷贝copy</li>
+<li>删除delete</li>
+<li>替换replace</li>
+<li>插入insert</li>
+</ul>
+<p>string管理char*所分配的内存，不用担心复制越界和取值越界等等。类内部会自动进行</p>
+<h1 id="string构造函数"><a href="#string构造函数" class="headerlink" title="string构造函数"></a>string构造函数</h1><p>构造函数原型：</p>
+<p><code>string();</code>                                        //创建一个空的字符串，比如string str</p>
+<p><code>string(const char* s);</code>             //使用字符串s初始化</p>
+<p><code>string(const string&amp; str);</code>     //使用一个string对象初始化另外一个string对象</p>
+<p><code>string(int n,char c);</code>               //使用n个字符c初始化<br>举例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一种构造方法</span></span><br><span class="line"><span class="built_in">string</span> s1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种构造方法</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* str=<span class="string">"s2"</span>;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s2</span><span class="params">(str)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第3种构造方法</span></span><br><span class="line"><span class="built_in">string</span> s3=(s2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第4种构造方法</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s4</span><span class="params">(<span class="number">10</span>,<span class="string">'c'</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="string赋值操作"><a href="#string赋值操作" class="headerlink" title="string赋值操作"></a>string赋值操作</h1><p><strong>赋值函数原型</strong></p>
+<p><code>string&amp; operator=(const char*);</code>                                //char*类型字符串，赋值给当前的字符串</p>
+<p><code>string&amp; operator=(const string &amp;s);</code>                //把字符串s赋值给当前的字符串</p>
+<p><code>string&amp; operator=(char c);</code>                                    //字符赋给当前的字符串</p>
+<p><code>string&amp; assign(const char *s);</code>                        //把字符串s赋给当前的字符串</p>
+<p><code>string&amp; assign(const char *s,int n);</code>            //把字符串s的前n个字符赋给当前的字符串</p>
+<p><code>string&amp; assign(const string &amp;s);</code>                    //把字符串s赋给当前字符串</p>
+<p><code>string&amp; assign(int n,char c);</code>                        //用n个字符c赋给当前字串</p>
+<p><strong>实例</strong></p>
 
       
     </div>
@@ -334,7 +361,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="47.168.200.88/2019/08/01/今日充电——更改国内源/" title="日常充电——更改国内源">47.168.200.88/2019/08/01/今日充电——更改国内源/</a>
+    <a href="47.168.200.88/2019/08/02/STL——string/" title="STL——string">47.168.200.88/2019/08/02/STL——string/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -349,7 +376,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/日常充电/" rel="tag"># 日常充电</a>
+            <a href="/tags/string/" rel="tag"># string</a>
           
         </div>
       
@@ -362,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/27/今日充电——zsh配置/" rel="next" title="日常充电——zsh配置">
-                <i class="fa fa-chevron-left"></i> 日常充电——zsh配置
+              <a href="/2019/08/01/STL——迭代器/" rel="next" title="STL——容器&算法&迭代器">
+                <i class="fa fa-chevron-left"></i> STL——容器&算法&迭代器
               </a>
             
           </div>
@@ -371,10 +398,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/01/STL——写写概念/" rel="prev" title="STL——写写概念">
-                STL——写写概念 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -566,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#brew"><span class="nav-number">1.</span> <span class="nav-text">brew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zsh"><span class="nav-number">2.</span> <span class="nav-text">zsh</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#string基本概念"><span class="nav-number">1.</span> <span class="nav-text">string基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本质"><span class="nav-number">2.</span> <span class="nav-text">本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string和char-的区别"><span class="nav-number">3.</span> <span class="nav-text">string和char*的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">4.</span> <span class="nav-text">特点</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#string构造函数"><span class="nav-number"></span> <span class="nav-text">string构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#string赋值操作"><span class="nav-number"></span> <span class="nav-text">string赋值操作</span></a></li></div>
             
 
           </div>
