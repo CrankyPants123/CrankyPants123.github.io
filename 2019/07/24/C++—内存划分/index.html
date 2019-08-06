@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 堆区通过new取得的内存块就在堆区上。这个不会被自动释放，而是由">
+<meta name="description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 栈区空间比较小，在CentOS7上只有8M 堆区通过new取得的">
 <meta name="keywords" content="C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++——内存划分">
 <meta property="og:url" content="47.168.200.88/2019/07/24/C++—内存划分/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 堆区通过new取得的内存块就在堆区上。这个不会被自动释放，而是由">
+<meta property="og:description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 栈区空间比较小，在CentOS7上只有8M 堆区通过new取得的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-01T06:41:25.868Z">
+<meta property="og:updated_time" content="2019-08-06T12:09:56.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++——内存划分">
-<meta name="twitter:description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 堆区通过new取得的内存块就在堆区上。这个不会被自动释放，而是由">
+<meta name="twitter:description" content="C++中的内存区划分之前记得在CSDN上写过，但是不知道为什么找不到了。所以再写一次。（脑子不好老是容易模糊） 在C++中，内存分为5区：  栈区 堆区 自由存储区 全局/静态存储区 常量存储区  栈区编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。 栈区空间比较小，在CentOS7上只有8M 堆区通过new取得的">
 
 
 
@@ -320,6 +320,7 @@
 <li>常量存储区</li>
 </ol>
 <h2 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h2><p>编译器编译的时候需要内存了，就在栈区上开辟。用不着了，生命周期到了就清除。这个区域就是栈区。局部变量、函数参数等等，就是在栈区上的。</p>
+<p>栈区空间比较小，在CentOS7上只有8M</p>
 <h2 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h2><p>通过new取得的内存块就在堆区上。这个不会被自动释放，而是由开发者通过程序来释放的。一个new就要对应一个delete。如果我们没有释放所申请的内存。那么，在堆区上申请的空间会在程序结束时候，由操作系统来回收。</p>
 <h2 id="自由存储区"><a href="#自由存储区" class="headerlink" title="自由存储区"></a>自由存储区</h2><p>就是malloc分配的内存块，和new所申请到的堆空间是很相似，但是malloc是通过free来释放空间的。</p>
 <h2 id="全局-静态存储区"><a href="#全局-静态存储区" class="headerlink" title="全局/静态存储区"></a>全局/静态存储区</h2><p>在C中，全局变量是被划分成了未初始化和初始化的。但是在C++中没有这个区分了。大家都在一块内存区。</p>
@@ -461,7 +462,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -483,7 +484,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
