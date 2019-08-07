@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="配置远程主机无密码登录步骤12345#1.本地生成一对密钥ssh-keygen#接下来一路回车即可#2.把公钥传到远程主机上ssh-copy-id user@host 完啦！好简单。 接下来ssh user@host测试即可。一切正常的话就能直接登录了。 Then，我们可以打开本地shell，配置一个简便的alias语句，就可以很方便的登录啦。 踩雷了push代码的时候，github提交果然需要密">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-06T20:15:23.139Z">
+<meta property="og:updated_time" content="2019-08-07T07:08:29.095Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux——配置远程主机无密码登录">
 <meta name="twitter:description" content="配置远程主机无密码登录步骤12345#1.本地生成一对密钥ssh-keygen#接下来一路回车即可#2.把公钥传到远程主机上ssh-copy-id user@host 完啦！好简单。 接下来ssh user@host测试即可。一切正常的话就能直接登录了。 Then，我们可以打开本地shell，配置一个简便的alias语句，就可以很方便的登录啦。 踩雷了push代码的时候，github提交果然需要密">
@@ -316,9 +316,12 @@
 <p>Then，我们可以打开本地shell，配置一个简便的alias语句，就可以很方便的登录啦。</p>
 <h2 id="踩雷了"><a href="#踩雷了" class="headerlink" title="踩雷了"></a>踩雷了</h2><p>push代码的时候，github提交果然需要密码了。。。。。</p>
 <p>刚刚试行<code>ssh-keygen</code>的时候提示我本地已经有一个私钥了。我毫不犹豫就删掉了。后来想想那好像是我的git密钥。。痛苦果然大部分都是由于自己的愚蠢造成的。</p>
-<p><code>hexo deploy</code>也失效了，提示需要输入密码了。</p>
+<p><code>hexo deploy</code>也失效了，本地部署的时候提示需要输入密码。</p>
 <h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><p>上两步本质上都是因为服务器端的公钥和本地的私钥对不上了。所以，解决办法就是重新配置github和hexo上的公钥。问题就能解决。</p>
-<p><strong>github:</strong></p>
+<p><strong>github:</strong><br>        github在setting界面可以设置上传自己的SSH key。打开本地用户目录下的<code>.ssh</code>文件夹，找到id_rsa.pub文件，密钥复制进去就OK了。</p>
+<p><strong>hexo</strong></p>
+<p>我的hexo博客是在我的远程服务器上部署的。通过在服务器上建立了一个git用户来deploye博客上去。公钥也在git用户目录下。先scp把公钥拷贝到git用户目录下，然后<code>cat id_rsa.pub &gt; authorize_keys</code>把公钥重定向进去就行。</p>
+<p>好了，完了。</p>
 
       
     </div>
