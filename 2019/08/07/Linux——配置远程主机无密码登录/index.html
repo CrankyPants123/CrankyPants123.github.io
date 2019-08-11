@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="配置远程主机无密码登录步骤12345#1.本地生成一对密钥ssh-keygen#接下来一路回车即可#2.把公钥传到远程主机上ssh-copy-id user@host 完啦！好简单。 接下来ssh user@host测试即可。一切正常的话就能直接登录了。 Then，我们可以打开本地shell，配置一个简便的alias语句，就可以很方便的登录啦。 踩雷了push代码的时候，github提交果然需要密">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-07T07:08:29.095Z">
+<meta property="og:updated_time" content="2019-08-08T06:15:04.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux——配置远程主机无密码登录">
 <meta name="twitter:description" content="配置远程主机无密码登录步骤12345#1.本地生成一对密钥ssh-keygen#接下来一路回车即可#2.把公钥传到远程主机上ssh-copy-id user@host 完啦！好简单。 接下来ssh user@host测试即可。一切正常的话就能直接登录了。 Then，我们可以打开本地shell，配置一个简便的alias语句，就可以很方便的登录啦。 踩雷了push代码的时候，github提交果然需要密">
@@ -322,6 +322,7 @@
 <p><strong>hexo</strong></p>
 <p>我的hexo博客是在我的远程服务器上部署的。通过在服务器上建立了一个git用户来deploye博客上去。公钥也在git用户目录下。先scp把公钥拷贝到git用户目录下，然后<code>cat id_rsa.pub &gt; authorize_keys</code>把公钥重定向进去就行。</p>
 <p>好了，完了。</p>
+<p>## </p>
 
       
     </div>
@@ -379,6 +380,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/11/Linux——进程/" rel="prev" title="Linux——进程&线程&协程">
+                Linux——进程&线程&协程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,7 +460,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
