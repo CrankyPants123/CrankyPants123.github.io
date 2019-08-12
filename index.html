@@ -242,6 +242,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/13/Linux——Centos7下安装Mysql_server和Mysql_C_API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/13/Linux——Centos7下安装Mysql_server和Mysql_C_API/" itemprop="url">Linux——Centos7下安装Mysql_server和Mysql_C_API</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T03:25:01+08:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux——Centos7下安装Mysql-server和Mysql-C-API"><a href="#Linux——Centos7下安装Mysql-server和Mysql-C-API" class="headerlink" title="Linux——Centos7下安装Mysql_server和Mysql_C_API"></a>Linux——Centos7下安装Mysql_server和Mysql_C_API</h1><p>抱歉名称有点长。</p>
+<p>CentOS 7之后mysql不再默认安装，而是用MariaDB来替代。我的MariaDB一直在后台跑着。但是Mysql C API一直没有安装。最近突然用到了，于是用yum安装。可惜一直冲突。各种难受。要么程序无法编译，mysql服务正常跑。要么就得卸载mysql，程序才能编译。想过借朋友的数据库。不过也不是最终的解决办法。还是自己来吧。开始</p>
+<h1 id="卸载掉所有的数据库服务"><a href="#卸载掉所有的数据库服务" class="headerlink" title="卸载掉所有的数据库服务"></a>卸载掉所有的数据库服务</h1><h2 id="查看mysql安装情况"><a href="#查看mysql安装情况" class="headerlink" title="查看mysql安装情况"></a>查看mysql安装情况</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa|grep -i mysql</span><br><span class="line">rpm -qa | grep mariadb</span><br><span class="line"><span class="meta">#</span><span class="bash">mariadb和mysql都查一遍</span></span><br><span class="line"><span class="meta">#</span><span class="bash">鬼知道愚蠢的我曾经都安装过什么</span></span><br></pre></td></tr></table></figure>
+<h2 id="停止服务-amp-卸载安装"><a href="#停止服务-amp-卸载安装" class="headerlink" title="停止服务&amp;卸载安装"></a>停止服务&amp;卸载安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -ev MySQL-client-5.5.25a-1.rhel5</span><br><span class="line"><span class="meta">#</span><span class="bash">MySQL-client-5.5.25a-1.rhel5是上边rpm找到的包名，下边同理</span></span><br><span class="line">rpm -e mariadb-libs-5.5.37-1.el7_0.x86_64</span><br></pre></td></tr></table></figure>
+<p><strong>如果提示依赖错误</strong></p>
+<p>依赖错误了就强制删除tmd！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ev MySQL-client-5.5.25a-1.rhel5 --nodeps</span><br><span class="line">rpm -e --nodeps mariadb-libs-5.5.37-1.el7_0.x86_64</span><br></pre></td></tr></table></figure>
+<h2 id="删除之前的文件和库"><a href="#删除之前的文件和库" class="headerlink" title="删除之前的文件和库"></a>删除之前的文件和库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find / -name mysql</span><br><span class="line"><span class="meta">#</span><span class="bash">之后直接rm -rf find结果 强制删除</span></span><br><span class="line">rm -rf /etc/my.cnf</span><br><span class="line"><span class="meta">#</span><span class="bash">my.cnf是mysql的配置文件</span></span><br></pre></td></tr></table></figure>
+<h2 id="再次查找"><a href="#再次查找" class="headerlink" title="再次查找"></a>再次查找</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa|grep -i mysql</span><br></pre></td></tr></table></figure>
+<p>没有就万事大吉。如果还有就面壁反思一下。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>卸载干净了就该重新安装了。上边提了mysql不再免费安装了。但是yum上还是有社区版的。</p>
+<p><img src="https://i.loli.net/2019/08/13/hOyqHZN34XeFPxD.png" alt></p>
+<p>不过我这次我用了其他的方法。</p>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下载repo源</span></span><br><span class="line">wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash">开始安装rpm</span></span><br><span class="line">sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash">安装mysql</span></span><br><span class="line">sudo yum install mysql-server</span><br><span class="line"><span class="meta">#</span><span class="bash">启动服务</span></span><br><span class="line">systemctl start mysqld.service</span><br><span class="line"><span class="meta">#</span><span class="bash">应该就可以正常启动了</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>开放3306、加上root密码就这些了。防火墙已经提前配置过所以就没管了。本地连远程试了一下一切正常。</p>
+<h2 id="测试远程连接"><a href="#测试远程连接" class="headerlink" title="测试远程连接"></a>测试远程连接</h2><p>结果是连不上。报113错误。mysql配置好了。也能ping通。telnet用3306端口测试报错了。</p>
+<p>好吧还是防火墙的问题。我在阿里云面板允许了所有类型的连接。但是虚拟机上还没有配置。我以为配置一次就行了。。。防火墙直接关掉</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld</span><br><span class="line">service firewalld stop</span><br></pre></td></tr></table></figure>
+<p>好啦！液！</p>
+<h1 id="安装Mysql-C-API"><a href="#安装Mysql-C-API" class="headerlink" title="安装Mysql_C_API"></a>安装Mysql_C_API</h1><p>紧张的时候到啦！意念烧香💆🏽‍♂️希望没有异常。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-devel</span><br></pre></td></tr></table></figure>
+<p>安装过程一路yyy没有遇到问题。</p>
+<p>编译一下试试</p>
+<p><img src="https://i.loli.net/2019/08/13/uQfHl1UJFoa3Eq6.png" alt></p>
+<p>睡觉！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/11/算法——二分查找/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -313,7 +457,9 @@
       
         
           
-            
+            <h1 id="算法——二分查找"><a href="#算法——二分查找" class="headerlink" title="算法——二分查找"></a>算法——二分查找</h1><p>也成为折半查找，是一种效率较高的查找方法。</p>
+<p>要求：线性表必须采用顺序储存结构，而且表中关键字有序排列。</p>
+
           
         
       
@@ -1508,134 +1654,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/27/C++—多态案例2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/27/C++—多态案例2/" itemprop="url">C++——多态案例2</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-27T01:58:59+08:00">
-                2019-07-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>案例描述：</p>
-<ul>
-<li>电脑的组件包括CPU（计算）、显卡（显示）、内存（存储）等</li>
-<li>将每个零件封装为抽象基类，并且提供不同厂商提供的不同零件，例如Intel和Lenovo</li>
-<li>创建电脑类提供让电脑工作的函数，并且调用每个零件工作的接口</li>
-<li>测试时组装三台不同的电脑进行工作</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//组件的基类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CPU</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">caculate</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Paint</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RAM</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">RW</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体的零件厂商</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Intel</span>:</span><span class="keyword">public</span> CPU</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">caculate</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Intel cpu is running."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AMD</span>:</span><span class="keyword">public</span> CPU</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">caculate</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Intel cpu is running."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AMD_Graph</span>:</span><span class="keyword">public</span> Graph</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Paint</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"AMD is painting"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SAMSUNG</span>:</span><span class="keyword">public</span> RAM</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">RW</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"RAM is reading"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Computer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Computer(CPU *cpu,Graph *graph,RAM *ram):m_cpu(cpu),m_graph(graph),m_ram(ram)&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"U r computer is building..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		m_cpu-&gt;caculate();</span><br><span class="line">		m_graph-&gt;Paint();</span><br><span class="line">		m_ram-&gt;RW();</span><br><span class="line">	&#125;;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	CPU *m_cpu;</span><br><span class="line">	Graph *m_graph;</span><br><span class="line">	RAM *m_ram;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Intel c_intel;</span><br><span class="line">	AMD_Graph c_amd;</span><br><span class="line">	SAMSUNG c_samsung;</span><br><span class="line">	<span class="function">Computer <span class="title">c</span><span class="params">(&amp;c_intel,&amp;c_amd,&amp;c_samsung)</span></span>;</span><br><span class="line">	c.work();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	test();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建零件的抽象基类，然后继承之后重写。创建computer类，在构造函数中初始化对象，然后输出就酱。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1686,7 +1704,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
