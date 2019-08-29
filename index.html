@@ -242,6 +242,260 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/28/面试题——01指针相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/28/面试题——01指针相关/" itemprop="url">面试题——01指针相关</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T21:49:43+08:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>目的是为了归纳梳理一下知识。</p>
+<h1 id="指针相关"><a href="#指针相关" class="headerlink" title="指针相关"></a>指针相关</h1><h2 id="指针和引用的区别"><a href="#指针和引用的区别" class="headerlink" title="指针和引用的区别"></a>指针和引用的区别</h2><p>引用本质上就是对象的另外一个名字。<code>int a =10,int &amp;b = a; b = 15</code>相当于<code>a = 15</code></p>
+<p>以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。</p>
+<ol>
+<li>指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。</li>
+<li>指针无需在定义的时候赋值。引用的时候必须要初始化。</li>
+<li>引用不可以改变指向。</li>
+<li>引用的大小是所指向变量的大小，指针的大小是指针本身的大小</li>
+<li>引用比指针更加的安全。因为不存在空引用。</li>
+</ol>
+<h2 id="常量指针和指针常量"><a href="#常量指针和指针常量" class="headerlink" title="常量指针和指针常量"></a>常量指针和指针常量</h2><p>可以这么记；常量的指针，指针是常量；</p>
+<p>常量指针指向内容不变，指针常量指向不变。</p>
+<p>左定值右定向：const在*左边就是定值</p>
+<p>其实最好的方法就是看代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const int * p; int const * p;</span><br><span class="line">// 上边两个，第一个修饰的是 int* p 第二个修饰的是 *p</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/22/Linux————常用指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/22/Linux————常用指令/" itemprop="url">Linux——常用指令</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T12:49:29+08:00">
+                2019-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="tty"><a href="#tty" class="headerlink" title="tty"></a>tty</h2><p>这是一个蛮混乱的东西。是TeleTYpe的缩写。目前我所知道的用处是可以给出当前终端设备的名称。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/21/自建blog——02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -361,7 +615,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/20/C——fprintf-sprintf-printf-fwrite的区别使用/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/20/C——fprintf-sprintf-printf的区别使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -380,7 +634,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/20/C——fprintf-sprintf-printf-fwrite的区别使用/" itemprop="url">C——fprintf,sprintf,printf,fwrite的区别使用</a></h2>
+                <a class="post-title-link" href="/2019/08/20/C——fprintf-sprintf-printf的区别使用/" itemprop="url">C——fprintf,sprintf,printf的区别使用</a></h2>
         
 
         <div class="post-meta">
@@ -577,7 +831,7 @@
 <p>本次开发选择的是在远程机器上在线开发。开发环境中除过需要安装并运行<code>mysql</code>之外,还需要额外安装<code>mysql</code>的devel包，也就是开发者工具包。可以使用<code>yum list | grep mysql</code>来进行针对性的安装。此前遇到了一些小小的问题。就是CentOS 7的默认数据库其实是MariaDB，我们需要提前先彻底删除掉MraiaDB，防止将来安装时出现的依赖性冲突等等。</p>
 <p>不同的数据库接口本质其实就是执行不同的SQL语句来完成特定的任务。</p>
 <p>对一些操作在此进行一些封装，为了减少将来的代码量。</p>
-<h2 id="需要用到的方法"><a href="#需要用到的方法" class="headerlink" title="需要用到的方法"></a>需要用到的方法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MYSQL * STDCALL <span class="title">mysql_init</span><span class="params">(MYSQL *mysql)</span></span>;</span><br><span class="line"><span class="comment">//用来初始化一个MYSQL* 类型的句柄</span></span><br><span class="line"></span><br><span class="line"><span class="function">MYSQL * STDCALL <span class="title">mysql_real_connect</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *host,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">char</span> *user, <span class="keyword">const</span> <span class="keyword">char</span> *passwd,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">char</span> *db,     <span class="comment">//数据库名</span></span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">unsigned</span> <span class="keyword">int</span> port,<span class="keyword">const</span> <span class="keyword">char</span> *unix_socket,    <span class="comment">//是否使用socket机制登录，NULL：否</span></span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">unsigned</span> <span class="keyword">long</span> clientflag)</span></span>;  <span class="comment">//连接标志，通常为0</span></span><br><span class="line"><span class="comment">//连接数据库，成功返回一个MYSQL* 类型的句柄</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> STDCALL <span class="title">mysql_query</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *q)</span></span>;</span><br><span class="line"><span class="comment">//执行数据库操作</span></span><br><span class="line"><span class="comment">//1.句柄 2.操作的指令</span></span><br><span class="line"><span class="comment">//成功返回0，失败返回非0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> STDCALL <span class="title">mysql_set_character_set</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *csname)</span></span>;</span><br><span class="line"><span class="comment">//设定字符集</span></span><br><span class="line"><span class="comment">//1.句柄 2. 指定的字符集（在这里设置成utf8）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> STDCALL <span class="title">mysql_close</span><span class="params">(MYSQL *sock)</span></span>;</span><br><span class="line"><span class="comment">//关闭数据库连接</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> *<span class="title">mysql_error</span><span class="params">(MYSQL *mysql)</span></span></span><br><span class="line"><span class="function"><span class="comment">//用来捕获错误信息</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">MYSQL_RES *<span class="title">mysql_store_result</span><span class="params">(MYSQL *mysql)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将查询到的结果储存到客户端MYSQL_RES* 结构中</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mysql_free_result</span><span class="params">(MYSQL_RES *result)</span></span></span><br><span class="line"><span class="function"><span class="comment">//释放在MYSQL_RES *result中的对象</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">mysql_real_escape_string</span><span class="params">(MYSQL *mysql, <span class="keyword">char</span> *to, <span class="keyword">const</span> <span class="keyword">char</span> *from, <span class="keyword">unsigned</span> <span class="keyword">long</span> length)</span></span></span><br><span class="line"><span class="function"><span class="comment">//在一定程度解决SQL注入的问题。官方的说明是创建用于SQL语句的合法SQL字符串</span></span></span><br><span class="line"><span class="function"><span class="comment">//to应该是from的2*from+1大小。length是from字节长</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">my_ulonglong <span class="title">mysql_num_rows</span><span class="params">(MYSQL_RES *result)</span>	</span></span><br><span class="line"><span class="function"><span class="comment">//返回结果中的行数</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">MYSQL_ROW <span class="title">mysql_fetch_row</span><span class="params">(MYSQL_RES *result)</span></span></span><br><span class="line"><span class="function"><span class="comment">//抓取一行的内容</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="需要用到的方法"><a href="#需要用到的方法" class="headerlink" title="需要用到的方法"></a>需要用到的方法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MYSQL * STDCALL <span class="title">mysql_init</span><span class="params">(MYSQL *mysql)</span></span>;</span><br><span class="line"><span class="comment">//用来初始化一个MYSQL* 类型的句柄</span></span><br><span class="line"></span><br><span class="line"><span class="function">MYSQL * STDCALL <span class="title">mysql_real_connect</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *host,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">char</span> *user, <span class="keyword">const</span> <span class="keyword">char</span> *passwd,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">char</span> *db,     <span class="comment">//数据库名</span></span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">unsigned</span> <span class="keyword">int</span> port,<span class="keyword">const</span> <span class="keyword">char</span> *unix_socket,    <span class="comment">//是否使用socket机制登录，NULL：否</span></span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">unsigned</span> <span class="keyword">long</span> clientflag)</span></span>;  <span class="comment">//连接标志，通常为0</span></span><br><span class="line"><span class="comment">//连接数据库，成功返回一个MYSQL* 类型的句柄</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> STDCALL <span class="title">mysql_query</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *q)</span></span>;</span><br><span class="line"><span class="comment">//执行数据库操作</span></span><br><span class="line"><span class="comment">//1.句柄 2.操作的指令</span></span><br><span class="line"><span class="comment">//成功返回0，失败返回非0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> STDCALL <span class="title">mysql_set_character_set</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *csname)</span></span>;</span><br><span class="line"><span class="comment">//设定字符集</span></span><br><span class="line"><span class="comment">//1.句柄 2. 指定的字符集（在这里设置成utf8）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> STDCALL <span class="title">mysql_close</span><span class="params">(MYSQL *sock)</span></span>;</span><br><span class="line"><span class="comment">//关闭数据库连接</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> *<span class="title">mysql_error</span><span class="params">(MYSQL *mysql)</span></span></span><br><span class="line"><span class="function"><span class="comment">//用来捕获错误信息</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">MYSQL_RES *<span class="title">mysql_store_result</span><span class="params">(MYSQL *mysql)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将查询到的结果储存到客户端MYSQL_RES* 结构中</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mysql_free_result</span><span class="params">(MYSQL_RES *result)</span></span></span><br><span class="line"><span class="function"><span class="comment">//释放在MYSQL_RES *result中的对象</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">mysql_real_escape_string</span><span class="params">(MYSQL *mysql, <span class="keyword">char</span> *to, <span class="keyword">const</span> <span class="keyword">char</span> *from, <span class="keyword">unsigned</span> <span class="keyword">long</span> length)</span></span></span><br><span class="line"><span class="function"><span class="comment">//在一定程度解决SQL注入的问题。官方的说明是创建用于SQL语句的合法SQL字符串</span></span></span><br><span class="line"><span class="function"><span class="comment">//to应该是from的2*from+1大小。length是from字节长</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">my_ulonglong <span class="title">mysql_num_rows</span><span class="params">(MYSQL_RES *result)</span>	</span></span><br><span class="line"><span class="function"><span class="comment">//返回结果中的行数</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">MYSQL_ROW <span class="title">mysql_fetch_row</span><span class="params">(MYSQL_RES *result)</span></span></span><br><span class="line"><span class="function"><span class="comment">//抓取一行的内容</span></span></span><br><span class="line"><span class="function"><span class="comment">//抓取是类似剪切的操作而不是复制结果</span></span></span><br></pre></td></tr></table></figure>
 <h2 id="Restful风格API设计"><a href="#Restful风格API设计" class="headerlink" title="Restful风格API设计"></a>Restful风格API设计</h2><ul>
 <li>使用不同的HTTP方法来表示不同的语义<ul>
 <li>使用POST表示新增</li>
@@ -942,7 +1196,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/11/Linux——进程/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/11/Linux——进程、线程、协程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -961,7 +1215,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/11/Linux——进程/" itemprop="url">Linux——进程&线程&协程</a></h2>
+                <a class="post-title-link" href="/2019/08/11/Linux——进程、线程、协程/" itemprop="url">Linux——进程&线程&协程</a></h2>
         
 
         <div class="post-meta">
@@ -1302,286 +1556,7 @@
 <h2 id="使程序在后台运行"><a href="#使程序在后台运行" class="headerlink" title="使程序在后台运行"></a>使程序在后台运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#使程序在后台运行，但是退出终端的时候程序还是会退出</span><br><span class="line">./test</span><br><span class="line">#使程序常驻后台运行</span><br><span class="line">nohup ./test &amp;</span><br><span class="line">#如果输出一个appending  output to nohup.out说明成功</span><br></pre></td></tr></table></figure>
 <h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip filename</span><br><span class="line">unzip filename</span><br></pre></td></tr></table></figure>
 <h2 id="快捷方式（符号链接）"><a href="#快捷方式（符号链接）" class="headerlink" title="快捷方式（符号链接）"></a>快捷方式（符号链接）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#这么叫其实不是很严谨，但是这样比较容易理解</span><br><span class="line">ls -s source target</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/02/STL——string/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/02/STL——string/" itemprop="url">STL——string</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T16:18:25+08:00">
-                2019-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="string基本概念"><a href="#string基本概念" class="headerlink" title="string基本概念"></a>string基本概念</h2><h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><ul>
-<li>string是c++风格的字符串，本质上是一个类</li>
-</ul>
-<h2 id="string和char-的区别"><a href="#string和char-的区别" class="headerlink" title="string和char*的区别"></a>string和char*的区别</h2><ul>
-<li>char*是一个指针</li>
-<li>string是一个类，类的内部封装了char*，管理这个字符串的是一个char*的容器</li>
-</ul>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>string类的内部封装了很多的成员方法，比如：</p>
-<ul>
-<li>查找find</li>
-<li>拷贝copy</li>
-<li>删除delete</li>
-<li>替换replace</li>
-<li>插入insert</li>
-</ul>
-<p>string管理char*所分配的内存，不用担心复制越界和取值越界等等。类内部会自动进行</p>
-<h1 id="string构造函数"><a href="#string构造函数" class="headerlink" title="string构造函数"></a>string构造函数</h1><p>构造函数原型：</p>
-<p><code>string();</code>                                        //创建一个空的字符串，比如string str</p>
-<p><code>string(const char* s);</code>             //使用字符串s初始化</p>
-<p><code>string(const string&amp; str);</code>     //使用一个string对象初始化另外一个string对象</p>
-<p><code>string(int n,char c);</code>               //使用n个字符c初始化<br>举例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一种构造方法</span></span><br><span class="line"><span class="built_in">string</span> s1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种构造方法</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* str=<span class="string">"s2"</span>;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s2</span><span class="params">(str)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第3种构造方法</span></span><br><span class="line"><span class="built_in">string</span> s3=(s2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第4种构造方法</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s4</span><span class="params">(<span class="number">10</span>,<span class="string">'c'</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<h1 id="string赋值操作"><a href="#string赋值操作" class="headerlink" title="string赋值操作"></a>string赋值操作</h1><p><strong>赋值函数原型</strong></p>
-<p><code>string&amp; operator=(const char*);</code>                                //char*类型字符串，赋值给当前的字符串</p>
-<p><code>string&amp; operator=(const string &amp;s);</code>                //把字符串s赋值给当前的字符串</p>
-<p><code>string&amp; operator=(char c);</code>                                    //字符赋给当前的字符串</p>
-<p><code>string&amp; assign(const char *s);</code>                        //把字符串s赋给当前的字符串</p>
-<p><code>string&amp; assign(const char *s,int n);</code>            //把字符串s的前n个字符赋给当前的字符串</p>
-<p><code>string&amp; assign(const string &amp;s);</code>                    //把字符串s赋给当前字符串</p>
-<p><code>string&amp; assign(int n,char c);</code>                        //用n个字符c赋给当前字串</p>
-<p><strong>实例</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/01/STL——迭代器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/01/STL——迭代器/" itemprop="url">STL——容器&算法&迭代器</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-01T19:43:08+08:00">
-                2019-08-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="初识"><a href="#初识" class="headerlink" title="初识"></a>初识</h1><p>最常用的容器肯定是vector了。直接上实例，尝试向容器中插入数据并遍历这个容器。</p>
-<p>容器：<code>vector</code>(就当是数组就行)</p>
-<p>算法：<code>for_each</code>（遍历）</p>
-<p>迭代器：<code>vector&lt;int&gt;::iterator</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;	//标准算法头文件</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;val&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//创建了一个vector的数组</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="comment">// 向容器中插入数据</span></span><br><span class="line">	v.push_back(<span class="number">10</span>);</span><br><span class="line">	v.push_back(<span class="number">20</span>);</span><br><span class="line">	v.push_back(<span class="number">30</span>);</span><br><span class="line">	v.push_back(<span class="number">40</span>);</span><br><span class="line">	<span class="comment">// 通过迭代器来访问容器中的数据</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator itBegain=v.begin();<span class="comment">//起始迭代器，指向容器中的第一个元素</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator itEnd=v.end();<span class="comment">//结束迭代器，指向容器中最后一个元素的下一个位置</span></span><br><span class="line">	<span class="comment">// 第一种遍历方式</span></span><br><span class="line">	<span class="keyword">while</span>(itBegain!=itEnd)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;*itBegain&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		itBegain++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 第二种遍历方式</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it=v.begin();it!=itEnd;it++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;*it&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 第三种遍历方式</span></span><br><span class="line">	for_each(v.begin(),v.end(),Print);</span><br><span class="line">	<span class="comment">// Print得是全局函数，这里用到了回调函数</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>遍历方式有三种，第三种最Fancy，不过algorithm库记得一定要引用。这里用到了回调函数。源码简单看了一下，底层还是用for循环来实现的。还有那个Print函数要注意一下传参的问题。类型要和v的类型匹配。</p>
-<h2 id="vector中存放自定义数据类型"><a href="#vector中存放自定义数据类型" class="headerlink" title="vector中存放自定义数据类型"></a>vector中存放自定义数据类型</h2><p>自定义一个数据类型，then打印</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Person(<span class="built_in">string</span> name,<span class="keyword">int</span> age):m_name(name),m_age(age)&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Name:"</span>&lt;&lt;m_name&lt;&lt;<span class="string">"    Age:"</span>&lt;&lt;m_age&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> m_name;</span><br><span class="line">	<span class="keyword">int</span> m_age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_Val</span><span class="params">(Person p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;p.m_age&lt;&lt;p.m_name&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Person <span class="title">p1</span><span class="params">(<span class="string">"aaa"</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">	<span class="function">Person <span class="title">p2</span><span class="params">(<span class="string">"bbb"</span>,<span class="number">2</span>)</span></span>;</span><br><span class="line">	<span class="function">Person <span class="title">p3</span><span class="params">(<span class="string">"ccc"</span>,<span class="number">3</span>)</span></span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;Person&gt; v;</span><br><span class="line">	v.push_back(p1);</span><br><span class="line">	v.push_back(p2);</span><br><span class="line">	v.push_back(p3);</span><br><span class="line">	<span class="comment">// 第一种遍历方式</span></span><br><span class="line">	for_each(v.begin(),v.end(),Print_Val);</span><br><span class="line">	<span class="comment">// 第二种遍历方式</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;Person&gt;::iterator it=v.begin();it!=v.end();it++)</span><br><span class="line">	&#123;</span><br><span class="line">		(*it).Print();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 第三种遍历方式</span></span><br><span class="line">	<span class="comment">// </span></span><br><span class="line">	<span class="built_in">vector</span>&lt;Person&gt;::iterator it=v.begin();</span><br><span class="line">	<span class="keyword">while</span>(it!=v.end())</span><br><span class="line">	&#123;</span><br><span class="line">		it-&gt;Print();</span><br><span class="line">		it++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 我真无聊</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="vector容器嵌套容器"><a href="#vector容器嵌套容器" class="headerlink" title="vector容器嵌套容器"></a>vector容器嵌套容器</h2><p>vector要是看做数组，那嵌套着容器的容器就是二维数组了</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"Val is "</span>&lt;&lt;val&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_Vector</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; m_v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	for_each(m_v.begin(),m_v.end(),Print);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 创建一个二维的容器</span></span><br><span class="line">	<span class="built_in">vector</span>&lt; <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 创建四个小容器</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v2;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v3;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v4;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 向小的容器中插入数据</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		v1.push_back(i);</span><br><span class="line">		v2.push_back(i*<span class="number">10</span>);</span><br><span class="line">		v3.push_back(i*<span class="number">100</span>);</span><br><span class="line">		v4.push_back(i*<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 把小容器插入到大的容器中</span></span><br><span class="line">	v.push_back(v1);</span><br><span class="line">	v.push_back(v2);</span><br><span class="line">	v.push_back(v3);</span><br><span class="line">	v.push_back(v4);</span><br><span class="line">	<span class="comment">// 第一种遍历方式</span></span><br><span class="line">	<span class="comment">// for_each(v.begin(),v.end(),Print_Vector);</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 第二种遍历方式</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;::iterator it=v.begin();it!=v.end();it++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it2=(*it).begin();it2!=(*it).end();it2++)</span><br><span class="line">		&#123;	</span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;*it2&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不难，挺好理解的。</p>
+<h2 id="tty"><a href="#tty" class="headerlink" title="tty"></a>tty</h2><p>这是一个蛮混乱的东西。是TeleTYpe的缩写。目前我所知道的用处是可以给出当前终端设备的名称。</p>
 
           
         
@@ -1621,7 +1596,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1667,7 +1642,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1689,7 +1664,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -245,6 +245,291 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/27/Qt——03信号的重载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/27/Qt——03信号的重载/" itemprop="url">Qt——03信号的重载</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-27T21:19:12+08:00">
+                2019-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="信号重载的作用："><a href="#信号重载的作用：" class="headerlink" title="信号重载的作用："></a>信号重载的作用：</h2><p>不知道，还没想明白。反正就是我们可以通过同一个信号类发送不同类型/种类的函数来实现函数的重载。这样有什么意义呢？我也还没想明白。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ol>
+<li>在头文件中定义两个信号，信号名相同但是参数不同</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">signals:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Sig_ShowMainWindow</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Sig_ShowMainWindow</span><span class="params">(<span class="keyword">int</span>,QString)</span></span>;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在cpp文件中</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> SubWidget::SendSlot()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">emit <span class="title">Sig_ShowMainWindow</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">emit <span class="title">Sig_ShowMainWindow</span><span class="params">(<span class="number">250</span>,<span class="string">"send from subwidget"</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在connect函数中分别接收这两个信号</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">connect(&amp;sw,&amp;SubWidget::Sig_ShowMainWindow,<span class="keyword">this</span>,&amp;MainWidget::show);</span><br><span class="line">connect(&amp;sw,&amp;SubWidget::Sig_ShowMainWindow,<span class="keyword">this</span>,&amp;MainWidget::DealMsg);</span><br></pre></td></tr></table></figure>
+<p>​            之后我们定义一个函数尝试打印出传递过来的消息。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> MainWidget::DealMsg(<span class="keyword">int</span> a,QString c)</span><br><span class="line">&#123;</span><br><span class="line">    qDebug()&lt;&lt;a&lt;&lt;<span class="string">" "</span>&lt;&lt;c&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​            但是在这个时候，编译会出现如下错误：</p>
+<p><img src="https://i.loli.net/2019/06/27/5d14c8f557e6e96169.png" alt></p>
+<p>刚开始的时候看到这个错误很迷，明明语法什么的都没有问题。但是connect函数还是会报错”no matching member for call to ‘connect’”,没有匹配成员函数的错误。查了资料之后才知道。在connect中Sig_ShowMainWindow在接收子窗口传过来的信号的时候，会产生二义性。也就是说connnect不知道在收到信号之后，该匹配哪个处理函数。</p>
+<ol start="4">
+<li>函数指针</li>
+</ol>
+<p>函数指针用来解决信号重载时候的匹配问题。有些忘记了，所以稍微复习一下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span>)</span></span>&#123;&#125;</span><br><span class="line"><span class="keyword">void</span> (*p)(<span class="keyword">int</span>)=fun;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>子窗口信号重载的实现</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (SubWidget::*show1)() = &amp;SubWidget::Sig_ShowMainWindow;</span><br><span class="line"><span class="keyword">void</span> (SubWidget::*show2)(<span class="keyword">int</span>,QString) = &amp;SubWidget::Sig_ShowMainWindow;</span><br></pre></td></tr></table></figure>
+<p> 这样，一次完整的重载就实现了。 </p>
+<blockquote>
+<p>Qt4的语法因为易于出错，且没有Qt5灵活。故不打算再做探究。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/27/Qt——02日常的注意事项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/27/Qt——02日常的注意事项/" itemprop="url">Qt——02日常的注意事项</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-27T14:16:07+08:00">
+                2019-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="定义窗口大小"><a href="#定义窗口大小" class="headerlink" title="定义窗口大小"></a>定义窗口大小</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resize(<span class="number">300</span>,<span class="number">200</span>);</span><br></pre></td></tr></table></figure>
+<p>窗口显示在未特别指定的时候，显示可能会出现异常，文字显示不全，button显示不全等等问题。所以在有时候需要特别指定一下窗口的大小，以保证窗口及内容的正常显示。</p>
+<h2 id="this指针问题"><a href="#this指针问题" class="headerlink" title="this指针问题"></a>this指针问题</h2><p>近来的编码中频频遇到问题。好多的问题解决之后发现，都是因为没有灵活的运用this指针。比如：</p>
+<p>问题1：</p>
+<p><img src="https://i.loli.net/2019/06/27/5d14612fe8e6767805.png" alt></p>
+<p>在窗口中定义的子按钮，需要指定父对象的时候，因为主窗口mw定义main.cpp中而不是当前的mainwidget.cpp中。所以使用mw来指定父对象的时候程序就会报错。这个时候，如果使用this来指定的话，问题就能很轻松的解决。</p>
+<p>问题2：</p>
+<p><img src="https://i.loli.net/2019/06/27/5d14621bbacab29204.png" alt></p>
+<p>在书写响应函数ChangeWindow()的时候，需要执行两个操作——隐藏主窗口和显示子窗口。在这个时候同问题1，使用mw.hide()的时候，程序也会报错。这个时候如果使用this-&gt;hide();问题也就能很轻松的解决。</p>
+<p>记一下。倒不是什么大问题，就是老卡在this过不去，所以就写一下强化一下记忆。</p>
+<h2 id="pro-user问题"><a href="#pro-user问题" class="headerlink" title=".pro.user问题"></a>.pro.user问题</h2><p>先看一眼一个项目的文件结构</p>
+<p><img src="https://i.loli.net/2019/06/27/5d147053c0e2026395.png" alt></p>
+<p>除过头文件和源文件之外，还有一个.pro文件和.pro.user文件。</p>
+<p>我们有时在将整个项目直接打包发给别人之后，别的用户打开的时候会出现无法打开的情况出现。</p>
+<p>究其原因，就是因为这个.pro.user文件。因为这个文件保存着，当前用户的信息，包括工程的路径，所用的编译器，构建的工具链，生成目录，打开工程的qt-creator版本等等。of course直接迁移了项目的时候就不能用。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>删掉就行，这样就会重新生成新的.pro.user文件而不是重新加载。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/26/日常充电——Visual Studio Code的一些配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -618,7 +903,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% meting <span class="string">"2839900843"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 
-    <div id="aplayer-IUxvBluo" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+    <div id="aplayer-cUVfRLKr" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
 <p>这里的数字”2839900843”指的是你的歌单id号，可以通过在web端打开你的以后的音乐平台查看到:</p>
 <p><img src="https://i.loli.net/2019/06/12/5d00f383f11d932552.png" alt></p>
 <h2 id="4-个性化配置"><a href="#4-个性化配置" class="headerlink" title="4.个性化配置"></a>4.个性化配置</h2><p>播放器的样式并非一成不变。我们可以通过修改上述的引入语句来进行个性化配置。举例：</p>
@@ -1445,184 +1730,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/05/25/Hexo——安装与文件目录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/25/Hexo——安装与文件目录/" itemprop="url">Hexo——安装与文件目录</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:23:00+08:00">
-                2019-05-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Hexo入门-amp-基础配置"><a href="#Hexo入门-amp-基础配置" class="headerlink" title="Hexo入门&amp;基础配置"></a>Hexo入门&amp;基础配置</h1><h2 id="什么是Hexo？"><a href="#什么是Hexo？" class="headerlink" title="什么是Hexo？"></a>什么是Hexo？</h2><p>Hexo是一个基于Node.js的静态网页生成器，也可以用作产品展示,书写帮助文档等等。。使用Markdown解析文章。依赖少&amp;易于安装&amp;中文友好。具体可以在<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo官网</a>查询与了解更多信息。</p>
-<h2 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h2><p> 安装之前，电脑需要安装以下程序：</p>
-<ul>
-<li>Node.js(6.9版本以上)</li>
-<li>Git</li>
-</ul>
-<p>如果你的电脑上还没有安装上述软件，请移步<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo官网</a>的教程以完成Node.js和Git的安装。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Hexo的安装十分简单，使用npm即可在很短的时间内完成安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<h2 id="网站建设"><a href="#网站建设" class="headerlink" title="网站建设"></a>网站建设</h2><p>Hexo安装完成后，执行以下的指令。Hexo将会在指定目录生成网站建设所需要的文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<p>初始化完成之后，所指定文件夹的中的文件如下：</p>
-<ul>
-<li>_config.yml：网站的配置信息</li>
-<li>package.json：应用程序的信息</li>
-<li>scaffolds：模板文件夹</li>
-<li>source：资源文件夹</li>
-<li>themes：主题文件夹,Hexo会根据主题来生成静态页面</li>
-</ul>
-<h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>_config.xml是Hexo的配置文件。在这里，我们可以修改所建设网站的大多数设定。在_config.xml中，主要有以下几部分的重要设置项：</p>
-<h4 id="Site"><a href="#Site" class="headerlink" title="Site"></a>Site</h4><p>title：网站的标题</p>
-<p>subtitle：网站的副标题</p>
-<p>description：网站描述(此项主要用于SEO)</p>
-<p>author：作者的名字</p>
-<p>language：网站使用的语言</p>
-<p>timezone：网站的时区，默认使用电脑的时区</p>
-<h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>url：我的网址</p>
-<p>root：网站的根目录</p>
-<p>permalink：文章的永久链接(默认格式是:year/:month/:day/:title/)</p>
-<p>permalink_defaults：永久链接中各部分的默认值</p>
-<h4 id="Directory"><a href="#Directory" class="headerlink" title="Directory"></a>Directory</h4><p>source_id：资源文件夹，此文件夹用来存放内容</p>
-<p>public_dir：公共文件夹，用于存放生成站点的文件</p>
-<p>………………..</p>
-<p>很懒不想写了。。。。此部分的值在一般情况下不需要修改，就酱！</p>
-<h4 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h4><p>new_post_name：新文章的文件名称</p>
-<p>default_layout：预设的布局</p>
-<p>auto_spacing：在中文和英文之间加入空格</p>
-<p>titlecase：把标题转换为title case</p>
-<p>external_link：在新标签中打开链接</p>
-<p>filename_case：把文件名称转换成小写或者是大写</p>
-<p>render_drafts：显示草稿</p>
-<p>post_asset_folder：启动Asset文件夹</p>
-<p>future：显示未来的文章</p>
-<p>默认情况下，Hexo生成的超链接都是绝对地址。也就是说，无论用什么域名来访问这个站点，都没有关系。这在进行反向代理的时候就会用到。</p>
-<h4 id="Category-amp-Tag"><a href="#Category-amp-Tag" class="headerlink" title="Category &amp; Tag"></a>Category &amp; Tag</h4><p>default&amp;category：默认分类</p>
-<p>category_map：分类别名</p>
-<p>tag_map：标签别名</p>
-<h3 id="Date-Time-format"><a href="#Date-Time-format" class="headerlink" title="Date/Time format"></a>Date/Time format</h3><p>Hexo使用Moment.js来解析和显示时间</p>
-<p>date_format：日期格式(YYYY-MM-DD)</p>
-<p>time_format：时间格式</p>
-<h4 id="Pagination"><a href="#Pagination" class="headerlink" title="Pagination"></a>Pagination</h4><p>per_page：每页显示的文章数量(0表示关闭分页，默认值是10)</p>
-<p>pagination_dir：分页目录</p>
-<h4 id="Extensions"><a href="#Extensions" class="headerlink" title="Extensions"></a>Extensions</h4><p>theme：当前的主题名称(值为false的时候禁用主题)</p>
-<p>deploy：部署部分的设置</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1668,7 +1780,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1690,7 +1802,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
