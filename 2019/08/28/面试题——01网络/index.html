@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="目的是为了归纳梳理一下知识。 网络GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于H">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-03T07:00:47.940Z">
+<meta property="og:updated_time" content="2019-09-05T09:22:32.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题——01 网络">
 <meta name="twitter:description" content="目的是为了归纳梳理一下知识。 网络GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于H">
@@ -339,10 +339,14 @@
 <li>速度。TCP速度比较慢，因为需要创建连接来保证消息的可靠性和有序性，UDP更加适合做对速度比较敏感的应用，比如多人在线游戏，电视广播，还有在线视频媒体等</li>
 <li>重量级。TCP为重量级，UDP是轻量级。体现在元数据的头大小，TCP是20字节，UDP是8字节。</li>
 </ul>
-<p>使用场景：</p>
+<p>上层协议：</p>
 <ul>
 <li>使用TCP协议的上层协议：Telnet、FTP、SMTP、HTTP、HTTPS</li>
 <li>使用UDP的上层协议：DNS</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>UDP：需要用到NAT穿透的时候</li>
 </ul>
 <p>本文参考：</p>
 <ul>
