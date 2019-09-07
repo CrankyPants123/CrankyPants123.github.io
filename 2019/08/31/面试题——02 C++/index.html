@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;amp;b = a; b = 15相当于a = 15 以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。  指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。 指针无需在定义的时候赋值。引用的时候必须要初始化。 引用不可以改变指向。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-31T14:14:07.632Z">
+<meta property="og:updated_time" content="2019-09-07T04:08:01.929Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题——02 C++">
 <meta name="twitter:description" content="指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;amp;b = a; b = 15相当于a = 15 以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。  指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。 指针无需在定义的时候赋值。引用的时候必须要初始化。 引用不可以改变指向。">
@@ -330,7 +330,25 @@
 <li>operator new/delete可以进行重载。</li>
 <li>返回类型的安全性</li>
 </ol>
-<h1 id="未分类"><a href="#未分类" class="headerlink" title="未分类"></a>未分类</h1><h2 id="构造函数和析构函数可以是虚函数吗"><a href="#构造函数和析构函数可以是虚函数吗" class="headerlink" title="构造函数和析构函数可以是虚函数吗"></a>构造函数和析构函数可以是虚函数吗</h2><p>结论：构造函数不可以是虚函数，但是析构函数可以是</p>
+<h1 id="General"><a href="#General" class="headerlink" title="General"></a>General</h1><h2 id="构造函数和析构函数可以是虚函数吗"><a href="#构造函数和析构函数可以是虚函数吗" class="headerlink" title="构造函数和析构函数可以是虚函数吗"></a>构造函数和析构函数可以是虚函数吗</h2><p>结论：构造函数不可以是虚函数，但是析构函数可以是</p>
+<h2 id="C-11新特性"><a href="#C-11新特性" class="headerlink" title="C++11新特性"></a>C++11新特性</h2><ul>
+<li>基于范围的for循环</li>
+<li>自动类型推断auto</li>
+<li>匿名函数Lambda表达式</li>
+<li>后置返回类型</li>
+<li>显示重写</li>
+<li>空指针的常量nullptr</li>
+<li>long long int类型</li>
+<li>模板的别名</li>
+<li>允许sizeof运算符可以在类型成员上使用，无需明确对象</li>
+<li>线程支持</li>
+<li>元组类型</li>
+<li>新增了正则表达式库</li>
+</ul>
+<p>本文参考：</p>
+<ul>
+<li>《<a href="https://blog.csdn.net/FX677588/article/details/70157088" target="_blank" rel="noopener">十大必掌握C++11新特性</a>》</li>
+</ul>
 
       
     </div>
@@ -468,7 +486,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +601,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#指针"><span class="nav-number">1.</span> <span class="nav-text">指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指针和引用的区别"><span class="nav-number">1.1.</span> <span class="nav-text">指针和引用的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常量指针和指针常量"><span class="nav-number">1.2.</span> <span class="nav-text">常量指针和指针常量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">2.</span> <span class="nav-text">内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new和malloc的区别"><span class="nav-number">2.1.</span> <span class="nav-text">new和malloc的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#未分类"><span class="nav-number">3.</span> <span class="nav-text">未分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数和析构函数可以是虚函数吗"><span class="nav-number">3.1.</span> <span class="nav-text">构造函数和析构函数可以是虚函数吗</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#指针"><span class="nav-number">1.</span> <span class="nav-text">指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指针和引用的区别"><span class="nav-number">1.1.</span> <span class="nav-text">指针和引用的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常量指针和指针常量"><span class="nav-number">1.2.</span> <span class="nav-text">常量指针和指针常量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">2.</span> <span class="nav-text">内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new和malloc的区别"><span class="nav-number">2.1.</span> <span class="nav-text">new和malloc的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#General"><span class="nav-number">3.</span> <span class="nav-text">General</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数和析构函数可以是虚函数吗"><span class="nav-number">3.1.</span> <span class="nav-text">构造函数和析构函数可以是虚函数吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-11新特性"><span class="nav-number">3.2.</span> <span class="nav-text">C++11新特性</span></a></li></ol></li></ol></div>
             
 
           </div>

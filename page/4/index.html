@@ -242,6 +242,300 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/14/网络——DNS处理顺序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/14/网络——DNS处理顺序/" itemprop="url">网络——DNS处理顺序</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-14T18:00:59+08:00">
+                2019-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>引自Wikipedia:</p>
+<p>DNS(Domain Name System)。是互联网的一项服务。他作为将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网。</p>
+</blockquote>
+<h1 id="DNS处理顺序"><a href="#DNS处理顺序" class="headerlink" title="DNS处理顺序"></a>DNS处理顺序</h1><p>以chrome为例，整理一下DNS的完整处理顺序。</p>
+<h2 id="1-Chrome搜索自身的DNS缓存"><a href="#1-Chrome搜索自身的DNS缓存" class="headerlink" title="1. Chrome搜索自身的DNS缓存"></a>1. Chrome搜索自身的DNS缓存</h2><p>在浏览器的地址栏，我们输入了<code>www.baidu.com</code>，按下回车键，浏览器对于我们URL的解析就开始了。假如在我们最近曾经访问过<code>www.baidu.com</code>，那么浏览器就会有关于<code>www.baidu.com</code>的DNS缓存。如果查找到了这项，那么解析过程就结束了。直接使用IP进行访问。</p>
+<p>但是这个缓存是有诸多限制的。比如：大小限制，缓存的时间限制。通常情况下，这些情况由<a href="https://baike.baidu.com/item/TTL/130248" target="_blank" rel="noopener">TTL</a>来决定。Chrome对每个域名都会默认缓存60S</p>
+<blockquote>
+<p>在有的情况下，可能会存在一个域名解析出了多个IP的情况。在这种情况下，Chrome会优先向第一个IP发起HTTP请求。如果不通，再向后面的IP发起HTTP请求</p>
+</blockquote>
+<h2 id="2-搜索操作系统自身的DNS缓存"><a href="#2-搜索操作系统自身的DNS缓存" class="headerlink" title="2.搜索操作系统自身的DNS缓存"></a>2.搜索操作系统自身的DNS缓存</h2><p>如果在用户的浏览器中没有找到这个域名对应的缓存，那么浏览器就会在操作系统中查找是否有这个域名对应的解析结果。操作系统DNS缓存的位置在内存中。一关机就没了。</p>
+<h2 id="3-读取本地的HOSTS文件"><a href="#3-读取本地的HOSTS文件" class="headerlink" title="3.读取本地的HOSTS文件"></a>3.读取本地的HOSTS文件</h2><blockquote>
+<p>hosts——主机名静态查询表</p>
+</blockquote>
+<p>hosts在windows、OS X、Linux中都是没有后缀名的。hosts文件在windows中的位置在<code>C:\Windows\System32\drivers\etc\hosts</code>下，OS X在<code>/etc/hosts/</code>，Linux也在<code>/etc/hosts</code>下。(不同发行版本的Linux中，可能会有所不同)。hosts本质上来说就是一张表，上边记录了一个域名和一个或者多个IP对应的关系。</p>
+<blockquote>
+<p> 我们可以通过手动修改hosts文件的方式来修改某个域名的解析地址。在GFW建成早期，在大陆访问google的时候，主要就是通过修改hosts文件。</p>
+<p>不过hosts文件修改后不会立即生效。具体的原因可以参见博文：</p>
+<p><a href="https://www.cnblogs.com/hustskyking/p/hosts-modify.html" target="_blank" rel="noopener">修改HOSTS为何不生效，是DNS缓存？</a></p>
+</blockquote>
+<p>在OS X环境下，hosts文件如下：</p>
+<p><img src="https://i.loli.net/2019/07/14/5d2adce4be5c565538.png" alt></p>
+<h2 id="4-在LDNS服务器中查找"><a href="#4-在LDNS服务器中查找" class="headerlink" title="4. 在LDNS服务器中查找"></a>4. 在LDNS服务器中查找</h2><p>在浏览器的DNS、操作系统自身的DNS缓存还有本地的HOSTS文件中都没有找到的情况下。操作系统就会把这个域名发送给LDNS（L是Local的意思），也就是我们所设置的DNS服务器。如果在LDNS上成功查询到了这个域名对应的IP，那么这次的解析也就到此结束，返回IP值给所请求的用户并标记为非权威服务器的应答。假如我们使用的是学校的校园网，那么我们的DNS服务器肯定在校内，家里的则一般是ISP（移动、联通等等）提供的DNS解析服务。</p>
+<p>Linux环境下可以使用指令<code>cat /etc/resolv.conf</code>来查看DNS服务器的地址，Window使用<code>ipconfig</code>查看，在OS X上可以使用<code>nslookup www.baidu.com</code>指令来查看自己的DNS服务器地址。</p>
+<p><img src="https://i.loli.net/2019/07/14/5d2af637e1b0921322.png" alt></p>
+<blockquote>
+<p>通常意义上的DNS劫持一般就发生在这个环节，攻击者利用其他攻击手段，篡改了某个域名的解析结果，是的指向改域名的IP变成了另外一个IP。实现非法牟利或者达到其他非法目的 。</p>
+</blockquote>
+<h2 id="5-使用根域名服务器解析"><a href="#5-使用根域名服务器解析" class="headerlink" title="5. 使用根域名服务器解析"></a>5. 使用根域名服务器解析</h2><p>LDNS若是还没有命中，那么LDNS就会向Root Server域名服务器请求解析。精力有限在此不详细对根域名服务器的解析过程做更加深入的研究。根域名进行解析之后会将结果返回给LDNS，LDNS接受返回的IP值和TTL并返回给用户。用户根据TTL将解析结构存在本地的系统缓存中。域名解析结束。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/11/日常充电——MarkDown指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/11/日常充电——MarkDown指南/" itemprop="url">日常充电——MarkDown指南</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-11T17:29:06+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="MarkDown指南"><a href="#MarkDown指南" class="headerlink" title="MarkDown指南"></a>MarkDown指南</h1><p>一直用Typeora写markdown。快捷键用多了反倒是觉得不方便了。有的时候要为缩进、引用等问题调整好一会。不如不用快捷键。还有有的时候快捷键实在是复杂记不下来。为了解决这些问题，打算学点基础的markdown的语法。最终的目的还是为了效率。</p>
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">#### 五级标题</span><br></pre></td></tr></table></figure>
+<p>标题就不做效果展示了影响排版。</p>
+<h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线~~"></a>删除线~~</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~~text~~</span><br></pre></td></tr></table></figure>
+<p>​                <del>text</del></p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 有序列表</span><br><span class="line">2. 有序列表2</span><br><span class="line">- 无序列表</span><br><span class="line">- 无序列表2</span><br><span class="line">- [ ] 任务列表1</span><br><span class="line">- [ ] 任务列表2</span><br></pre></td></tr></table></figure>
+<ol>
+<li>有序列表</li>
+<li>有序列表2</li>
+</ol>
+<ul>
+<li>无序列表</li>
+<li>无序列表2</li>
+<li style="list-style: none"><input type="checkbox"> 任务列表1</li>
+<li style="list-style: none"><input type="checkbox"> 任务列表2</li>
+</ul>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; 一级引用</span><br><span class="line">&gt; </span><br><span class="line">&gt; &gt; 二级引用</span><br><span class="line">&gt;</span><br><span class="line">&gt;    哎我又回到了一级引用</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一级引用</p>
+<blockquote>
+<p>二级引用</p>
+</blockquote>
+<p>   哎我又回到了一级引用</p>
+</blockquote>
+<p>引用区块内也可以使用markdown的语法</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是在`句中代码`的效果演示</span><br></pre></td></tr></table></figure>
+<p>这是在<code>句中代码</code>的效果演示</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/10/Hexo——在Hexo使用草稿/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1308,275 +1602,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/02/LeetCode——002两数相加/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/LeetCode——002两数相加/" itemprop="url">LeetCode——002两数相加</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T22:49:52+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这是一个中等难度题。let me try 1 try！</p>
-<h1 id="LeetCode——002两数相加"><a href="#LeetCode——002两数相加" class="headerlink" title="LeetCode——002两数相加"></a>LeetCode——002两数相加</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="https://i.loli.net/2019/07/02/5d1b70af5efee23260.png" alt></p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><blockquote>
-<p>题中提到了可以假设除过数字0之外，也就是说我们可以假设所有的数字都不是以0开头。</p>
-</blockquote>
-<p>大略看一下这是一个用单链表来实现按位加的功能，而且不需要逆置。需要注意的地方是因为链表是逆置的，所以发生进位的时候是要向单链表的下一位进位。除此之外貌似其他的都不难。</p>
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>开始实际实现，发现了其中还涉及到了一些知识，比如：链表实时空间的开辟、next指针的问题、加法逻辑的判断等等。虽然之前都会，但是现在都有些生疏了，而且是之前的问题都被整合到了一块。要解决这个问题，需要好几部分的知识。忽然之间就懵了，不知道该怎么开始。</p>
-<p>学到了一个little tip。不知道怎么形容。看一下代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Definition <span class="keyword">for</span> singly-linked <span class="built_in">list</span>.</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在一个Node中加上了构造函数，这样可以直接使用初始化列表进行初始化。直接传参，初始化下一个节点的值,还直接把next指针指空。之前太蠢了，都是傻傻的写专门的方法来完成这个功能的。</p>
-<h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><p>断断续续已经两天了，今儿下午结果终于对了。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        ListNode* l3=<span class="keyword">new</span> ListNode(<span class="number">-1</span>);		<span class="comment">//储存加法结果</span></span><br><span class="line">        ListNode* cur=l3;		<span class="comment">//临时指针</span></span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> symb=<span class="literal">false</span>;		<span class="comment">//一个标志，为true代表当前位上一位有进位</span></span><br><span class="line">        <span class="keyword">while</span>(l1!=<span class="literal">NULL</span> || l2!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(l1!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                sum+=l1-&gt;val;</span><br><span class="line">                l1=l1-&gt;next;</span><br><span class="line"><span class="comment">//此处需要注意的是，l1和待会的l2都没有使用临时指针来替代，但是实际上，对原l1,l2链表的指针是不会产生影响的</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(l2!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                sum+=l2-&gt;val;</span><br><span class="line">                l2=l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(symb)</span><br><span class="line">            &#123;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">            cur-&gt;next=<span class="keyword">new</span> ListNode(sum%<span class="number">10</span>);</span><br><span class="line">            cur=cur-&gt;next;</span><br><span class="line">            symb=sum&gt;<span class="number">9</span>?<span class="literal">true</span>:<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//还有单独再使用一次symb的原因是怕最高位加法之后再产生进位。</span></span><br><span class="line">        <span class="keyword">if</span>(symb)</span><br><span class="line">        &#123;</span><br><span class="line">            cur-&gt;next=<span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l3-&gt;next;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="解决方法2"><a href="#解决方法2" class="headerlink" title="解决方法2"></a>解决方法2</h2><h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>把数字都提取出来-&gt;做加法-&gt;倒序写个链表-&gt;返回链表的指针</p>
-<p>基本就酱。可以见的是数字提取和倒序写链表会有点挑战。先开坑。什么时候填坑看天意。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我看答案了，不过跟我想的基本没有偏差。总的来说呢，还是菜。想法脑子能很快在脑子里成型。但是就是写不出来。面试、包括还有将来的实际生产中将想法实现也是很重要的。慢慢练习吧。之前忘了在哪看到的TED好像，讲的是在涉及某种新的领域的时候，常常会感觉很吃力，不适应。就像大脑在”舒适区”待久了，自然而然的就会产生排异反应，这个时候就需要坚持下去，难受习惯了就不会觉得难受了(哈哈开玩笑！实际上是大脑会有某种变化让你更适合去开展这种工作)。</p>
-<p>这种题一部分是需要思路。但是对我来说更重要的是要培养用流程化的思维去解决问题的能力。就像vim的键盘宏功能，而不是光有思路就行。万一哪天面试官让我手撕代码，代码写不出来？估计就凉的跟凉凉似了科科！</p>
-<p>说起键盘宏，昨晚看B站发现vim竟然还有录制键盘宏的功能。博客上传了就去玩玩🤓</p>
-<p>还有这个问题明天还得再看一次。强化一下记忆。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/30/LeetCode——001两数之和/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/30/LeetCode——001两数之和/" itemprop="url">LeetCode——001两数之和</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-30T19:37:12+08:00">
-                2019-06-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>回家了就很爽，晚上8点多就睡下。11点醒来睡不着，想到开了新坑还没填。不如就写写博客吧。LeetCode这个tag开之前还是有点犹豫的，怕自己坚持不下去。没办法！面试所迫。临时抱抱佛脚不亮也光嘛🌚。能做多少就多少吧。不会了就看看答案8。</p>
-<h1 id="LeetCode——001-两数之和"><a href="#LeetCode——001-两数之和" class="headerlink" title="LeetCode——001 两数之和"></a>LeetCode——001 两数之和</h1><h2 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h2><p><img src="https://i.loli.net/2019/07/02/5d1a3ecb4ad2390551.png" alt></p>
-<h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>有点迷惑这个”你可以假设每种输入都会对应一个答案”是什么意思！大概理解之后基本有思路。需要注意的是不能使用这个数组中同样的元素。</p>
-<p>首先想到的就是暴力法，遍历数组中的每一个元素，然后对比target-nums[n]是否相等。</p>
-<p>时间复杂度为O(n^2),空间复杂度为O(1)。运行速度比较慢而且内存消耗也比较大。</p>
-<h3 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> i,j;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size()<span class="number">-1</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=nums.size()<span class="number">-1</span>;j&gt;i;j--)</span><br><span class="line">            <span class="comment">// 这里应该是j&gt;i。之前这里出错写成j&lt;=i了</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">        		&#123;</span><br><span class="line">        			<span class="keyword">return</span> &#123;i,j&#125;;</span><br><span class="line">        		&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;i,j&#125;;</span><br><span class="line">        <span class="comment">//这里的return是里边的if判定未生效时执行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>执行时间200ms，击败50%。内存9MB，击败97%。</p>
-<p>击败了50%是什么意思？</p>
-<p>就是剩下的那50%，都是用15ms击败你的。</p>
-<p><img src="https://i.loli.net/2019/07/02/5d1a511cad19237517.png" alt></p>
-<p>第一次答题总算是过去了，前前后后用了将近1小时。用时感觉蛮久的。</p>
-<p>提交了14次之后才通过了。相比此时90w提交数42w通过数感觉有点惭愧呀。</p>
-<p>觉得没什么收获，就酱！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1627,7 +1652,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -242,6 +242,273 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/03/网络——校园网限速分析及加速/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/03/网络——校园网限速分析及加速/" itemprop="url">网络——校园网限速分析及加速</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-03T20:52:47+08:00">
+                2019-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="校园网上网表现"><a href="#校园网上网表现" class="headerlink" title="校园网上网表现"></a>校园网上网表现</h1><p>上大学以来，寝室一直是有校园网和移动100M光纤的。但是由于这一学期移动宽带没有及时续费，导致这学期没法继续使用移动光纤只能使用校园网了。</p>
+<p>校园网也有几次小小的升级。譬如之前必须要通过网信处分配的指定静态IP才能上网、寝室只有一个网口、多设备接入要通过交换机、不能给手机联网等等。这些问题在三年来陆陆续续的都已经被解决了。</p>
+<p>但是有一样东西，是三年以来都没有改变的。那就是外网糟糕的浏览体验！具体点来说就是在浏览外网的时候，速度都很慢。比如刷微博，逛淘宝或者看视频的时候速度都很慢，</p>
+<h1 id="为什么会慢？"><a href="#为什么会慢？" class="headerlink" title="为什么会慢？"></a>为什么会慢？</h1><p>究其原因，校园网为什么相比普通ISP这上述方面表现差呢？</p>
+<h2 id="上网机制有所不同"><a href="#上网机制有所不同" class="headerlink" title="上网机制有所不同"></a>上网机制有所不同</h2><p>我们在校内使用<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E6%95%99%E8%82%B2%E5%92%8C%E7%A7%91%E7%A0%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91" target="_blank" rel="noopener">教育网</a>和使用普通ISP（电信、移动等）上网的机制并不同。高校一般都会使用以太网组网技术来实现校内上网。以太网组网决定了我们的网络出口流量带宽都是共享的，谁可以争到这个带宽，谁的上网的速度则越快。人越多，平均网速就越慢。</p>
+<p>假设一种情况：学校的出口带宽有100Mb（只是为了举例方便，一般实际出口带宽都在Gb级别），我现在需要下载一个10G的文件。那么在机能允许的情况下，我会吃满学校的带宽，持续13分钟后才能下载完成。在这13分钟内，学校的其他所有人，都是无法访问到外网的。这是一个很严重的影响。</p>
+<p>所以，为了防止被某台机器，或者少数机器占满带宽、保证大多数客户机访问网站的速度，高校会在网络核心之间增加流量控制设备来监管网络流量，限制P2P和文件下载等等。从而保证了http访问的性能。因此，我们上网的时候就会觉得慢了。(其实我不知道我们学校有没有装这玩意儿)</p>
+<p>以太网组网还会带来一个特点就是：出口流量很低的情况下(比如假期、凌晨)，校园网的网速就又会特别快。曾经在凌晨3点通过外网ip节点进行测速和下午四点对比：<img src="https://i.loli.net/2019/06/13/5d02064139da717091.jpg" alt></p>
+<p><img src="https://i.loli.net/2019/06/13/5d0206401e16d53175.jpg" alt></p>
+<p>下载带宽有了接近4倍的增长，上传带宽增长15倍多。</p>
+<h2 id="属于不同的骨干网"><a href="#属于不同的骨干网" class="headerlink" title="属于不同的骨干网"></a>属于不同的骨干网</h2><p>国内有四大骨干网，分别是中国互联网、教育网、科研网、金桥网。想了解我国四大骨干网络和ISP请看<a href="https://www.cnblogs.com/onepixel/p/10238221.html" target="_blank" rel="noopener">这里</a>。我们平常访问的微博、淘宝、还有各种视频网站都属于四大骨干网中的中国互联网。而我们，则处于另外的骨干网——教育网中。很不幸，中国教育网和中国互联网之间的访问资源并不是无限的。也就是说，类似我们在校园中所使用的以太网组网技术一样，如果负载变大，那么稳定性和速度都会下降。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>上网机制和不同骨干网都有一个共同特点，用大白话说就是：</p>
+<p>“用的人多了，就会变慢！”</p>
+<p>“挑没人用的时候最快”</p>
+<h1 id="加速"><a href="#加速" class="headerlink" title="加速"></a>加速</h1><h2 id="先说结论：没找到方法"><a href="#先说结论：没找到方法" class="headerlink" title="先说结论：没找到方法"></a>先说结论：没找到方法</h2><p>搜狗浏览器曾经有教育网——&gt;公网加速，到后来教育网&lt;——&gt;公网双向加速的功能，直到现在的全网加速功能。但是亲测使用了搜狗的全网加速功能之后，速度仍旧没有得到明显提升。之前我想的是：搜狗的加速技术，应该是通过自建加速服务器或者通过CDN加速实现的。后来发现我想多了。在我查询了我电脑的流量记录后发现</p>
+<p>后来想到用SSR在国内搭建代理服务器，用来转发我的流量。搭建后测本地测试的结果为下载3.6Mbps，上传1.5Mbps。而此时我的服务器端测速结果为下载116Mbps，上传5Mbps。测试时间为16：33🤦🏽‍♂️。测速结果甚至不如不使用代理。而且速度瓶颈也不在服务器端。</p>
+<p>大概分析了一下，使用代理并不能解决上述所说”跨骨干网”和”出口带宽有限”的问题。</p>
+<p>还有就是app store中的各种游戏加速软件，下载之后发现现在的加速软件对加速做了限制。并不是全局的对所有流量都进行加速，而是选择性的，只对指定游戏的流量做加速。</p>
+<p>没办法了。。。。。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/05/28/胡言乱语——写在博客伊始/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/28/胡言乱语——写在博客伊始/" itemprop="url">胡言乱语——写在博客伊始</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-28T21:20:49+08:00">
+                2019-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="写在博客伊始"><a href="#写在博客伊始" class="headerlink" title="写在博客伊始"></a>写在博客伊始</h1><p>阿里的轻量服务器已经租用了半年，却未曾好好利用过。偶尔连接上，在上边敲俩指令。想想也是可笑。</p>
+<p>时常不能自律，萎靡在寝室打游戏三餐靠外卖活得像个寄生虫，却又常常因此坐立不安，焦躁且抑郁。</p>
+<p>写了删掉，又写又删。</p>
+<p>其实、、很早之前就了解了有自建博客这种玩意儿。不过却一直没有付诸实际行动——即使我的服务器基本已经闲置了半年，即使我的谷歌云开了一年。不过我并不后悔。后悔之于我能带来的既得利益不大还很消耗我的精力。</p>
+<p>从开始建设到目前的三篇文章，耗时一周左右。比起我的朋友，进度远落后于他们，我还没申请域名，主题设置还有好多没有摸清，不过我并不着急。我喜欢慢工出细活，域名这种事应该是想到了好的点子再买。而不是草草了事。</p>
+<p>孤独但不寂寞。我很喜欢孤独。能让人自省。“君子和而不同”，这种不同就是我孤独感的来源。由此导致我一直在深深的疑惑——这世上到底有没有和我能够契合的人？</p>
+<p>之前做了十六型的人格测试，测试的结果显示我是<strong><a href="https://www.16personalities.com/ch/enfj-%E4%BA%BA%E6%A0%BC" target="_blank" rel="noopener">主人公（ENFJ-A ）</a></strong>人格（我一直在深深怀疑这是不是利用<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%B4%8D%E5%A7%86%E6%95%88%E6%87%89" target="_blank" rel="noopener">巴纳姆效应</a>的一个心理学骗局）。不过最后我还是选择相信，因为测试说这种人格的人在人群中只占2%。这样我这样一个很少去认同其他观点的人产生了深深的认同感。除此之外的结论：“天生的领导者”、“魅力四射”等等词汇对我来说实在可笑。</p>
+<p>很晚了，不写了！回寝室了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<p>再见。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/05/27/Hexo——NexT主题个性化配置总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -743,7 +1010,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
