@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="面试题,">
+  <meta name="keywords" content="面试准备,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;amp;b = a; b = 15相当于a = 15 以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。  指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。 指针无需在定义的时候赋值。引用的时候必须要初始化。 引用不可以改变指向。">
-<meta name="keywords" content="面试题">
+<meta name="description" content="排序常见的排序算法 插入排序 直接插入排序 希尔排序   选择排序 选择排序 堆排   交换排序 冒泡排序 快速排序   归并排序 归并排序">
+<meta name="keywords" content="面试准备">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试题——02 C++">
-<meta property="og:url" content="47.168.200.88/2019/08/31/面试题——02 C++/index.html">
+<meta property="og:title" content="面试准备——04 算法">
+<meta property="og:url" content="47.168.200.88/2019/09/07/面试准备——04  算法/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;amp;b = a; b = 15相当于a = 15 以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。  指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。 指针无需在定义的时候赋值。引用的时候必须要初始化。 引用不可以改变指向。">
+<meta property="og:description" content="排序常见的排序算法 插入排序 直接插入排序 希尔排序   选择排序 选择排序 堆排   交换排序 冒泡排序 快速排序   归并排序 归并排序">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-07T04:08:01.929Z">
+<meta property="og:updated_time" content="2019-09-07T06:45:29.968Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="面试题——02 C++">
-<meta name="twitter:description" content="指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;amp;b = a; b = 15相当于a = 15 以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。  指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。 指针无需在定义的时候赋值。引用的时候必须要初始化。 引用不可以改变指向。">
+<meta name="twitter:title" content="面试准备——04 算法">
+<meta name="twitter:description" content="排序常见的排序算法 插入排序 直接插入排序 希尔排序   选择排序 选择排序 堆排   交换排序 冒泡排序 快速排序   归并排序 归并排序">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="47.168.200.88/2019/08/31/面试题——02 C++/">
+  <link rel="canonical" href="47.168.200.88/2019/09/07/面试准备——04  算法/">
 
 
 
 
 
-  <title>面试题——02 C++ | Andrew's Blog</title>
+  <title>面试准备——04 算法 | Andrew's Blog</title>
   
 
 
@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/31/面试题——02 C++/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试准备——04  算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -260,7 +260,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">面试题——02 C++</h2>
+          <h2 class="post-title" itemprop="name headline">面试准备——04 算法</h2>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T22:09:44+08:00">
-                2019-08-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-07T11:54:38+08:00">
+                2019-09-07
               </time>
             
 
@@ -310,44 +310,26 @@
       
 
       
-        <h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><h2 id="指针和引用的区别"><a href="#指针和引用的区别" class="headerlink" title="指针和引用的区别"></a>指针和引用的区别</h2><p>引用本质上就是对象的另外一个名字。<code>int a =10,int &amp;b = a; b = 15</code>相当于<code>a = 15</code></p>
-<p>以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。</p>
-<ol>
-<li>指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。</li>
-<li>指针无需在定义的时候赋值。引用的时候必须要初始化。</li>
-<li>引用不可以改变指向。</li>
-<li>引用的大小是所指向变量的大小，指针的大小是指针本身的大小</li>
-<li>引用比指针更加的安全。因为不存在空引用。</li>
-</ol>
-<h2 id="常量指针和指针常量"><a href="#常量指针和指针常量" class="headerlink" title="常量指针和指针常量"></a>常量指针和指针常量</h2><p>可以这么记；常量的指针，指针是常量；</p>
-<p>常量指针指向内容不变，指针常量指向不变。</p>
-<p>左定值右定向：const在*左边就是定值</p>
-<p>其实最好的方法就是看代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> * p; <span class="keyword">int</span> <span class="keyword">const</span> * p;</span><br><span class="line"><span class="comment">// 上边两个，第一个修饰的是 int* p 第二个修饰的是 *p</span></span><br><span class="line"><span class="comment">// 两个都是内容，所以就是常量指针</span></span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p</span><br><span class="line"><span class="comment">// 上边的const，修饰的是p。p是指针。所以这就是个指针常量</span></span><br></pre></td></tr></table></figure>
-<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="new和malloc的区别"><a href="#new和malloc的区别" class="headerlink" title="new和malloc的区别"></a>new和malloc的区别</h2><ol>
-<li>开辟在内存的不同位置。new从自由存储区上开辟，malloc在堆上开辟。</li>
-<li>new和delete会调用构造函数和析构函数对对象进行初始化和销毁</li>
-<li>operator new/delete可以进行重载。</li>
-<li>返回类型的安全性</li>
-</ol>
-<h1 id="General"><a href="#General" class="headerlink" title="General"></a>General</h1><h2 id="构造函数和析构函数可以是虚函数吗"><a href="#构造函数和析构函数可以是虚函数吗" class="headerlink" title="构造函数和析构函数可以是虚函数吗"></a>构造函数和析构函数可以是虚函数吗</h2><p>结论：构造函数不可以是虚函数，但是析构函数可以是</p>
-<h2 id="C-11新特性"><a href="#C-11新特性" class="headerlink" title="C++11新特性"></a>C++11新特性</h2><ul>
-<li>基于范围的for循环</li>
-<li>自动类型推断auto</li>
-<li>匿名函数Lambda表达式</li>
-<li>后置返回类型</li>
-<li>显示重写</li>
-<li>空指针的常量nullptr</li>
-<li>long long int类型</li>
-<li>模板的别名</li>
-<li>允许sizeof运算符可以在类型成员上使用，无需明确对象</li>
-<li>线程支持</li>
-<li>元组类型</li>
-<li>新增了正则表达式库</li>
+        <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><h2 id="常见的排序算法"><a href="#常见的排序算法" class="headerlink" title="常见的排序算法"></a>常见的排序算法</h2><ul>
+<li>插入排序<ul>
+<li>直接插入排序</li>
+<li>希尔排序</li>
 </ul>
-<p>本文参考：</p>
-<ul>
-<li>《<a href="https://blog.csdn.net/FX677588/article/details/70157088" target="_blank" rel="noopener">十大必掌握C++11新特性</a>》</li>
+</li>
+<li>选择排序<ul>
+<li>选择排序</li>
+<li>堆排</li>
+</ul>
+</li>
+<li>交换排序<ul>
+<li>冒泡排序</li>
+<li>快速排序</li>
+</ul>
+</li>
+<li>归并排序<ul>
+<li>归并排序</li>
+</ul>
+</li>
 </ul>
 
       
@@ -369,7 +351,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="47.168.200.88/2019/08/31/面试题——02 C++/" title="面试题——02 C++">47.168.200.88/2019/08/31/面试题——02 C++/</a>
+    <a href="47.168.200.88/2019/09/07/面试准备——04  算法/" title="面试准备——04 算法">47.168.200.88/2019/09/07/面试准备——04  算法/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -384,7 +366,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+            <a href="/tags/面试准备/" rel="tag"># 面试准备</a>
           
         </div>
       
@@ -397,8 +379,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/28/面试题——01网络/" rel="next" title="面试题——01 网络">
-                <i class="fa fa-chevron-left"></i> 面试题——01 网络
+              <a href="/2019/08/31/面试准备——03 数据结构/" rel="next" title="面试准备——03数据结构">
+                <i class="fa fa-chevron-left"></i> 面试准备——03数据结构
               </a>
             
           </div>
@@ -407,8 +389,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/31/面试题——03 数据结构/" rel="prev" title="面试题——03数据结构">
-                面试题——03数据结构 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/07/面试准备——05 数据库/" rel="prev" title="面试准备——05 数据库">
+                面试准备——05 数据库 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -508,7 +490,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -601,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#指针"><span class="nav-number">1.</span> <span class="nav-text">指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指针和引用的区别"><span class="nav-number">1.1.</span> <span class="nav-text">指针和引用的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常量指针和指针常量"><span class="nav-number">1.2.</span> <span class="nav-text">常量指针和指针常量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">2.</span> <span class="nav-text">内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new和malloc的区别"><span class="nav-number">2.1.</span> <span class="nav-text">new和malloc的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#General"><span class="nav-number">3.</span> <span class="nav-text">General</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数和析构函数可以是虚函数吗"><span class="nav-number">3.1.</span> <span class="nav-text">构造函数和析构函数可以是虚函数吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-11新特性"><span class="nav-number">3.2.</span> <span class="nav-text">C++11新特性</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#排序"><span class="nav-number">1.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的排序算法"><span class="nav-number">1.1.</span> <span class="nav-text">常见的排序算法</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="面试题,">
+  <meta name="keywords" content="面试准备,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="进程线程僵尸进程子进程在父进程未调用wait()或者waitpid() 的时候退出。就称为僵尸进程 孤儿进程父进程退出，但是子进程此时还在运行。那么子进程就会变为孤儿进程，孤儿进程将会由init进程对其进行收集工作。 僵尸进程会导致资源的浪费，但是孤儿进程不会。 通信Unix进程间的通信方式 管道 命名管道 信号 消息队列 共享内存 内存映射 信号量 套接字  Unix线程间的通信方式线程间的通信">
-<meta name="keywords" content="面试题">
+<meta name="description" content="指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;amp;b = a; b = 15相当于a = 15 以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。  指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。 指针无需在定义的时候赋值。引用的时候必须要初始化。 引用不可以改变指向。">
+<meta name="keywords" content="面试准备">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试题——06 操作系统">
-<meta property="og:url" content="47.168.200.88/2019/09/07/面试题——06 操作系统/index.html">
+<meta property="og:title" content="面试准备——02 C++">
+<meta property="og:url" content="47.168.200.88/2019/08/31/面试准备——02 C++/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="进程线程僵尸进程子进程在父进程未调用wait()或者waitpid() 的时候退出。就称为僵尸进程 孤儿进程父进程退出，但是子进程此时还在运行。那么子进程就会变为孤儿进程，孤儿进程将会由init进程对其进行收集工作。 僵尸进程会导致资源的浪费，但是孤儿进程不会。 通信Unix进程间的通信方式 管道 命名管道 信号 消息队列 共享内存 内存映射 信号量 套接字  Unix线程间的通信方式线程间的通信">
+<meta property="og:description" content="指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;amp;b = a; b = 15相当于a = 15 以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。  指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。 指针无需在定义的时候赋值。引用的时候必须要初始化。 引用不可以改变指向。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-07T06:19:25.426Z">
+<meta property="og:updated_time" content="2019-09-07T06:45:11.518Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="面试题——06 操作系统">
-<meta name="twitter:description" content="进程线程僵尸进程子进程在父进程未调用wait()或者waitpid() 的时候退出。就称为僵尸进程 孤儿进程父进程退出，但是子进程此时还在运行。那么子进程就会变为孤儿进程，孤儿进程将会由init进程对其进行收集工作。 僵尸进程会导致资源的浪费，但是孤儿进程不会。 通信Unix进程间的通信方式 管道 命名管道 信号 消息队列 共享内存 内存映射 信号量 套接字  Unix线程间的通信方式线程间的通信">
+<meta name="twitter:title" content="面试准备——02 C++">
+<meta name="twitter:description" content="指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;amp;b = a; b = 15相当于a = 15 以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。  指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。 指针无需在定义的时候赋值。引用的时候必须要初始化。 引用不可以改变指向。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="47.168.200.88/2019/09/07/面试题——06 操作系统/">
+  <link rel="canonical" href="47.168.200.88/2019/08/31/面试准备——02 C++/">
 
 
 
 
 
-  <title>面试题——06 操作系统 | Andrew's Blog</title>
+  <title>面试准备——02 C++ | Andrew's Blog</title>
   
 
 
@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试题——06 操作系统/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/31/面试准备——02 C++/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -260,7 +260,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">面试题——06 操作系统</h2>
+          <h2 class="post-title" itemprop="name headline">面试准备——02 C++</h2>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-07T12:19:08+08:00">
-                2019-09-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T22:09:44+08:00">
+                2019-08-31
               </time>
             
 
@@ -310,40 +310,45 @@
       
 
       
-        <h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h2 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h2><p>子进程在父进程未调用wait()或者waitpid() 的时候退出。就称为僵尸进程</p>
-<h2 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h2><p>父进程退出，但是子进程此时还在运行。那么子进程就会变为孤儿进程，孤儿进程将会由init进程对其进行收集工作。</p>
-<p>僵尸进程会导致资源的浪费，但是孤儿进程不会。</p>
-<h1 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h1><h2 id="Unix进程间的通信方式"><a href="#Unix进程间的通信方式" class="headerlink" title="Unix进程间的通信方式"></a>Unix进程间的通信方式</h2><ol>
-<li>管道</li>
-<li>命名管道</li>
-<li>信号</li>
-<li>消息队列</li>
-<li>共享内存</li>
-<li>内存映射</li>
-<li>信号量</li>
-<li>套接字</li>
-</ol>
-<h2 id="Unix线程间的通信方式"><a href="#Unix线程间的通信方式" class="headerlink" title="Unix线程间的通信方式"></a>Unix线程间的通信方式</h2><p>线程间的通信主要目的是用于线程同步，所以线程没有像进程通信中的用于数据交换的通信机制。</p>
+        <h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><h2 id="指针和引用的区别"><a href="#指针和引用的区别" class="headerlink" title="指针和引用的区别"></a>指针和引用的区别</h2><p>引用本质上就是对象的另外一个名字。<code>int a =10,int &amp;b = a; b = 15</code>相当于<code>a = 15</code></p>
+<p>以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。</p>
 <ol>
-<li><strong>锁机制</strong>：包括了互斥锁、条件变量、读写锁<br> <strong>互斥锁</strong> 提供了以排他方式防止数据结构被并发修改的方法<br> <strong>读写锁</strong> 允许多个线程同时共享数据，而对写操作是互斥的<br> <strong>条件变量</strong> 可以以院子的方式阻塞进程，直到某个特定条件为真为止。对条件的测试是在互斥锁的保护下进行的。条件变量始终与互斥锁一起使用。</li>
-<li><strong>信号量</strong>：包括了无名线程信号量和命名线程信号量</li>
-<li><strong>条件变量</strong>：类似进程间的信号处理</li>
+<li>指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。</li>
+<li>指针无需在定义的时候赋值。引用的时候必须要初始化。</li>
+<li>引用不可以改变指向。</li>
+<li>引用的大小是所指向变量的大小，指针的大小是指针本身的大小</li>
+<li>引用比指针更加的安全。因为不存在空引用。</li>
 </ol>
-<h1 id="文件和磁盘"><a href="#文件和磁盘" class="headerlink" title="文件和磁盘"></a>文件和磁盘</h1><h2 id="七种文件类型"><a href="#七种文件类型" class="headerlink" title="七种文件类型"></a>七种文件类型</h2><ol>
-<li>普通文件：ASCII还有二进制的都是普通文件。文件第一属性为 [ - ]</li>
-<li>目录文件：属性为 [ d ]</li>
-<li>字符设备或者快设备文件：就是硬盘。属性为 [ b ]</li>
-<li>套接字文件：这类文件通常用来网络数据连接中。属性为 [ s ]</li>
-<li>管道文件：FIFO也是一种特殊的文件类型 。属性为 [ p ]</li>
-<li>链接文件：就是快捷方式 。属性为 [ l ]</li>
-<li>字符设备：串行接口设备。键盘鼠标。属性为 [ c ]</li>
+<h2 id="常量指针和指针常量"><a href="#常量指针和指针常量" class="headerlink" title="常量指针和指针常量"></a>常量指针和指针常量</h2><p>可以这么记；常量的指针，指针是常量；</p>
+<p>常量指针指向内容不变，指针常量指向不变。</p>
+<p>左定值右定向：const在*左边就是定值</p>
+<p>其实最好的方法就是看代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> * p; <span class="keyword">int</span> <span class="keyword">const</span> * p;</span><br><span class="line"><span class="comment">// 上边两个，第一个修饰的是 int* p 第二个修饰的是 *p</span></span><br><span class="line"><span class="comment">// 两个都是内容，所以就是常量指针</span></span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p</span><br><span class="line"><span class="comment">// 上边的const，修饰的是p。p是指针。所以这就是个指针常量</span></span><br></pre></td></tr></table></figure>
+<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="new和malloc的区别"><a href="#new和malloc的区别" class="headerlink" title="new和malloc的区别"></a>new和malloc的区别</h2><ol>
+<li>开辟在内存的不同位置。new从自由存储区上开辟，malloc在堆上开辟。</li>
+<li>new和delete会调用构造函数和析构函数对对象进行初始化和销毁</li>
+<li>operator new/delete可以进行重载。</li>
+<li>返回类型的安全性</li>
 </ol>
-<h2 id="软硬链接"><a href="#软硬链接" class="headerlink" title="软硬链接"></a>软硬链接</h2><p>硬链接inode相同</p>
-<p>参考文章：</p>
-<ul>
-<li>《<a href="https://blog.csdn.net/kobejayandy/article/details/18863543" target="_blank" rel="noopener">Linux的进程/线程间通信方式总结</a>》</li>
+<h1 id="General"><a href="#General" class="headerlink" title="General"></a>General</h1><h2 id="构造函数和析构函数可以是虚函数吗"><a href="#构造函数和析构函数可以是虚函数吗" class="headerlink" title="构造函数和析构函数可以是虚函数吗"></a>构造函数和析构函数可以是虚函数吗</h2><p>结论：构造函数不可以是虚函数，但是析构函数可以是</p>
+<h2 id="C-11新特性"><a href="#C-11新特性" class="headerlink" title="C++11新特性"></a>C++11新特性</h2><ul>
+<li>基于范围的for循环</li>
+<li>自动类型推断auto</li>
+<li>匿名函数Lambda表达式</li>
+<li>后置返回类型</li>
+<li>显示重写</li>
+<li>空指针的常量nullptr</li>
+<li>long long int类型</li>
+<li>模板的别名</li>
+<li>允许sizeof运算符可以在类型成员上使用，无需明确对象</li>
+<li>线程支持</li>
+<li>元组类型</li>
+<li>新增了正则表达式库</li>
 </ul>
-<p>​        </p>
+<p>本文参考：</p>
+<ul>
+<li>《<a href="https://blog.csdn.net/FX677588/article/details/70157088" target="_blank" rel="noopener">十大必掌握C++11新特性</a>》</li>
+</ul>
 
       
     </div>
@@ -364,7 +369,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="47.168.200.88/2019/09/07/面试题——06 操作系统/" title="面试题——06 操作系统">47.168.200.88/2019/09/07/面试题——06 操作系统/</a>
+    <a href="47.168.200.88/2019/08/31/面试准备——02 C++/" title="面试准备——02 C++">47.168.200.88/2019/08/31/面试准备——02 C++/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -379,7 +384,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+            <a href="/tags/面试准备/" rel="tag"># 面试准备</a>
           
         </div>
       
@@ -392,8 +397,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/07/面试题——05 数据库/" rel="next" title="面试题——05 数据库">
-                <i class="fa fa-chevron-left"></i> 面试题——05 数据库
+              <a href="/2019/08/28/面试准备——01网络/" rel="next" title="面试准备——01 网络">
+                <i class="fa fa-chevron-left"></i> 面试准备——01 网络
               </a>
             
           </div>
@@ -401,6 +406,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/31/面试准备——03 数据结构/" rel="prev" title="面试准备——03数据结构">
+                面试准备——03数据结构 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -499,7 +508,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -592,7 +601,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程线程"><span class="nav-number">1.</span> <span class="nav-text">进程线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#僵尸进程"><span class="nav-number">1.1.</span> <span class="nav-text">僵尸进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孤儿进程"><span class="nav-number">1.2.</span> <span class="nav-text">孤儿进程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通信"><span class="nav-number">2.</span> <span class="nav-text">通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unix进程间的通信方式"><span class="nav-number">2.1.</span> <span class="nav-text">Unix进程间的通信方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unix线程间的通信方式"><span class="nav-number">2.2.</span> <span class="nav-text">Unix线程间的通信方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件和磁盘"><span class="nav-number">3.</span> <span class="nav-text">文件和磁盘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#七种文件类型"><span class="nav-number">3.1.</span> <span class="nav-text">七种文件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软硬链接"><span class="nav-number">3.2.</span> <span class="nav-text">软硬链接</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#指针"><span class="nav-number">1.</span> <span class="nav-text">指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指针和引用的区别"><span class="nav-number">1.1.</span> <span class="nav-text">指针和引用的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常量指针和指针常量"><span class="nav-number">1.2.</span> <span class="nav-text">常量指针和指针常量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">2.</span> <span class="nav-text">内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new和malloc的区别"><span class="nav-number">2.1.</span> <span class="nav-text">new和malloc的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#General"><span class="nav-number">3.</span> <span class="nav-text">General</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数和析构函数可以是虚函数吗"><span class="nav-number">3.1.</span> <span class="nav-text">构造函数和析构函数可以是虚函数吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-11新特性"><span class="nav-number">3.2.</span> <span class="nav-text">C++11新特性</span></a></li></ol></li></ol></div>
             
 
           </div>
