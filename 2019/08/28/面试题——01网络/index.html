@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="目的是为了归纳梳理一下知识。 网络GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于H">
+<meta name="description" content="目的是为了归纳梳理一下知识。 GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTT">
 <meta name="keywords" content="面试题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试题——01 网络">
 <meta property="og:url" content="47.168.200.88/2019/08/28/面试题——01网络/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="目的是为了归纳梳理一下知识。 网络GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于H">
+<meta property="og:description" content="目的是为了归纳梳理一下知识。 GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTT">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-05T09:22:32.851Z">
+<meta property="og:updated_time" content="2019-09-07T05:48:25.846Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题——01 网络">
-<meta name="twitter:description" content="目的是为了归纳梳理一下知识。 网络GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于H">
+<meta name="twitter:description" content="目的是为了归纳梳理一下知识。 GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTT">
 
 
 
@@ -311,7 +311,7 @@
 
       
         <p>目的是为了归纳梳理一下知识。</p>
-<h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用的过程中体现出一些不同</p>
+<h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用的过程中体现出一些不同</p>
 <ul>
 <li>最直观的区别是GET把参数包含在URL中，POST通过request body传递参数。</li>
 <li>GET产生一个数据包，POST产生两个数据包（对于GET方式的请求，浏览器会把http header和data一并发出去。服务器响应200，firefox不同，firefox只发送一个）</li>
@@ -348,6 +348,16 @@
 <ul>
 <li>UDP：需要用到NAT穿透的时候</li>
 </ul>
+<h2 id="OSI中常见的协议"><a href="#OSI中常见的协议" class="headerlink" title="OSI中常见的协议"></a>OSI中常见的协议</h2><ol>
+<li>物理层：RJ45,CLOCK,IEEE802.3</li>
+<li>数据链路层：PPP,FR,HDLC,VLAN,MAC</li>
+<li>网络层：IP,ICMP,ARP,RARP,OSPF,IPX,RIP,IGRP</li>
+<li>传输层：TCP,UDP,SPX</li>
+<li>会话层：NFS,SQL,NETBIOS,RPC</li>
+<li>表示层：JPEG,MPEG,ASCII</li>
+<li>应用层：DNS,Telnet,SMTP,HTTP,www,NFS</li>
+</ol>
+<h2 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h2><p>数据包在网络传输过程中的最长生命周期，一般以跳为单位。TTL减为0还没有到达的话就会被丢弃。</p>
 <p>本文参考：</p>
 <ul>
 <li><a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">《TCP 连接建立的三次握手过可以携带数据吗？》</a></li>
@@ -400,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/22/Linux————常用指令/" rel="next" title="Linux——常用指令">
-                <i class="fa fa-chevron-left"></i> Linux——常用指令
+              <a href="/2019/08/21/自建blog——02/" rel="next" title="自建blog——02">
+                <i class="fa fa-chevron-left"></i> 自建blog——02
               </a>
             
           </div>
@@ -604,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络"><span class="nav-number">1.</span> <span class="nav-text">网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET和POST的区别"><span class="nav-number">1.1.</span> <span class="nav-text">GET和POST的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三次握手过程中可以携带数据吗"><span class="nav-number">1.2.</span> <span class="nav-text">三次握手过程中可以携带数据吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP和UDP"><span class="nav-number">1.3.</span> <span class="nav-text">TCP和UDP</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET和POST的区别"><span class="nav-number">1.</span> <span class="nav-text">GET和POST的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三次握手过程中可以携带数据吗"><span class="nav-number">2.</span> <span class="nav-text">三次握手过程中可以携带数据吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP和UDP"><span class="nav-number">3.</span> <span class="nav-text">TCP和UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OSI中常见的协议"><span class="nav-number">4.</span> <span class="nav-text">OSI中常见的协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TTL"><span class="nav-number">5.</span> <span class="nav-text">TTL</span></a></li></ol></div>
             
 
           </div>

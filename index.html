@@ -242,6 +242,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试题——06 操作系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/07/面试题——06 操作系统/" itemprop="url">面试题——06 操作系统</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-07T12:19:08+08:00">
+                2019-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h2 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h2><p>子进程在父进程未调用wait()或者waitpid() 的时候退出。就称为僵尸进程</p>
+<h2 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h2><p>父进程退出，但是子进程此时还在运行。那么子进程就会变为孤儿进程，孤儿进程将会由init进程对其进行收集工作。</p>
+<p>僵尸进程会导致资源的浪费，但是孤儿进程不会。</p>
+<h1 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h1><h2 id="Unix进程间的通信方式"><a href="#Unix进程间的通信方式" class="headerlink" title="Unix进程间的通信方式"></a>Unix进程间的通信方式</h2><ol>
+<li>管道</li>
+<li>命名管道</li>
+<li>信号</li>
+<li>消息队列</li>
+<li>共享内存</li>
+<li>内存映射</li>
+<li>信号量</li>
+<li>套接字</li>
+</ol>
+<h2 id="Unix线程间的通信方式"><a href="#Unix线程间的通信方式" class="headerlink" title="Unix线程间的通信方式"></a>Unix线程间的通信方式</h2><p>线程间的通信主要目的是用于线程同步，所以线程没有像进程通信中的用于数据交换的通信机制。</p>
+<ol>
+<li><strong>锁机制</strong>：包括了互斥锁、条件变量、读写锁<br> <strong>互斥锁</strong> 提供了以排他方式防止数据结构被并发修改的方法<br> <strong>读写锁</strong> 允许多个线程同时共享数据，而对写操作是互斥的<br> <strong>条件变量</strong> 可以以院子的方式阻塞进程，直到某个特定条件为真为止。对条件的测试是在互斥锁的保护下进行的。条件变量始终与互斥锁一起使用。</li>
+<li><strong>信号量</strong>：包括了无名线程信号量和命名线程信号量</li>
+<li><strong>条件变量</strong>：类似进程间的信号处理</li>
+</ol>
+<h1 id="文件和磁盘"><a href="#文件和磁盘" class="headerlink" title="文件和磁盘"></a>文件和磁盘</h1><h2 id="七种文件类型"><a href="#七种文件类型" class="headerlink" title="七种文件类型"></a>七种文件类型</h2><ol>
+<li>普通文件：ASCII还有二进制的都是普通文件。文件第一属性为 [ - ]</li>
+<li>目录文件：属性为 [ d ]</li>
+<li>字符设备或者快设备文件：就是硬盘。属性为 [ b ]</li>
+<li>套接字文件：这类文件通常用来网络数据连接中。属性为 [ s ]</li>
+<li>管道文件：FIFO也是一种特殊的文件类型 。属性为 [ p ]</li>
+<li>链接文件：就是快捷方式 。属性为 [ l ]</li>
+<li>字符设备：串行接口设备。键盘鼠标。属性为 [ c ]</li>
+</ol>
+<h2 id="软硬链接"><a href="#软硬链接" class="headerlink" title="软硬链接"></a>软硬链接</h2><p>硬链接inode相同</p>
+<p>参考文章：</p>
+<ul>
+<li>《<a href="https://blog.csdn.net/kobejayandy/article/details/18863543" target="_blank" rel="noopener">Linux的进程/线程间通信方式总结</a>》</li>
+</ul>
+<p>​        </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试题——05 数据库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -361,7 +514,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试题—— 04 算法/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试题——04  算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -380,7 +533,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/07/面试题—— 04 算法/" itemprop="url">面试题——04 算法</a></h2>
+                <a class="post-title-link" href="/2019/09/07/面试题——04  算法/" itemprop="url">面试题——04 算法</a></h2>
         
 
         <div class="post-meta">
@@ -857,7 +1010,7 @@
         
           
             <p>目的是为了归纳梳理一下知识。</p>
-<h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用的过程中体现出一些不同</p>
+<h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用的过程中体现出一些不同</p>
 <ul>
 <li>最直观的区别是GET把参数包含在URL中，POST通过request body传递参数。</li>
 <li>GET产生一个数据包，POST产生两个数据包（对于GET方式的请求，浏览器会把http header和data一并发出去。服务器响应200，firefox不同，firefox只发送一个）</li>
@@ -894,130 +1047,20 @@
 <ul>
 <li>UDP：需要用到NAT穿透的时候</li>
 </ul>
+<h2 id="OSI中常见的协议"><a href="#OSI中常见的协议" class="headerlink" title="OSI中常见的协议"></a>OSI中常见的协议</h2><ol>
+<li>物理层：RJ45,CLOCK,IEEE802.3</li>
+<li>数据链路层：PPP,FR,HDLC,VLAN,MAC</li>
+<li>网络层：IP,ICMP,ARP,RARP,OSPF,IPX,RIP,IGRP</li>
+<li>传输层：TCP,UDP,SPX</li>
+<li>会话层：NFS,SQL,NETBIOS,RPC</li>
+<li>表示层：JPEG,MPEG,ASCII</li>
+<li>应用层：DNS,Telnet,SMTP,HTTP,www,NFS</li>
+</ol>
+<h2 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h2><p>数据包在网络传输过程中的最长生命周期，一般以跳为单位。TTL减为0还没有到达的话就会被丢弃。</p>
 <p>本文参考：</p>
 <ul>
 <li><a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">《TCP 连接建立的三次握手过可以携带数据吗？》</a></li>
 </ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/22/Linux————常用指令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/22/Linux————常用指令/" itemprop="url">Linux——常用指令</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T12:49:29+08:00">
-                2019-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="tty"><a href="#tty" class="headerlink" title="tty"></a>tty</h2><p>这是一个蛮混乱的东西。是TeleTYpe的缩写。目前我所知道的用处是可以给出当前终端设备的名称。</p>
 
           
         
