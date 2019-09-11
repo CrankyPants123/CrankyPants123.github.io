@@ -242,6 +242,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/01/STL——写写概念/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/01/STL——写写概念/" itemprop="url">STL——写写概念</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-01T14:50:11+08:00">
+                2019-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>提升代码的复用性</li>
+<li>减少重复造轮子</li>
+</ul>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>Standard Template Library：标准模板库</li>
+<li>STL从广义上分为：容器，算法，迭代器</li>
+<li>容器和算法之间通过迭代器来进行无缝的连接</li>
+<li>STL几乎所有代码用的的是模板类或者模板函数</li>
+</ul>
+<h2 id="六大组件"><a href="#六大组件" class="headerlink" title="六大组件"></a>六大组件</h2><p>容器、算法、迭代器、仿函数、适配器、空间配置器</p>
+<ol>
+<li>容器：各种数据结构，比如：vector、list、deque、set、map。用来存数据</li>
+<li>算法：各种常用的算法，比如：sort、find、copy、for_each等</li>
+<li>迭代器：容器和算法之间的胶合剂</li>
+<li>仿函数：行为类似函数，可以看做是算法的某种策略</li>
+<li>适配器：用来修饰容器或者仿函数或迭代器接口的东西</li>
+<li>空间配置器：负责空间的配置和管理</li>
+</ol>
+<h2 id="容器、算法、迭代器"><a href="#容器、算法、迭代器" class="headerlink" title="容器、算法、迭代器"></a>容器、算法、迭代器</h2><p><strong>容器</strong>：就是个存放数据的东西<br>        STL容器就是将运用最广泛的一些数据结构实现出来。</p>
+<p>常用的数据结构：数组，链表，树，栈，队列，集合，映射表等</p>
+<p>这些容器分为序列式容器和关联式容器两种：</p>
+<p>​        序列式容器：强调值的排序，序列式容器中的每个元素都有固定的位置</p>
+<p>​        关联式容器：二叉树结构，各元素之间没有物理上严格的顺序关系    </p>
+<p><strong>算法</strong>：就是解决问题的方法</p>
+<p>用有限的步骤，解决逻辑或者数学上的问题。</p>
+<p>分为质变算法和非质变算法。</p>
+<p>​        质变算法：运算过程中会更改区间内的元素的内容，比如拷贝、替换、删除等等</p>
+<p>​        非质变算法：运算过程中不会更改区间的元素内容，比如查找、计数、遍历等等</p>
+<p><strong>迭代器</strong>：容器和算法之间的粘合剂</p>
+<p>提供一种方法，使之能够依序寻访某个容器所含的各个元素，而又无需暴露该容器的内部表示方式。</p>
+<p>每个容器都有自己专属的迭代器</p>
+<p>使用方法和指针很类似。在初学可以就理解为指针。</p>
+<p>迭代器种类：</p>
+<table>
+<thead>
+<tr>
+<th>种类</th>
+<th>功能</th>
+<th>支持的运算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入迭代器</td>
+<td>对数据的只读访问</td>
+<td>只读，支持++、==、！=</td>
+</tr>
+<tr>
+<td>输出迭代器</td>
+<td>对数据的只写访问</td>
+<td>只写，支持++</td>
+</tr>
+<tr>
+<td>前向迭代器</td>
+<td>读写操作，并能向前推进迭代器</td>
+<td>读写，支持++、==、！=</td>
+</tr>
+<tr>
+<td>双向迭代器</td>
+<td>读写操作，并能向前和向后操作</td>
+<td>读写，支持++，–</td>
+</tr>
+<tr>
+<td>随机访问迭代器</td>
+<td>读写操作，可以以跳跃的方式访问任意数据，功能最强</td>
+<td>读写，支持++，—，[n],-n，&lt;，&lt;=,&gt;,&gt;=</td>
+</tr>
+</tbody>
+</table>
+<p>常用的容器种类为双向迭代器和随机访问迭代器。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/01/今日充电——更改国内源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1511,166 +1701,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——继承中的一些问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/21/C++——继承中的一些问题/" itemprop="url">C++——继承中的一些问题</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T16:14:16+08:00">
-                2019-07-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="继承中构造和析构的顺序"><a href="#继承中构造和析构的顺序" class="headerlink" title="继承中构造和析构的顺序"></a>继承中构造和析构的顺序</h2><p>看程序</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Base()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Base 构造"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Base()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Base 析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Inherit()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Inherit 构造"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Inherit()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Inherit 析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果是：</p>
-<p><img src="https://i.loli.net/2019/07/21/5d34235c7a75a24000.png" alt></p>
-<p>所以可以得出构造和析构的顺序为：</p>
-<ol>
-<li>基类构造</li>
-<li>子类构造</li>
-<li>子类析构</li>
-<li>父类析构</li>
-</ol>
-<h2 id="继承中同名成员处理方式"><a href="#继承中同名成员处理方式" class="headerlink" title="继承中同名成员处理方式"></a>继承中同名成员处理方式</h2><p>当子类与父类出现同名成员，如何通过子类对象来访问父类中的同名数据呢？</p>
-<ul>
-<li><p>子类中的直接访问</p>
-</li>
-<li><p>父类中的同名成员需要加作用域</p>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;i.a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;i.Base::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-<p>很简单的程序，输出是2，1。作用域的格式记住不能写错喽！</p>
-<p>类中的方法同理。</p>
-<p>提一点就是会发生重载的时候，想在基类中重载也是需要加作用域的。要不然就会提示参数过多发生错误。官方一点的说法是：</p>
-<p>如果派生类中出现和基类同名的成员函数，派生类的同名成员会隐藏掉基类中所有的同名成员。在加上基类作用域的时候才会暴露出来。</p>
-<h2 id="同名静态成员的处理方式"><a href="#同名静态成员的处理方式" class="headerlink" title="同名静态成员的处理方式"></a>同名静态成员的处理方式</h2><p>小小的复习一下</p>
-<p>静态成员（static成员）变量的特点：</p>
-<ul>
-<li>所有对象都共享同一份数据</li>
-<li>编译阶段就分配内存</li>
-<li>类内声明，类外初始化</li>
-</ul>
-<p>静态成员函数的特点：</p>
-<ul>
-<li>只能访问静态的成员函数，非静态的不能访问</li>
-<li>所有对象都共享同一份函数实例</li>
-<li>类加载的时候就分配内存</li>
-<li>不传递this指针，所以通常被用来操作类的静态数据</li>
-</ul>
-<p>代码和上边案例中相同。就是加个static。</p>
-<p>所以。。。。。。处理方式也是相同的。</p>
-<h2 id="通过类名来访问静态成员"><a href="#通过类名来访问静态成员" class="headerlink" title="通过类名来访问静态成员"></a>通过类名来访问静态成员</h2><p>静态成员可以通过类名来访问，而不需要实例化出一个对象。看下面的例子；</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> Test::a=<span class="number">1</span>;	<span class="comment">//需要注意，静态成员需要在类外做初始化</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;Test::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;Inherit::Base::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">//这段程序蛮有意思，Inherit是Base的子类。这句的意思是通过Inherit类来访问他的父类中Base的静态成员变量。</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1721,7 +1751,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

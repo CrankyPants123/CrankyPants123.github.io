@@ -242,6 +242,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——继承中的一些问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/21/C++——继承中的一些问题/" itemprop="url">C++——继承中的一些问题</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T16:14:16+08:00">
+                2019-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="继承中构造和析构的顺序"><a href="#继承中构造和析构的顺序" class="headerlink" title="继承中构造和析构的顺序"></a>继承中构造和析构的顺序</h2><p>看程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Base()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Base 构造"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Base()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Base 析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Inherit()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Inherit 构造"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Inherit()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Inherit 析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果是：</p>
+<p><img src="https://i.loli.net/2019/07/21/5d34235c7a75a24000.png" alt></p>
+<p>所以可以得出构造和析构的顺序为：</p>
+<ol>
+<li>基类构造</li>
+<li>子类构造</li>
+<li>子类析构</li>
+<li>父类析构</li>
+</ol>
+<h2 id="继承中同名成员处理方式"><a href="#继承中同名成员处理方式" class="headerlink" title="继承中同名成员处理方式"></a>继承中同名成员处理方式</h2><p>当子类与父类出现同名成员，如何通过子类对象来访问父类中的同名数据呢？</p>
+<ul>
+<li><p>子类中的直接访问</p>
+</li>
+<li><p>父类中的同名成员需要加作用域</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;i.a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;i.Base::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>很简单的程序，输出是2，1。作用域的格式记住不能写错喽！</p>
+<p>类中的方法同理。</p>
+<p>提一点就是会发生重载的时候，想在基类中重载也是需要加作用域的。要不然就会提示参数过多发生错误。官方一点的说法是：</p>
+<p>如果派生类中出现和基类同名的成员函数，派生类的同名成员会隐藏掉基类中所有的同名成员。在加上基类作用域的时候才会暴露出来。</p>
+<h2 id="同名静态成员的处理方式"><a href="#同名静态成员的处理方式" class="headerlink" title="同名静态成员的处理方式"></a>同名静态成员的处理方式</h2><p>小小的复习一下</p>
+<p>静态成员（static成员）变量的特点：</p>
+<ul>
+<li>所有对象都共享同一份数据</li>
+<li>编译阶段就分配内存</li>
+<li>类内声明，类外初始化</li>
+</ul>
+<p>静态成员函数的特点：</p>
+<ul>
+<li>只能访问静态的成员函数，非静态的不能访问</li>
+<li>所有对象都共享同一份函数实例</li>
+<li>类加载的时候就分配内存</li>
+<li>不传递this指针，所以通常被用来操作类的静态数据</li>
+</ul>
+<p>代码和上边案例中相同。就是加个static。</p>
+<p>所以。。。。。。处理方式也是相同的。</p>
+<h2 id="通过类名来访问静态成员"><a href="#通过类名来访问静态成员" class="headerlink" title="通过类名来访问静态成员"></a>通过类名来访问静态成员</h2><p>静态成员可以通过类名来访问，而不需要实例化出一个对象。看下面的例子；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> Test::a=<span class="number">1</span>;	<span class="comment">//需要注意，静态成员需要在类外做初始化</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;Test::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;Inherit::Base::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">//这段程序蛮有意思，Inherit是Base的子类。这句的意思是通过Inherit类来访问他的父类中Base的静态成员变量。</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1439,146 +1599,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/07/胡言乱语——记录下即将被抛出脑子的闲杂思绪/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/07/胡言乱语——记录下即将被抛出脑子的闲杂思绪/" itemprop="url">胡言乱语——即将被抛出脑子的闲杂思绪</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-07T10:38:59+08:00">
-                2019-07-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>10点来学习，现在已经10:40还没状态。昨晚睡的略晚，因为被昨晚的high hanging fruits听的心潮澎湃，激动的好久不能睡着。讲的是一个纽约的程序员跑马完成了7+2的故事。我后来微博翻出了他的微博，叫那可。7+2就是七大洲加两极。在撒哈拉跑过超级马拉松，也在南极洲北极洲跑过。北极圈有陆地，但是准确的说北极是没有陆地的。所以我就很好奇。他们是怎么跑的。</p>
-<p><img src="https://i.loli.net/2019/07/07/5d21636ce0e9727789.jpg" alt></p>
-<p>是在冰上跑的！先开个飞机过去地点在北纬89°左右，空投一波人和拖拉机，铲出一个冰上飞机跑道和马拉松赛道。然后后续的比赛人员再坐飞机降落。听着简单实则操作难度相当大。那里都是大浮冰，今儿你在东经35°，睡一觉起来可能就到东经50°了。还有不确定的洋流等等。铲出的冰上跑道隔三差五就要裂。运气好能来，但是不一定有好运气回去。都多多少少有点怂，只有俄罗斯人粗枝大叶的去裂开的口子舀一缸子的水，说着”Oh！Taste this.Good for your health!”后来主持问跑马的那位大哥七大洲跑马的经历，对他个人的性格有什么改变？还有对他的生活有没有明显的好处？大哥很直白的说了一句：”没有”。听笑了我。</p>
-<p>套用一下<a href="https://zh.wikipedia.org/wiki/%E9%9C%80%E6%B1%82%E5%B1%82%E6%AC%A1%E7%90%86%E8%AE%BA" target="_blank" rel="noopener">马斯洛的需求模型</a>，在尊重需求，社交需求等等都满足的情况下。人是应该去追求自我实现的。</p>
-<p><img src="https://i.loli.net/2019/07/07/5d2163b9549e812740.jpg" alt></p>
-<p>真的羡慕！跑遍七大洲。想想都好玩。在马丘比丘跑，在撒哈拉跑，在乔治王岛跑。肯定是很好玩的经历。</p>
-<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><blockquote>
-<p>Because we can!</p>
-</blockquote>
-<p>Big Bang里4个人用笔记本发出一个信号，信号绕地球一圈后点亮了桌上的一盏台灯。Penny 问他们为什么要这样做，他们是这样回答的。</p>
-<p>在我看来这是一句实力催化之下自然而然的自信表达，有意思！</p>
-<h1 id="3"><a href="#3" class="headerlink" title="3"></a>3</h1><p>我思想保守。高晓松说人，年轻的偏左，老的偏右。这一观点的前半部分在我身边被真切证实。让大家愤慨的很多社会事件在我看来几乎都有其发生的原因。主观的不公平说不定就是客观的公平。这些问题导致我很矛盾。思考不出答案。大众是愚蠢的。我讨厌大众。大众的论点容易使人迷惑，从而看不清事物的本质。他们喜欢固执的将事件打上对与错的标签！我觉得以对错来区别本身就是错的。不过我也不能自圆自说。看来，我也是愚蠢的大众。</p>
-<p>我已经开始刻意的不去看一些东西，不去和别人争论某些话题，因为没有意义。或许能让我有参与感，但是这份参与感对于我来说也很可悲，投入产出完全不成比例。要是继续下去那真的是沉没成本谬误了。</p>
-<p>最近慢慢的有了一种奇怪的想法。就是开始慢慢的去羡慕一些自己曾经定义为loser的人。我要是一个目光短浅的人该多好。做着枯燥的工作，整天抱怨，但是下班之后一杯饮料打着游戏就很满足，不去思考奋斗和磨砺。对外边的世界也毫无兴趣。</p>
-<p>其实我很想去追求感官上的刺激。比如爬爬珠峰。提前一年开始适应性的训练和体能的训练正常人是完全可以的。当时故意把这想法假装不经意的在我爸面前提了一下，我爸瞬间脸色就有点不正常了。</p>
-<p>现在是21世纪了，无氧登顶的人都这么多了。科学的力量让人类无比的强大。选择适当的窗口期，爬爬不是很难。又不是什么爬Meru，或者徒手攀登酋长岩。听起来还8844米海拔呢！但是珠峰大本营海拔就5200m了。算下来，也就是爬1.5个华山而已啦。提前适应下缺氧环境，还有夏尔巴人这种无氧生物和你一起。只要不遇上雪崩，就算是你去一心求死估计都是有点难度的。</p>
-<h1 id="4"><a href="#4" class="headerlink" title="4"></a>4</h1><p>发现了一个很有意思的独立音乐人Cosmo Sheldrake</p>
-<p>我知道的名字里有Sheld的好像都是英国人。就像名字带Berg的都是犹太人。</p>
-<h1 id="5"><a href="#5" class="headerlink" title="5"></a>5</h1><p>2019-08-01</p>
-<p>加上时间戳吧。可以用来持续的记录。就当日记本了。</p>
-<p>刚刚想到了一件事，本来要写的。但是被加时间戳扰乱了思绪。忘了是什么事了，也忘了刚才的事是令我欣喜还是悲伤。我脑子不好，时常是这样。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1629,7 +1649,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

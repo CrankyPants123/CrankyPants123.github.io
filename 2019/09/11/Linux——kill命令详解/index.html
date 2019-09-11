@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,">
+  <meta name="keywords" content="Linux,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Hexo入门&amp;amp;基础配置什么是Hexo？Hexo是一个基于Node.js的静态网页生成器，也可以用作产品展示,书写帮助文档等等。。使用Markdown解析文章。依赖少&amp;amp;易于安装&amp;amp;中文友好。具体可以在Hexo官网查询与了解更多信息。 安装前提 安装之前，电脑需要安装以下程序：  Node.js(6.9版本以上) Git  如果你的电脑上还没有安装上述软件，请移步Hexo官网的教">
-<meta name="keywords" content="Hexo">
+<meta name="description" content="kill命令探究命令格式kill [参数] [进程号] 命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs或者ps命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。 一般来">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo——安装与文件目录">
-<meta property="og:url" content="47.168.200.88/2019/05/25/Hexo——安装与文件目录/index.html">
+<meta property="og:title" content="Linux——kill命令详解">
+<meta property="og:url" content="47.168.200.88/2019/09/11/Linux——kill命令详解/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="Hexo入门&amp;amp;基础配置什么是Hexo？Hexo是一个基于Node.js的静态网页生成器，也可以用作产品展示,书写帮助文档等等。。使用Markdown解析文章。依赖少&amp;amp;易于安装&amp;amp;中文友好。具体可以在Hexo官网查询与了解更多信息。 安装前提 安装之前，电脑需要安装以下程序：  Node.js(6.9版本以上) Git  如果你的电脑上还没有安装上述软件，请移步Hexo官网的教">
+<meta property="og:description" content="kill命令探究命令格式kill [参数] [进程号] 命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs或者ps命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。 一般来">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-28T14:10:38.152Z">
+<meta property="og:updated_time" content="2019-09-11T11:43:19.820Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo——安装与文件目录">
-<meta name="twitter:description" content="Hexo入门&amp;amp;基础配置什么是Hexo？Hexo是一个基于Node.js的静态网页生成器，也可以用作产品展示,书写帮助文档等等。。使用Markdown解析文章。依赖少&amp;amp;易于安装&amp;amp;中文友好。具体可以在Hexo官网查询与了解更多信息。 安装前提 安装之前，电脑需要安装以下程序：  Node.js(6.9版本以上) Git  如果你的电脑上还没有安装上述软件，请移步Hexo官网的教">
+<meta name="twitter:title" content="Linux——kill命令详解">
+<meta name="twitter:description" content="kill命令探究命令格式kill [参数] [进程号] 命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs或者ps命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。 一般来">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="47.168.200.88/2019/05/25/Hexo——安装与文件目录/">
+  <link rel="canonical" href="47.168.200.88/2019/09/11/Linux——kill命令详解/">
 
 
 
 
 
-  <title>Hexo——安装与文件目录 | Andrew's Blog</title>
+  <title>Linux——kill命令详解 | Andrew's Blog</title>
   
 
 
@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/05/25/Hexo——安装与文件目录/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/Linux——kill命令详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -260,7 +260,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Hexo——安装与文件目录</h2>
+          <h2 class="post-title" itemprop="name headline">Linux——kill命令详解</h2>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T17:23:00+08:00">
-                2019-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T19:20:34+08:00">
+                2019-09-11
               </time>
             
 
@@ -310,60 +310,11 @@
       
 
       
-        <h1 id="Hexo入门-amp-基础配置"><a href="#Hexo入门-amp-基础配置" class="headerlink" title="Hexo入门&amp;基础配置"></a>Hexo入门&amp;基础配置</h1><h2 id="什么是Hexo？"><a href="#什么是Hexo？" class="headerlink" title="什么是Hexo？"></a>什么是Hexo？</h2><p>Hexo是一个基于Node.js的静态网页生成器，也可以用作产品展示,书写帮助文档等等。。使用Markdown解析文章。依赖少&amp;易于安装&amp;中文友好。具体可以在<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo官网</a>查询与了解更多信息。</p>
-<h2 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h2><p> 安装之前，电脑需要安装以下程序：</p>
-<ul>
-<li>Node.js(6.9版本以上)</li>
-<li>Git</li>
-</ul>
-<p>如果你的电脑上还没有安装上述软件，请移步<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo官网</a>的教程以完成Node.js和Git的安装。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Hexo的安装十分简单，使用npm即可在很短的时间内完成安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<h2 id="网站建设"><a href="#网站建设" class="headerlink" title="网站建设"></a>网站建设</h2><p>Hexo安装完成后，执行以下的指令。Hexo将会在指定目录生成网站建设所需要的文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<p>初始化完成之后，所指定文件夹的中的文件如下：</p>
-<ul>
-<li>_config.yml：网站的配置信息</li>
-<li>package.json：应用程序的信息</li>
-<li>scaffolds：模板文件夹</li>
-<li>source：资源文件夹</li>
-<li>themes：主题文件夹,Hexo会根据主题来生成静态页面</li>
-</ul>
-<h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>_config.xml是Hexo的配置文件。在这里，我们可以修改所建设网站的大多数设定。在_config.xml中，主要有以下几部分的重要设置项：</p>
-<h4 id="Site"><a href="#Site" class="headerlink" title="Site"></a>Site</h4><p>title：网站的标题</p>
-<p>subtitle：网站的副标题</p>
-<p>description：网站描述(此项主要用于SEO)</p>
-<p>author：作者的名字</p>
-<p>language：网站使用的语言</p>
-<p>timezone：网站的时区，默认使用电脑的时区</p>
-<h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>url：我的网址</p>
-<p>root：网站的根目录</p>
-<p>permalink：文章的永久链接(默认格式是:year/:month/:day/:title/)</p>
-<p>permalink_defaults：永久链接中各部分的默认值</p>
-<h4 id="Directory"><a href="#Directory" class="headerlink" title="Directory"></a>Directory</h4><p>source_id：资源文件夹，此文件夹用来存放内容</p>
-<p>public_dir：公共文件夹，用于存放生成站点的文件</p>
-<p>………………..</p>
-<p>很懒不想写了。。。。此部分的值在一般情况下不需要修改，就酱！</p>
-<h4 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h4><p>new_post_name：新文章的文件名称</p>
-<p>default_layout：预设的布局</p>
-<p>auto_spacing：在中文和英文之间加入空格</p>
-<p>titlecase：把标题转换为title case</p>
-<p>external_link：在新标签中打开链接</p>
-<p>filename_case：把文件名称转换成小写或者是大写</p>
-<p>render_drafts：显示草稿</p>
-<p>post_asset_folder：启动Asset文件夹</p>
-<p>future：显示未来的文章</p>
-<p>默认情况下，Hexo生成的超链接都是绝对地址。也就是说，无论用什么域名来访问这个站点，都没有关系。这在进行反向代理的时候就会用到。</p>
-<h4 id="Category-amp-Tag"><a href="#Category-amp-Tag" class="headerlink" title="Category &amp; Tag"></a>Category &amp; Tag</h4><p>default&amp;category：默认分类</p>
-<p>category_map：分类别名</p>
-<p>tag_map：标签别名</p>
-<h3 id="Date-Time-format"><a href="#Date-Time-format" class="headerlink" title="Date/Time format"></a>Date/Time format</h3><p>Hexo使用Moment.js来解析和显示时间</p>
-<p>date_format：日期格式(YYYY-MM-DD)</p>
-<p>time_format：时间格式</p>
-<h4 id="Pagination"><a href="#Pagination" class="headerlink" title="Pagination"></a>Pagination</h4><p>per_page：每页显示的文章数量(0表示关闭分页，默认值是10)</p>
-<p>pagination_dir：分页目录</p>
-<h4 id="Extensions"><a href="#Extensions" class="headerlink" title="Extensions"></a>Extensions</h4><p>theme：当前的主题名称(值为false的时候禁用主题)</p>
-<p>deploy：部署部分的设置</p>
+        <h1 id="kill命令探究"><a href="#kill命令探究" class="headerlink" title="kill命令探究"></a>kill命令探究</h1><h2 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h2><p>kill [参数] [进程号]</p>
+<h2 id="命令功能"><a href="#命令功能" class="headerlink" title="命令功能"></a>命令功能</h2><p>发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用<code>kill -9 pid</code>用来发送SIGKILL信号来强制结束进程。可是使用<code>jobs</code>或者<code>ps</code>命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。</p>
+<p>一般来说，在尝试kill掉一个进程的时候是先尝试<code>kill -15 pid</code>如果一段时间后程序仍然在后台运行没有终止的话，再使用<code>kill -9 pid</code>。这种能够防止丢失掉未保存的工作进度。</p>
+<h2 id="SIGTERM"><a href="#SIGTERM" class="headerlink" title="SIGTERM"></a>SIGTERM</h2><p>此信号是请求一个进程停止运行，是可以被忽略的。进程可以用一段时间来正常关闭，在这段时间内可能会保存一下工作的进度并释放资源。它并不是强制停止的。退出前可以是被阻塞或者回调处理。并且它是Linux缺省的程序中断信号。不过一般来说，当我们去尝试kill掉一个程序的时候，使用SIGTERM不太可能会管用，多半会被阻塞、忽略。</p>
+<h2 id="SIGKILL"><a href="#SIGKILL" class="headerlink" title="SIGKILL"></a>SIGKILL</h2><p>此信号会强制进程立刻停止运行，而且程序不能忽略此信号，后果是未保存的工作进度都将会丢失。</p>
 
       
     </div>
@@ -384,7 +335,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="47.168.200.88/2019/05/25/Hexo——安装与文件目录/" title="Hexo——安装与文件目录">47.168.200.88/2019/05/25/Hexo——安装与文件目录/</a>
+    <a href="47.168.200.88/2019/09/11/Linux——kill命令详解/" title="Linux——kill命令详解">47.168.200.88/2019/09/11/Linux——kill命令详解/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -399,7 +350,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -412,15 +363,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/09/11/测试——01计划/" rel="next" title="测试—— 01写在伊始">
+                <i class="fa fa-chevron-left"></i> 测试—— 01写在伊始
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/26/Hexo——文件结构/" rel="prev" title="Hexo——文件结构">
-                Hexo——文件结构 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -612,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo入门-amp-基础配置"><span class="nav-number">1.</span> <span class="nav-text">Hexo入门&amp;基础配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Hexo？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Hexo？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装前提"><span class="nav-number">1.2.</span> <span class="nav-text">安装前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网站建设"><span class="nav-number">1.4.</span> <span class="nav-text">网站建设</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#config-yml"><span class="nav-number">1.4.1.</span> <span class="nav-text">_config.yml</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Site"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Site</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URL"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Directory"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">Directory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Writing"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">Writing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Category-amp-Tag"><span class="nav-number">1.4.1.5.</span> <span class="nav-text">Category &amp; Tag</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date-Time-format"><span class="nav-number">1.4.2.</span> <span class="nav-text">Date/Time format</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pagination"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">Pagination</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Extensions"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Extensions</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kill命令探究"><span class="nav-number">1.</span> <span class="nav-text">kill命令探究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令格式"><span class="nav-number">1.1.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令功能"><span class="nav-number">1.2.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIGTERM"><span class="nav-number">1.3.</span> <span class="nav-text">SIGTERM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIGKILL"><span class="nav-number">1.4.</span> <span class="nav-text">SIGKILL</span></a></li></ol></li></ol></div>
             
 
           </div>
