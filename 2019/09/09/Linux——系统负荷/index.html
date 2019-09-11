@@ -82,16 +82,18 @@
 <meta name="description" content="Load Average一些探究简单的说就是用来查看当前系统的负载情况。可以使用uptime或者w/或者top命令来查看。  这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。 所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux——LoadAverage(系统负荷)">
+<meta property="og:title" content="Linux——Load Average">
 <meta property="og:url" content="47.168.200.88/2019/09/09/Linux——系统负荷/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="Load Average一些探究简单的说就是用来查看当前系统的负载情况。可以使用uptime或者w/或者top命令来查看。  这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。 所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/09/11/H9PpA4hdW2ey1TN.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/11/fogQvhVPJuApHEm.png">
-<meta property="og:updated_time" content="2019-09-11T02:53:16.512Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/pNu1sMTXSg3KFxV.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/79mSkVU6LOpPNYf.png">
+<meta property="og:updated_time" content="2019-09-11T03:43:54.499Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux——LoadAverage(系统负荷)">
+<meta name="twitter:title" content="Linux——Load Average">
 <meta name="twitter:description" content="Load Average一些探究简单的说就是用来查看当前系统的负载情况。可以使用uptime或者w/或者top命令来查看。  这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。 所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实">
 <meta name="twitter:image" content="https://i.loli.net/2019/09/11/H9PpA4hdW2ey1TN.png">
 
@@ -129,7 +131,7 @@
 
 
 
-  <title>Linux——LoadAverage(系统负荷) | Andrew's Blog</title>
+  <title>Linux——Load Average | Andrew's Blog</title>
   
 
 
@@ -263,7 +265,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Linux——LoadAverage(系统负荷)</h2>
+          <h2 class="post-title" itemprop="name headline">Linux——Load Average</h2>
         
 
         <div class="post-meta">
@@ -322,10 +324,32 @@
 <blockquote>
 <p>可运行状态就是我们用ps命令可以看到的处于R（Running或者Runnable状态）的进程。</p>
 <p>不可中断状态是正处于内核态关键流程中的进程，并且这些流程是不可中断的。比如常见的等待硬件设备的I/O响应，也就是在ps命令中看到的D状态。比如一个进程向磁盘读写数据的时候，为了保证数据的一致性，在得到磁盘的响应之前，肯定是不能被打断的。加入进程被打断，就容易出现磁盘数据和进程数据不一致的问题。</p>
-<p>不可终端状态实际上是系统对进程和硬件设备的一种保护机制。</p>
+<p>不可中断状态实际上是系统对进程和硬件设备的一种保护机制。</p>
 <p>（思考一下，其实在日常使用电脑的时候，在非高计算的场景下，我们的电脑有时也会出现的比较严重的卡顿。此时引起这种状况的原因往往就是因为磁盘的性能下降，而我们的进程正在向磁盘进行IO操作且处于不可中断状态。一般我们可以通过更换硬盘来解决）</p>
 </blockquote>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们可以通过以上的叙述，简单的将平均负载理解为平均活跃进程数，也就是单位时间内的活跃进程数。</p>
+<blockquote>
+<p>这里更加严谨的定义应该是活跃进程数的指数衰减平均值，这里不再做更加深入的探究了。</p>
+</blockquote>
+<h2 id="平均负载的合理区间"><a href="#平均负载的合理区间" class="headerlink" title="平均负载的合理区间"></a>平均负载的合理区间</h2><p>假如是双核的CPU，那么当平均负载为2时，表示的意思就是刚好所有的CPU资源都被完全占用，在四核的系统上，就表示CPU有50%的空闲。在单核的系统上则表示，有一半的进程都竞争不到CPU资源。</p>
+<p>那我们的平均负载在多少的时候才合理呢？</p>
+<p>首先，我们需要知道我们有几个CPU。我们可以通过TOP命令或者从<code>/proc/cpuinfo</code>中来读取：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">'model name'</span> /proc/cpuinfo | wc -l</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/09/11/pNu1sMTXSg3KFxV.png" alt></p>
+<p>喔，突然想到。在mac上我很推荐另外一个图形化的软件<code>iStat Menus</code>在这个软件中，我们可以以图表的方式，直观的了解到最近1小时到最近30天的系统负载情况。</p>
+<p><img src="https://i.loli.net/2019/09/11/79mSkVU6LOpPNYf.png" alt></p>
+<p>言归正传！我查了很多资料之后，大家一致比较推荐的，是在平均负载高于CPU理论最高负载的70%之后，就要开始解决和排查负载高的问题。但是70%并不是一个绝对数字。</p>
+<h2 id="平均负载与CPU使用率"><a href="#平均负载与CPU使用率" class="headerlink" title="平均负载与CPU使用率"></a>平均负载与CPU使用率</h2><p>相信大家和之前的我一样，单纯的把负载就看做为CPU的使用率。但是其实并不是的。追根溯源还是要回到概念：</p>
+<p>平均负载是单位时间内处于R状态和不可中断状态的进程数。这其中包含了正在使用CPU的进程，该包括等待CPU和等待IO的进程。</p>
+<p>CPU使用率是单位时间内CPU繁忙的情况。和平均负载并不完全一致。</p>
+<blockquote>
+<p>在前文我提到的那个例子就挺合适的，当卡顿的情况发生，此时系统中Runing态的进程基本都处在不可中断的内核态，平均负载会上升，但是CPU其实并不繁忙，反倒是很空闲。因为大家都在等磁盘的响应了。总结一下；</p>
+<ul>
+<li>CPU密集型的进程，会导致平均负载升高，CPU负载也会升高，此时两者的趋势是一致的，</li>
+<li>IO密集型的进程，等待IO也会导致平均负载升高，但是CPU的使用率不一定很高，而且有大概率的可能是比较空闲的</li>
+<li>大量的CPU进程调度也会导致平均负载升高，此时的CPU使用率也会比较高。</li>
+</ul>
+</blockquote>
 <p>参考文章：</p>
 <ul>
 <li>《<a href="https://scoutapm.com/blog/understanding-load-averages" target="_blank" rel="noopener">Understanding Linux CPU Load - when should you be worried?</a>》</li>
@@ -351,7 +375,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="47.168.200.88/2019/09/09/Linux——系统负荷/" title="Linux——LoadAverage(系统负荷)">47.168.200.88/2019/09/09/Linux——系统负荷/</a>
+    <a href="47.168.200.88/2019/09/09/Linux——系统负荷/" title="Linux——Load Average">47.168.200.88/2019/09/09/Linux——系统负荷/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -388,6 +412,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/11/测试——01计划/" rel="prev" title="测试—— 01写在伊始">
+                测试—— 01写在伊始 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -464,7 +492,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -486,7 +514,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -579,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Load-Average"><span class="nav-number">1.</span> <span class="nav-text">Load Average</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些探究"><span class="nav-number">1.1.</span> <span class="nav-text">一些探究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">1.2.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Load-Average"><span class="nav-number">1.</span> <span class="nav-text">Load Average</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些探究"><span class="nav-number">1.1.</span> <span class="nav-text">一些探究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">1.2.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平均负载的合理区间"><span class="nav-number">1.3.</span> <span class="nav-text">平均负载的合理区间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平均负载与CPU使用率"><span class="nav-number">1.4.</span> <span class="nav-text">平均负载与CPU使用率</span></a></li></ol></li></ol></div>
             
 
           </div>
