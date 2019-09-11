@@ -242,6 +242,340 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/17/自建blog——01数据库设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/17/自建blog——01数据库设计/" itemprop="url">自建blog——01数据库设计</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T20:00:03+08:00">
+                2019-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>目前后端部分，包括数据库设计，服务器搭建，API设计已经结束。前端目前还在摸着石头过河的状态，设计的很简陋。我很喜欢我的hexo博客，所以目前有点想法就是把我自己搭建的服务器接入我的hexo模板。专门开了个tag。用来记录梳理一下完整的思路，也是做一个总结。</p>
+<p>ps：还是很愿意把这个再继续做好。一来是可以自用。二来是打算直接就当毕设了。毕设是源动力。</p>
+<h1 id="01数据库设计"><a href="#01数据库设计" class="headerlink" title="01数据库设计"></a>01数据库设计</h1><p>目前构思要建两张表，一张用来储存文章名、正文、标签id、创建时间。另外一张用来储存标签id和标签名的关系。之所以设计成两张是考虑到多个博客可能使用同一种标签，涉及到对应关系，专门用一张表来储存标签关系会更加简单一些,设计见图：</p>
+<ol>
+<li>blog_table</li>
+</ol>
+<p><img src="https://i.loli.net/2019/08/17/ADwtUP2S5Qqkcmg.png" alt></p>
+<ol>
+<li>tag_table</li>
+</ol>
+<p><img src="https://i.loli.net/2019/08/17/XByAeNSEIxgRpb7.png" alt></p>
+<p>TODO:</p>
+<ol>
+<li>tag_name中加上默认设置“未设置标签”。</li>
+</ol>
+<h2 id="数据库接口设计"><a href="#数据库接口设计" class="headerlink" title="数据库接口设计"></a>数据库接口设计</h2><h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>数据库用的是MySQL C API。需要注意的是，应该为数据库操作封装一个单独的命名空间，防止将来命名冲突，并且在命名空间结束的括号处加上注释表明命名空间结束。编译选项使用<code>-L /usr/lib64/mysql -lmysqlclient</code></p>
+<p>本次开发选择的是在远程机器上在线开发。开发环境中除过需要安装并运行<code>mysql</code>之外,还需要额外安装<code>mysql</code>的devel包，也就是开发者工具包。可以使用<code>yum list | grep mysql</code>来进行针对性的安装。此前遇到了一些小小的问题。就是CentOS 7的默认数据库其实是MariaDB，我们需要提前先彻底删除掉MraiaDB，防止将来安装时出现的依赖性冲突等等。</p>
+<p>不同的数据库接口本质其实就是执行不同的SQL语句来完成特定的任务。</p>
+<p>对一些操作在此进行一些封装，为了减少将来的代码量。</p>
+<h2 id="需要用到的方法"><a href="#需要用到的方法" class="headerlink" title="需要用到的方法"></a>需要用到的方法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MYSQL * STDCALL <span class="title">mysql_init</span><span class="params">(MYSQL *mysql)</span></span>;</span><br><span class="line"><span class="comment">//用来初始化一个MYSQL* 类型的句柄</span></span><br><span class="line"></span><br><span class="line"><span class="function">MYSQL * STDCALL <span class="title">mysql_real_connect</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *host,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">char</span> *user, <span class="keyword">const</span> <span class="keyword">char</span> *passwd,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">char</span> *db,     <span class="comment">//数据库名</span></span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">unsigned</span> <span class="keyword">int</span> port,<span class="keyword">const</span> <span class="keyword">char</span> *unix_socket,    <span class="comment">//是否使用socket机制登录，NULL：否</span></span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">unsigned</span> <span class="keyword">long</span> clientflag)</span></span>;  <span class="comment">//连接标志，通常为0</span></span><br><span class="line"><span class="comment">//连接数据库，成功返回一个MYSQL* 类型的句柄</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> STDCALL <span class="title">mysql_query</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *q)</span></span>;</span><br><span class="line"><span class="comment">//执行数据库操作</span></span><br><span class="line"><span class="comment">//1.句柄 2.操作的指令</span></span><br><span class="line"><span class="comment">//成功返回0，失败返回非0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> STDCALL <span class="title">mysql_set_character_set</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *csname)</span></span>;</span><br><span class="line"><span class="comment">//设定字符集</span></span><br><span class="line"><span class="comment">//1.句柄 2. 指定的字符集（在这里设置成utf8）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> STDCALL <span class="title">mysql_close</span><span class="params">(MYSQL *sock)</span></span>;</span><br><span class="line"><span class="comment">//关闭数据库连接</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> *<span class="title">mysql_error</span><span class="params">(MYSQL *mysql)</span></span></span><br><span class="line"><span class="function"><span class="comment">//用来捕获错误信息</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">MYSQL_RES *<span class="title">mysql_store_result</span><span class="params">(MYSQL *mysql)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将查询到的结果储存到客户端MYSQL_RES* 结构中</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mysql_free_result</span><span class="params">(MYSQL_RES *result)</span></span></span><br><span class="line"><span class="function"><span class="comment">//释放在MYSQL_RES *result中的对象</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">mysql_real_escape_string</span><span class="params">(MYSQL *mysql, <span class="keyword">char</span> *to, <span class="keyword">const</span> <span class="keyword">char</span> *from, <span class="keyword">unsigned</span> <span class="keyword">long</span> length)</span></span></span><br><span class="line"><span class="function"><span class="comment">//在一定程度解决SQL注入的问题。官方的说明是创建用于SQL语句的合法SQL字符串</span></span></span><br><span class="line"><span class="function"><span class="comment">//to应该是from的2*from+1大小。length是from字节长</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">my_ulonglong <span class="title">mysql_num_rows</span><span class="params">(MYSQL_RES *result)</span>	</span></span><br><span class="line"><span class="function"><span class="comment">//返回结果中的行数</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">MYSQL_ROW <span class="title">mysql_fetch_row</span><span class="params">(MYSQL_RES *result)</span></span></span><br><span class="line"><span class="function"><span class="comment">//抓取一行的内容</span></span></span><br><span class="line"><span class="function"><span class="comment">//抓取是类似剪切的操作而不是复制结果</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="Restful风格API设计"><a href="#Restful风格API设计" class="headerlink" title="Restful风格API设计"></a>Restful风格API设计</h2><ul>
+<li>使用不同的HTTP方法来表示不同的语义<ul>
+<li>使用POST表示新增</li>
+<li>GET表示查看</li>
+<li>PUT表示修改</li>
+<li>DELETE表示删除</li>
+</ul>
+</li>
+<li>使用PATH来表示需要操作的资源</li>
+<li>使用Json来组织body中的数据</li>
+</ul>
+<h2 id="服务器需要进行的操作"><a href="#服务器需要进行的操作" class="headerlink" title="服务器需要进行的操作"></a>服务器需要进行的操作</h2><ul>
+<li><p>博客的管理</p>
+<ul>
+<li>新增博客</li>
+<li>获取博文列表</li>
+<li>获取博文内容</li>
+<li>修改博客</li>
+<li>删除博客</li>
+</ul>
+</li>
+<li><p>标签的管理</p>
+<ul>
+<li>新增标签</li>
+<li>删除标签</li>
+<li>查看所有标签</li>
+</ul>
+</li>
+</ul>
+<h2 id="接口约定"><a href="#接口约定" class="headerlink" title="接口约定"></a>接口约定</h2><p>我觉得这是蛮重要的一环，此时详细的设计好，将来就以现在约定的接口为准进行开发了。</p>
+<h3 id="新增博客"><a href="#新增博客" class="headerlink" title="新增博客"></a>新增博客</h3><p>发送给服务器的请求信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST/blog</span><br><span class="line">&#123;</span><br><span class="line">    title:xxxxx,</span><br><span class="line">    content:xxxxx.</span><br><span class="line">    create_time:xxxxxxx,</span><br><span class="line">    tag_id:xxx,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>服务器的响应信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">	reason:"xxx"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述其实就是基于HTTP再进行自定义协议的过程</p>
+<h3 id="查看博客"><a href="#查看博客" class="headerlink" title="查看博客"></a>查看博客</h3><h4 id="查看所有的博客（标题列表）"><a href="#查看所有的博客（标题列表）" class="headerlink" title="查看所有的博客（标题列表）"></a>查看所有的博客（标题列表）</h4><p>发送给服务器的请求信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET/blog				获取所有</span><br><span class="line">GET/blog?tag_id=1		按照标签来筛选</span><br></pre></td></tr></table></figure>
+<p>服务器的响应信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">#[]表示的就是json数组</span><br><span class="line">[</span><br><span class="line">	&#123;</span><br><span class="line">	blog_id:1,</span><br><span class="line">	title:"My first blog",</span><br><span class="line">	create_time:"2019/08/01",</span><br><span class="line">	tag_id:1,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h4 id="查看单个博客"><a href="#查看单个博客" class="headerlink" title="查看单个博客"></a>查看单个博客</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET/blog/:blog_id			类似于blog/10的方式</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"blog_id"</span>:<span class="number">1</span>,</span><br><span class="line">	<span class="attr">"title"</span>:<span class="string">"My first blog"</span>,</span><br><span class="line">	<span class="attr">"content"</span>:<span class="string">"xxxxxxxx"</span>,</span><br><span class="line">	<span class="attr">"tag_id"</span>:<span class="number">1</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删除博客"><a href="#删除博客" class="headerlink" title="删除博客"></a>删除博客</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DELETE/blog/:blog_id</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修改博客"><a href="#修改博客" class="headerlink" title="修改博客"></a>修改博客</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT/blog/:blog_id</span><br><span class="line">&#123;</span><br><span class="line">	title:"修改之后的标题",</span><br><span class="line">	content:"修改之后的正文",</span><br><span class="line">	tag_id:"修改之后的tag_id",</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="新增标签"><a href="#新增标签" class="headerlink" title="新增标签"></a>新增标签</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST/tag</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"tag_name"</span>:<span class="string">"新增标签名"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DELETE/tag/:tag_id</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="查看所有标签"><a href="#查看所有标签" class="headerlink" title="查看所有标签"></a>查看所有标签</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET/tag</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">[</span><br><span class="line">	&#123;</span><br><span class="line">		tag_id:1,</span><br><span class="line">		tag_name:"xxx"</span><br><span class="line">	&#125;</span><br><span class="line">	&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="开始编码"><a href="#开始编码" class="headerlink" title="开始编码"></a>开始编码</h2><p>本文参考</p>
+<ul>
+<li>《<a href="https://dev.mysql.com/doc/refman/5.7/en/c-api-functions.html" target="_blank" rel="noopener">MySQL C API Descriptions</a>》</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/13/Linux——Centos7下安装Mysql_server和Mysql_C_API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/13/Linux——Centos7下安装Mysql_server和Mysql_C_API/" itemprop="url">Linux——Centos7下安装Mysql_server和Mysql_C_API</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T03:25:01+08:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux——Centos7下安装Mysql-server和Mysql-C-API"><a href="#Linux——Centos7下安装Mysql-server和Mysql-C-API" class="headerlink" title="Linux——Centos7下安装Mysql_server和Mysql_C_API"></a>Linux——Centos7下安装Mysql_server和Mysql_C_API</h1><p>抱歉名称有点长。</p>
+<p>CentOS 7之后mysql不再默认安装，而是用MariaDB来替代。我的MariaDB一直在后台跑着。但是Mysql C API一直没有安装。最近突然用到了，于是用yum安装。可惜一直冲突。各种难受。要么程序无法编译，mysql服务正常跑。要么就得卸载mysql，程序才能编译。想过借朋友的数据库。不过也不是最终的解决办法。还是自己来吧。开始</p>
+<h1 id="卸载掉所有的数据库服务"><a href="#卸载掉所有的数据库服务" class="headerlink" title="卸载掉所有的数据库服务"></a>卸载掉所有的数据库服务</h1><h2 id="查看mysql安装情况"><a href="#查看mysql安装情况" class="headerlink" title="查看mysql安装情况"></a>查看mysql安装情况</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa|grep -i mysql</span><br><span class="line">rpm -qa | grep mariadb</span><br><span class="line"><span class="meta">#</span><span class="bash">mariadb和mysql都查一遍</span></span><br><span class="line"><span class="meta">#</span><span class="bash">鬼知道愚蠢的我曾经都安装过什么</span></span><br></pre></td></tr></table></figure>
+<h2 id="停止服务-amp-卸载安装"><a href="#停止服务-amp-卸载安装" class="headerlink" title="停止服务&amp;卸载安装"></a>停止服务&amp;卸载安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -ev MySQL-client-5.5.25a-1.rhel5</span><br><span class="line"><span class="meta">#</span><span class="bash">MySQL-client-5.5.25a-1.rhel5是上边rpm找到的包名，下边同理</span></span><br><span class="line">rpm -e mariadb-libs-5.5.37-1.el7_0.x86_64</span><br></pre></td></tr></table></figure>
+<p><strong>如果提示依赖错误</strong></p>
+<p>依赖错误了就强制删除tmd！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ev MySQL-client-5.5.25a-1.rhel5 --nodeps</span><br><span class="line">rpm -e --nodeps mariadb-libs-5.5.37-1.el7_0.x86_64</span><br></pre></td></tr></table></figure>
+<h2 id="删除之前的文件和库"><a href="#删除之前的文件和库" class="headerlink" title="删除之前的文件和库"></a>删除之前的文件和库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find / -name mysql</span><br><span class="line"><span class="meta">#</span><span class="bash">之后直接rm -rf find结果 强制删除</span></span><br><span class="line">rm -rf /etc/my.cnf</span><br><span class="line"><span class="meta">#</span><span class="bash">my.cnf是mysql的配置文件</span></span><br></pre></td></tr></table></figure>
+<h2 id="再次查找"><a href="#再次查找" class="headerlink" title="再次查找"></a>再次查找</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa|grep -i mysql</span><br></pre></td></tr></table></figure>
+<p>没有就万事大吉。如果还有就面壁反思一下。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>卸载干净了就该重新安装了。上边提了mysql不再免费安装了。但是yum上还是有社区版的。</p>
+<p><img src="https://i.loli.net/2019/08/13/hOyqHZN34XeFPxD.png" alt></p>
+<p>不过我这次我用了其他的方法。</p>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下载repo源</span></span><br><span class="line">wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash">开始安装rpm</span></span><br><span class="line">sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash">安装mysql</span></span><br><span class="line">sudo yum install mysql-server</span><br><span class="line"><span class="meta">#</span><span class="bash">启动服务</span></span><br><span class="line">systemctl start mysqld.service</span><br><span class="line"><span class="meta">#</span><span class="bash">应该就可以正常启动了</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>开放3306、加上root密码就这些了。防火墙已经提前配置过所以就没管了。远程机上试了一下一切正常。</p>
+<h2 id="测试远程连接"><a href="#测试远程连接" class="headerlink" title="测试远程连接"></a>测试远程连接</h2><p>结果是连不上。报错113。mysql配置好了。也能ping通。telnet用3306端口测试不行。</p>
+<p>好吧还是防火墙的问题。我在阿里云面板允许了所有类型的连接。但是虚拟机上还没有配置。我以为配置一次就行了。。。防火墙直接关掉</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld</span><br><span class="line">service firewalld stop</span><br></pre></td></tr></table></figure>
+<p>好啦！液！</p>
+<h1 id="安装Mysql-C-API"><a href="#安装Mysql-C-API" class="headerlink" title="安装Mysql_C_API"></a>安装Mysql_C_API</h1><p>紧张的时候到啦！意念烧香💆🏽‍♂️希望没有异常。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-devel</span><br></pre></td></tr></table></figure>
+<p>安装过程一路yyy没有遇到问题。</p>
+<p>编译一下试试</p>
+<p><img src="https://i.loli.net/2019/08/13/uQfHl1UJFoa3Eq6.png" alt></p>
+<p>睡觉！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/11/算法——二分查找/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1352,296 +1686,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/27/今日充电——zsh配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/27/今日充电——zsh配置/" itemprop="url">日常充电——zsh配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-27T16:56:10+08:00">
-                2019-07-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="zsh配置"><a href="#zsh配置" class="headerlink" title="zsh配置"></a>zsh配置</h1><p>前段时间更新了bata版的catalina。在运行Terminal的时候，系统会提示，系统默认的shell已经由bash改成了zsh。但是由于我在我的bashrc中配置了很多，所以一直用的还是bash。直到看到了学弟用的zsh，补全梦幻还比我的配色好！遂决定换shell。换之前先讲讲理论。</p>
-<h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><p>mac上之前的默认shell一直是bash。bash不用多说，配置简单，功能基本完善。但是在bash日常的使用中，因为提示和补全的功能不够完善，时常会影响到效率（这点我蛮有同感）。因此对于日常工作学习中需要频繁使用到shell的开发者来说，bash并不是最完美的解决方案。</p>
-<p>zsh与bash不同，功能更加的强大，但是也有明显的缺点，就是学习成本太高，配置复杂。不过懒即生产力，为了让大家能更好的“懒”，有人就创建了一个名为<code>oh-my-zsh</code>的开源项目。</p>
-<h2 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh-my-zsh"></a>oh-my-zsh</h2><p><img src="https://i.loli.net/2019/07/28/5d3d43ef96d4647816.png" alt></p>
-<p>它是基于zsh命令行的一个扩展工具集，提供了丰富的扩展功能，主题配置，插件机制，还有已经内置的各种便捷操作。自此，zsh的学习和配置成本大大降低。现在，像我这样的小白，都可以用上高大上的zsh啦！</p>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
-<li>更加强大的Tab键补全。切换目录时连续敲两下tab，就可以列出当前目录下的所有项目，然后使用导航键来选择要进入的目录。</li>
-<li>更智能的切换目录。比如我们要进入一个很深的目录：<code>var/log/nginx/error/lastyear/may/first/monday</code>,使用zsh直接输入<code>cd /v/l/n/e/l/m/f/m</code>，按下Tab键即可。</li>
-<li>命令选项补齐。比如输入<code>docker</code>按下Tab键，就可以显示出docker都有哪些命令选项。</li>
-<li>命令参数自动补齐。假如我现在要kill掉一个进程，直接输入<code>kill 进程名</code>，就会自动显示出进程的process id，如果使用ssh，就会自动显示出最近ssh连接过的主机名</li>
-</ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
-<li><p>首先，我们应该确定我们的电脑是否安装了<code>zsh</code></p>
-</li>
-<li><p>安装<code>oh-my-zsh</code><br>  via curl</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span><br></pre></td></tr></table></figure>
-<p>  via wget</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>OS X环境下使用curl就可以了</p>
-</blockquote>
-<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><ol>
-<li><p>incr：快速补全用</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/.oh-my-zsh/plugins/incr</span><br><span class="line">wget http://mimosa-pudica.net/src/incr-0.2.zsh -O ~/.oh-my-zsh/plugins/incr/incr.plugin.zsh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>zsh-autosuggestions：补全之前的命令</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br><span class="line">brew install zsh-autosuggestions</span><br><span class="line">source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>autojump：常用目录快速跳转</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew install autojump</span><br><span class="line">vim ~/.zshrc</span><br><span class="line"><span class="meta">#</span><span class="bash">把以上插件添加到plugins中</span></span><br><span class="line">plugins=(</span><br><span class="line">  git incr zsh-autosuggestions autojump</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>官方插件目录：<code>/User/user/.oh-my-zsh/pulgins</code>。这里预装了很多的插件，只不过很多都没有启用。</li>
-<li>第三方插件目录：<code>/User/user/.oh-my-zsh/custom/pulgins</code>。第三方插件目录；快捷命令<code>$ZSH_CUSTOM/pulgins</code><br>  需要安装插件的时候，只需要把插件下载到上面的任何一个目录中，然后在<code>~/.zshrc</code>配置文件中的<code>pulgins</code>变量中添加对应插件的名称即可。</li>
-</ul>
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>在<code>/Users/user/.oh-my-zsh/themes</code>下有一大堆的主题任君挑选。不满意了还有第三方的，可以自己去挑选。</p>
-<p>本文参考：</p>
-<ul>
-<li>《<a href="https://segmentfault.com/a/1190000016952262" target="_blank" rel="noopener">Mac从入门到痴迷系列之安装配置iterm2和oh my zsh</a>》</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/27/C++—多态案例2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/27/C++—多态案例2/" itemprop="url">C++——多态案例2</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-27T01:58:59+08:00">
-                2019-07-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>案例描述：</p>
-<ul>
-<li>电脑的组件包括CPU（计算）、显卡（显示）、内存（存储）等</li>
-<li>将每个零件封装为抽象基类，并且提供不同厂商提供的不同零件，例如Intel和Lenovo</li>
-<li>创建电脑类提供让电脑工作的函数，并且调用每个零件工作的接口</li>
-<li>测试时组装三台不同的电脑进行工作</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//组件的基类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CPU</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">caculate</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Paint</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RAM</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">RW</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体的零件厂商</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Intel</span>:</span><span class="keyword">public</span> CPU</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">caculate</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Intel cpu is running."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AMD</span>:</span><span class="keyword">public</span> CPU</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">caculate</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Intel cpu is running."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AMD_Graph</span>:</span><span class="keyword">public</span> Graph</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Paint</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"AMD is painting"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SAMSUNG</span>:</span><span class="keyword">public</span> RAM</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">RW</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"RAM is reading"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Computer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Computer(CPU *cpu,Graph *graph,RAM *ram):m_cpu(cpu),m_graph(graph),m_ram(ram)&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"U r computer is building..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		m_cpu-&gt;caculate();</span><br><span class="line">		m_graph-&gt;Paint();</span><br><span class="line">		m_ram-&gt;RW();</span><br><span class="line">	&#125;;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	CPU *m_cpu;</span><br><span class="line">	Graph *m_graph;</span><br><span class="line">	RAM *m_ram;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Intel c_intel;</span><br><span class="line">	AMD_Graph c_amd;</span><br><span class="line">	SAMSUNG c_samsung;</span><br><span class="line">	<span class="function">Computer <span class="title">c</span><span class="params">(&amp;c_intel,&amp;c_amd,&amp;c_samsung)</span></span>;</span><br><span class="line">	c.work();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	test();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建零件的抽象基类，然后继承之后重写。创建computer类，在构造函数中初始化对象，然后输出就酱。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1692,7 +1736,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1714,7 +1758,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

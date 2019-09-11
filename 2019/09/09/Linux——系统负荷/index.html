@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Linux,">
 
 
 
@@ -79,16 +79,21 @@
 
 
 
-<meta name="description" content="个人博客，写点自己想写的就酱！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Andrew&#39;s Blog">
-<meta property="og:url" content="47.168.200.88/tags/LeetCode/index.html">
+<meta name="description" content="Load Average一些探究简单的说就是用来查看当前系统的负载情况。可以使用uptime或者w/或者top命令来查看。  这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。 所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux——LoadAverage(系统负荷)">
+<meta property="og:url" content="47.168.200.88/2019/09/09/Linux——系统负荷/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="个人博客，写点自己想写的就酱！">
+<meta property="og:description" content="Load Average一些探究简单的说就是用来查看当前系统的负载情况。可以使用uptime或者w/或者top命令来查看。  这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。 所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/H9PpA4hdW2ey1TN.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/fogQvhVPJuApHEm.png">
+<meta property="og:updated_time" content="2019-09-11T02:53:16.512Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Andrew&#39;s Blog">
-<meta name="twitter:description" content="个人博客，写点自己想写的就酱！">
+<meta name="twitter:title" content="Linux——LoadAverage(系统负荷)">
+<meta name="twitter:description" content="Load Average一些探究简单的说就是用来查看当前系统的负载情况。可以使用uptime或者w/或者top命令来查看。  这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。 所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/11/H9PpA4hdW2ey1TN.png">
 
 
 
@@ -118,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="47.168.200.88/tags/LeetCode/">
+  <link rel="canonical" href="47.168.200.88/2019/09/09/Linux——系统负荷/">
 
 
 
 
 
-  <title>标签: LeetCode | Andrew's Blog</title>
+  <title>Linux——LoadAverage(系统负荷) | Andrew's Blog</title>
   
 
 
@@ -143,7 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,104 +232,182 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>LeetCode<small>标签</small>
-        </h2>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/09/Linux——系统负荷/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/07/05/LeetCode——067二进制求和/" itemprop="url">
-              
-                <span itemprop="name">LeetCode——067二进制求和</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Linux——LoadAverage(系统负荷)</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-05T09:15:33+08:00" content="2019-07-05">
-          07-05
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T21:25:10+08:00">
+                2019-09-09
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/07/02/LeetCode——002两数相加/" itemprop="url">
-              
-                <span itemprop="name">LeetCode——002两数相加</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-02T22:49:52+08:00" content="2019-07-02">
-          07-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/30/LeetCode——001两数之和/" itemprop="url">
-              
-                <span itemprop="name">LeetCode——001两数之和</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-30T19:37:12+08:00" content="2019-06-30">
-          06-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h1 id="Load-Average"><a href="#Load-Average" class="headerlink" title="Load Average"></a>Load Average</h1><h2 id="一些探究"><a href="#一些探究" class="headerlink" title="一些探究"></a>一些探究</h2><p>简单的说就是用来查看当前系统的负载情况。可以使用<code>uptime</code>或者<code>w</code>/或者<code>top</code>命令来查看。</p>
+<p><img src="https://i.loli.net/2019/09/11/H9PpA4hdW2ey1TN.png" alt></p>
+<p>这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。</p>
+<p>所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实并不全是这样的。我们可以通过<code>man uptime</code>来了解平均负载的详细解释.</p>
+<p><img src="https://i.loli.net/2019/09/11/fogQvhVPJuApHEm.png" alt></p>
+<p>简单来说，平均负载是指单位时间内，系统处于<strong>可运行状态</strong>和<strong>不可中断状态</strong>的平均进程数，也就是说<strong>平均活跃进程数</strong>，和CPU的使用率并没有直接的关系。</p>
+<blockquote>
+<p>可运行状态就是我们用ps命令可以看到的处于R（Running或者Runnable状态）的进程。</p>
+<p>不可中断状态是正处于内核态关键流程中的进程，并且这些流程是不可中断的。比如常见的等待硬件设备的I/O响应，也就是在ps命令中看到的D状态。比如一个进程向磁盘读写数据的时候，为了保证数据的一致性，在得到磁盘的响应之前，肯定是不能被打断的。加入进程被打断，就容易出现磁盘数据和进程数据不一致的问题。</p>
+<p>不可终端状态实际上是系统对进程和硬件设备的一种保护机制。</p>
+<p>（思考一下，其实在日常使用电脑的时候，在非高计算的场景下，我们的电脑有时也会出现的比较严重的卡顿。此时引起这种状况的原因往往就是因为磁盘的性能下降，而我们的进程正在向磁盘进行IO操作且处于不可中断状态。一般我们可以通过更换硬盘来解决）</p>
+</blockquote>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们可以通过以上的叙述，简单的将平均负载理解为平均活跃进程数，也就是单位时间内的活跃进程数。</p>
+<p>参考文章：</p>
+<ul>
+<li>《<a href="https://scoutapm.com/blog/understanding-load-averages" target="_blank" rel="noopener">Understanding Linux CPU Load - when should you be worried?</a>》</li>
+<li>《<a href="https://en.wikipedia.org/wiki/Load_%28computing%29" target="_blank" rel="noopener">Load(computing)</a>》</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Andrew Pit
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="47.168.200.88/2019/09/09/Linux——系统负荷/" title="Linux——LoadAverage(系统负荷)">47.168.200.88/2019/09/09/Linux——系统负荷/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/09/C-——C-11新特性之基于范围的for循环/" rel="next" title="C++——C++11新特性之基于范围的for循环">
+                <i class="fa fa-chevron-left"></i> C++——C++11新特性之基于范围的for循环
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -332,6 +415,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -352,8 +439,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -473,6 +569,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Load-Average"><span class="nav-number">1.</span> <span class="nav-text">Load Average</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些探究"><span class="nav-number">1.1.</span> <span class="nav-text">一些探究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">1.2.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -606,6 +718,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
