@@ -242,6 +242,414 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/13/Linux——用户态和内核态/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/13/Linux——用户态和内核态/" itemprop="url">Linux——用户态和内核态</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-13T18:41:23+08:00">
+                2019-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="用户态和内核态"><a href="#用户态和内核态" class="headerlink" title="用户态和内核态"></a>用户态和内核态</h1><p>在信号的那篇blog中曾经写到，当接收到硬件中断的时候，CPU会从用户态切换到内核态来处理硬件中断。那么问题来了——为什么CCPU非得要切换到内核态才能来处理硬件中断呢？</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>首先来说说概念：</p>
+<p>内核态：CPU可以访问内存的所有数据，包括了外围设备，CPU也可以将自己从一个程序切换到另一个程序。</p>
+<p>用户态：只能访问受限的内存，而且不允许去访问外围设备，占用CPI的能力也被剥夺。CPU资源可以被其他程序获取。</p>
+<p>看完概念总结一下：可以认为内核态就是一种CPU的特权状态，只有在这个状态下，CPU才可以执行这个特权态下允许执行的指令，访问这个特权态才允许访问的资源，这个和当前的进程无关。</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>由于需要限制不同CPU之间的访问能力，防止他们获取别的程序的内存数据，或者外围设别的数据，并发送到网络，所以，CPU划分出了两个权限等级——用户态和内核态。</p>
+<h2 id="切换"><a href="#切换" class="headerlink" title="切换"></a>切换</h2><p>所有的用户程序都是运行在用户态的，但是有的时候程序确实需要做一些内核态事情，比如从硬盘读取数据，从键盘获取输入等，所以此时程序就需要以操作系统的名义来执行这些操作。</p>
+<p>此时，我们就需要这样一个机制：用户态程序切换到内核态，但是不能控制在内核态中执行的指令。</p>
+<p>这种机制叫做系统调用，在CPU中的是实现称为<strong>陷阱指令</strong></p>
+<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p>系统调用运行在内核态，而且系统调用的库函数和普通函数调用非常的相似，只是系统调用由操作系统的内核来提供，运行与内核核心态，而普通的库函数调用由函数库或者用户自己提供，运行于用户态。</p>
+<h2 id="EG"><a href="#EG" class="headerlink" title="EG"></a>EG</h2><p>看一段代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testFolk</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="number">0</span> == fork)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"create new process success"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"test fork ok"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从功能的角度出发，就是执行了一个fork()，生成了一个新的进程。但是当我们从动态的角度来看这段代码的时候，就又可以看到其他不一样的东西了。</p>
+<h3 id="特权级别"><a href="#特权级别" class="headerlink" title="特权级别"></a>特权级别</h3><p>其实我们不难推测出，创建一个新的进程对于任何一个操作系统来说，都是非常核心的功能。其中涉及到物理资源的分配，拷贝设置页目录表等等，显然不能随便就交给一个程序就可以去做的。于是，特权级别的概念自然而然就被引出了。这样才能做到集中管理，减少有限资源的访问和使用冲突。</p>
+<p>为了支持特权级别，举例牙膏厂 X86架构的CPU就在硬件上做了很多的支持。其中CPU共有0~3总共四个特权级别。0最高3最低。对于Unix like系统来说，只利用到了0和3级别。</p>
+<p>所以自然而然的就可以解释，用户态的程序，CPU就是才特权级别3状态下运行的。内核态就是0状态。</p>
+<p>我们知道fork()实际上是以系统调用的方式来完成相应功能的。具体的工作由sys_fork来负责实施。</p>
+<p>参考文章</p>
+<ul>
+<li>《<a href="https://zh.wikipedia.org/wiki/系统调用" target="_blank" rel="noopener">系统调用</a>》</li>
+<li>《<a href="https://blog.csdn.net/youngyoungla/article/details/53106671" target="_blank" rel="noopener">用户态和内核态的区别</a>》</li>
+<li>《<a href="https://www.zhihu.com/question/40147261" target="_blank" rel="noopener">知乎提问</a>》</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/13/今日充电——开发、测开、测试之间的区别与联系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/13/今日充电——开发、测开、测试之间的区别与联系/" itemprop="url">今日充电——开发、测开、测试之间的区别与联系</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-13T14:00:55+08:00">
+                2019-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="测试规模"><a href="#测试规模" class="headerlink" title="测试规模"></a>测试规模</h1><p>小型：单元测试</p>
+<p>中型：集成测试</p>
+<p>大型：系统测试 </p>
+<h1 id="测开SET"><a href="#测开SET" class="headerlink" title="测开SET"></a>测开SET</h1><p>角色定位：SE在代码库上的合作伙伴</p>
+<p>关注重点：质量提升和测试覆盖率的增加</p>
+<p>实际参与项目时间点：项目初期</p>
+<p>测试规模：小型、中型</p>
+<p>工作重心：</p>
+<ul>
+<li>代码的可测试性</li>
+<li>通用测试基础框架的设计和构建（单元测试框架和自动化测试的框架）</li>
+</ul>
+<h1 id="测试TE"><a href="#测试TE" class="headerlink" title="测试TE"></a>测试TE</h1><p>角色定位：产品专家、质量顾问和分线分析师</p>
+<p>关注重点：把用户放在第一位来思考，代表用户的利益</p>
+<p>实际参与项目的时间：项目的中后期</p>
+<p>测试规模：中型、大型</p>
+<p>工作重心：</p>
+<ul>
+<li>驱动测试执行，构建端到端的自动化测试（TE会使用SET已经构建好的自动化测试框架来构建端到端的自动化测试）</li>
+<li>组织整体质量事件，粉刺测试运行结果</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/Linux——信号/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/11/Linux——信号/" itemprop="url">Linux——信号</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T20:57:44+08:00">
+                2019-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h1><p>今儿面试的时候被面试官的kill给噎住了，感觉很难受。于是想写下kill，然后就写到了信号。于是有了这篇blog。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>例举一个典型的场景：</p>
+<ol>
+<li>用户输入命令，在shell启动了一个前台进程。</li>
+<li>用户按下了Ctrl + C组合键。此时在这个键盘输入产生了一个硬件中断。</li>
+<li>如果CPU正在执行当前这个进程的代码，则该进程的用户空间代码暂停执行。CPU从用户态切换到内核态捞处理硬件终端</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/Linux——kill命令详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -318,6 +726,14 @@
 <p>一般来说，在尝试kill掉一个进程的时候是先尝试<code>kill -15 pid</code>如果一段时间后程序仍然在后台运行没有终止的话，再使用<code>kill -9 pid</code>。这种能够防止丢失掉未保存的工作进度。</p>
 <h2 id="SIGTERM"><a href="#SIGTERM" class="headerlink" title="SIGTERM"></a>SIGTERM</h2><p>此信号是请求一个进程停止运行，是可以被忽略的。进程可以用一段时间来正常关闭，在这段时间内可能会保存一下工作的进度并释放资源。它并不是强制停止的。退出前可以是被阻塞或者回调处理。并且它是Linux缺省的程序中断信号。不过一般来说，当我们去尝试kill掉一个程序的时候，使用SIGTERM不太可能会管用，多半会被阻塞、忽略。</p>
 <h2 id="SIGKILL"><a href="#SIGKILL" class="headerlink" title="SIGKILL"></a>SIGKILL</h2><p>此信号会强制进程立刻停止运行，而且程序不能忽略此信号，后果是未保存的工作进度都将会丢失。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>可以看到我的电脑上正跑着一个校园网的登录脚本。我尝试向对应的进程发送SIGTERM信号，在等待了一段时间之后。程序并没有自动终止。所以可以不难推断出我的信号被程序忽略掉了。</p>
+<p><img src="https://i.loli.net/2019/09/11/WfumlX4MyseboDA.png" alt></p>
+<p>但是当我发送SIGKILL的信号之后。程序就立即被强制终止了。</p>
+<p><img src="https://i.loli.net/2019/09/11/8jXiFOGeErcRkdx.png" alt></p>
+<h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p>上述的SIGKILL和SIGTERM是最最常用的两个信号，但是也还有一些其他的常用命令在日常实际使用中其实也会用到。比如：</p>
+<p>SIGINT：默认的处理动作是终止进程。</p>
+<p>SIGQUIT：默认的处理处理动作是终止进程并且Core Dump.</p>
+<p>算了不写了。我专门写个信号的博客吧。刚好复习（预习）一下知识。</p>
 
           
         
@@ -1203,466 +1619,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/31/面试准备——03 数据结构/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/31/面试准备——03 数据结构/" itemprop="url">面试准备——03数据结构</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T22:11:56+08:00">
-                2019-08-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="数组和链表的区别"><a href="#数组和链表的区别" class="headerlink" title="数组和链表的区别"></a>数组和链表的区别</h2><ul>
-<li>数组在内存上是连续的，链表不一定连续</li>
-<li>数组可以随机访问，链表不行</li>
-<li>数组大小固定，不能动态扩展</li>
-<li>数组可能会浪费内存,但是链表不会。</li>
-</ul>
-<h2 id="数组和指针的区别"><a href="#数组和指针的区别" class="headerlink" title="数组和指针的区别"></a>数组和指针的区别</h2><p>9月份在西电参加宣讲，快手面试官还是前apple的员工。提了这样一个基础的问题。不过全场没有一个人能给他满意的答案。他让我们自己google。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/31/面试准备——02 C++/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/31/面试准备——02 C++/" itemprop="url">面试准备——02 C++</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T22:09:44+08:00">
-                2019-08-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><h2 id="指针和引用的区别"><a href="#指针和引用的区别" class="headerlink" title="指针和引用的区别"></a>指针和引用的区别</h2><p>引用本质上就是对象的另外一个名字。<code>int a =10,int &amp;b = a; b = 15</code>相当于<code>a = 15</code></p>
-<p>以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。</p>
-<ol>
-<li>指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。</li>
-<li>指针无需在定义的时候赋值。引用的时候必须要初始化。</li>
-<li>引用不可以改变指向。</li>
-<li>引用的大小是所指向变量的大小，指针的大小是指针本身的大小</li>
-<li>引用比指针更加的安全。因为不存在空引用。</li>
-</ol>
-<h2 id="常量指针和指针常量"><a href="#常量指针和指针常量" class="headerlink" title="常量指针和指针常量"></a>常量指针和指针常量</h2><p>可以这么记；常量的指针，指针是常量；</p>
-<p>常量指针指向内容不变，指针常量指向不变。</p>
-<p>左定值右定向：const在*左边就是定值</p>
-<p>其实最好的方法就是看代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> * p; <span class="keyword">int</span> <span class="keyword">const</span> * p;</span><br><span class="line"><span class="comment">// 上边两个，第一个修饰的是 int* p 第二个修饰的是 *p</span></span><br><span class="line"><span class="comment">// 两个都是内容，所以就是常量指针</span></span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p</span><br><span class="line"><span class="comment">// 上边的const，修饰的是p。p是指针。所以这就是个指针常量</span></span><br></pre></td></tr></table></figure>
-<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="new和malloc的区别"><a href="#new和malloc的区别" class="headerlink" title="new和malloc的区别"></a>new和malloc的区别</h2><ol>
-<li>开辟在内存的不同位置。new从自由存储区上开辟，malloc在堆上开辟。</li>
-<li>new和delete会调用构造函数和析构函数对对象进行初始化和销毁</li>
-<li>operator new/delete可以进行重载。</li>
-<li>返回类型的安全性</li>
-</ol>
-<h1 id="General"><a href="#General" class="headerlink" title="General"></a>General</h1><h2 id="构造函数和析构函数可以是虚函数吗"><a href="#构造函数和析构函数可以是虚函数吗" class="headerlink" title="构造函数和析构函数可以是虚函数吗"></a>构造函数和析构函数可以是虚函数吗</h2><p>结论：构造函数不可以是虚函数，但是析构函数可以是</p>
-<h2 id="C-11新特性"><a href="#C-11新特性" class="headerlink" title="C++11新特性"></a>C++11新特性</h2><ul>
-<li>基于范围的for循环</li>
-<li>自动类型推断auto</li>
-<li>匿名函数Lambda表达式</li>
-<li>后置返回类型</li>
-<li>显示重写</li>
-<li>空指针的常量nullptr</li>
-<li>long long int类型</li>
-<li>模板的别名</li>
-<li>允许sizeof运算符可以在类型成员上使用，无需明确对象</li>
-<li>线程支持</li>
-<li>元组类型</li>
-<li>新增了正则表达式库</li>
-</ul>
-<p>本文参考：</p>
-<ul>
-<li>《<a href="https://blog.csdn.net/FX677588/article/details/70157088" target="_blank" rel="noopener">十大必掌握C++11新特性</a>》</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/28/面试准备——01网络/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/28/面试准备——01网络/" itemprop="url">面试准备——01 网络</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T21:49:43+08:00">
-                2019-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>目的是为了归纳梳理一下知识。</p>
-<h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用的过程中体现出一些不同</p>
-<ul>
-<li>最直观的区别是GET把参数包含在URL中，POST通过request body传递参数。</li>
-<li>GET产生一个数据包，POST产生两个数据包（对于GET方式的请求，浏览器会把http header和data一并发出去。服务器响应200，firefox不同，firefox只发送一个）</li>
-<li>对于POST，浏览器会先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok</li>
-<li>GET的参数在URL中，POST的参数在Request body中。</li>
-<li>Get只接受ASCII字符，但是POST没有限制。</li>
-<li>GET比POST更加的不安全，因为GET的参数会直接暴露在URL上。</li>
-</ul>
-<blockquote>
-<p>虽说GET和POST在本质上没有区别，但是浏览器通常都会限制URL长度在2k个字节，大多数服务器最多处理64K大小的URL，超过的部分不会被处理。所以我们要是在URL中藏了“货”，如果数据较多那么就很有可能无法发送，或者被服务器正确接收或处理。</p>
-<p>之所以用两次包来传输POST请求，是因为两次包的TCP在验证数据包完整性上是很有优势的。</p>
-</blockquote>
-<h2 id="三次握手过程中可以携带数据吗"><a href="#三次握手过程中可以携带数据吗" class="headerlink" title="三次握手过程中可以携带数据吗"></a>三次握手过程中可以携带数据吗</h2><p>结论：前两次握手的时候不可以携带，第三次握手允许携带数据。</p>
-<p>RFC193文档中提到了” Data or controls which were queued for transmission may be included”</p>
-<p>详细的解释可以参见这篇文章：《<a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">TCP 连接建立的三次握手过程可以携带数据吗？</a>》写的非常详细，真的很赞！</p>
-<p>具体的意思就是，当TCP_SYN_TECV状态收到合法的二次握手包之后，socket的状态就会立即设置为TCP_ESTABLISHED状态。然后接下来就会处理其中包含的数据。</p>
-<p>在大多数情况下，三次握手的过程中是不带数据的。</p>
-<p>什么时候带？也可以看上边的文章。嘿嘿，我看不懂。或者说是太笨了。</p>
-<h2 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h2><p>概述：TCP和UDP都属于传输层的协议，其中TCP能提供IP环境下的可靠传输，流量控制和差错恢复的功能。UDP则不为IP提供可靠性和流控、差错控制的功能。一般来说，TCP对应的是可靠性要求高的应用，UDP对应的则是可靠性要求低，传输流量大，传输速度快的的应用。</p>
-<p>区别：</p>
-<ul>
-<li>面向连接&amp;无连接。TCP有三次握手的连接过程，UDP是和消息的多播发送。</li>
-<li>可靠性。TCP利用握手，ACK和重传机制，提供了可靠性保证。而UDP可能丢失。</li>
-<li>有序性。TCP利用序列号保证了消息包的顺序交付，到达可能无序，但是TCP会排序。</li>
-<li>速度。TCP速度比较慢，因为需要创建连接来保证消息的可靠性和有序性，UDP更加适合做对速度比较敏感的应用，比如多人在线游戏，电视广播，还有在线视频媒体等</li>
-<li>重量级。TCP为重量级，UDP是轻量级。体现在元数据的头大小，TCP是20字节，UDP是8字节。</li>
-</ul>
-<p>上层协议：</p>
-<ul>
-<li>使用TCP协议的上层协议：Telnet、FTP、SMTP、HTTP、HTTPS</li>
-<li>使用UDP的上层协议：DNS</li>
-</ul>
-<p>使用场景：</p>
-<ul>
-<li>UDP：需要用到NAT穿透的时候</li>
-</ul>
-<h2 id="OSI中常见的协议"><a href="#OSI中常见的协议" class="headerlink" title="OSI中常见的协议"></a>OSI中常见的协议</h2><ol>
-<li>物理层：RJ45,CLOCK,IEEE802.3</li>
-<li>数据链路层：PPP,FR,HDLC,VLAN,MAC</li>
-<li>网络层：IP,ICMP,ARP,RARP,OSPF,IPX,RIP,IGRP</li>
-<li>传输层：TCP,UDP,SPX</li>
-<li>会话层：NFS,SQL,NETBIOS,RPC</li>
-<li>表示层：JPEG,MPEG,ASCII</li>
-<li>应用层：DNS,Telnet,SMTP,HTTP,www,NFS</li>
-</ol>
-<h2 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h2><p>数据包在网络传输过程中的最长生命周期，一般以跳为单位。TTL减为0还没有到达的话就会被丢弃。</p>
-<p>本文参考：</p>
-<ul>
-<li><a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">《TCP 连接建立的三次握手过可以携带数据吗？》</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1708,7 +1669,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

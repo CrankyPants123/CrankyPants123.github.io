@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="kill命令探究命令格式kill [参数] [进程号] 命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs或者ps命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。 一般来">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-11T11:43:19.820Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/WfumlX4MyseboDA.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/8jXiFOGeErcRkdx.png">
+<meta property="og:updated_time" content="2019-09-11T12:55:51.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux——kill命令详解">
 <meta name="twitter:description" content="kill命令探究命令格式kill [参数] [进程号] 命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs或者ps命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。 一般来">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/11/WfumlX4MyseboDA.png">
 
 
 
@@ -315,6 +318,14 @@
 <p>一般来说，在尝试kill掉一个进程的时候是先尝试<code>kill -15 pid</code>如果一段时间后程序仍然在后台运行没有终止的话，再使用<code>kill -9 pid</code>。这种能够防止丢失掉未保存的工作进度。</p>
 <h2 id="SIGTERM"><a href="#SIGTERM" class="headerlink" title="SIGTERM"></a>SIGTERM</h2><p>此信号是请求一个进程停止运行，是可以被忽略的。进程可以用一段时间来正常关闭，在这段时间内可能会保存一下工作的进度并释放资源。它并不是强制停止的。退出前可以是被阻塞或者回调处理。并且它是Linux缺省的程序中断信号。不过一般来说，当我们去尝试kill掉一个程序的时候，使用SIGTERM不太可能会管用，多半会被阻塞、忽略。</p>
 <h2 id="SIGKILL"><a href="#SIGKILL" class="headerlink" title="SIGKILL"></a>SIGKILL</h2><p>此信号会强制进程立刻停止运行，而且程序不能忽略此信号，后果是未保存的工作进度都将会丢失。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>可以看到我的电脑上正跑着一个校园网的登录脚本。我尝试向对应的进程发送SIGTERM信号，在等待了一段时间之后。程序并没有自动终止。所以可以不难推断出我的信号被程序忽略掉了。</p>
+<p><img src="https://i.loli.net/2019/09/11/WfumlX4MyseboDA.png" alt></p>
+<p>但是当我发送SIGKILL的信号之后。程序就立即被强制终止了。</p>
+<p><img src="https://i.loli.net/2019/09/11/8jXiFOGeErcRkdx.png" alt></p>
+<h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p>上述的SIGKILL和SIGTERM是最最常用的两个信号，但是也还有一些其他的常用命令在日常实际使用中其实也会用到。比如：</p>
+<p>SIGINT：默认的处理动作是终止进程。</p>
+<p>SIGQUIT：默认的处理处理动作是终止进程并且Core Dump.</p>
+<p>算了不写了。我专门写个信号的博客吧。刚好复习（预习）一下知识。</p>
 
       
     </div>
@@ -372,6 +383,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/11/Linux——信号/" rel="prev" title="Linux——信号">
+                Linux——信号 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -448,7 +463,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -563,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kill命令探究"><span class="nav-number">1.</span> <span class="nav-text">kill命令探究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令格式"><span class="nav-number">1.1.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令功能"><span class="nav-number">1.2.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIGTERM"><span class="nav-number">1.3.</span> <span class="nav-text">SIGTERM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIGKILL"><span class="nav-number">1.4.</span> <span class="nav-text">SIGKILL</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kill命令探究"><span class="nav-number">1.</span> <span class="nav-text">kill命令探究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令格式"><span class="nav-number">1.1.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令功能"><span class="nav-number">1.2.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIGTERM"><span class="nav-number">1.3.</span> <span class="nav-text">SIGTERM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIGKILL"><span class="nav-number">1.4.</span> <span class="nav-text">SIGKILL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">1.5.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号"><span class="nav-number">1.6.</span> <span class="nav-text">信号</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/07/18/5d3034c062e9094804.jpg">
 <meta property="og:image" content="https://i.loli.net/2019/07/19/5d31def04677695276.png">
 <meta property="og:image" content="https://i.loli.net/2019/07/19/5d31e6ba4602955498.png">
-<meta property="og:updated_time" content="2019-07-19T16:38:25.362Z">
+<meta property="og:updated_time" content="2019-09-13T05:46:04.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络——浏览器地址栏输入后回车会发生什么">
 <meta name="twitter:description" content="浏览器地址栏输入后回车会发生什么相信好多人的面经中都写到过这道题了。可以说是一道网络方向的上古经典面试题，久盛不衰！有的人足够了解，这个问题能回答10分钟。不是很了解的童鞋，可能只能用寥寥数字来进行简单不完全的描述。写下这篇博客的目的就是——对这个问题做一个很好的总结。相信在接下来的面试中还很有可能被问到。希望到时候能用这个回答征服面试官哈哈哈。不过更加希望的是自己能思考明白这其中各个环节发生了什">
@@ -358,9 +358,13 @@
 <p><del>如上边所分析的那样。如果浏览器判定我们输入的是一个URL，那么浏览器就会查找这个域名锁对应的IP，这其中涉及到DNS的问题。我在另一篇Blog中详细写了DNS查找的过程——<a href="http://47.106.200.88/2019/07/14/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94DNS%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F/" target="_blank" rel="noopener">《网络——DNS处理顺序》</a>。接下来浏览器就会检查这些请求是HTTP还是HTTPS的。有些情况下，第一个请求不是HTTPS的，但是当浏览器向网站发出第一个HTTP请求之后，网站会返回一个请求，让浏览器使用HTTPS发送请求。HTTP改HTTPS这个转变的时间是浏览器自动完成的。</del></p>
 <p><del>我们可以以百度为例——我尝试在浏览器输入<code>www.baidu.com</code>回车之后，网页就会自动转到<code>https://www.baidu.com</code>。接下来，我输入<code>http://www.baidu.com</code>,回车之后，也会自动转到<code>https://www.baidu.com</code>。说明</del></p>
 <h2 id="输入URL之后的流程"><a href="#输入URL之后的流程" class="headerlink" title="输入URL之后的流程"></a>输入URL之后的流程</h2><ol>
-<li>域名解析</li>
-<li>向目标IP发起TCP连接请求，通过三次握手之后建立连接</li>
-<li>连接建立成功之后，发起HTTP/HTTPS连接请求</li>
+<li>URL的解析&amp;合法性判断</li>
+<li>HSTS检查</li>
+<li>安全检查&amp;访问限制</li>
+<li>缓存检查</li>
+<li>DNS查询</li>
+<li>TCP连接</li>
+<li>发起HTTP/HTTPS连接请求</li>
 <li>服务器响应请求，浏览器得到HTML代码</li>
 <li>浏览器解析HTML代码，并请求HTML代码中的资源(js、css、图片等)</li>
 <li>浏览器对页面进行渲染，并向用户呈现我们最终看到的网页</li>
@@ -561,7 +565,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

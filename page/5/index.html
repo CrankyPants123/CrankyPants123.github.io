@@ -242,6 +242,396 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/Hexo——参数与选项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/Hexo——参数与选项/" itemprop="url">C++——基于环形队列的生产者消费者模型</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T23:20:41+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="基于环形队列的生产消费模型"><a href="#基于环形队列的生产消费模型" class="headerlink" title="基于环形队列的生产消费模型"></a>基于环形队列的生产消费模型</h1><ul>
+<li>环形队列采用数组模拟，用模运算来模拟环状特性</li>
+<li>环形结构起始状态和结束状态都是一样的，不好判断为空或者为满，所以就需要通过计数器或者标记位来判断满或空。另外也可以预留一个空的位置，作为满的状态<br><img src="https://i.loli.net/2019/07/10/5d25909b54c5993724.png" alt></li>
+<li>消费者总是跟在生产者的后边，且不会超过生产者</li>
+<li>生产者一直在消费者的前边，且不会超过消费者一圈</li>
+<li>head和tail指向同一个位置的时候，队列为空</li>
+<li>当head在tail的下一个位置时，环形队列为满<br>  <img src="https://i.loli.net/2019/07/10/5d25906f4969f13819.png" alt></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*#####  ringqueue.cc   ####*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"test.hpp"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> num=<span class="number">16</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">consume_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">int</span> d;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		q-&gt;PopData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"consume done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">product_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">long</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> d=rand()%<span class="number">100</span>+<span class="number">1</span>;</span><br><span class="line">		q-&gt;PushData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Product done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=<span class="keyword">new</span> RingQueue(num);</span><br><span class="line">	<span class="keyword">pthread_t</span> c,p;</span><br><span class="line">	pthread_create(&amp;c,<span class="literal">NULL</span>,consume_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line">	pthread_create(&amp;p,<span class="literal">NULL</span>,product_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	pthread_join(&amp;c,<span class="literal">NULL</span>);</span><br><span class="line">	pthread_join(&amp;p,<span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">delete</span>(q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******   test.hpp   *******/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __TEST_HPP__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __TEST_HPP__</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RingQueue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ring;</span><br><span class="line">	<span class="keyword">int</span> cap;</span><br><span class="line">	<span class="keyword">sem_t</span> blank_sem;</span><br><span class="line">	<span class="keyword">sem_t</span> data_sem;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">int</span> c_step;										<span class="comment">//consume在圈中的位置</span></span><br><span class="line">	<span class="keyword">int</span> p_step;		  								<span class="comment">//product在圈中的位置</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_wait(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">V</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_post(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	RingQueue(<span class="keyword">int</span> cap_):cap(cap_),ring(cap_)</span><br><span class="line">	&#123;</span><br><span class="line">		c_step=p_step=<span class="number">0</span>;							<span class="comment">//初始时c_step和p_step在同一格</span></span><br><span class="line">		sem_init(&amp;blank_sem,<span class="number">0</span>,cap);				<span class="comment">//初始时需要写入的输入是整个圈的容量</span></span><br><span class="line">		sem_init(&amp;data_sem,<span class="number">0</span>,<span class="number">0</span>);					<span class="comment">//初始时需要consume的值为0</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PushData</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; data)</span>					<span class="comment">//进行数据生产</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(blank_sem);</span><br><span class="line">		ring[p_step]=data;							<span class="comment">//把数据放进去</span></span><br><span class="line">		V(data_sem);</span><br><span class="line">		p_step++;</span><br><span class="line">		p_step%=cap;								<span class="comment">//进行模运算来模拟环形特性</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PopData</span><span class="params">(<span class="keyword">int</span> &amp;data  )</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(data_sem);								<span class="comment">//申请数据资源</span></span><br><span class="line">		data=ring[c_step];							<span class="comment">//拿到数据</span></span><br><span class="line">		V(blank_sem);								<span class="comment">//空出格子</span></span><br><span class="line">		c_step++;</span><br><span class="line">		c_step%=cap;</span><br><span class="line">	&#125;</span><br><span class="line">	~RingQueue()</span><br><span class="line">	&#123;</span><br><span class="line">		sem_destroy(&amp;blank_sem);</span><br><span class="line">		sem_destroy(&amp;data_sem);</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">******   makefile   ******</span><br><span class="line"> </span><br><span class="line">ringqueue:ringqueue.cc</span><br><span class="line">	g++ -o  $@ $^ -lpthread -fpermissive</span><br><span class="line">.PHONY:clean</span><br><span class="line">clean:</span><br><span class="line">	rm -f ringqueue</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/09/C++—基于环形队列的生产者消费者模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/09/C++—基于环形队列的生产者消费者模型/" itemprop="url">C++——基于环形队列的生产者消费者模型</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T23:20:41+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="基于环形队列的生产消费模型"><a href="#基于环形队列的生产消费模型" class="headerlink" title="基于环形队列的生产消费模型"></a>基于环形队列的生产消费模型</h1><ul>
+<li>环形队列采用数组模拟，用模运算来模拟环状特性</li>
+<li>环形结构起始状态和结束状态都是一样的，不好判断为空或者为满，所以就需要通过计数器或者标记位来判断满或空。另外也可以预留一个空的位置，作为满的状态<br><img src="https://i.loli.net/2019/07/10/5d25909b54c5993724.png" alt></li>
+<li>消费者总是跟在生产者的后边，且不会超过生产者</li>
+<li>生产者一直在消费者的前边，且不会超过消费者一圈</li>
+<li>head和tail指向同一个位置的时候，队列为空</li>
+<li>当head在tail的下一个位置时，环形队列为满<br>  <img src="https://i.loli.net/2019/07/10/5d25906f4969f13819.png" alt></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*#####  ringqueue.cc   ####*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"test.hpp"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> num=<span class="number">16</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">consume_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">int</span> d;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		q-&gt;PopData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"consume done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">product_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">long</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> d=rand()%<span class="number">100</span>+<span class="number">1</span>;</span><br><span class="line">		q-&gt;PushData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Product done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=<span class="keyword">new</span> RingQueue(num);</span><br><span class="line">	<span class="keyword">pthread_t</span> c,p;</span><br><span class="line">	pthread_create(&amp;c,<span class="literal">NULL</span>,consume_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line">	pthread_create(&amp;p,<span class="literal">NULL</span>,product_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	pthread_join(&amp;c,<span class="literal">NULL</span>);</span><br><span class="line">	pthread_join(&amp;p,<span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">delete</span>(q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******   test.hpp   *******/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __TEST_HPP__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __TEST_HPP__</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RingQueue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ring;</span><br><span class="line">	<span class="keyword">int</span> cap;</span><br><span class="line">	<span class="keyword">sem_t</span> blank_sem;</span><br><span class="line">	<span class="keyword">sem_t</span> data_sem;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">int</span> c_step;										<span class="comment">//consume在圈中的位置</span></span><br><span class="line">	<span class="keyword">int</span> p_step;		  								<span class="comment">//product在圈中的位置</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_wait(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">V</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_post(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	RingQueue(<span class="keyword">int</span> cap_):cap(cap_),ring(cap_)</span><br><span class="line">	&#123;</span><br><span class="line">		c_step=p_step=<span class="number">0</span>;							<span class="comment">//初始时c_step和p_step在同一格</span></span><br><span class="line">		sem_init(&amp;blank_sem,<span class="number">0</span>,cap);				<span class="comment">//初始时需要写入的输入是整个圈的容量</span></span><br><span class="line">		sem_init(&amp;data_sem,<span class="number">0</span>,<span class="number">0</span>);					<span class="comment">//初始时需要consume的值为0</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PushData</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; data)</span>					<span class="comment">//进行数据生产</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(blank_sem);</span><br><span class="line">		ring[p_step]=data;							<span class="comment">//把数据放进去</span></span><br><span class="line">		V(data_sem);</span><br><span class="line">		p_step++;</span><br><span class="line">		p_step%=cap;								<span class="comment">//进行模运算来模拟环形特性</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PopData</span><span class="params">(<span class="keyword">int</span> &amp;data  )</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(data_sem);								<span class="comment">//申请数据资源</span></span><br><span class="line">		data=ring[c_step];							<span class="comment">//拿到数据</span></span><br><span class="line">		V(blank_sem);								<span class="comment">//空出格子</span></span><br><span class="line">		c_step++;</span><br><span class="line">		c_step%=cap;</span><br><span class="line">	&#125;</span><br><span class="line">	~RingQueue()</span><br><span class="line">	&#123;</span><br><span class="line">		sem_destroy(&amp;blank_sem);</span><br><span class="line">		sem_destroy(&amp;data_sem);</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">******   makefile   ******</span><br><span class="line"> </span><br><span class="line">ringqueue:ringqueue.cc</span><br><span class="line">	g++ -o  $@ $^ -lpthread -fpermissive</span><br><span class="line">.PHONY:clean</span><br><span class="line">clean:</span><br><span class="line">	rm -f ringqueue</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/07/Qt——05坐标系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/07/Qt——05坐标系统/" itemprop="url">Qt——05坐标系统</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-07T21:15:04+08:00">
+                2019-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="坐标系统"><a href="#坐标系统" class="headerlink" title="坐标系统"></a>坐标系统</h1><ul>
+<li>左上角是原点</li>
+<li>子窗口的原点相对的是父窗口客户区（空白区）的左上角</li>
+<li>boss窗口的原点是屏幕的左上角。(boss窗口这个词是我自己发明的)</li>
+<li>没了</li>
+<li>b站的黑马老师就讲了这么点</li>
+<li>没有详细讲说明不重要</li>
+<li>其实是懒得再去详细了解。</li>
+<li>我好困</li>
+<li>发上来凑个数反正没人看</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/07/胡言乱语——记录下即将被抛出脑子的闲杂思绪/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -333,7 +723,7 @@
 <p>我知道的名字里有Sheld的好像都是英国人。就像名字带Berg的都是犹太人。</p>
 <h1 id="5"><a href="#5" class="headerlink" title="5"></a>5</h1><p>2019-08-01</p>
 <p>加上时间戳吧。可以用来持续的记录。就当日记本了。</p>
-<p>刚刚想到了一件事，本来要写的。但是被加时间戳扰乱了思绪。忘了是什么事了，也忘了刚才的事是令我欣喜还是悲伤。我脑子不好，时常是这样。</p>
+<p>刚刚想到了一件事，本来要写的。但是被加时间戳扰乱了思绪。忘了是什么事了，也忘了刚才的事是令我欣喜还是悲伤。脑子不好，时常是这样。</p>
 
           
         
@@ -1171,9 +1561,13 @@
 <p><del>如上边所分析的那样。如果浏览器判定我们输入的是一个URL，那么浏览器就会查找这个域名锁对应的IP，这其中涉及到DNS的问题。我在另一篇Blog中详细写了DNS查找的过程——<a href="http://47.106.200.88/2019/07/14/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94DNS%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F/" target="_blank" rel="noopener">《网络——DNS处理顺序》</a>。接下来浏览器就会检查这些请求是HTTP还是HTTPS的。有些情况下，第一个请求不是HTTPS的，但是当浏览器向网站发出第一个HTTP请求之后，网站会返回一个请求，让浏览器使用HTTPS发送请求。HTTP改HTTPS这个转变的时间是浏览器自动完成的。</del></p>
 <p><del>我们可以以百度为例——我尝试在浏览器输入<code>www.baidu.com</code>回车之后，网页就会自动转到<code>https://www.baidu.com</code>。接下来，我输入<code>http://www.baidu.com</code>,回车之后，也会自动转到<code>https://www.baidu.com</code>。说明</del></p>
 <h2 id="输入URL之后的流程"><a href="#输入URL之后的流程" class="headerlink" title="输入URL之后的流程"></a>输入URL之后的流程</h2><ol>
-<li>域名解析</li>
-<li>向目标IP发起TCP连接请求，通过三次握手之后建立连接</li>
-<li>连接建立成功之后，发起HTTP/HTTPS连接请求</li>
+<li>URL的解析&amp;合法性判断</li>
+<li>HSTS检查</li>
+<li>安全检查&amp;访问限制</li>
+<li>缓存检查</li>
+<li>DNS查询</li>
+<li>TCP连接</li>
+<li>发起HTTP/HTTPS连接请求</li>
 <li>服务器响应请求，浏览器得到HTML代码</li>
 <li>浏览器解析HTML代码，并请求HTML代码中的资源(js、css、图片等)</li>
 <li>浏览器对页面进行渲染，并向用户呈现我们最终看到的网页</li>
@@ -1272,454 +1666,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/29/日常充电——Azure China CDN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/29/日常充电——Azure China CDN/" itemprop="url">日常充电——Azure China CDN</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-29T17:33:12+08:00">
-                2019-06-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>CDN断断续续的了解过。之前很喜欢一个PodCast节目，后来加入了听友群，当谈论到他们的音频内容分发的时候，我第一次听到了CDN这个字眼。我对CDN的理解以podcast内容为例就是——把音频内容，不单是储存在一台服务器上，而是把同样的内容，拷贝到全国各地的服务器（CDN节点）上。使得听众在在线收听以及下载的时候体验得到提升。</p>
-<p>以下内容是在微软云课上课程<a href="https://MSYunKe.bopoda.cn/play/14" target="_blank" rel="noopener">Azure China CDN简介</a>的归纳与整理。</p>
-<h2 id="什么是CDN"><a href="#什么是CDN" class="headerlink" title="什么是CDN"></a>什么是CDN</h2><p>CDN(Content Delivery Network),即内容分发网络，几乎所有的大型网站都在使用。基本思路是尽可能的避开互联网上可能影响数据传输速度和稳定性的瓶颈和环节，使内容更快，更稳定。通过在网络各处放置节点服务器，以互联网为基础构建一层更智能的虚拟网络。CDN系统能够实时地根据网络流量和各节点的连接、负载状况，以及到用户的距离和响应时间等综合信息，将用户的请求重新导向距离用户最近的服务节点。(第一次画图，可能不太好看，灵魂拖拉拽。。。。顺便马克一下Paint X，画图体验还不错)</p>
-<p><img src="https://i.loli.net/2019/06/29/5d173e648a7ae22129.png" alt></p>
-<h2 id="三个特点"><a href="#三个特点" class="headerlink" title="三个特点"></a>三个特点</h2><ol>
-<li>加速(不多说了）</li>
-<li>安全<br> 安全是相对于源站来说，源站不用暴露给互联网用户。有人要攻击你，也首先是CDN节点被攻击。</li>
-<li>高可用<br> 一个节点挂了还有其他的节点可以访问。这是高可用。</li>
-</ol>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
-<li>网站加速：传统网站，移动端HTML5(比如微信小程序)</li>
-<li>下载加速：软件分发（Windows Update），APK文件更新</li>
-<li>媒体加速：音频（PodCast，音乐app），VOD视频点播，直播</li>
-</ul>
-<h2 id="中国CDN厂商"><a href="#中国CDN厂商" class="headerlink" title="中国CDN厂商"></a>中国CDN厂商</h2><ul>
-<li>传统CDN厂商</li>
-<li>电信运营商<br>  三大ISP，国内CDN的带宽资源实际上都在三家ISP中。就算有IDC牌照，搭建机房之间的通讯链路也是违法的。相关新闻可以参照<a href="http://www.sohu.com/a/275292691_698311" target="_blank" rel="noopener">《不配合工信部还抢食运营商？百度与8083家企业一起被纳入不良名单 》</a></li>
-<li>云计算服务商<br>  云计算厂商也会做这些。除了提供服务，也会自用，补充一下自己的媒体服务器还有虚拟机的服务。win win局面</li>
-<li>传统互联网公司<br>  乐视、迅雷等等  主要是做自己的内容分发</li>
-<li>创业公司<br>  七牛云应该算是</li>
-</ul>
-<h2 id="不同厂商的CDN服务差异"><a href="#不同厂商的CDN服务差异" class="headerlink" title="不同厂商的CDN服务差异"></a>不同厂商的CDN服务差异</h2><ul>
-<li>地域</li>
-<li>运营商</li>
-<li>加速类型<br>  这家可能网站加速比较好，那家的内容分发好，另外一家的下载加速好</li>
-<li>定位准确度<br>  是不是能准确的调用到和用户定位所在地相同的服务器，这算是一个性能指标。</li>
-<li>增值功能<br>  具体体现在<a href="https://www.jianshu.com/p/c02064db8b5b" target="_blank" rel="noopener">防盗链</a>，报表的查看、日志下载等等</li>
-</ul>
-<h2 id="假如只使用一家的CDN服务会有什么问题"><a href="#假如只使用一家的CDN服务会有什么问题" class="headerlink" title="假如只使用一家的CDN服务会有什么问题"></a>假如只使用一家的CDN服务会有什么问题</h2><ul>
-<li>性能</li>
-<li>可用性</li>
-<li>节点故障</li>
-<li>节点的覆盖</li>
-<li>加速类型</li>
-</ul>
-<blockquote>
-<p>讲师列了一张cedexls公司的图表，很模糊截不了，我去源站找那张图但是网站也访问不了。所以没列出来。总的意思来说就是使用多家CDN服务，性能、可用性、节点故障的影响这三项都会有可观的提升。</p>
-</blockquote>
-<p>这堂课看下来，感觉收获不多，只是了解了一下大概的市场格局和非常基础的技术知识。略失望。CDN觉得还是蛮重要的，以后再继续了解。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/27/Qt——03信号的重载/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/27/Qt——03信号的重载/" itemprop="url">Qt——03信号的重载</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-27T21:19:12+08:00">
-                2019-06-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="信号重载的作用："><a href="#信号重载的作用：" class="headerlink" title="信号重载的作用："></a>信号重载的作用：</h2><p>不知道，还没想明白。反正就是我们可以通过同一个信号类发送不同类型/种类的函数来实现函数的重载。这样有什么意义呢？我也还没想明白。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ol>
-<li>在头文件中定义两个信号，信号名相同但是参数不同</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">signals:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Sig_ShowMainWindow</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Sig_ShowMainWindow</span><span class="params">(<span class="keyword">int</span>,QString)</span></span>;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>在cpp文件中</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> SubWidget::SendSlot()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">emit <span class="title">Sig_ShowMainWindow</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">emit <span class="title">Sig_ShowMainWindow</span><span class="params">(<span class="number">250</span>,<span class="string">"send from subwidget"</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>在connect函数中分别接收这两个信号</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">connect(&amp;sw,&amp;SubWidget::Sig_ShowMainWindow,<span class="keyword">this</span>,&amp;MainWidget::show);</span><br><span class="line">connect(&amp;sw,&amp;SubWidget::Sig_ShowMainWindow,<span class="keyword">this</span>,&amp;MainWidget::DealMsg);</span><br></pre></td></tr></table></figure>
-<p>​            之后我们定义一个函数尝试打印出传递过来的消息。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> MainWidget::DealMsg(<span class="keyword">int</span> a,QString c)</span><br><span class="line">&#123;</span><br><span class="line">    qDebug()&lt;&lt;a&lt;&lt;<span class="string">" "</span>&lt;&lt;c&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​            但是在这个时候，编译会出现如下错误：</p>
-<p><img src="https://i.loli.net/2019/06/27/5d14c8f557e6e96169.png" alt></p>
-<p>刚开始的时候看到这个错误很迷，明明语法什么的都没有问题。但是connect函数还是会报错”no matching member for call to ‘connect’”,没有匹配成员函数的错误。查了资料之后才知道。在connect中Sig_ShowMainWindow在接收子窗口传过来的信号的时候，会产生二义性。也就是说connnect不知道在收到信号之后，该匹配哪个处理函数。</p>
-<ol start="4">
-<li>函数指针</li>
-</ol>
-<p>函数指针用来解决信号重载时候的匹配问题。有些忘记了，所以稍微复习一下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span>)</span></span>&#123;&#125;</span><br><span class="line"><span class="keyword">void</span> (*p)(<span class="keyword">int</span>)=fun;</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>子窗口信号重载的实现</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (SubWidget::*show1)() = &amp;SubWidget::Sig_ShowMainWindow;</span><br><span class="line"><span class="keyword">void</span> (SubWidget::*show2)(<span class="keyword">int</span>,QString) = &amp;SubWidget::Sig_ShowMainWindow;</span><br></pre></td></tr></table></figure>
-<p> 这样，一次完整的重载就实现了。 </p>
-<blockquote>
-<p>Qt4的语法因为易于出错，且没有Qt5灵活。故不打算再做探究。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/27/Qt——02日常的注意事项/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/27/Qt——02日常的注意事项/" itemprop="url">Qt——02日常的注意事项</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-27T14:16:07+08:00">
-                2019-06-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="定义窗口大小"><a href="#定义窗口大小" class="headerlink" title="定义窗口大小"></a>定义窗口大小</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resize(<span class="number">300</span>,<span class="number">200</span>);</span><br></pre></td></tr></table></figure>
-<p>窗口显示在未特别指定的时候，显示可能会出现异常，文字显示不全，button显示不全等等问题。所以在有时候需要特别指定一下窗口的大小，以保证窗口及内容的正常显示。</p>
-<h2 id="this指针问题"><a href="#this指针问题" class="headerlink" title="this指针问题"></a>this指针问题</h2><p>近来的编码中频频遇到问题。好多的问题解决之后发现，都是因为没有灵活的运用this指针。比如：</p>
-<p>问题1：</p>
-<p><img src="https://i.loli.net/2019/06/27/5d14612fe8e6767805.png" alt></p>
-<p>在窗口中定义的子按钮，需要指定父对象的时候，因为主窗口mw定义main.cpp中而不是当前的mainwidget.cpp中。所以使用mw来指定父对象的时候程序就会报错。这个时候，如果使用this来指定的话，问题就能很轻松的解决。</p>
-<p>问题2：</p>
-<p><img src="https://i.loli.net/2019/06/27/5d14621bbacab29204.png" alt></p>
-<p>在书写响应函数ChangeWindow()的时候，需要执行两个操作——隐藏主窗口和显示子窗口。在这个时候同问题1，使用mw.hide()的时候，程序也会报错。这个时候如果使用this-&gt;hide();问题也就能很轻松的解决。</p>
-<p>记一下。倒不是什么大问题，就是老卡在this过不去，所以就写一下强化一下记忆。</p>
-<h2 id="pro-user问题"><a href="#pro-user问题" class="headerlink" title=".pro.user问题"></a>.pro.user问题</h2><p>先看一眼一个项目的文件结构</p>
-<p><img src="https://i.loli.net/2019/06/27/5d147053c0e2026395.png" alt></p>
-<p>除过头文件和源文件之外，还有一个.pro文件和.pro.user文件。</p>
-<p>我们有时在将整个项目直接打包发给别人之后，别的用户打开的时候会出现无法打开的情况出现。</p>
-<p>究其原因，就是因为这个.pro.user文件。因为这个文件保存着，当前用户的信息，包括工程的路径，所用的编译器，构建的工具链，生成目录，打开工程的qt-creator版本等等。of course直接迁移了项目的时候就不能用。</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>删掉就行，这样就会重新生成新的.pro.user文件而不是重新加载。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1765,7 +1716,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

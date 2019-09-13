@@ -82,16 +82,16 @@
 <meta name="description" content="引自Wikipedia: DNS(Domain Name System)。是互联网的一项服务。他作为将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网。  DNS处理顺序以chrome为例，整理一下DNS的完整处理顺序。 1. Chrome搜索自身的DNS缓存在浏览器的地址栏，我们输入了www.baidu.com，按下回车键，浏览器对于我们URL的解析就开始了。假如在我们最近曾经">
 <meta name="keywords" content="网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络——DNS处理顺序">
+<meta property="og:title" content="网络——DNS查询">
 <meta property="og:url" content="47.168.200.88/2019/07/14/网络——DNS处理顺序/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="引自Wikipedia: DNS(Domain Name System)。是互联网的一项服务。他作为将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网。  DNS处理顺序以chrome为例，整理一下DNS的完整处理顺序。 1. Chrome搜索自身的DNS缓存在浏览器的地址栏，我们输入了www.baidu.com，按下回车键，浏览器对于我们URL的解析就开始了。假如在我们最近曾经">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/07/14/5d2adce4be5c565538.png">
 <meta property="og:image" content="https://i.loli.net/2019/07/14/5d2af637e1b0921322.png">
-<meta property="og:updated_time" content="2019-07-31T18:02:08.817Z">
+<meta property="og:updated_time" content="2019-09-13T05:47:27.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网络——DNS处理顺序">
+<meta name="twitter:title" content="网络——DNS查询">
 <meta name="twitter:description" content="引自Wikipedia: DNS(Domain Name System)。是互联网的一项服务。他作为将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网。  DNS处理顺序以chrome为例，整理一下DNS的完整处理顺序。 1. Chrome搜索自身的DNS缓存在浏览器的地址栏，我们输入了www.baidu.com，按下回车键，浏览器对于我们URL的解析就开始了。假如在我们最近曾经">
 <meta name="twitter:image" content="https://i.loli.net/2019/07/14/5d2adce4be5c565538.png">
 
@@ -129,7 +129,7 @@
 
 
 
-  <title>网络——DNS处理顺序 | Andrew's Blog</title>
+  <title>网络——DNS查询 | Andrew's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">网络——DNS处理顺序</h2>
+          <h2 class="post-title" itemprop="name headline">网络——DNS查询</h2>
         
 
         <div class="post-meta">
@@ -318,7 +318,7 @@
 <p>DNS(Domain Name System)。是互联网的一项服务。他作为将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网。</p>
 </blockquote>
 <h1 id="DNS处理顺序"><a href="#DNS处理顺序" class="headerlink" title="DNS处理顺序"></a>DNS处理顺序</h1><p>以chrome为例，整理一下DNS的完整处理顺序。</p>
-<h2 id="1-Chrome搜索自身的DNS缓存"><a href="#1-Chrome搜索自身的DNS缓存" class="headerlink" title="1. Chrome搜索自身的DNS缓存"></a>1. Chrome搜索自身的DNS缓存</h2><p>在浏览器的地址栏，我们输入了<code>www.baidu.com</code>，按下回车键，浏览器对于我们URL的解析就开始了。假如在我们最近曾经访问过<code>www.baidu.com</code>，那么浏览器就会有关于<code>www.baidu.com</code>的DNS缓存。如果查找到了这项，那么解析过程就结束了。直接使用IP进行访问。</p>
+<h2 id="1-Chrome搜索自身的DNS缓存"><a href="#1-Chrome搜索自身的DNS缓存" class="headerlink" title="1. Chrome搜索自身的DNS缓存"></a>1. Chrome搜索自身的DNS缓存</h2><p>在浏览器的地址栏，我们输入了<code>www.baidu.com</code>，按下回车键，浏览器对于我们URL的解析就开始了。假如在我们最近曾经访问过<code>www.baidu.com</code>，那么浏览器就会有关于<code>www.baidu.com</code>的DNS缓存。如果查找到了这项，那么解析过程就结束了。直接使用IP进行访问。没有找到的话就调用系统库函数进行查询。</p>
 <p>但是这个缓存是有诸多限制的。比如：大小限制，缓存的时间限制。通常情况下，这些情况由<a href="https://baike.baidu.com/item/TTL/130248" target="_blank" rel="noopener">TTL</a>来决定。Chrome对每个域名都会默认缓存60S</p>
 <blockquote>
 <p>在有的情况下，可能会存在一个域名解析出了多个IP的情况。在这种情况下，Chrome会优先向第一个IP发起HTTP请求。如果不通，再向后面的IP发起HTTP请求</p>
@@ -362,7 +362,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="47.168.200.88/2019/07/14/网络——DNS处理顺序/" title="网络——DNS处理顺序">47.168.200.88/2019/07/14/网络——DNS处理顺序/</a>
+    <a href="47.168.200.88/2019/07/14/网络——DNS处理顺序/" title="网络——DNS查询">47.168.200.88/2019/07/14/网络——DNS处理顺序/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -479,7 +479,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
