@@ -242,6 +242,889 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/10/11/Kafka——-01入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/11/Kafka——-01入门/" itemprop="url">Kafka——-01入门</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-11T23:16:19+08:00">
+                2019-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>分布式的基于发布/订阅模式的消息队列，主要用于大数据实时处理领域。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/10/02/Redis——01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/02/Redis——01/" itemprop="url">Redis——入门</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-02T00:32:02+08:00">
+                2019-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="nosql介绍"><a href="#nosql介绍" class="headerlink" title="nosql介绍"></a>nosql介绍</h1><p>NoSQL：一类新出现的数据库（not only sql)特点：</p>
+<ul>
+<li>不支持SQL语法。</li>
+<li>储存结构跟传统关系型数据库中的关系表完全不同，nosql中储存的数据都是KV形式。</li>
+<li>NoSQL没有通用的语言，不像SQL一样基本统一。每种nosql数据库都有自己的api和语法，以及擅长的业务场景<ul>
+<li>Mongodb</li>
+<li>Redis</li>
+<li>Hbase hadoop</li>
+<li>Cassandra hadoop</li>
+</ul>
+</li>
+</ul>
+<h2 id="NoSQL和SQL数据库比较"><a href="#NoSQL和SQL数据库比较" class="headerlink" title="NoSQL和SQL数据库比较"></a>NoSQL和SQL数据库比较</h2><ul>
+<li><strong>适用场景不同</strong>：sql数据库适合用于关系复杂的数据查询场景，nosql反之</li>
+<li><strong>事务的支持</strong>：sql对事务的支持很完善，nosql基本不支持事务。</li>
+</ul>
+<h2 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h2><p>Redis是一个使用C来编写的开源程序，支持网络，可基于内存亦可持久化的日志型，Key-Value数据库。并且支持多种语言的API。</p>
+<p>Redis是NoSQL阵营中的一员，通过多种键值数据类型来适应不同场景下的储存需求，借助一些高层级的接口使用其可以胜任缓存。队列系统的不同角色。</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li><p>支持数据的持久化，可以将数据存在磁盘中，重启的时候再次加载进行使用。</p>
+</li>
+<li><p>不仅支持kv数据，还提供了list、set、zset、hash等数据结构的存储。</p>
+</li>
+<li><p>支持数据的备份，即master-slave模式的数据备份。</p>
+</li>
+</ul>
+<p>##优势</p>
+<ul>
+<li>性能高：毕竟这东西的介质是RAM，读110000次/s，写81000次/s</li>
+<li>数据类型丰富：看上边</li>
+<li>原子：Redis的所有操作都是原子的，同时还支持对几个操作全并后的原子性执行</li>
+<li>特性丰富：Redis还支持publish/subscribe、通知、key过期等等特性</li>
+</ul>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li><p>用来做缓存。</p>
+</li>
+<li><p>在某个场景下替代传统数据库。</p>
+</li>
+<li><p>在大型系统中，实现特定的功能。比如session共享，购物车。</p>
+</li>
+</ul>
+<p>这个是补充昨晚的文档</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ul>
+<li>(hard mode)源码编译安装，编译还是蛮快的。爱折腾可以自己试试。</li>
+<li>(easy way)添加EPEL仓库直接yum在线安装。</li>
+</ul>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>应该是都在src文件夹里边</p>
+<ul>
+<li>Redis-server:redis服务器</li>
+<li>Redis-cli:redis命令行客户端</li>
+<li>Redis-benchmark：redis性能测试工具</li>
+<li>Redis-check-aof:AOF文件修复工具</li>
+<li>Redis-check-rdb:RDB文件检索工具(数据持久化之后就是一个RDB文件)</li>
+</ul>
+<h2 id="核心配置项"><a href="#核心配置项" class="headerlink" title="核心配置项"></a>核心配置项</h2><ul>
+<li><p>IP</p>
+<blockquote>
+<p>bind：需要远程访问了就注释掉这一行，或者绑定成一个真实的IP</p>
+</blockquote>
+</li>
+<li><p>端口</p>
+<blockquote>
+<p>port：默 认是6379</p>
+</blockquote>
+</li>
+<li><p>守护进程</p>
+<blockquote>
+<p>是否以daemonize运行</p>
+<ul>
+<li>以守护进程运行的时候不会再命令行阻塞，类似于服务。</li>
+<li>非守护进程运行则当前终端被阻塞。</li>
+<li>yes表示守护进程，反之为no。(设置成守护进程我觉得好一点)</li>
+</ul>
+</blockquote>
+</li>
+<li><p>数据文件</p>
+<blockquote>
+<p>dbfilename dump.rdb</p>
+<p>进行数据持久化的时候就会把文件存到这个文件里</p>
+</blockquote>
+</li>
+<li><p>储存路径</p>
+<blockquote>
+<p>dir /var/lib/redis</p>
+</blockquote>
+</li>
+<li><p>日志文件</p>
+<blockquote>
+<p>Logfile /var/log/redis/redis-server.log</p>
+</blockquote>
+</li>
+<li><p>数据库 默认有16个</p>
+<blockquote>
+<p>database 16</p>
+</blockquote>
+</li>
+<li><p>主从复制，类似双机备份</p>
+<blockquote>
+<p>slaveof</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h2><ul>
+<li><p>redis-server</p>
+</li>
+<li><p>Tip</p>
+<blockquote>
+<p>redis-server cfgPATH #指定加载的配置文件(感觉应该有用所以记下</p>
+</blockquote>
+</li>
+<li><p>帮助文档</p>
+<blockquote>
+<p>redis-server —help</p>
+</blockquote>
+</li>
+<li><p>使用服务的方式来管理redis服务(推荐</p>
+<ul>
+<li><p>启动</p>
+<blockquote>
+<p>sudo service redis start</p>
+</blockquote>
+</li>
+<li><p>停止</p>
+<blockquote>
+<p>sudo servie redis stop</p>
+</blockquote>
+</li>
+<li><p>重启</p>
+<blockquote>
+<p>sudo service redis stop </p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><ul>
+<li><p>帮助文档</p>
+<blockquote>
+<p>redis-cli –help</p>
+</blockquote>
+</li>
+<li><p>参数</p>
+<blockquote>
+<p>-h    指定服务器</p>
+<p>-p    指定端口(默认端口是6379</p>
+</blockquote>
+</li>
+<li><p>测试</p>
+<blockquote>
+<p>输入一个ping，服务端会回个pong</p>
+</blockquote>
+</li>
+<li><p>连接数据库</p>
+<blockquote>
+<p>数据库没有名称，默认有16个。通过0—15来标记。连接redis默认选择第一个数据库</p>
+<p>select n</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h1><ul>
+<li>redis的每一条数据都是键值对，键的类型是字符串，且不能重复</li>
+<li>值分为五种类型<ul>
+<li>字符串string</li>
+<li>散列表hash</li>
+<li>列表list</li>
+<li>集合set</li>
+<li>有序集合zset</li>
+</ul>
+</li>
+</ul>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>字符串是二进制安全的，意思就是他可以接受任何格式的数据。最大长度是512M。</p>
+<h3 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h3><p>如果设置的键不存在则为添加，如果设置的键已经存在则修改</p>
+<ul>
+<li><p>设置键值</p>
+<blockquote>
+<p>set key value</p>
+<p>EX: 设置键为name值为Andrew的数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name Pit</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Pit</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>设置键值以及过期时间(s)</p>
+<blockquote>
+<p>setex key seconds value</p>
+<p>EX:设置一个name，过期时间是10s的数据。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name 10 Tom</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="string">"tom"</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment">#10S later.....</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> (nil)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+</li>
+<li><p>设置多个键值</p>
+<blockquote>
+<p>m set k1 v1 k2 v2 k3 v3</p>
+</blockquote>
+</li>
+<li><p>追加值</p>
+<blockquote>
+<p>append key value</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="键命令"><a href="#键命令" class="headerlink" title="键命令"></a>键命令</h2><ul>
+<li><p>查找键，参数支持正则表达式</p>
+<blockquote>
+<p>keys pattern</p>
+<p>EX:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看所有的键</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> keys *</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看所有a开头的键</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> key a*</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查找键a是否存在,存在返回1，不存在返回0</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> EXISTS a</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看对应value的类型</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">type</span> value</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看键的剩余时间(实时)</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ttl key</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>删除键</p>
+<blockquote>
+<p>del key1 key2</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ul>
+<li>用于储存对象，对象的结构为属性、值</li>
+<li>值的类型为string</li>
+</ul>
+<h3 id="增加-amp-修改"><a href="#增加-amp-修改" class="headerlink" title="增加&amp;修改"></a>增加&amp;修改</h3><ul>
+<li><p>设置单个属性</p>
+<blockquote>
+<p>hset key field value</p>
+<p>EX:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 设置user的属性name为Andrew</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hset user name Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 此处可能会报错,原因是Redis被配置为数据库快照，但是不能持久化到硬盘，所以用来修改集合数据的命令不能用。</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 解决办法：运行`config set stop-writes-on-bgsave-error no`</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>设置多个属性</p>
+<blockquote>
+<p>hmset key field1 value1 field2 value2</p>
+<p>EX:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 设置键user的属性name为Anderw，属性Age为20</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hmset user name Andrew age 20</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h3 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h3><ul>
+<li><p>获取键属性</p>
+<blockquote>
+<p>hkeys key</p>
+<p>EX</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取键user的所有属性</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hkeys user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取一个属性的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget key</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取键user属性name的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget user name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取user所有属性的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hvals user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
+<li><p>删除整个hash键及值，使用del命令</p>
+</li>
+<li><p>删除属性，属性所对应的值会被一起删除</p>
+<blockquote>
+<p>hdel key field1 field2</p>
+<p>EX</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 删除user的属性age</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hdel user age</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hkeys user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 1) <span class="string">"name"</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><ul>
+<li>列表的元素类型为string</li>
+<li>顺序是按照插入的顺序</li>
+</ul>
+<h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><ul>
+<li><p>插入数据</p>
+<blockquote>
+<p>lpush key value1 value2 # 左侧插入</p>
+<p>rpush key value1 value2 #右侧插入</p>
+<p>linsert key before 或 after # 在指定元素前或后插入新元素 </p>
+</blockquote>
+</li>
+</ul>
+<h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><ul>
+<li><p>返回列表里指定范围内的元素</p>
+<ul>
+<li><p>start、sto为元素索引</p>
+</li>
+<li><p>索引从左侧开始，第一个元素是0</p>
+</li>
+<li><p>索引可以是负数，表示从尾部开始计数，如-1是最后一个元素</p>
+<blockquote>
+<p>lset key index value</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>​    </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/23/Linux——进程控制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/23/Linux——进程控制/" itemprop="url">Linux——进程</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T17:12:55+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/20/胡言乱语——环境与责任/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/20/胡言乱语——环境与责任/" itemprop="url">胡言乱语——环境与责任</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T16:35:03+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我有时候不太相信我所情愿相信的。读起来相信比较拗口，但是我确实是这样的。可能和我略猜疑的性格有关。但是我所指的是现在的我。</p>
+<p>五年前我是一个重度的LG粉丝，LG G2发布时以人为本的设计思想和音量键的设计让我曾经一度为之痴迷，因而处处安利给我的同学这个洋牌子手机。当时国产手机刚刚开始展露出锋芒。。。。。。。。</p>
+<p>不过后来的LG不行了。这让我开始一步步认识到我所认为的正确不一定就是客观的正确。</p>
+<p>一个成熟的企业是没有灵魂的。能够让他长久保持生命力不能够靠一个人就能做到。只有保持竞争力才能长久的生存，比如说优衣库就是一个科技公司，zara是一个物流公司。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/19/Linux——内存的页面置换算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/19/Linux——内存的页面置换算法/" itemprop="url">Linux——内存的页面置换算法</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-19T14:35:55+08:00">
+                2019-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/13/Linux——用户态和内核态/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -633,8 +1516,53 @@
 <ol>
 <li>用户输入命令，在shell启动了一个前台进程。</li>
 <li>用户按下了Ctrl + C组合键。此时在这个键盘输入产生了一个硬件中断。</li>
-<li>如果CPU正在执行当前这个进程的代码，则该进程的用户空间代码暂停执行。CPU从用户态切换到内核态捞处理硬件终端</li>
+<li>如果CPU正在执行当前这个进程的代码，则该进程的用户空间代码暂停执行。CPU从用户态切换到内核态道处理硬件中断。</li>
+<li>终端的驱动程序将Ctrl+C解释成一个SIGINT信号，记在该进程的PCB中（也可以说成发送了一个SIGINT信号到该进程).</li>
+<li>在某个时刻，内核要返回到用户空间继续执行代码了，首先他会处理PCB中记录的信号，发现有一个SIGINT的信号在等待处理，而且这个信号的默认处理动作是终止进程，所以会直接终止进程，而不再返回它的用户空间代码执行。</li>
 </ol>
+<blockquote>
+<p>信号想对于进程的控制流程来说是异步的。也就是说前台进程在运行过程中随时都有可能因为收到SIGINT信号而终止。也可以说信号就是软件层面上实现的软中断。</p>
+<p>只有前台的程序才能接受到Ctrl+C这样的控制键产生的信号。</p>
+<p>进程收到的所有信号，都是由内核负责发送和处理的。</p>
+<p>使用<code>kill -l</code>命令可以查看系统定义的信号列表</p>
+</blockquote>
+<h2 id="信号的产生"><a href="#信号的产生" class="headerlink" title="信号的产生"></a>信号的产生</h2><h3 id="通过终端按键产生信号"><a href="#通过终端按键产生信号" class="headerlink" title="通过终端按键产生信号"></a>通过终端按键产生信号</h3><p>比如当我们按下Ctrl+C就会给前台程序发送SIGINT信号，SIGKILL的默认处理动作是终止进程，SIGQUIT的默认动作是终止进程并且Core Dump。</p>
+<blockquote>
+<p>常见控制键产生的信号：</p>
+<p>Ctrl+c：SIGINT信号。代表终止进程，默认的动作是终止进程。</p>
+<p>Ctrl+\：SIGQUIT信号。代表退出进程，默认动作是终止进程并且Core Dump。</p>
+<p>Ctrl+z：SIGSTP信号。代表终止进程，默认动作是终止进程，和SIGINT不同的是SIGSTP不能被捕获。</p>
+<p>Ctrl+d：不发送信号，但是能表示一个特殊的二进制值——EOF。</p>
+</blockquote>
+<p>Core Dump</p>
+<blockquote>
+<p>当一个进程要终止的时候，可以选择把进程的用户空间内存数据全部保存到硬盘上，文件名通常是core，这个过程叫做Core Dump。事后我们可以使用core进行Debug等操作。</p>
+</blockquote>
+<h3 id="通过系统调用函数"><a href="#通过系统调用函数" class="headerlink" title="通过系统调用函数"></a>通过系统调用函数</h3><p>就是用kill命令。kill命令是通过调用kill函数来实现的，kill函数可以给指定的进程发送指定的信号。除过kill命令之外，还有一个raise函数，可以给当前进程发送指定的信号。还有个abort函数可以让程序直接异常终止。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kill</span><span class="params">(<span class="keyword">pid_t</span> pid,<span class="keyword">int</span> signo)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">raise</span><span class="params">(<span class="keyword">int</span> signo)</span></span>;</span><br><span class="line"><span class="comment">//两个程序一样，成功返回0，错误返回-1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">abort</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">//就像exit函数，abort总是执行成功，所以就没必要有返回值</span></span><br></pre></td></tr></table></figure>
+<h3 id="软件条件产生"><a href="#软件条件产生" class="headerlink" title="软件条件产生"></a>软件条件产生</h3><p>SIGPIPE是一种由软件条件产生的信号，这里会主要讲一下alarm函数和SIGALRM。</p>
+<p><strong>alarm函数</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">alarm</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> second)</span></span>;</span><br><span class="line"><span class="comment">//调用alarm函数可以设定一个闹钟，也就是高速内核在seconds秒之后发送给当前进程SIGALRM信号，这个信号的默认动作是终止当前进程</span></span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>函数的返回值是0或者之前设定还剩余的秒数。</li>
+<li>一个进程只能有一个闹钟时间，如果在调用alarm之前已经设定过闹钟，那么之前的设定会被新设定的值取代。</li>
+<li>信号由内核产生，由于进程调度的延迟，所以进程得到信号到处理还是需要一些时间的。</li>
+<li>如果second的值是0，代表的是取消之前设定的值。</li>
+<li>出错返回 -1</li>
+</ul>
+<h2 id="阻塞信号"><a href="#阻塞信号" class="headerlink" title="阻塞信号"></a>阻塞信号</h2><blockquote>
+<p>相关概念</p>
+<ul>
+<li>实际执行信号的处理动作称为信号递达（Delivery）</li>
+<li>信号从产生到递达之间的状态称为信号未决（Pending）</li>
+<li>进程可以选择阻塞（Block）这个信号。</li>
+<li>被阻塞的信号产生时保持在未决状态，直到进程解除对此信号的阻塞，才执行递达的动作。</li>
+<li>阻塞和忽略并不同，信号只要被阻塞就不会递达，但是忽略是递达之后可选的一种处理动作。</li>
+</ul>
+</blockquote>
+<p><strong>信号在内核中的表示示意图</strong></p>
+<p><img src="https://i.loli.net/2019/09/19/NWdSU7KqTpEJ3wP.png" alt></p>
 
           
         
@@ -767,163 +1695,6 @@
 <p>SIGINT：默认的处理动作是终止进程。</p>
 <p>SIGQUIT：默认的处理处理动作是终止进程并且Core Dump.</p>
 <p>算了不写了。我专门写个信号的博客吧。刚好复习（预习）一下知识。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/测试——01计划/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/11/测试——01计划/" itemprop="url">测试—— 01写在伊始</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T11:53:39+08:00">
-                2019-09-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="初级"><a href="#初级" class="headerlink" title="初级"></a>初级</h1><ul>
-<li>测试定义（基础的概念）</li>
-<li>测试方法</li>
-<li>测试生命周期</li>
-<li>测试执行</li>
-<li>测试管理工具</li>
-</ul>
-<h1 id="中级"><a href="#中级" class="headerlink" title="中级"></a>中级</h1><ul>
-<li>测试用例</li>
-<li>Linux</li>
-<li>MySQL</li>
-<li>loadrunner</li>
-<li>测试管理工具</li>
-<li>selenium</li>
-<li>appium</li>
-<li>jenkins</li>
-</ul>
-<h1 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h1><ul>
-<li>暂时先不写</li>
-</ul>
-<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="软件测试的目的和原则"><a href="#软件测试的目的和原则" class="headerlink" title="软件测试的目的和原则"></a>软件测试的目的和原则</h2><p>目的：验证软件有或者没有问题</p>
-<p>原则：遵循软件测试的规范，流程，标准和要求</p>
-<h2 id="什么是需求"><a href="#什么是需求" class="headerlink" title="什么是需求"></a>什么是需求</h2><p>满足用户期望或者正式规定文档所具有的条件和权能。其中包含了用户需求和软件需求。</p>
-<p>用户需求：可以简单理解为甲方的要求，会详细的描述开发人员必须实现的功能。</p>
-<p>软件需求：或者叫功能需求，该需求会详细描述开发人员必须实现的软件功能。</p>
-<p>软件需求是测试人员进行测试工作的基本依据。</p>
-<h2 id="什么是BUG"><a href="#什么是BUG" class="headerlink" title="什么是BUG"></a>什么是BUG</h2><p>当程序没有实现其最终用户合理预期的功能要求时，那就是软件错误 or called BUG。</p>
-<h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><p>测试用例是为了实施测试而向被测试系统提供的一组集合。这组集合中包括：测试环境、操作步骤、测试数据、预期的结果等等。</p>
-<p>测试用例可能会遇到的问题</p>
-<ul>
-<li>不知道是否较全面的测试了所有的功能</li>
-<li>测试的覆盖率无法衡量</li>
-<li>对新版本的重复测试比较难以实施</li>
-<li>存在大量的冗余测试影响测试效率</li>
-</ul>
-<h2 id="软件的生命周期"><a href="#软件的生命周期" class="headerlink" title="软件的生命周期"></a>软件的生命周期</h2><p>包括软件产品的设想开始到软件不再使用而结束的时间。可以分为6个阶段，即：需求分析、计划、设计、编码、测试、运维</p>
-<h2 id="瀑布模型"><a href="#瀑布模型" class="headerlink" title="瀑布模型"></a>瀑布模型</h2><p>start–&gt;需求分析–&gt;计划–&gt;设计–&gt;编码–&gt;测试–&gt;end</p>
-<p>瀑布模型在软件工程中占有重要地位，是所有其他模型的基础框架。它的每个阶段之执行一次，因此是线性顺序进行的软件开发模式。</p>
 
           
         
@@ -1118,561 +1889,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/09/C-——C-11新特性之基于范围的for循环/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/09/C-——C-11新特性之基于范围的for循环/" itemprop="url">C++——C++11新特性之基于范围的for循环</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T20:10:33+08:00">
-                2019-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试准备——06 操作系统/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/07/面试准备——06 操作系统/" itemprop="url">面试准备——06 操作系统</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-07T12:19:08+08:00">
-                2019-09-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h2 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h2><p>子进程在父进程未调用wait()或者waitpid() 的时候退出。就称为僵尸进程</p>
-<h2 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h2><p>父进程退出，但是子进程此时还在运行。那么子进程就会变为孤儿进程，孤儿进程将会由init进程对其进行收集工作。</p>
-<p>僵尸进程会导致资源的浪费，但是孤儿进程不会。</p>
-<h1 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h1><h2 id="Unix进程间的通信方式"><a href="#Unix进程间的通信方式" class="headerlink" title="Unix进程间的通信方式"></a>Unix进程间的通信方式</h2><ol>
-<li>管道</li>
-<li>命名管道</li>
-<li>信号</li>
-<li>消息队列</li>
-<li>共享内存</li>
-<li>内存映射</li>
-<li>信号量</li>
-<li>套接字</li>
-</ol>
-<h2 id="Unix线程间的通信方式"><a href="#Unix线程间的通信方式" class="headerlink" title="Unix线程间的通信方式"></a>Unix线程间的通信方式</h2><p>线程间的通信主要目的是用于线程同步，所以线程没有像进程通信中的用于数据交换的通信机制。</p>
-<ol>
-<li><strong>锁机制</strong>：包括了互斥锁、条件变量、读写锁<br> <strong>互斥锁</strong> 提供了以排他方式防止数据结构被并发修改的方法<br> <strong>读写锁</strong> 允许多个线程同时共享数据，而对写操作是互斥的<br> <strong>条件变量</strong> 可以以院子的方式阻塞进程，直到某个特定条件为真为止。对条件的测试是在互斥锁的保护下进行的。条件变量始终与互斥锁一起使用。</li>
-<li><strong>信号量</strong>：包括了无名线程信号量和命名线程信号量</li>
-<li><strong>条件变量</strong>：类似进程间的信号处理</li>
-</ol>
-<h1 id="文件和磁盘"><a href="#文件和磁盘" class="headerlink" title="文件和磁盘"></a>文件和磁盘</h1><h2 id="七种文件类型"><a href="#七种文件类型" class="headerlink" title="七种文件类型"></a>七种文件类型</h2><ol>
-<li>普通文件：ASCII还有二进制的都是普通文件。文件第一属性为 [ - ]</li>
-<li>目录文件：属性为 [ d ]</li>
-<li>字符设备或者快设备文件：就是硬盘。属性为 [ b ]</li>
-<li>套接字文件：这类文件通常用来网络数据连接中。属性为 [ s ]</li>
-<li>管道文件：FIFO也是一种特殊的文件类型 。属性为 [ p ]</li>
-<li>链接文件：就是快捷方式 。属性为 [ l ]</li>
-<li>字符设备：串行接口设备。键盘鼠标。属性为 [ c ]</li>
-</ol>
-<h2 id="软硬链接"><a href="#软硬链接" class="headerlink" title="软硬链接"></a>软硬链接</h2><p><strong>硬链接：</strong>多个文件名指向同一索引结点，这种连接就是硬连接。硬连接的作用是允许一个文件拥有多个有效路径名。用户就可以建立硬连接到重要文件，达到防止误删的目的。</p>
-<p><strong>软链接：</strong>也叫符号链接。类似与windows的快捷方式。实际上是一个特殊的文件。在符号链接中，实际上是一个文本文件，其中包含另一文件的位置信息，</p>
-<p>删除原始文件之后，硬链接不受影响，但是软链接会失效。</p>
-<p>参考文章：</p>
-<ul>
-<li>《<a href="https://blog.csdn.net/kobejayandy/article/details/18863543" target="_blank" rel="noopener">Linux的进程/线程间通信方式总结</a>》</li>
-</ul>
-<p>​        </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试准备——05 数据库/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/07/面试准备——05 数据库/" itemprop="url">面试准备——05 数据库</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-07T12:08:24+08:00">
-                2019-09-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="三大范式"><a href="#三大范式" class="headerlink" title="三大范式"></a>三大范式</h1><h2 id="第一范式"><a href="#第一范式" class="headerlink" title="第一范式"></a>第一范式</h2><p>1NF</p>
-<p>数据表中的所有字段都是不可分割的原子值。字段值还可以继续拆分的，就不满足第一范式。</p>
-<p>范式，设计的越详细，对于某些实际的操作可能更好，但是不一定都是好处。</p>
-<h2 id="第二范式"><a href="#第二范式" class="headerlink" title="第二范式"></a>第二范式</h2><p>2NF</p>
-<p> 必须是满足第一范式的前提下。第二范式要求，除主键外的每一列都必须完全依赖与主键。如果要是出现不完全依赖，只可能发生在联合主键的情况下。 </p>
-<p>问题：除过主键以外的其他列，只依赖于主键的部分字段，应该怎么做？</p>
-<p>答：拆表。</p>
-<h2 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a>第三范式</h2><p>3NF</p>
-<p>必须先满足第二范式，除开主键其他列之间不能有传递依赖的关系。</p>
-<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><p>SQL共有四种连接查询</p>
-<h2 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h2><p>inner join或者 join</p>
-<p>内联查询：本质上来说就是两张表中的数据，通过某个字段相等来查询出相关记录数据。</p>
-<p>EG：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from person inner join card on person.cardId=card.id;</span><br></pre></td></tr></table></figure>
-<h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><ol>
-<li>左连接：left join或者left outer join</li>
-<li>右连接：right join或者right outer join</li>
-<li>完全外连接：full join或者full outer join</li>
-</ol>
-<p>## </p>
-<p>## </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试准备——04  算法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/07/面试准备——04  算法/" itemprop="url">面试准备——04 算法</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-07T11:54:38+08:00">
-                2019-09-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><h2 id="常见的排序算法"><a href="#常见的排序算法" class="headerlink" title="常见的排序算法"></a>常见的排序算法</h2><ul>
-<li>插入排序<ul>
-<li>直接插入排序</li>
-<li>希尔排序</li>
-</ul>
-</li>
-<li>选择排序<ul>
-<li>选择排序</li>
-<li>堆排</li>
-</ul>
-</li>
-<li>交换排序<ul>
-<li>冒泡排序</li>
-<li>快速排序</li>
-</ul>
-</li>
-<li>归并排序<ul>
-<li>归并排序</li>
-</ul>
-</li>
-</ul>
-<h2 id="常见排序算法的时间空间复杂度"><a href="#常见排序算法的时间空间复杂度" class="headerlink" title="常见排序算法的时间空间复杂度"></a>常见排序算法的时间空间复杂度</h2><p><img src="https://i.loli.net/2019/09/07/DaOmsyVdwULv1nC.jpg" alt></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1723,7 +1939,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1745,7 +1961,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

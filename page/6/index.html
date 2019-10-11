@@ -245,6 +245,626 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/05/LeetCode——067二进制求和/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/LeetCode——067二进制求和/" itemprop="url">LeetCode——067二进制求和</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-05T09:15:33+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="LeetCode——067二进制求和"><a href="#LeetCode——067二进制求和" class="headerlink" title="LeetCode——067二进制求和"></a>LeetCode——067二进制求和</h1><p>题目：</p>
+<p><img src="https://i.loli.net/2019/07/05/5d1ea674c30a136831.png" alt></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/02/LeetCode——002两数相加/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/02/LeetCode——002两数相加/" itemprop="url">LeetCode——002两数相加</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T22:49:52+08:00">
+                2019-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这是一个中等难度题。let me try 1 try！</p>
+<h1 id="LeetCode——002两数相加"><a href="#LeetCode——002两数相加" class="headerlink" title="LeetCode——002两数相加"></a>LeetCode——002两数相加</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="https://i.loli.net/2019/07/02/5d1b70af5efee23260.png" alt></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><blockquote>
+<p>题中提到了可以假设除过数字0之外，也就是说我们可以假设所有的数字都不是以0开头。</p>
+</blockquote>
+<p>大略看一下这是一个用单链表来实现按位加的功能，而且不需要逆置。需要注意的地方是因为链表是逆置的，所以发生进位的时候是要向单链表的下一位进位。除此之外貌似其他的都不难。</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>开始实际实现，发现了其中还涉及到了一些知识，比如：链表实时空间的开辟、next指针的问题、加法逻辑的判断等等。虽然之前都会，但是现在都有些生疏了，而且是之前的问题都被整合到了一块。要解决这个问题，需要好几部分的知识。忽然之间就懵了，不知道该怎么开始。</p>
+<p>学到了一个little tip。不知道怎么形容。看一下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Definition <span class="keyword">for</span> singly-linked <span class="built_in">list</span>.</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在一个Node中加上了构造函数，这样可以直接使用初始化列表进行初始化。直接传参，初始化下一个节点的值,还直接把next指针指空。之前太蠢了，都是傻傻的写专门的方法来完成这个功能的。</p>
+<h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><p>断断续续已经两天了，今儿下午结果终于对了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        ListNode* l3=<span class="keyword">new</span> ListNode(<span class="number">-1</span>);		<span class="comment">//储存加法结果</span></span><br><span class="line">        ListNode* cur=l3;		<span class="comment">//临时指针</span></span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> symb=<span class="literal">false</span>;		<span class="comment">//一个标志，为true代表当前位上一位有进位</span></span><br><span class="line">        <span class="keyword">while</span>(l1!=<span class="literal">NULL</span> || l2!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(l1!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                sum+=l1-&gt;val;</span><br><span class="line">                l1=l1-&gt;next;</span><br><span class="line"><span class="comment">//此处需要注意的是，l1和待会的l2都没有使用临时指针来替代，但是实际上，对原l1,l2链表的指针是不会产生影响的</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(l2!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                sum+=l2-&gt;val;</span><br><span class="line">                l2=l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(symb)</span><br><span class="line">            &#123;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">            cur-&gt;next=<span class="keyword">new</span> ListNode(sum%<span class="number">10</span>);</span><br><span class="line">            cur=cur-&gt;next;</span><br><span class="line">            symb=sum&gt;<span class="number">9</span>?<span class="literal">true</span>:<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//还有单独再使用一次symb的原因是怕最高位加法之后再产生进位。</span></span><br><span class="line">        <span class="keyword">if</span>(symb)</span><br><span class="line">        &#123;</span><br><span class="line">            cur-&gt;next=<span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l3-&gt;next;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="解决方法2"><a href="#解决方法2" class="headerlink" title="解决方法2"></a>解决方法2</h2><h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>把数字都提取出来-&gt;做加法-&gt;倒序写个链表-&gt;返回链表的指针</p>
+<p>基本就酱。可以见的是数字提取和倒序写链表会有点挑战。先开坑。什么时候填坑看天意。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我看答案了，不过跟我想的基本没有偏差。总的来说呢，还是菜。想法脑子能很快在脑子里成型。但是就是写不出来。面试、包括还有将来的实际生产中将想法实现也是很重要的。慢慢练习吧。之前忘了在哪看到的TED好像，讲的是在涉及某种新的领域的时候，常常会感觉很吃力，不适应。就像大脑在”舒适区”待久了，自然而然的就会产生排异反应，这个时候就需要坚持下去，难受习惯了就不会觉得难受了(哈哈开玩笑！实际上是大脑会有某种变化让你更适合去开展这种工作)。</p>
+<p>这种题一部分是需要思路。但是对我来说更重要的是要培养用流程化的思维去解决问题的能力。就像vim的键盘宏功能，而不是光有思路就行。万一哪天面试官让我手撕代码，代码写不出来？估计就凉的跟凉凉似了科科！</p>
+<p>说起键盘宏，昨晚看B站发现vim竟然还有录制键盘宏的功能。博客上传了就去玩玩🤓</p>
+<p>还有这个问题明天还得再看一次。强化一下记忆。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/30/LeetCode——001两数之和/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/30/LeetCode——001两数之和/" itemprop="url">LeetCode——001两数之和</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-30T19:37:12+08:00">
+                2019-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>回家了就很爽，晚上8点多就睡下。11点醒来睡不着，想到开了新坑还没填。不如就写写博客吧。LeetCode这个tag开之前还是有点犹豫的，怕自己坚持不下去。没办法！面试所迫。临时抱抱佛脚不亮也光嘛🌚。能做多少就多少吧。不会了就看看答案8。</p>
+<h1 id="LeetCode——001-两数之和"><a href="#LeetCode——001-两数之和" class="headerlink" title="LeetCode——001 两数之和"></a>LeetCode——001 两数之和</h1><h2 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h2><p><img src="https://i.loli.net/2019/07/02/5d1a3ecb4ad2390551.png" alt></p>
+<h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>有点迷惑这个”你可以假设每种输入都会对应一个答案”是什么意思！大概理解之后基本有思路。需要注意的是不能使用这个数组中同样的元素。</p>
+<p>首先想到的就是暴力法，遍历数组中的每一个元素，然后对比target-nums[n]是否相等。</p>
+<p>时间复杂度为O(n^2),空间复杂度为O(1)。运行速度比较慢而且内存消耗也比较大。</p>
+<h3 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> i,j;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size()<span class="number">-1</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=nums.size()<span class="number">-1</span>;j&gt;i;j--)</span><br><span class="line">            <span class="comment">// 这里应该是j&gt;i。之前这里出错写成j&lt;=i了</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">        		&#123;</span><br><span class="line">        			<span class="keyword">return</span> &#123;i,j&#125;;</span><br><span class="line">        		&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;i,j&#125;;</span><br><span class="line">        <span class="comment">//这里的return是里边的if判定未生效时执行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>执行时间200ms，击败50%。内存9MB，击败97%。</p>
+<p>击败了50%是什么意思？</p>
+<p>就是剩下的那50%，都是用15ms击败你的。</p>
+<p><img src="https://i.loli.net/2019/07/02/5d1a511cad19237517.png" alt></p>
+<p>第一次答题总算是过去了，前前后后用了将近1小时。用时感觉蛮久的。</p>
+<p>提交了14次之后才通过了。相比此时90w提交数42w通过数感觉有点惭愧呀。</p>
+<p>觉得没什么收获，就酱！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/30/网络——浏览器地址栏输入后回车会发生什么/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/30/网络——浏览器地址栏输入后回车会发生什么/" itemprop="url">网络——浏览器地址栏输入后回车会发生什么</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-30T19:13:26+08:00">
+                2019-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="浏览器地址栏输入后回车会发生什么"><a href="#浏览器地址栏输入后回车会发生什么" class="headerlink" title="浏览器地址栏输入后回车会发生什么"></a>浏览器地址栏输入后回车会发生什么</h1><p>相信好多人的面经中都写到过这道题了。可以说是一道网络方向的上古经典面试题，久盛不衰！有的人足够了解，这个问题能回答10分钟。不是很了解的童鞋，可能只能用寥寥数字来进行简单不完全的描述。写下这篇博客的目的就是——对这个问题做一个很好的总结。相信在接下来的面试中还很有可能被问到。希望到时候能用这个回答征服面试官哈哈哈。不过更加希望的是自己能思考明白这其中各个环节发生了什么，并能够利用这个知识真正变现成为生产力去解决问题。</p>
+<p>这篇可能会很臭很长。我只想写的足够详细。</p>
+<p><del>让我们先从按下键盘的电流回路开始讲起吧</del></p>
+<p>开个玩笑，不过我看到有人真的这么分析了。也真是个狼人🐺</p>
+<!--浏览器会做什么-->
+<!--首先，浏览器会分析我输入的内容。-->
+<!--通常，如果输入的内容中包含了字段".com"，那么浏览器不会认为我输入的是一个关键字。在确定用户输入的是一个URL而不是一个搜索关键字之后。浏览器就会检查，我所输入的URL是否指明了某种协议。如果没有，就会在开头加上"https://"。因为我没有指定具体的HTTP协议选项，所以浏览器就会使用默认值来填充：端口 80、GET方法、不使用基本的身份验证。-->
+<!--关于自动补全时使用HTTP还是HTTPS？-->
+<!--比如我输入的是"baidu.com"，输入之后回车浏览器就会自动补全成" https://www.baidu.com"为什么会补全成https而不是http呢？-->
+<!--关于这个问题，我尝试在网上搜索了一下，不过没有完整清晰的答案。主要是取决于各个厂商的考量。chrome亲测是补全成HTTPS的-->
+<h2 id="会输入什么"><a href="#会输入什么" class="headerlink" title="会输入什么"></a>会输入什么</h2><p>访问或者搜索的时候。我们第一步需要做的，就是输入，那么我们可能的输入场景都有哪些呢？</p>
+<ol>
+<li><p>搜索关键字。比如：</p>
+<ul>
+<li><p>baidu</p>
+</li>
+<li><p>百度</p>
+</li>
+<li><p><a href="http://www.baidu,com" target="_blank" rel="noopener">www.baidu,com</a> (注意这里使用的是逗号)<br> 输入文本后回车，如果浏览器判定所输入的内容不是一个URL。那么浏览器就会调用默认的搜索引擎对输入的内容进行搜索。其过程只比直接输入URL多了一步。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>如图。我输入了一个文本，并按下了回车</p>
+<p> <img src="https://i.loli.net/2019/07/16/5d2de94c5781b11972.png" alt></p>
+<p>浏览器进行判定。判定结果是非URL链接，接下来浏览器自动生成一个带有我们搜索关键字的URL，向默认的搜索引擎发起连接请求。接下来的步骤就和输入一个URL链接一样啦。</p>
+<p><img src="https://i.loli.net/2019/07/16/5d2debd55417830040.png" alt></p>
+<ol start="2">
+<li>URL<ul>
+<li>baidu.com</li>
+<li><a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></li>
+<li><a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a></li>
+<li><a href="https://www.baidu.com" target="_blank" rel="noopener">https://www.baidu.com</a></li>
+</ul>
+</li>
+</ol>
+<p>在我们输入并回车之后。首先，浏览器会对我们输入的内容进行解析。判断我们的输入是一个文本还是一个URL。如果是一个文本，那么浏览器就会对调用默认的搜索引擎对文本内容进行搜索。如果是一个URL，那么浏览器就会跳转到用户所请求访问的这个页面中去。</p>
+<p><del>输入URL会怎么样</del></p>
+<p><del>如上边所分析的那样。如果浏览器判定我们输入的是一个URL，那么浏览器就会查找这个域名锁对应的IP，这其中涉及到DNS的问题。我在另一篇Blog中详细写了DNS查找的过程——<a href="http://47.106.200.88/2019/07/14/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94DNS%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F/" target="_blank" rel="noopener">《网络——DNS处理顺序》</a>。接下来浏览器就会检查这些请求是HTTP还是HTTPS的。有些情况下，第一个请求不是HTTPS的，但是当浏览器向网站发出第一个HTTP请求之后，网站会返回一个请求，让浏览器使用HTTPS发送请求。HTTP改HTTPS这个转变的时间是浏览器自动完成的。</del></p>
+<p><del>我们可以以百度为例——我尝试在浏览器输入<code>www.baidu.com</code>回车之后，网页就会自动转到<code>https://www.baidu.com</code>。接下来，我输入<code>http://www.baidu.com</code>,回车之后，也会自动转到<code>https://www.baidu.com</code>。说明</del></p>
+<h2 id="输入URL之后的流程"><a href="#输入URL之后的流程" class="headerlink" title="输入URL之后的流程"></a>输入URL之后的流程</h2><ol>
+<li>URL的解析&amp;合法性判断</li>
+<li>HSTS检查</li>
+<li>安全检查&amp;访问限制</li>
+<li>缓存检查</li>
+<li>DNS查询</li>
+<li>TCP连接</li>
+<li>发起HTTP/HTTPS连接请求</li>
+<li>服务器响应请求，浏览器得到HTML代码</li>
+<li>浏览器解析HTML代码，并请求HTML代码中的资源(js、css、图片等)</li>
+<li>浏览器对页面进行渲染，并向用户呈现我们最终看到的网页</li>
+</ol>
+<h2 id="所用到的协议"><a href="#所用到的协议" class="headerlink" title="所用到的协议"></a>所用到的协议</h2><p>想了一段时间，但是还是有点理不清思绪，所以列举一下各层所用到的协议。在之后的文章会都写到的。</p>
+<p>应用层：发起请求的逻辑</p>
+<p>表示层：HTTP/HTTPS</p>
+<p>会话层：TLS</p>
+<p>传输层：TCP</p>
+<p>网络层：IP</p>
+<p>数据链路层：帧</p>
+<p>物理层：比特流</p>
+<h1 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h1><h2 id="字符转换"><a href="#字符转换" class="headerlink" title="字符转换"></a>字符转换</h2><p>如果输入的是非<code>a-z</code>、<code>A-Z</code>、<code>0-9</code>、<code>-</code>、<code>.</code>的非ASCII的Unicode字符字符，浏览器会对主机名部分使用Punycode编码</p>
+<h2 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h2><p>在上边所举例的三种输入样例中，按下回车其实都会转到<code>https://www.baidu.com</code>。但是其中的原理却不尽相同。在我们输入<code>https://www.baidu.com</code>的时候，说明我们是使用https协议来访问，这个并不是很难理解。<br>在输入<code>baidu.com</code>和<code>www.baidu.com</code>之后,这其中涉及到的是”预加载HSTS”的问题。详细内容在我单独写的一个博客<a href="http://47.106.200.88/2019/07/17/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94HSTS%E7%AE%80%E5%8D%95%E6%8E%A2%E7%A9%B6/" target="_blank" rel="noopener">《HSTS简单探究》</a>中。简而言之就是现代浏览器会内置一个列表，记录了一些域名。如果我们访问的域名在这个列表中，浏览器就会自动将网络协议补全成为<code>HTTPS</code>。另外提一点，假如<code>baidu.com</code>不在浏览器的HSTS列表中，那么也会被自动补全成<code>HTTPS</code>。</p>
+<blockquote>
+<p>只要网站支持，用https总是好的，安全的！</p>
+<p>​                                                                            ——一位不愿透漏姓名的网友</p>
+</blockquote>
+<p>在输入<code>http://www.baidu.com</code>也会使用<code>301</code>自动重定向到<code>https://www.baidu.com</code>这是因为浏览器和服务器在其中做了很多。在我们使用HTTP去向网站发起连接请求，这时会得到服务器的响应。但是不是常规响应，而是一个重定向的301响应，而后浏览器收到响应，会重新发起HTTPS请求和网站进行通信。这其实是一次有风险的操作，因为我们可能会因此受到downgrade attack的攻击。还有一点就是在服务器和浏览器之间会发生TLS握手。这个马上就说。</p>
+<h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>Transport Layer Security：传输层安全协议。有SSL1.0、SSL 2.0、SSL3.0三个版本。作为初学者，我的理解就是HTTPS = HTTP + TLS(其实是我在google到的)。我看了关于TLS的介绍，有点头大。。。<img src="https://i.loli.net/2019/07/18/5d307050c6e7e23021.png" alt></p>
+<p>所以我就不多讲了，不过可以写写关于OpenSSL和SSL的关系。倒是蛮有意思的。</p>
+<p>之前看罗永浩的发布会。罗说卖门票就是用来做一个观众的筛选，不是为挣钱，就是交个朋友。所以他把门票收入都捐了。捐给了谁呢？那就是OpenSSL组织。界面新闻曾经写过一篇名叫《<a href="https://www.jiemian.com/article/231843.html?utm_source=qdan.me#/" target="_blank" rel="noopener">隐形战友</a>》的文章，文中的OpenSSL一副惨兮兮的样子，开源组织在作者笔下仿佛没有锤子的捐款明天就要倒闭的样子。我真的不是很赞同文章的立场。OpenSSL作为一个开源组织，最大的贡献当然是OpenSSL工具集。并没有什么精确的办法来判断HTTPS是否是使用OpenSSL的，不过在apache和nginx上肯定是使用了OpenSSL的。这么来推理的话，保守估计全球70%以上的网站都是使用了OpenSSL的。也对！要不然HeartBleeding也不会引起那么大的关注了。扯的有点远了。言归正传~</p>
+<h2 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h2><p>前面一堆吧啦吧啦之后，域名解析才真正开始。解析过程为</p>
+<ol>
+<li>搜索浏览器自身DNS缓存</li>
+<li>操作系统DNS缓存</li>
+<li>本地HOSTS文件</li>
+<li>使用DNS服务器查询</li>
+</ol>
+<p>详细的解析过程请看我的另一篇关于DNS解析顺序的Blog<a href="http://47.106.200.88/2019/07/14/%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94DNS%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F/" target="_blank" rel="noopener">《网络——DNS解析顺序》</a>。</p>
+<h1 id="使用套接字"><a href="#使用套接字" class="headerlink" title="使用套接字"></a>使用套接字</h1><p>现在我们已经拿到目的服务器的IP地址了。现在，我们的浏览器就会以一个随机的端口(1024&lt;端口&lt;65535)向服务器的Web程序(常用的有tomcat，nginx)的80端口（如果是https协议的话，默认就是443端口）调用系统的<code>socket</code>，请求一个TCP流套接字。这个请求首先交给传输层，请求在传输层被封装成TCP segment。TCP segment又被送往网络层，加入IP头部，封装成IP packet。然后IP packet进入了链路层，加入了本机MAC和网关MAC，最终成为了一个完整的TCP封包。如果内核不知道网关的MAC，那么它就必须进行ARP广播来进行查询。</p>
+<p>我们现在已经可以发起TCP连接请求了。请求发送，服务器的WEB程序收到了我们的连接请求最终建立了TCP/IP连接。以下是TCP的三次握手过程。</p>
+<p><img src="https://i.loli.net/2019/07/18/5d3034c062e9094804.jpg" alt></p>
+<blockquote>
+<p>如果是https的话，那么在这个时候就会进行TLS握手，握手过程如下：</p>
+<ul>
+<li>客户端发送一个<code>Clienthello</code>f到服务器端，消息中也包含了TLS版本，可用的加密算法和压缩算法。</li>
+<li>服务器收到消息之后返回<code>Serverhello</code>消息。其中也包含了服务器的TLS版本。所选择的压缩算法和加密算法，CA签发的服务器证书。证书中包含了公钥。</li>
+<li>客户端验证CA证书的可靠性、若可信就生成一个对称主密钥。</li>
+<li>服务器生成对称主密钥。</li>
+<li>客户端发送<code>Finished</code>消息给服务端。</li>
+<li>服务器生成Hash，解密客户端消息。</li>
+<li>接下来，TLS密钥都会被用来加密和解密传输层(http)的内容。</li>
+</ul>
+</blockquote>
+<h1 id="http层"><a href="#http层" class="headerlink" title="http层"></a>http层</h1><h2 id="客户端发送http请求"><a href="#客户端发送http请求" class="headerlink" title="客户端发送http请求"></a>客户端发送http请求</h2><p>低层协议的连接建立了，现在是高层协议的showtime了。TCP的连接已经建立了，报文也准备好了。准备发送。这是我们的请求报头：</p>
+<p><img src="https://i.loli.net/2019/07/19/5d31def04677695276.png" alt></p>
+<h2 id="服务器响应http请求"><a href="#服务器响应http请求" class="headerlink" title="服务器响应http请求"></a>服务器响应http请求</h2><p>服务器端的Web程序收到了http请求以后，就会处理客户端的请求。处理完了之后返回给浏览器请求的资源文件（HTML，CSS，JS，图片等等）。服务器的响应头：</p>
+<p><img src="https://i.loli.net/2019/07/19/5d31e6ba4602955498.png" alt></p>
+<h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><p>浏览器拿到了index.html文件了，就要开始解析其中的html代码了，遇到js/css/image这些静态资源就向服务器端去请求下载。这个时候就需要用到keep-alive特性了。建立一次HTTP连接，可以请求多个资源。</p>
+<p>浏览器在请求静态资源的时候，向服务器端发送一个http请求来询问自从上次请求之后，静态文件有没有被修改。如果服务器返回<code>304</code>状态码，那么就是没有改变的意思，浏览器就直接从本地的缓存中直接读取文件了。</p>
+<p>之后就是GPU渲染，并且把最终的网页呈现出来。</p>
+<p>我们就看到网页了。</p>
+<p>完。</p>
+<p>本文参考：</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/c2bf75485c15" target="_blank" rel="noopener">《浏览器、HTTP、SSL、HTTPS执行流程》</a></li>
+<li><a href="https://juejin.im/post/5b3aecd6f265da62ed1080fe" target="_blank" rel="noopener">《浏览器输入URL到展示页面全过程》</a></li>
+<li><a href="https://github.com/alex/what-happens-when/blob/master/README.rst" target="_blank" rel="noopener">《what-happens-when》</a></li>
+<li><a href="https://media.weibo.cn/article?id=2309404344379484577227" target="_blank" rel="noopener">《面试题：在浏览器输入“google.com”后都发生了什么？》</a></li>
+<li><a href="https://www.zhihu.com/question/34873227" target="_blank" rel="noopener">《在浏览器地址栏输入一个URL后回车，背后会进行哪些技术步骤？》</a></li>
+<li><a href="https://www.cnblogs.com/wupeixuan/p/8747918.html" target="_blank" rel="noopener">《当你在浏览器地址栏输入一个URL后回车，将会发生的事情？》</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/29/日常充电——Azure China CDN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1061,7 +1681,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% meting <span class="string">"2839900843"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> %&#125;</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 
-    <div id="aplayer-nmzHznZG" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+    <div id="aplayer-SGYbZNnb" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2839900843" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
 <p>这里的数字”2839900843”指的是你的歌单id号，可以通过在web端打开你的以后的音乐平台查看到:</p>
 <p><img src="https://i.loli.net/2019/06/12/5d00f383f11d932552.png" alt></p>
 <h2 id="4-个性化配置"><a href="#4-个性化配置" class="headerlink" title="4.个性化配置"></a>4.个性化配置</h2><p>播放器的样式并非一成不变。我们可以通过修改上述的引入语句来进行个性化配置。举例：</p>
@@ -1201,550 +1821,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/05/网络——GFW的四种实现方式探究/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/05/网络——GFW的四种实现方式探究/" itemprop="url">网络——GFW的四种实现方式探究</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-05T12:40:00+08:00">
-                2019-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>GFW，即Great FireWall（of the People’s Republic of China）。中文称为“中国国家防火墙”。是中国政府过滤和监控互联网的一套软硬件系统。由前北邮校长方滨兴在1998年开始主持建设。GFW的主要功能就是分析和过滤中国境内外网络间的互相访问。阻止中国网民访问境外非法站点。需要<strong>注意</strong>的是GFW是<strong>双向</strong>的，中国网民无法访问的域名和IP，同样也是无法访问中国境内网站的。</p>
-<p>与GFW类似的网络安全项目还有我国电子政务建设12个“金“字建设项目之一的“<strong>金盾</strong>“项目和防止未成年人误入色情网站的“<strong>绿坝.花季护航</strong>“”项目。不同的是与上述的两个项目不同,“GFW”未被官方正式承认存在过。</p>
-<blockquote>
-<p>“金”字工程包括金盾（公安）、金桥（公用经济信息）、金关（对外贸易）、金卡（电子货币）、金财（财政管理）、金农（农业信息）、金税（税收）、金水（水利信息）、金质（质量监督）等。主要内容包括：公安基础通信设施和网络平台建设、公安计算机应用系统建设、公安工作信息化标准和规范体系建设、公安网络和信息安全保障系统建设、公安工作信息化运行管理体系建设、全国公共信息网络安全监控中心建设等。</p>
-</blockquote>
-<blockquote>
-<p><strong>绿坝·花季护航</strong>（简称<strong>绿坝</strong>或<strong>绿航</strong>）是一款客户端的网络过滤软件。中国政府称安装软件的目的在于保护未成年计算机用户，误闯入色情网站等有害内容，但过滤的准确度过低。另外该软件可过滤一些政治敏感的信息，因而有观点认为这一软件是当局进行网络审查的工具之一。政府大规模的推行软件预装措施招致诸多民众和媒体异议。中国政府预定于2009年7月1日起，要求在中国大陆新生产和销售的计算机进行全面预装，后迫于舆论压力而表示暂缓。</p>
-</blockquote>
-<p>本篇Blog只是探究GFW的实现方式，对于突破GFW限制，并不做研究。^ _ ^</p>
-<h1 id="实现方式："><a href="#实现方式：" class="headerlink" title="实现方式："></a>实现方式：</h1><h2 id="一、DNS污染-amp-劫持"><a href="#一、DNS污染-amp-劫持" class="headerlink" title="一、DNS污染&amp;劫持"></a>一、DNS污染&amp;劫持</h2><p>这是早期GFW的实现手段，由于现阶段我们访问网站都需要通过域名来进行访问，</p>
-<h1 id="坑太大了慢慢埋吧！！！！！"><a href="#坑太大了慢慢埋吧！！！！！" class="headerlink" title="坑太大了慢慢埋吧！！！！！"></a>坑太大了慢慢埋吧！！！！！</h1><h2 id="二、IP封锁"><a href="#二、IP封锁" class="headerlink" title="二、IP封锁"></a>二、IP封锁</h2><h2 id="三、HTTP代理封锁"><a href="#三、HTTP代理封锁" class="headerlink" title="三、HTTP代理封锁"></a>三、HTTP代理封锁</h2><h2 id="四、封锁VPN"><a href="#四、封锁VPN" class="headerlink" title="四、封锁VPN"></a>四、封锁VPN</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/06/03/网络——校园网限速分析及加速/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/03/网络——校园网限速分析及加速/" itemprop="url">网络——校园网限速分析及加速</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-03T20:52:47+08:00">
-                2019-06-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="校园网上网表现"><a href="#校园网上网表现" class="headerlink" title="校园网上网表现"></a>校园网上网表现</h1><p>上大学以来，寝室一直是有校园网和移动100M光纤的。但是由于这一学期移动宽带没有及时续费，导致这学期没法继续使用移动光纤只能使用校园网了。</p>
-<p>校园网也有几次小小的升级。譬如之前必须要通过网信处分配的指定静态IP才能上网、寝室只有一个网口、多设备接入要通过交换机、不能给手机联网等等。这些问题在三年来陆陆续续的都已经被解决了。</p>
-<p>但是有一样东西，是三年以来都没有改变的。那就是外网糟糕的浏览体验！具体点来说就是在浏览外网的时候，速度都很慢。比如刷微博，逛淘宝或者看视频的时候速度都很慢，</p>
-<h1 id="为什么会慢？"><a href="#为什么会慢？" class="headerlink" title="为什么会慢？"></a>为什么会慢？</h1><p>究其原因，校园网为什么相比普通ISP这上述方面表现差呢？</p>
-<h2 id="上网机制有所不同"><a href="#上网机制有所不同" class="headerlink" title="上网机制有所不同"></a>上网机制有所不同</h2><p>我们在校内使用<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E6%95%99%E8%82%B2%E5%92%8C%E7%A7%91%E7%A0%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91" target="_blank" rel="noopener">教育网</a>和使用普通ISP（电信、移动等）上网的机制并不同。高校一般都会使用以太网组网技术来实现校内上网。以太网组网决定了我们的网络出口流量带宽都是共享的，谁可以争到这个带宽，谁的上网的速度则越快。人越多，平均网速就越慢。</p>
-<p>假设一种情况：学校的出口带宽有100Mb（只是为了举例方便，一般实际出口带宽都在Gb级别），我现在需要下载一个10G的文件。那么在机能允许的情况下，我会吃满学校的带宽，持续13分钟后才能下载完成。在这13分钟内，学校的其他所有人，都是无法访问到外网的。这是一个很严重的影响。</p>
-<p>所以，为了防止被某台机器，或者少数机器占满带宽、保证大多数客户机访问网站的速度，高校会在网络核心之间增加流量控制设备来监管网络流量，限制P2P和文件下载等等。从而保证了http访问的性能。因此，我们上网的时候就会觉得慢了。(其实我不知道我们学校有没有装这玩意儿)</p>
-<p>以太网组网还会带来一个特点就是：出口流量很低的情况下(比如假期、凌晨)，校园网的网速就又会特别快。曾经在凌晨3点通过外网ip节点进行测速和下午四点对比：<img src="https://i.loli.net/2019/06/13/5d02064139da717091.jpg" alt></p>
-<p><img src="https://i.loli.net/2019/06/13/5d0206401e16d53175.jpg" alt></p>
-<p>下载带宽有了接近4倍的增长，上传带宽增长15倍多。</p>
-<h2 id="属于不同的骨干网"><a href="#属于不同的骨干网" class="headerlink" title="属于不同的骨干网"></a>属于不同的骨干网</h2><p>国内有四大骨干网，分别是中国互联网、教育网、科研网、金桥网。想了解我国四大骨干网络和ISP请看<a href="https://www.cnblogs.com/onepixel/p/10238221.html" target="_blank" rel="noopener">这里</a>。我们平常访问的微博、淘宝、还有各种视频网站都属于四大骨干网中的中国互联网。而我们，则处于另外的骨干网——教育网中。很不幸，中国教育网和中国互联网之间的访问资源并不是无限的。也就是说，类似我们在校园中所使用的以太网组网技术一样，如果负载变大，那么稳定性和速度都会下降。</p>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>上网机制和不同骨干网都有一个共同特点，用大白话说就是：</p>
-<p>“用的人多了，就会变慢！”</p>
-<p>“挑没人用的时候最快”</p>
-<h1 id="加速"><a href="#加速" class="headerlink" title="加速"></a>加速</h1><h2 id="先说结论：没找到方法"><a href="#先说结论：没找到方法" class="headerlink" title="先说结论：没找到方法"></a>先说结论：没找到方法</h2><p>搜狗浏览器曾经有教育网——&gt;公网加速，到后来教育网&lt;——&gt;公网双向加速的功能，直到现在的全网加速功能。但是亲测使用了搜狗的全网加速功能之后，速度仍旧没有得到明显提升。之前我想的是：搜狗的加速技术，应该是通过自建加速服务器或者通过CDN加速实现的。后来发现我想多了。在我查询了我电脑的流量记录后发现</p>
-<p>后来想到用SSR在国内搭建代理服务器，用来转发我的流量。搭建后测本地测试的结果为下载3.6Mbps，上传1.5Mbps。而此时我的服务器端测速结果为下载116Mbps，上传5Mbps。测试时间为16：33🤦🏽‍♂️。测速结果甚至不如不使用代理。而且速度瓶颈也不在服务器端。</p>
-<p>大概分析了一下，使用代理并不能解决上述所说”跨骨干网”和”出口带宽有限”的问题。</p>
-<p>还有就是app store中的各种游戏加速软件，下载之后发现现在的加速软件对加速做了限制。并不是全局的对所有流量都进行加速，而是选择性的，只对指定游戏的流量做加速。</p>
-<p>没办法了。。。。。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/05/28/胡言乱语——写在博客伊始/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/28/胡言乱语——写在博客伊始/" itemprop="url">胡言乱语——写在博客伊始</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-28T21:20:49+08:00">
-                2019-05-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="写在博客伊始"><a href="#写在博客伊始" class="headerlink" title="写在博客伊始"></a>写在博客伊始</h1><p>阿里的轻量服务器已经租用了半年，却未曾好好利用过。偶尔连接上，在上边敲俩指令。想想也是可笑。</p>
-<p>时常不能自律，萎靡在寝室打游戏三餐靠外卖活得像个寄生虫，却又常常因此坐立不安，焦躁且抑郁。</p>
-<p>写了删掉，又写又删。</p>
-<p>其实、、很早之前就了解了有自建博客这种玩意儿。不过却一直没有付诸实际行动——即使我的服务器基本已经闲置了半年，即使我的谷歌云开了一年。不过我并不后悔。后悔之于我能带来的既得利益不大还很消耗我的精力。</p>
-<p>从开始建设到目前的三篇文章，耗时一周左右。比起我的朋友，进度远落后于他们，我还没申请域名，主题设置还有好多没有摸清，不过我并不着急。我喜欢慢工出细活，域名这种事应该是想到了好的点子再买。而不是草草了事。</p>
-<p>孤独但不寂寞。我很喜欢孤独。能让人自省。“君子和而不同”，这种不同就是我孤独感的来源。由此导致我一直在深深的疑惑——这世上到底有没有和我能够契合的人？</p>
-<p>之前做了十六型的人格测试，测试的结果显示我是<strong><a href="https://www.16personalities.com/ch/enfj-%E4%BA%BA%E6%A0%BC" target="_blank" rel="noopener">主人公（ENFJ-A ）</a></strong>人格（我一直在深深怀疑这是不是利用<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%B4%8D%E5%A7%86%E6%95%88%E6%87%89" target="_blank" rel="noopener">巴纳姆效应</a>的一个心理学骗局）。不过最后我还是选择相信，因为测试说这种人格的人在人群中只占2%。这样我这样一个很少去认同其他观点的人产生了深深的认同感。除此之外的结论：“天生的领导者”、“魅力四射”等等词汇对我来说实在可笑。</p>
-<p>很晚了，不写了！回寝室了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
-<p>再见。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/05/27/Hexo——NexT主题个性化配置总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/27/Hexo——NexT主题个性化配置总结/" itemprop="url">Hexo——NexT主题个性化配置总结</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-27T22:15:04+08:00">
-                2019-05-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="在网站底部加上访问量"><a href="#在网站底部加上访问量" class="headerlink" title="在网站底部加上访问量"></a>在网站底部加上访问量</h2><p>具体方法：打开<u>/themes/next/layout/_partials/_partials/footer.swig</u>文件，在第一行之前加上这一句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script async src=&quot;https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;div class=&quot;powered-by&quot;&gt;</span><br><span class="line">&lt;i class=&quot;fa fa-user-md&quot;&gt;&lt;/i&gt;&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;</span><br><span class="line">  本站访客数:&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;</span><br><span class="line">&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>或者这一句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script async src=&quot;https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;div class=&quot;powered-by&quot;&gt;</span><br><span class="line">&lt;i class=&quot;fa fa-user-md&quot;&gt;&lt;/i&gt;&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;</span><br><span class="line">  本站访客数:&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;</span><br><span class="line">&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>两者的区别是统计方法不同</p>
-<ol>
-<li>uv方式(第一句)，是单个用户连续点击n篇文章，只记录1次的访问量</li>
-<li>pv方式(第二句)，是单个用户连续点击n篇文章，记录n次的访问量</li>
-</ol>
-<p>因此，以uv方式来统计的访客次数相对pv来说更少一些。</p>
-<h2 id="添加分类界面"><a href="#添加分类界面" class="headerlink" title="添加分类界面"></a>添加分类界面</h2><p>首先先看实现效果：</p>
-<p><img src="https://i.loli.net/2019/06/27/5d139eb48defd41592.png" alt></p>
-<p>就是将我所有文章进行分类，方便读者按照分类进行阅读。不多bb。看实现步骤：</p>
-<ol>
-<li>首先在hexo的目录中,输入指令</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page "tags"</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>打开tags页面，路径是/source/tags/index.html</li>
-</ol>
-<p>将备注中的type属性改为tags(注意type后先跟空格）</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 所有标签</span><br><span class="line">date: 2019-05-27 15:50:38</span><br><span class="line">type: "tags"</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>打开主题的配置文件_config.xml，/menu 查找。将tags属性改为：</li>
-</ol>
-<p><img src="https://i.loli.net/2019/06/27/5d13a0fdc8de379741.png" alt></p>
-<ul>
-<li>“||”之后的内容是用来显示对应图标的，不用理会。*</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1795,7 +1871,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1817,7 +1893,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

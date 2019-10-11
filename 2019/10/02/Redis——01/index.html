@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Redis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="nosql介绍NoSQL：一类新出现的数据库（not only sql)特点：  不支持SQL语法。 储存结构跟传统关系型数据库中的关系表完全不同，nosql中储存的数据都是KV形式。 NoSQL没有通用的语言，不像SQL一样基本统一。每种nosql数据库都有自己的api和语法，以及擅长的业务场景 Mongodb Redis Hbase hadoop Cassandra hadoop    NoS">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis——入门">
+<meta property="og:url" content="47.168.200.88/2019/10/02/Redis——01/index.html">
+<meta property="og:site_name" content="Andrew&#39;s Blog">
+<meta property="og:description" content="nosql介绍NoSQL：一类新出现的数据库（not only sql)特点：  不支持SQL语法。 储存结构跟传统关系型数据库中的关系表完全不同，nosql中储存的数据都是KV形式。 NoSQL没有通用的语言，不像SQL一样基本统一。每种nosql数据库都有自己的api和语法，以及擅长的业务场景 Mongodb Redis Hbase hadoop Cassandra hadoop    NoS">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-11T15:20:07.261Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis——入门">
+<meta name="twitter:description" content="nosql介绍NoSQL：一类新出现的数据库（not only sql)特点：  不支持SQL语法。 储存结构跟传统关系型数据库中的关系表完全不同，nosql中储存的数据都是KV形式。 NoSQL没有通用的语言，不像SQL一样基本统一。每种nosql数据库都有自己的api和语法，以及擅长的业务场景 Mongodb Redis Hbase hadoop Cassandra hadoop    NoS">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="47.168.200.88/2019/10/02/Redis——01/">
+
+
+
+
+
+  <title>Redis——入门 | Andrew's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andrew's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">This Blog is served to post some articles.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/10/02/Redis——01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Redis——入门</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-02T00:32:02+08:00">
+                2019-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="nosql介绍"><a href="#nosql介绍" class="headerlink" title="nosql介绍"></a>nosql介绍</h1><p>NoSQL：一类新出现的数据库（not only sql)特点：</p>
+<ul>
+<li>不支持SQL语法。</li>
+<li>储存结构跟传统关系型数据库中的关系表完全不同，nosql中储存的数据都是KV形式。</li>
+<li>NoSQL没有通用的语言，不像SQL一样基本统一。每种nosql数据库都有自己的api和语法，以及擅长的业务场景<ul>
+<li>Mongodb</li>
+<li>Redis</li>
+<li>Hbase hadoop</li>
+<li>Cassandra hadoop</li>
+</ul>
+</li>
+</ul>
+<h2 id="NoSQL和SQL数据库比较"><a href="#NoSQL和SQL数据库比较" class="headerlink" title="NoSQL和SQL数据库比较"></a>NoSQL和SQL数据库比较</h2><ul>
+<li><strong>适用场景不同</strong>：sql数据库适合用于关系复杂的数据查询场景，nosql反之</li>
+<li><strong>事务的支持</strong>：sql对事务的支持很完善，nosql基本不支持事务。</li>
+</ul>
+<h2 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h2><p>Redis是一个使用C来编写的开源程序，支持网络，可基于内存亦可持久化的日志型，Key-Value数据库。并且支持多种语言的API。</p>
+<p>Redis是NoSQL阵营中的一员，通过多种键值数据类型来适应不同场景下的储存需求，借助一些高层级的接口使用其可以胜任缓存。队列系统的不同角色。</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li><p>支持数据的持久化，可以将数据存在磁盘中，重启的时候再次加载进行使用。</p>
+</li>
+<li><p>不仅支持kv数据，还提供了list、set、zset、hash等数据结构的存储。</p>
+</li>
+<li><p>支持数据的备份，即master-slave模式的数据备份。</p>
+</li>
+</ul>
+<p>##优势</p>
+<ul>
+<li>性能高：毕竟这东西的介质是RAM，读110000次/s，写81000次/s</li>
+<li>数据类型丰富：看上边</li>
+<li>原子：Redis的所有操作都是原子的，同时还支持对几个操作全并后的原子性执行</li>
+<li>特性丰富：Redis还支持publish/subscribe、通知、key过期等等特性</li>
+</ul>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li><p>用来做缓存。</p>
+</li>
+<li><p>在某个场景下替代传统数据库。</p>
+</li>
+<li><p>在大型系统中，实现特定的功能。比如session共享，购物车。</p>
+</li>
+</ul>
+<p>这个是补充昨晚的文档</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ul>
+<li>(hard mode)源码编译安装，编译还是蛮快的。爱折腾可以自己试试。</li>
+<li>(easy way)添加EPEL仓库直接yum在线安装。</li>
+</ul>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>应该是都在src文件夹里边</p>
+<ul>
+<li>Redis-server:redis服务器</li>
+<li>Redis-cli:redis命令行客户端</li>
+<li>Redis-benchmark：redis性能测试工具</li>
+<li>Redis-check-aof:AOF文件修复工具</li>
+<li>Redis-check-rdb:RDB文件检索工具(数据持久化之后就是一个RDB文件)</li>
+</ul>
+<h2 id="核心配置项"><a href="#核心配置项" class="headerlink" title="核心配置项"></a>核心配置项</h2><ul>
+<li><p>IP</p>
+<blockquote>
+<p>bind：需要远程访问了就注释掉这一行，或者绑定成一个真实的IP</p>
+</blockquote>
+</li>
+<li><p>端口</p>
+<blockquote>
+<p>port：默 认是6379</p>
+</blockquote>
+</li>
+<li><p>守护进程</p>
+<blockquote>
+<p>是否以daemonize运行</p>
+<ul>
+<li>以守护进程运行的时候不会再命令行阻塞，类似于服务。</li>
+<li>非守护进程运行则当前终端被阻塞。</li>
+<li>yes表示守护进程，反之为no。(设置成守护进程我觉得好一点)</li>
+</ul>
+</blockquote>
+</li>
+<li><p>数据文件</p>
+<blockquote>
+<p>dbfilename dump.rdb</p>
+<p>进行数据持久化的时候就会把文件存到这个文件里</p>
+</blockquote>
+</li>
+<li><p>储存路径</p>
+<blockquote>
+<p>dir /var/lib/redis</p>
+</blockquote>
+</li>
+<li><p>日志文件</p>
+<blockquote>
+<p>Logfile /var/log/redis/redis-server.log</p>
+</blockquote>
+</li>
+<li><p>数据库 默认有16个</p>
+<blockquote>
+<p>database 16</p>
+</blockquote>
+</li>
+<li><p>主从复制，类似双机备份</p>
+<blockquote>
+<p>slaveof</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h2><ul>
+<li><p>redis-server</p>
+</li>
+<li><p>Tip</p>
+<blockquote>
+<p>redis-server cfgPATH #指定加载的配置文件(感觉应该有用所以记下</p>
+</blockquote>
+</li>
+<li><p>帮助文档</p>
+<blockquote>
+<p>redis-server —help</p>
+</blockquote>
+</li>
+<li><p>使用服务的方式来管理redis服务(推荐</p>
+<ul>
+<li><p>启动</p>
+<blockquote>
+<p>sudo service redis start</p>
+</blockquote>
+</li>
+<li><p>停止</p>
+<blockquote>
+<p>sudo servie redis stop</p>
+</blockquote>
+</li>
+<li><p>重启</p>
+<blockquote>
+<p>sudo service redis stop </p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><ul>
+<li><p>帮助文档</p>
+<blockquote>
+<p>redis-cli –help</p>
+</blockquote>
+</li>
+<li><p>参数</p>
+<blockquote>
+<p>-h    指定服务器</p>
+<p>-p    指定端口(默认端口是6379</p>
+</blockquote>
+</li>
+<li><p>测试</p>
+<blockquote>
+<p>输入一个ping，服务端会回个pong</p>
+</blockquote>
+</li>
+<li><p>连接数据库</p>
+<blockquote>
+<p>数据库没有名称，默认有16个。通过0—15来标记。连接redis默认选择第一个数据库</p>
+<p>select n</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h1><ul>
+<li>redis的每一条数据都是键值对，键的类型是字符串，且不能重复</li>
+<li>值分为五种类型<ul>
+<li>字符串string</li>
+<li>散列表hash</li>
+<li>列表list</li>
+<li>集合set</li>
+<li>有序集合zset</li>
+</ul>
+</li>
+</ul>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>字符串是二进制安全的，意思就是他可以接受任何格式的数据。最大长度是512M。</p>
+<h3 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h3><p>如果设置的键不存在则为添加，如果设置的键已经存在则修改</p>
+<ul>
+<li><p>设置键值</p>
+<blockquote>
+<p>set key value</p>
+<p>EX: 设置键为name值为Andrew的数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name Pit</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Pit</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>设置键值以及过期时间(s)</p>
+<blockquote>
+<p>setex key seconds value</p>
+<p>EX:设置一个name，过期时间是10s的数据。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name 10 Tom</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="string">"tom"</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment">#10S later.....</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> (nil)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+</li>
+<li><p>设置多个键值</p>
+<blockquote>
+<p>m set k1 v1 k2 v2 k3 v3</p>
+</blockquote>
+</li>
+<li><p>追加值</p>
+<blockquote>
+<p>append key value</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="键命令"><a href="#键命令" class="headerlink" title="键命令"></a>键命令</h2><ul>
+<li><p>查找键，参数支持正则表达式</p>
+<blockquote>
+<p>keys pattern</p>
+<p>EX:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看所有的键</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> keys *</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看所有a开头的键</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> key a*</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查找键a是否存在,存在返回1，不存在返回0</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> EXISTS a</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看对应value的类型</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">type</span> value</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看键的剩余时间(实时)</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ttl key</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>删除键</p>
+<blockquote>
+<p>del key1 key2</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ul>
+<li>用于储存对象，对象的结构为属性、值</li>
+<li>值的类型为string</li>
+</ul>
+<h3 id="增加-amp-修改"><a href="#增加-amp-修改" class="headerlink" title="增加&amp;修改"></a>增加&amp;修改</h3><ul>
+<li><p>设置单个属性</p>
+<blockquote>
+<p>hset key field value</p>
+<p>EX:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 设置user的属性name为Andrew</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hset user name Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 此处可能会报错,原因是Redis被配置为数据库快照，但是不能持久化到硬盘，所以用来修改集合数据的命令不能用。</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 解决办法：运行`config set stop-writes-on-bgsave-error no`</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>设置多个属性</p>
+<blockquote>
+<p>hmset key field1 value1 field2 value2</p>
+<p>EX:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 设置键user的属性name为Anderw，属性Age为20</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hmset user name Andrew age 20</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h3 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h3><ul>
+<li><p>获取键属性</p>
+<blockquote>
+<p>hkeys key</p>
+<p>EX</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取键user的所有属性</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hkeys user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取一个属性的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget key</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取键user属性name的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget user name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取user所有属性的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hvals user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
+<li><p>删除整个hash键及值，使用del命令</p>
+</li>
+<li><p>删除属性，属性所对应的值会被一起删除</p>
+<blockquote>
+<p>hdel key field1 field2</p>
+<p>EX</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 删除user的属性age</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hdel user age</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hkeys user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 1) <span class="string">"name"</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><ul>
+<li>列表的元素类型为string</li>
+<li>顺序是按照插入的顺序</li>
+</ul>
+<h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><ul>
+<li><p>插入数据</p>
+<blockquote>
+<p>lpush key value1 value2 # 左侧插入</p>
+<p>rpush key value1 value2 #右侧插入</p>
+<p>linsert key before 或 after # 在指定元素前或后插入新元素 </p>
+</blockquote>
+</li>
+</ul>
+<h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><ul>
+<li><p>返回列表里指定范围内的元素</p>
+<ul>
+<li><p>start、sto为元素索引</p>
+</li>
+<li><p>索引从左侧开始，第一个元素是0</p>
+</li>
+<li><p>索引可以是负数，表示从尾部开始计数，如-1是最后一个元素</p>
+<blockquote>
+<p>lset key index value</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>​    </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Andrew Pit
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="47.168.200.88/2019/10/02/Redis——01/" title="Redis——入门">47.168.200.88/2019/10/02/Redis——01/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/23/Linux——进程控制/" rel="next" title="Linux——进程">
+                <i class="fa fa-chevron-left"></i> Linux——进程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/11/Kafka——-01入门/" rel="prev" title="Kafka——-01入门">
+                Kafka——-01入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Andrew Pit</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CrankyPants123" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sxs1450565520@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.facebook.com/profile.php?id=100010554870246" target="_blank" title="FaceBook">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>FaceBook</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/xiaoshuo2333/" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://i.loli.net/2019/06/12/5d00f4e723f7f55906.jpg" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                我的沙雕朋友们
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.luoshaoqi.cn/" title="Rex's Blog" target="_blank">Rex's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://ahoj.cc/" title="ahoj's Blog" target="_blank">ahoj's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https//zouchanglin.cn/" title="Tim's Blog" target="_blank">Tim's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.ningdali.com/" title="Mr Hang's Blog" target="_blank">Mr Hang's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nosql介绍"><span class="nav-number">1.</span> <span class="nav-text">nosql介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NoSQL和SQL数据库比较"><span class="nav-number">1.1.</span> <span class="nav-text">NoSQL和SQL数据库比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis简介"><span class="nav-number">1.2.</span> <span class="nav-text">Redis简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">1.3.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">1.4.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">2.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心配置项"><span class="nav-number">2.2.</span> <span class="nav-text">核心配置项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器端"><span class="nav-number">3.1.</span> <span class="nav-text">服务器端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端"><span class="nav-number">3.2.</span> <span class="nav-text">客户端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据操作"><span class="nav-number">4.</span> <span class="nav-text">数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">4.1.</span> <span class="nav-text">string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#保存"><span class="nav-number">4.1.1.</span> <span class="nav-text">保存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键命令"><span class="nav-number">4.2.</span> <span class="nav-text">键命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash"><span class="nav-number">4.3.</span> <span class="nav-text">Hash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加-amp-修改"><span class="nav-number">4.3.1.</span> <span class="nav-text">增加&amp;修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取"><span class="nav-number">4.3.2.</span> <span class="nav-text">获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">4.3.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">4.4.</span> <span class="nav-text">list</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加"><span class="nav-number">4.4.1.</span> <span class="nav-text">增加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取数据"><span class="nav-number">4.4.2.</span> <span class="nav-text">获取数据</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  本站访客数:<span id="busuanzi_value_site_pv"></span>
+</span>
+</div>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew Pit</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
