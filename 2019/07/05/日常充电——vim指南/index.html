@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="vim在两年前就已经接触。不过到现在为止感觉自己还只是略知皮毛。用到的最最高阶的操作也就是dd pp基础查找之类的。用的vscode和sublime还是最多——因为我感觉方便。不过在b站油管看到那些科技从业者一直在强调vim才是最终的效率解决方案。让我开始怀疑。我以为的方便，或许仅仅可能是学习成本低而已。较高学习成本的工具往往效率更高。这一点，我在生活中已经太多次感受到了！ 打算在日常中尝试更多的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-23T12:49:10.415Z">
+<meta property="og:updated_time" content="2019-11-07T02:35:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常充电——vim指南">
 <meta name="twitter:description" content="vim在两年前就已经接触。不过到现在为止感觉自己还只是略知皮毛。用到的最最高阶的操作也就是dd pp基础查找之类的。用的vscode和sublime还是最多——因为我感觉方便。不过在b站油管看到那些科技从业者一直在强调vim才是最终的效率解决方案。让我开始怀疑。我以为的方便，或许仅仅可能是学习成本低而已。较高学习成本的工具往往效率更高。这一点，我在生活中已经太多次感受到了！ 打算在日常中尝试更多的">
@@ -320,7 +320,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:e file2</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>同时打开多个文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">窗口水平切分</span></span><br><span class="line">：sp </span><br><span class="line"><span class="meta">#</span><span class="bash">窗口垂直切分</span></span><br><span class="line">:sp</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">窗口水平切分</span></span><br><span class="line">:sp </span><br><span class="line"><span class="meta">#</span><span class="bash">窗口垂直切分</span></span><br><span class="line">:vs</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>文件间切换</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下一个文件</span></span><br><span class="line">:bn</span><br><span class="line"><span class="meta">#</span><span class="bash">上一个文件</span></span><br><span class="line">:bp</span><br><span class="line"><span class="meta">#</span><span class="bash">切换到第n个文件</span></span><br><span class="line">:b1~n</span><br></pre></td></tr></table></figure>
@@ -341,13 +341,15 @@
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">删除1——10行</span></span><br><span class="line">1，10d</span><br><span class="line"><span class="meta">#</span><span class="bash">删除当前光标以下的N行</span></span><br><span class="line">Ndd</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>注释多行</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    #1. ctrl + v 进入可视列模式</span><br><span class="line">    #2. 选中需要注释的代码</span><br><span class="line"><span class="meta">#</span><span class="bash">3. 按下I进入插入模式</span></span><br><span class="line">    #4. 输入//</span><br><span class="line">    #5. 按下esc回到普通模式</span><br></pre></td></tr></table></figure>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">1. ctrl + v 进入可视列模式</span></span><br><span class="line"><span class="meta">#</span><span class="bash">2. 选中需要注释的代码</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>查看编码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#在normal mode下输入</span><br><span class="line">:set encoding</span><br><span class="line">#接下来显示出当前文件默认的编码方式</span><br></pre></td></tr></table></figure>
-<h1 id="vimforcpp快捷键"><a href="#vimforcpp快捷键" class="headerlink" title="vimforcpp快捷键"></a>vimforcpp快捷键</h1><p>头文件快速跳转</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">normal模式下，光标定位到跳转部分然后按下g+f</span></span><br><span class="line">g+f</span><br></pre></td></tr></table></figure>
+<p>#3. 按下I进入插入模式</p>
+<pre><code>#4. 输入//
+#5. 按下esc回到普通模式
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">​    </span><br><span class="line"></span><br><span class="line">## 编码</span><br><span class="line"></span><br><span class="line">查看编码</span><br></pre></td></tr></table></figure>
+</code></pre><p>#在normal mode下输入<br>:set encoding</p>
+<p>#接下来显示出当前文件默认的编码方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># vimforcpp快捷键</span><br><span class="line"></span><br><span class="line">头文件快速跳转</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">#normal模式下，光标定位到跳转部分然后按下g+f</span><br><span class="line">g+f</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -485,7 +487,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -507,7 +509,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -600,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vim指南"><span class="nav-number">1.</span> <span class="nav-text">Vim指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多窗口-amp-多文件切换"><span class="nav-number">1.1.</span> <span class="nav-text">多窗口&amp;多文件切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多行操作"><span class="nav-number">1.2.</span> <span class="nav-text">多行操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码"><span class="nav-number">1.3.</span> <span class="nav-text">编码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vimforcpp快捷键"><span class="nav-number">2.</span> <span class="nav-text">vimforcpp快捷键</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vim指南"><span class="nav-number">1.</span> <span class="nav-text">Vim指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多窗口-amp-多文件切换"><span class="nav-number">1.1.</span> <span class="nav-text">多窗口&amp;多文件切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多行操作"><span class="nav-number">1.2.</span> <span class="nav-text">多行操作</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -626,7 +628,7 @@
   本站访客数:<span id="busuanzi_value_site_pv"></span>
 </span>
 </div>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

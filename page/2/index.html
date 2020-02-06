@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/09/C-——C-11新特性之基于范围的for循环/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/09/Linux——系统负荷/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrew Pit">
@@ -261,7 +261,166 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/09/C-——C-11新特性之基于范围的for循环/" itemprop="url">C++——C++11新特性之基于范围的for循环</a></h2>
+                <a class="post-title-link" href="/2019/09/09/Linux——系统负荷/" itemprop="url">Linux——Load Average</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T21:25:10+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Load-Average"><a href="#Load-Average" class="headerlink" title="Load Average"></a>Load Average</h1><h2 id="一些探究"><a href="#一些探究" class="headerlink" title="一些探究"></a>一些探究</h2><p>简单的说就是用来查看当前系统的负载情况。可以使用<code>uptime</code>或者<code>w</code>/或者<code>top</code>命令来查看。</p>
+<p><img src="https://i.loli.net/2019/09/11/H9PpA4hdW2ey1TN.png" alt></p>
+<p>这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。</p>
+<p>所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实并不全是这样的。我们可以通过<code>man uptime</code>来了解平均负载的详细解释.</p>
+<p><img src="https://i.loli.net/2019/09/11/fogQvhVPJuApHEm.png" alt></p>
+<p>简单来说，平均负载是指单位时间内，系统处于<strong>可运行状态</strong>和<strong>不可中断状态</strong>的平均进程数，也就是说<strong>平均活跃进程数</strong>，和CPU的使用率并没有直接的关系。</p>
+<blockquote>
+<p>可运行状态就是我们用ps命令可以看到的处于R（Running或者Runnable状态）的进程。</p>
+<p>不可中断状态是正处于内核态关键流程中的进程，并且这些流程是不可中断的。比如常见的等待硬件设备的I/O响应，也就是在ps命令中看到的D状态。比如一个进程向磁盘读写数据的时候，为了保证数据的一致性，在得到磁盘的响应之前，肯定是不能被打断的。加入进程被打断，就容易出现磁盘数据和进程数据不一致的问题。</p>
+<p>不可中断状态实际上是系统对进程和硬件设备的一种保护机制。</p>
+<p>（思考一下，其实在日常使用电脑的时候，在非高计算的场景下，我们的电脑有时也会出现的比较严重的卡顿。此时引起这种状况的原因往往就是因为磁盘的性能下降，而我们的进程正在向磁盘进行IO操作且处于不可中断状态。一般我们可以通过更换硬盘来解决）</p>
+</blockquote>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们可以通过以上的叙述，简单的将平均负载理解为平均活跃进程数，也就是单位时间内的活跃进程数。</p>
+<blockquote>
+<p>这里更加严谨的定义应该是活跃进程数的指数衰减平均值，这里不再做更加深入的探究了。</p>
+</blockquote>
+<h2 id="平均负载的合理区间"><a href="#平均负载的合理区间" class="headerlink" title="平均负载的合理区间"></a>平均负载的合理区间</h2><p>假如是双核的CPU，那么当平均负载为2时，表示的意思就是刚好所有的CPU资源都被完全占用，在四核的系统上，就表示CPU有50%的空闲。在单核的系统上则表示，有一半的进程都竞争不到CPU资源。</p>
+<p>那我们的平均负载在多少的时候才合理呢？</p>
+<p>首先，我们需要知道我们有几个CPU。我们可以通过TOP命令或者从<code>/proc/cpuinfo</code>中来读取：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">'model name'</span> /proc/cpuinfo | wc -l</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/09/11/pNu1sMTXSg3KFxV.png" alt></p>
+<p>喔，突然想到。在mac上我很推荐另外一个图形化的软件<code>iStat Menus</code>在这个软件中，我们可以以图表的方式，直观的了解到最近1小时到最近30天的系统负载情况。</p>
+<p><img src="https://i.loli.net/2019/09/11/79mSkVU6LOpPNYf.png" alt></p>
+<p>言归正传！我查了很多资料之后，大家一致比较推荐的，是在平均负载高于CPU理论最高负载的70%之后，就要开始解决和排查负载高的问题。但是70%并不是一个绝对数字。</p>
+<h2 id="平均负载与CPU使用率"><a href="#平均负载与CPU使用率" class="headerlink" title="平均负载与CPU使用率"></a>平均负载与CPU使用率</h2><p>相信大家和之前的我一样，单纯的把负载就看做为CPU的使用率。但是其实并不是的。追根溯源还是要回到概念：</p>
+<p>平均负载是单位时间内处于R状态和不可中断状态的进程数。这其中包含了正在使用CPU的进程，该包括等待CPU和等待IO的进程。</p>
+<p>CPU使用率是单位时间内CPU繁忙的情况。和平均负载并不完全一致。</p>
+<blockquote>
+<p>在前文我提到的那个例子就挺合适的，当卡顿的情况发生，此时系统中Runing态的进程基本都处在不可中断的内核态，平均负载会上升，但是CPU其实并不繁忙，反倒是很空闲。因为大家都在等磁盘的响应了。总结一下；</p>
+<ul>
+<li>CPU密集型的进程，会导致平均负载升高，CPU负载也会升高，此时两者的趋势是一致的，</li>
+<li>IO密集型的进程，等待IO也会导致平均负载升高，但是CPU的使用率不一定很高，而且有大概率的可能是比较空闲的</li>
+<li>大量的CPU进程调度也会导致平均负载升高，此时的CPU使用率也会比较高。</li>
+</ul>
+</blockquote>
+<p>参考文章：</p>
+<ul>
+<li>《<a href="https://scoutapm.com/blog/understanding-load-averages" target="_blank" rel="noopener">Understanding Linux CPU Load - when should you be worried?</a>》</li>
+<li>《<a href="https://en.wikipedia.org/wiki/Load_%28computing%29" target="_blank" rel="noopener">Load(computing)</a>》</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/09/C++—C-11新特性之基于范围的for循环/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/09/C++—C-11新特性之基于范围的for循环/" itemprop="url">C++——C++11新特性之基于范围的for循环</a></h2>
         
 
         <div class="post-meta">
@@ -1485,196 +1644,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/17/自建blog——01数据库设计/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/17/自建blog——01数据库设计/" itemprop="url">自建blog——01数据库设计</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T20:00:03+08:00">
-                2019-08-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>目前后端部分，包括数据库设计，服务器搭建，API设计已经结束。前端目前还在摸着石头过河的状态，设计的很简陋。我很喜欢我的hexo博客，所以目前有点想法就是把我自己搭建的服务器接入我的hexo模板。专门开了个tag。用来记录梳理一下完整的思路，也是做一个总结。</p>
-<p>ps：还是很愿意把这个再继续做好。一来是可以自用。二来是打算直接就当毕设了。毕设是源动力。</p>
-<h1 id="01数据库设计"><a href="#01数据库设计" class="headerlink" title="01数据库设计"></a>01数据库设计</h1><p>目前构思要建两张表，一张用来储存文章名、正文、标签id、创建时间。另外一张用来储存标签id和标签名的关系。之所以设计成两张是考虑到多个博客可能使用同一种标签，涉及到对应关系，专门用一张表来储存标签关系会更加简单一些,设计见图：</p>
-<ol>
-<li>blog_table</li>
-</ol>
-<p><img src="https://i.loli.net/2019/08/17/ADwtUP2S5Qqkcmg.png" alt></p>
-<ol>
-<li>tag_table</li>
-</ol>
-<p><img src="https://i.loli.net/2019/08/17/XByAeNSEIxgRpb7.png" alt></p>
-<p>TODO:</p>
-<ol>
-<li>tag_name中加上默认设置“未设置标签”。</li>
-</ol>
-<h2 id="数据库接口设计"><a href="#数据库接口设计" class="headerlink" title="数据库接口设计"></a>数据库接口设计</h2><h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>数据库用的是MySQL C API。需要注意的是，应该为数据库操作封装一个单独的命名空间，防止将来命名冲突，并且在命名空间结束的括号处加上注释表明命名空间结束。编译选项使用<code>-L /usr/lib64/mysql -lmysqlclient</code></p>
-<p>本次开发选择的是在远程机器上在线开发。开发环境中除过需要安装并运行<code>mysql</code>之外,还需要额外安装<code>mysql</code>的devel包，也就是开发者工具包。可以使用<code>yum list | grep mysql</code>来进行针对性的安装。此前遇到了一些小小的问题。就是CentOS 7的默认数据库其实是MariaDB，我们需要提前先彻底删除掉MraiaDB，防止将来安装时出现的依赖性冲突等等。</p>
-<p>不同的数据库接口本质其实就是执行不同的SQL语句来完成特定的任务。</p>
-<p>对一些操作在此进行一些封装，为了减少将来的代码量。</p>
-<h2 id="需要用到的方法"><a href="#需要用到的方法" class="headerlink" title="需要用到的方法"></a>需要用到的方法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MYSQL * STDCALL <span class="title">mysql_init</span><span class="params">(MYSQL *mysql)</span></span>;</span><br><span class="line"><span class="comment">//用来初始化一个MYSQL* 类型的句柄</span></span><br><span class="line"></span><br><span class="line"><span class="function">MYSQL * STDCALL <span class="title">mysql_real_connect</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *host,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">char</span> *user, <span class="keyword">const</span> <span class="keyword">char</span> *passwd,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">char</span> *db,     <span class="comment">//数据库名</span></span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">unsigned</span> <span class="keyword">int</span> port,<span class="keyword">const</span> <span class="keyword">char</span> *unix_socket,    <span class="comment">//是否使用socket机制登录，NULL：否</span></span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">unsigned</span> <span class="keyword">long</span> clientflag)</span></span>;  <span class="comment">//连接标志，通常为0</span></span><br><span class="line"><span class="comment">//连接数据库，成功返回一个MYSQL* 类型的句柄</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> STDCALL <span class="title">mysql_query</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *q)</span></span>;</span><br><span class="line"><span class="comment">//执行数据库操作</span></span><br><span class="line"><span class="comment">//1.句柄 2.操作的指令</span></span><br><span class="line"><span class="comment">//成功返回0，失败返回非0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> STDCALL <span class="title">mysql_set_character_set</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span> *csname)</span></span>;</span><br><span class="line"><span class="comment">//设定字符集</span></span><br><span class="line"><span class="comment">//1.句柄 2. 指定的字符集（在这里设置成utf8）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> STDCALL <span class="title">mysql_close</span><span class="params">(MYSQL *sock)</span></span>;</span><br><span class="line"><span class="comment">//关闭数据库连接</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> *<span class="title">mysql_error</span><span class="params">(MYSQL *mysql)</span></span></span><br><span class="line"><span class="function"><span class="comment">//用来捕获错误信息</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">MYSQL_RES *<span class="title">mysql_store_result</span><span class="params">(MYSQL *mysql)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将查询到的结果储存到客户端MYSQL_RES* 结构中</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mysql_free_result</span><span class="params">(MYSQL_RES *result)</span></span></span><br><span class="line"><span class="function"><span class="comment">//释放在MYSQL_RES *result中的对象</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">mysql_real_escape_string</span><span class="params">(MYSQL *mysql, <span class="keyword">char</span> *to, <span class="keyword">const</span> <span class="keyword">char</span> *from, <span class="keyword">unsigned</span> <span class="keyword">long</span> length)</span></span></span><br><span class="line"><span class="function"><span class="comment">//在一定程度解决SQL注入的问题。官方的说明是创建用于SQL语句的合法SQL字符串</span></span></span><br><span class="line"><span class="function"><span class="comment">//to应该是from的2*from+1大小。length是from字节长</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">my_ulonglong <span class="title">mysql_num_rows</span><span class="params">(MYSQL_RES *result)</span>	</span></span><br><span class="line"><span class="function"><span class="comment">//返回结果中的行数</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">MYSQL_ROW <span class="title">mysql_fetch_row</span><span class="params">(MYSQL_RES *result)</span></span></span><br><span class="line"><span class="function"><span class="comment">//抓取一行的内容</span></span></span><br><span class="line"><span class="function"><span class="comment">//抓取是类似剪切的操作而不是复制结果</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="Restful风格API设计"><a href="#Restful风格API设计" class="headerlink" title="Restful风格API设计"></a>Restful风格API设计</h2><ul>
-<li>使用不同的HTTP方法来表示不同的语义<ul>
-<li>使用POST表示新增</li>
-<li>GET表示查看</li>
-<li>PUT表示修改</li>
-<li>DELETE表示删除</li>
-</ul>
-</li>
-<li>使用PATH来表示需要操作的资源</li>
-<li>使用Json来组织body中的数据</li>
-</ul>
-<h2 id="服务器需要进行的操作"><a href="#服务器需要进行的操作" class="headerlink" title="服务器需要进行的操作"></a>服务器需要进行的操作</h2><ul>
-<li><p>博客的管理</p>
-<ul>
-<li>新增博客</li>
-<li>获取博文列表</li>
-<li>获取博文内容</li>
-<li>修改博客</li>
-<li>删除博客</li>
-</ul>
-</li>
-<li><p>标签的管理</p>
-<ul>
-<li>新增标签</li>
-<li>删除标签</li>
-<li>查看所有标签</li>
-</ul>
-</li>
-</ul>
-<h2 id="接口约定"><a href="#接口约定" class="headerlink" title="接口约定"></a>接口约定</h2><p>我觉得这是蛮重要的一环，此时详细的设计好，将来就以现在约定的接口为准进行开发了。</p>
-<h3 id="新增博客"><a href="#新增博客" class="headerlink" title="新增博客"></a>新增博客</h3><p>发送给服务器的请求信息：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST/blog</span><br><span class="line">&#123;</span><br><span class="line">    title:xxxxx,</span><br><span class="line">    content:xxxxx.</span><br><span class="line">    create_time:xxxxxxx,</span><br><span class="line">    tag_id:xxx,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>服务器的响应信息：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">	reason:"xxx"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述其实就是基于HTTP再进行自定义协议的过程</p>
-<h3 id="查看博客"><a href="#查看博客" class="headerlink" title="查看博客"></a>查看博客</h3><h4 id="查看所有的博客（标题列表）"><a href="#查看所有的博客（标题列表）" class="headerlink" title="查看所有的博客（标题列表）"></a>查看所有的博客（标题列表）</h4><p>发送给服务器的请求信息：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET/blog				获取所有</span><br><span class="line">GET/blog?tag_id=1		按照标签来筛选</span><br></pre></td></tr></table></figure>
-<p>服务器的响应信息：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">#[]表示的就是json数组</span><br><span class="line">[</span><br><span class="line">	&#123;</span><br><span class="line">	blog_id:1,</span><br><span class="line">	title:"My first blog",</span><br><span class="line">	create_time:"2019/08/01",</span><br><span class="line">	tag_id:1,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h4 id="查看单个博客"><a href="#查看单个博客" class="headerlink" title="查看单个博客"></a>查看单个博客</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET/blog/:blog_id			类似于blog/10的方式</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"blog_id"</span>:<span class="number">1</span>,</span><br><span class="line">	<span class="attr">"title"</span>:<span class="string">"My first blog"</span>,</span><br><span class="line">	<span class="attr">"content"</span>:<span class="string">"xxxxxxxx"</span>,</span><br><span class="line">	<span class="attr">"tag_id"</span>:<span class="number">1</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="删除博客"><a href="#删除博客" class="headerlink" title="删除博客"></a>删除博客</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DELETE/blog/:blog_id</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="修改博客"><a href="#修改博客" class="headerlink" title="修改博客"></a>修改博客</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT/blog/:blog_id</span><br><span class="line">&#123;</span><br><span class="line">	title:"修改之后的标题",</span><br><span class="line">	content:"修改之后的正文",</span><br><span class="line">	tag_id:"修改之后的tag_id",</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="新增标签"><a href="#新增标签" class="headerlink" title="新增标签"></a>新增标签</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST/tag</span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">"tag_name"</span>:<span class="string">"新增标签名"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DELETE/tag/:tag_id</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">&#123;</span><br><span class="line">	ok:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="查看所有标签"><a href="#查看所有标签" class="headerlink" title="查看所有标签"></a>查看所有标签</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET/tag</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">[</span><br><span class="line">	&#123;</span><br><span class="line">		tag_id:1,</span><br><span class="line">		tag_name:"xxx"</span><br><span class="line">	&#125;</span><br><span class="line">	&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h2 id="开始编码"><a href="#开始编码" class="headerlink" title="开始编码"></a>开始编码</h2><p>本文参考</p>
-<ul>
-<li>《<a href="https://dev.mysql.com/doc/refman/5.7/en/c-api-functions.html" target="_blank" rel="noopener">MySQL C API Descriptions</a>》</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1725,7 +1694,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1747,7 +1716,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1850,7 +1819,7 @@
   本站访客数:<span id="busuanzi_value_site_pv"></span>
 </span>
 </div>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
