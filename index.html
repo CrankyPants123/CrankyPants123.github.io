@@ -313,8 +313,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/02/13/日常充电——域名解析扫盲/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -432,33 +439,15 @@
       
         
           
-            <p>已经有一段时间没有更新博客了，复盘一下我的博客吧。csdn之类的广告我实在是受不了，所以才选择自建。服务之前一直都是使用hexo+NEXT主题，部署在我的阿里学生机上的。访问的时候都是直接使用ip来直接访问。速度很快，这个NEXT主题我个人也一直很喜欢。因为都是一直打算自己一个人使用，也就没有做备案买域名。但是长久使用下来还是发现了很多的缺点。</p>
-<h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><ul>
-<li>因为是静态网页，每一次上传的新的博客的时候，都需要重新再生成一次，好的一点是hexo每次做的只是增量更新，耗费的时间并不多。</li>
-<li>依赖较高，本地私钥换了一次，就没法再一键部署上去了，还得再重新配置。</li>
-<li>需要服务器，略有些成本。</li>
-<li>总感觉不放心，毕竟数据无价，保险起见，我还使用坚果云对本地资源做了实时的备份。</li>
-<li>本地总是要维护一个hexo的文件夹，虽然文件夹不大，但是我就很烦，因为这样在多个设备上因为没有私钥就没有办法灵活的编辑了。虽然这个问题可以通过配置相同的私钥来解决，但是总归不是一个一劳永逸的解决办法。</li>
-</ul>
-<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><ul>
-<li>项目部署到githubio上，省去服务器的成本</li>
-<li>githubio国内访问延迟感人，so打算再加上cdn来(全站)加速。</li>
-<li>cdn没法直接用ip来做加速，需要国内备案的域名。</li>
-<li>所以最终的就是博客部署到githubio再用cdn做全站加速，附带还带了域名。</li>
-</ul>
-<h2 id="Sol1"><a href="#Sol1" class="headerlink" title="Sol1"></a>Sol1</h2><ul>
-<li></li>
-<li>数据都放在服务器上，使用Markdown在线编辑&amp;渲染</li>
-</ul>
-<h2 id="Sol2"><a href="#Sol2" class="headerlink" title="Sol2"></a>Sol2</h2><ul>
-<li>项目</li>
-</ul>
-<h2 id="网站的加速"><a href="#网站的加速" class="headerlink" title="网站的加速"></a>网站的加速</h2><ul>
-<li>设置一个域名重定向到githubio</li>
-<li></li>
-</ul>
-
-          
+          已经有一段时间没有更新博客了，复盘一下我的博客吧。csdn之类的广告我实在是受不了，所以才选择自建。服务之前一直都是使用hexo+NEXT主题，部署在我的阿里学生机上的。访问的时候都是直接使用ip来直接访问。速度很快，这个NEXT主题我个人也一直很喜欢。因为都是一直打算自己一个人使用，也就没有做备案
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/02/09/日常充电——博客迁移记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -576,31 +565,21 @@
       
         
           
-            <p>知识储备：</p>
-<blockquote>
-<ul>
-<li>二八定律：80%的业务访问集中在20%的数据。</li>
-</ul>
-</blockquote>
-<p>大型网站都是从小型网站发展而来，网站架构也是一样从简单到复杂。刚开始的时候访问量少可能只需要一台服务器就绰绰有余了。此时的网站架构基本就是LAMP了。Linux+Apache+MySQL+PHP。此时数据库、程序还有文件都<strong>储存在同一台服务器</strong>上。</p>
-<h2 id="应用服务和数据分离"><a href="#应用服务和数据分离" class="headerlink" title="应用服务和数据分离"></a>应用服务和数据分离</h2><p>当访问用户越来越多的时候，开始逐渐出现性能问题。</p>
-<ul>
-<li>应用程序需要处理大量业务逻辑，因此需要更加强大的cpu。</li>
-<li>数据库需要更快的硬盘和更大的内存。</li>
-<li>文件服务器需要更大的容量</li>
-</ul>
-<p>单机无法承受这样的性能要求，于是一台服务器被拆分成了三台，应用服务器，文件服务器和数据库服务器。不同特性的服务器承担了不同的服务角色，网站的并发能力大大增强，网站业务进一步发展，并发继续增高。性能问题又再一次面临挑战，此时问题容易出现在数据库服务器上，由于压力太大导致访问延迟，用户体验收到影响。此时就需要对网站的架构再进行优化了。</p>
-<h2 id="使用缓存改善网站性能"><a href="#使用缓存改善网站性能" class="headerlink" title="使用缓存改善网站性能"></a>使用缓存改善网站性能</h2><p>参见二八定律。既然大部分的业务访问只集中在一小部分的数据上，那么我们就可以考虑把这20%的数据缓存在内存里，缓存高频数据，提高性能。网站的缓存基本可以分为两种：</p>
-<ul>
-<li>缓存在应用服务器上的本地缓存</li>
-<li>缓存在专门的分布式缓存服务器上的分布式缓存</li>
-</ul>
-<p>两者各自的相对优缺点也很明显，本地缓存有限但是很快，分布式的远程缓存没有理论上的容量限制，但是要通过网络就会相对本地缓存慢一些。最高频的小数据放在本地缓存，次之放在分布式的缓存服务器中，接下来的80%就可以放在文件服务器中啦！</p>
-<p>使用缓存之后，数据库的访问压力暂时就解决了。不过此时的应用服务器还只是一台。单机能处理的连接有限。访问高峰的时候，应用服务器的性能就又会成为网站的性能瓶颈。</p>
-<h2 id="使用应用服务器集群改善网站的并发处理能力"><a href="#使用应用服务器集群改善网站的并发处理能力" class="headerlink" title="使用应用服务器集群改善网站的并发处理能力"></a>使用应用服务器集群改善网站的并发处理能力</h2><p>应用服务器实现集群是网站可伸缩架构设计中较为简单成熟的一种。用户的请求通过负载均衡调度服务器来将用户的访问请求分发 到应用服务器集群之中。用户再增加，那就往集群中加入更多的服务器。此时，应用服务器的压力不再成为整个网站的性能瓶颈。那伴随着访问量的继续增长，下一个性能瓶颈是什么呢？</p>
-<h2 id="数据库读写分离"><a href="#数据库读写分离" class="headerlink" title="数据库读写分离"></a>数据库读写分离</h2><p>虽然大多数的数据操作访问不通过数据库就能完成</p>
+          知识储备：
 
-          
+
+二八定律：80%的业务访问集中在20%的数据。
+
+
+大型网站都是从小型网站发展而来，网站架构也是一样从简单到复杂。刚开始的时候访问量少可能只需要一台服务器就绰绰有余了。此时的网站架构基本就是LAMP了。Linux+Apache+MySQL+PHP。此时数据库、程序还有文件都储存在同一
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/29/大型网站架构演化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -718,22 +697,21 @@
       
         
           
-            <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>分布式的基于发布/订阅模式的消息队列，主要用于大数据实时处理领域。</p>
-<blockquote>
-<p>MQ（消息队列）的一种传统应用场景就是用来做异步处理，这样做的好处就是能够解耦合。</p>
-<p>消息队列的好处</p>
-<ul>
-<li>解耦：允许独立的扩展或者修改两边的处理过程，只要确保他们遵守同样的接口约束</li>
-<li>可恢复性：一部分组件失效的时候不会影响整个系统，减低了进程间的耦合度，即使有处理消息的进程挂掉，加入队列的消息仍然可以在系统恢复后被处理。</li>
-<li>缓冲（削峰）：有助于控制和优化数据经过系统的速度，解决生产消息和消费信息的处理速度不一致的情况。</li>
-<li>灵活性&amp;峰值处理能力：在访问量剧增的情况下，应用仍然需要继续发挥作用。但是这样的突发流量并不常见。如果以能处理这类峰值访问为标准来投入资源随时待命是一种巨大的浪费，使用消息队列就能使关键组件顶住突发的访问压力，不会因为突然的超负荷的请求而完全崩溃。</li>
-<li>异步通信：很多时候也不需要立即处理消息。消息队列提供了异步处理机制，允许用户把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要的时候去处理它们。</li>
-</ul>
-</blockquote>
-<h2 id="消息队列的两种模式"><a href="#消息队列的两种模式" class="headerlink" title="消息队列的两种模式"></a>消息队列的两种模式</h2><h3 id="点对点模式"><a href="#点对点模式" class="headerlink" title="点对点模式"></a>点对点模式</h3><p>一对一，消费者主动的去拉取数据，消息收到后消息清除。</p>
-<h2 id="发布-订阅模式"><a href="#发布-订阅模式" class="headerlink" title="发布/订阅模式"></a>发布/订阅模式</h2><p>一对多，消费数据后不会清除消息。消费者的消费速度可以由消费者来决定。有消费者主动拉取数据和消息队列主动推送数据两种方法的区别。消费者去主动拉取的话有个确定就是需要维护一个常轮循，比较消耗性能。由消息队列来推送的话又有可能出现消费者处理不完，浪费数据的情况。</p>
+          Kafka定义分布式的基于发布/订阅模式的消息队列，主要用于大数据实时处理领域。
 
-          
+MQ（消息队列）的一种传统应用场景就是用来做异步处理，这样做的好处就是能够解耦合。
+消息队列的好处
+
+解耦：允许独立的扩展或者修改两边的处理过程，只要确保他们遵守同样的接口约束
+可恢复性：一部分组件失效的时候不会影响
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/11/KafKa——-01入门/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -851,291 +829,20 @@
       
         
           
-            <h1 id="nosql介绍"><a href="#nosql介绍" class="headerlink" title="nosql介绍"></a>nosql介绍</h1><p>NoSQL：一类新出现的数据库（not only sql)特点：</p>
-<ul>
-<li>不支持SQL语法。</li>
-<li>储存结构跟传统关系型数据库中的关系表完全不同，nosql中储存的数据都是KV形式。</li>
-<li>NoSQL没有通用的语言，不像SQL一样基本统一。每种nosql数据库都有自己的api和语法，以及擅长的业务场景<ul>
-<li>Mongodb</li>
-<li>Redis</li>
-<li>Hbase hadoop</li>
-<li>Cassandra hadoop</li>
-</ul>
-</li>
-</ul>
-<h2 id="NoSQL和SQL数据库比较"><a href="#NoSQL和SQL数据库比较" class="headerlink" title="NoSQL和SQL数据库比较"></a>NoSQL和SQL数据库比较</h2><ul>
-<li><strong>适用场景不同</strong>：sql数据库适合用于关系复杂的数据查询场景，nosql反之</li>
-<li><strong>事务的支持</strong>：sql对事务的支持很完善，nosql基本不支持事务。</li>
-</ul>
-<h2 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h2><p>Redis是一个使用C来编写的开源程序，支持网络，可基于内存亦可持久化的日志型，Key-Value数据库。并且支持多种语言的API。</p>
-<p>Redis是NoSQL阵营中的一员，通过多种键值数据类型来适应不同场景下的储存需求，借助一些高层级的接口使用其可以胜任缓存。队列系统的不同角色。</p>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
-<li><p>支持数据的持久化，可以将数据存在磁盘中，重启的时候再次加载进行使用。</p>
-</li>
-<li><p>不仅支持kv数据，还提供了list、set、zset、hash等数据结构的存储。</p>
-</li>
-<li><p>支持数据的备份，即master-slave模式的数据备份。</p>
-</li>
-</ul>
-<p>##优势</p>
-<ul>
-<li>性能高：毕竟这东西的介质是RAM，读110000次/s，写81000次/s</li>
-<li>数据类型丰富：看上边</li>
-<li>原子：Redis的所有操作都是原子的，同时还支持对几个操作全并后的原子性执行</li>
-<li>特性丰富：Redis还支持publish/subscribe、通知、key过期等等特性</li>
-</ul>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
-<li><p>用来做缓存。</p>
-</li>
-<li><p>在某个场景下替代传统数据库。</p>
-</li>
-<li><p>在大型系统中，实现特定的功能。比如session共享，购物车。</p>
-</li>
-</ul>
-<p>这个是补充昨晚的文档</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ul>
-<li>(hard mode)源码编译安装，编译还是蛮快的。爱折腾可以自己试试。</li>
-<li>(easy way)添加EPEL仓库直接yum在线安装。</li>
-</ul>
-<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>应该是都在src文件夹里边</p>
-<ul>
-<li>Redis-server:redis服务器</li>
-<li>Redis-cli:redis命令行客户端</li>
-<li>Redis-benchmark：redis性能测试工具</li>
-<li>Redis-check-aof:AOF文件修复工具</li>
-<li>Redis-check-rdb:RDB文件检索工具(数据持久化之后就是一个RDB文件)</li>
-</ul>
-<h2 id="核心配置项"><a href="#核心配置项" class="headerlink" title="核心配置项"></a>核心配置项</h2><ul>
-<li><p>IP</p>
-<blockquote>
-<p>bind：需要远程访问了就注释掉这一行，或者绑定成一个真实的IP</p>
-</blockquote>
-</li>
-<li><p>端口</p>
-<blockquote>
-<p>port：默 认是6379</p>
-</blockquote>
-</li>
-<li><p>守护进程</p>
-<blockquote>
-<p>是否以daemonize运行</p>
-<ul>
-<li>以守护进程运行的时候不会再命令行阻塞，类似于服务。</li>
-<li>非守护进程运行则当前终端被阻塞。</li>
-<li>yes表示守护进程，反之为no。(设置成守护进程我觉得好一点)</li>
-</ul>
-</blockquote>
-</li>
-<li><p>数据文件</p>
-<blockquote>
-<p>dbfilename dump.rdb</p>
-<p>进行数据持久化的时候就会把文件存到这个文件里</p>
-</blockquote>
-</li>
-<li><p>储存路径</p>
-<blockquote>
-<p>dir /var/lib/redis</p>
-</blockquote>
-</li>
-<li><p>日志文件</p>
-<blockquote>
-<p>Logfile /var/log/redis/redis-server.log</p>
-</blockquote>
-</li>
-<li><p>数据库 默认有16个</p>
-<blockquote>
-<p>database 16</p>
-</blockquote>
-</li>
-<li><p>主从复制，类似双机备份</p>
-<blockquote>
-<p>slaveof</p>
-</blockquote>
-</li>
-</ul>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h2><ul>
-<li><p>redis-server</p>
-</li>
-<li><p>Tip</p>
-<blockquote>
-<p>redis-server cfgPATH #指定加载的配置文件(感觉应该有用所以记下</p>
-</blockquote>
-</li>
-<li><p>帮助文档</p>
-<blockquote>
-<p>redis-server —help</p>
-</blockquote>
-</li>
-<li><p>使用服务的方式来管理redis服务(推荐</p>
-<ul>
-<li><p>启动</p>
-<blockquote>
-<p>sudo service redis start</p>
-</blockquote>
-</li>
-<li><p>停止</p>
-<blockquote>
-<p>sudo servie redis stop</p>
-</blockquote>
-</li>
-<li><p>重启</p>
-<blockquote>
-<p>sudo service redis stop </p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><ul>
-<li><p>帮助文档</p>
-<blockquote>
-<p>redis-cli –help</p>
-</blockquote>
-</li>
-<li><p>参数</p>
-<blockquote>
-<p>-h    指定服务器</p>
-<p>-p    指定端口(默认端口是6379</p>
-</blockquote>
-</li>
-<li><p>测试</p>
-<blockquote>
-<p>输入一个ping，服务端会回个pong</p>
-</blockquote>
-</li>
-<li><p>连接数据库</p>
-<blockquote>
-<p>数据库没有名称，默认有16个。通过0—15来标记。连接redis默认选择第一个数据库</p>
-<p>select n</p>
-</blockquote>
-</li>
-</ul>
-<h1 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h1><ul>
-<li>redis的每一条数据都是键值对，键的类型是字符串，且不能重复</li>
-<li>值分为五种类型<ul>
-<li>字符串string</li>
-<li>散列表hash</li>
-<li>列表list</li>
-<li>集合set</li>
-<li>有序集合zset</li>
-</ul>
-</li>
-</ul>
-<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p>字符串是二进制安全的，意思就是他可以接受任何格式的数据。最大长度是512M。</p>
-<h3 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h3><p>如果设置的键不存在则为添加，如果设置的键已经存在则修改</p>
-<ul>
-<li><p>设置键值</p>
-<blockquote>
-<p>set key value</p>
-<p>EX: 设置键为name值为Andrew的数据</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name Pit</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name </span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Pit</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>设置键值以及过期时间(s)</p>
-<blockquote>
-<p>setex key seconds value</p>
-<p>EX:设置一个name，过期时间是10s的数据。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; <span class="built_in">set</span> name 10 Tom</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="string">"tom"</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment">#10S later.....</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; get name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> (nil)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-</blockquote>
-</li>
-<li><p>设置多个键值</p>
-<blockquote>
-<p>m set k1 v1 k2 v2 k3 v3</p>
-</blockquote>
-</li>
-<li><p>追加值</p>
-<blockquote>
-<p>append key value</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="键命令"><a href="#键命令" class="headerlink" title="键命令"></a>键命令</h2><ul>
-<li><p>查找键，参数支持正则表达式</p>
-<blockquote>
-<p>keys pattern</p>
-<p>EX:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看所有的键</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> keys *</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看所有a开头的键</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> key a*</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查找键a是否存在,存在返回1，不存在返回0</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> EXISTS a</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看对应value的类型</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">type</span> value</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 查看键的剩余时间(实时)</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ttl key</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>删除键</p>
-<blockquote>
-<p>del key1 key2</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ul>
-<li>用于储存对象，对象的结构为属性、值</li>
-<li>值的类型为string</li>
-</ul>
-<h3 id="增加-amp-修改"><a href="#增加-amp-修改" class="headerlink" title="增加&amp;修改"></a>增加&amp;修改</h3><ul>
-<li><p>设置单个属性</p>
-<blockquote>
-<p>hset key field value</p>
-<p>EX:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 设置user的属性name为Andrew</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hset user name Andrew</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 此处可能会报错,原因是Redis被配置为数据库快照，但是不能持久化到硬盘，所以用来修改集合数据的命令不能用。</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 解决办法：运行`config set stop-writes-on-bgsave-error no`</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>设置多个属性</p>
-<blockquote>
-<p>hmset key field1 value1 field2 value2</p>
-<p>EX:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 设置键user的属性name为Anderw，属性Age为20</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hmset user name Andrew age 20</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<h3 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h3><ul>
-<li><p>获取键属性</p>
-<blockquote>
-<p>hkeys key</p>
-<p>EX</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取键user的所有属性</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hkeys user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取一个属性的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget key</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取键user属性name的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget user name</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 获取user所有属性的值</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hvals user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ul>
-<li><p>删除整个hash键及值，使用del命令</p>
-</li>
-<li><p>删除属性，属性所对应的值会被一起删除</p>
-<blockquote>
-<p>hdel key field1 field2</p>
-<p>EX</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment"># 删除user的属性age</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hdel user age</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> OK</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &gt; hkeys user</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 1) <span class="string">"name"</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><ul>
-<li>列表的元素类型为string</li>
-<li>顺序是按照插入的顺序</li>
-</ul>
-<h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><ul>
-<li><p>插入数据</p>
-<blockquote>
-<p>lpush key value1 value2 # 左侧插入</p>
-<p>rpush key value1 value2 #右侧插入</p>
-<p>linsert key before 或 after # 在指定元素前或后插入新元素 </p>
-</blockquote>
-</li>
-</ul>
-<h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><ul>
-<li><p>返回列表里指定范围内的元素</p>
-<ul>
-<li><p>start、sto为元素索引</p>
-</li>
-<li><p>索引从左侧开始，第一个元素是0</p>
-</li>
-<li><p>索引可以是负数，表示从尾部开始计数，如-1是最后一个元素</p>
-<blockquote>
-<p>lset key index value</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<p>​    </p>
+          nosql介绍NoSQL：一类新出现的数据库（not only sql)特点：
 
-          
+不支持SQL语法。
+储存结构跟传统关系型数据库中的关系表完全不同，nosql中储存的数据都是KV形式。
+NoSQL没有通用的语言，不像SQL一样基本统一。每种nosql数据库都有自己的api和语法，以及擅长的业务场景
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/02/Redis——01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1253,8 +960,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/23/Linux——进程控制/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1372,8 +1086,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/19/Linux——内存的页面置换算法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1491,64 +1212,17 @@
       
         
           
-            <h1 id="用户态和内核态"><a href="#用户态和内核态" class="headerlink" title="用户态和内核态"></a>用户态和内核态</h1><p>在信号的那篇blog中曾经写到，当接收到硬件中断的时候，CPU会从用户态切换到内核态来处理硬件中断。那么问题来了——为什么CPU非得要切换到内核态才能来处理硬件中断呢？</p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>首先来说说概念：</p>
-<p>内核态：CPU可以访问内存的所有数据，包括了外围设备，CPU也可以将自己从一个程序切换到另一个程序。此时所占用的处理机是不允许被抢占的。</p>
-<p>用户态：只能访问受限的内存，而且不允许去访问外围设备，占用CPU的能力也被剥夺。CPU资源可以被其他程序获取或者抢占。</p>
-<p>看完概念总结一下：可以认为内核态就是一种CPU的特权状态，只有在这个状态下，CPU才可以执行这个特权态下允许执行的指令，访问这个特权态才允许访问的资源，这个和当前的进程无关。</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>由于需要限制不同CPU之间的访问能力，防止他们获取别的程序的内存数据，或者外围设备的数据，并发送到网络，所以，CPU划分出了两个权限等级——用户态和内核态。</p>
-<h2 id="切换"><a href="#切换" class="headerlink" title="切换"></a>切换</h2><p>所有的用户程序都是运行在用户态的，但是有的时候程序确实需要做一些内核态事情，比如从硬盘读取数据，从键盘获取输入等，所以此时程序就需要请求操作系统以操作系统的名义来执行这些操作。</p>
-<p>​    此时，我们就需要这样一个机制：用户态程序切换到内核态，但是不能控制在内核态中执行的指令。</p>
-<p>这种机制叫做<strong>系统调用</strong>，在CPU中的是实现称为<strong>陷阱指令</strong></p>
-<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p>系统调用运行在内核态，而且系统调用的库函数和普通函数调用非常的相似，只是系统调用由操作系统的内核来提供，运行与内核核心态，而普通的库函数调用由函数库或者用户自己提供，运行于用户态。系统调用本质上来说还是通过系统调用来实现的，而异常和中断的处理机制基本一致。</p>
-<h2 id="EG"><a href="#EG" class="headerlink" title="EG"></a>EG</h2><p>看一段代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testFolk</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="number">0</span> == fork)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"create new process success"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"test fork ok"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从功能的角度出发，就是执行了一个fork()，生成了一个新的进程。但是当我们从动态的角度来看这段代码的时候，就又可以看到其他不一样的东西了。</p>
-<h2 id="特权级别"><a href="#特权级别" class="headerlink" title="特权级别"></a>特权级别</h2><p>其实我们不难推测出，创建一个新的进程对于任何一个操作系统来说，都是非常核心的功能。其中涉及到物理资源的分配，拷贝设置页目录表等等，显然不能随便就交给一个程序就可以去做的。于是，特权级别的概念自然而然就被引出了。这样才能做到集中管理，减少有限资源的访问和使用冲突。</p>
-<p>为了支持特权级别，举例牙膏厂 X86架构的CPU就在硬件上做了很多的支持。其中CPU共有0~3总共四个特权级别。0最高3最低。对于Unix like系统来说，只利用到了0和3级别。</p>
-<p>所以自然而然的就可以解释，用户态的程序，CPU就是才特权级别3状态下运行的。内核态就是0状态。</p>
-<p>我们知道fork()实际上是以系统调用的方式来完成相应功能的。具体的工作由sys_fork来负责实施。但是testfork()是不能直接调用sys_fork(),前者是工作在用户态，属于用户态程序。后者是工作在内核态，属于内核态程序。</p>
-<p>当我们在系统中执行一个程序，大部分时间是运行在用户态下的，在其需要操作系统帮助完成其他它没有权力和能力完成的工作时就会切换到内核态，比如testfork()最初运行在用户态进程，当它调用fork()最终触发sys_fork()的执行时，就切换到了内核态。</p>
-<h2 id="切换的方式"><a href="#切换的方式" class="headerlink" title="切换的方式"></a>切换的方式</h2><ol>
-<li>系统调用：这是用户态程序主动要求切换到内核态的一种方式。用户态进程通过系统调用申请使用操作系统提供的服务程序完成工作。比如上述的例子中fork()实际上就是执行了一个创建新进程的系统调用。而操作系统调用的机制核心还是使用了操作系统为用户特别开放的一个中断来实现，比如Linux的int 80h中断。</li>
-<li>异常：CPU在执行运行在用户态程序的时候，遇到了一些不可知的异常，这就会触发一个异常的中断，跳转到了内核态。比如缺页异常。</li>
-<li>外围设备的中断：当外围设备完成用户请求的操作后，会向CPU发出相应的中断信号。如果之前执行的指令是用户态下的程序，那么这个转换的过程自然也就发生了用户态到内核态的切换。比如硬盘读写操作完成。系统会切换到硬盘读写的中断处理程序中执行后续操作等。</li>
-</ol>
-<h2 id="切换操作"><a href="#切换操作" class="headerlink" title="切换操作"></a>切换操作</h2><ol>
-<li>从当前进程的描述符中提取其内核栈的ss()的esp0的信息。</li>
-<li>使用ss()和esp0指向的内核栈将当前进程的cs,eip,eflags,ss,esp信息保存起来，这个过程也完成了由用户栈道内核栈的切换过程，同时保存了被暂停执行的程序的下一条指令。</li>
-<li>将之前向中断向量检索得到的中断处理程序的cs,eip信息装入相应的寄存器。开始执行中断处理程序，这个时候就转到了内核态的程序执行了。</li>
-</ol>
-<h2 id="特权指令"><a href="#特权指令" class="headerlink" title="特权指令"></a>特权指令</h2><p>指的就是在内核态时运行的指令，此时：</p>
-<ul>
-<li>对内存空间的访问范围基本不受限制，不仅能访问用户的储存空间，也能访问系统存储空间。</li>
-<li>特权指令只允许操作系统使用，不允许其他应用程序使用，否则就很有可能导致系统异常崩溃等。</li>
-</ul>
-<p>特权指令有：</p>
-<ul>
-<li>启动I/O</li>
-<li>内存清零</li>
-<li>修改程序状态字</li>
-<li>设置时钟</li>
-<li>允许/禁止中断</li>
-<li>停机</li>
-</ul>
-<h2 id="非特权指令"><a href="#非特权指令" class="headerlink" title="非特权指令"></a>非特权指令</h2><p>指的就是在用户态时运行的指令，一般应用程序所使用的都是非特权指令，它只能完成一般性的操作和任务，不能对系统中的硬件和软件直接进行访问，对内存的访问也只仅限于用户空间。</p>
-<p>非特权指令有：</p>
-<ul>
-<li>控制转移</li>
-<li>算数运算</li>
-<li>访管指令</li>
-<li>取数指令</li>
-</ul>
-<p>参考文章</p>
-<ul>
-<li>《<a href="https://zh.wikipedia.org/wiki/系统调用" target="_blank" rel="noopener">系统调用</a>》</li>
-<li>《<a href="https://blog.csdn.net/youngyoungla/article/details/53106671" target="_blank" rel="noopener">用户态和内核态的区别</a>》</li>
-<li>《<a href="https://www.zhihu.com/question/40147261" target="_blank" rel="noopener">知乎提问</a>》</li>
-</ul>
-
-          
+          用户态和内核态在信号的那篇blog中曾经写到，当接收到硬件中断的时候，CPU会从用户态切换到内核态来处理硬件中断。那么问题来了——为什么CPU非得要切换到内核态才能来处理硬件中断呢？
+概念首先来说说概念：
+内核态：CPU可以访问内存的所有数据，包括了外围设备，CPU也可以将自己从一个程序切换到另一个
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/13/Linux——用户态和内核态/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1666,29 +1340,27 @@
       
         
           
-            <h1 id="测试规模"><a href="#测试规模" class="headerlink" title="测试规模"></a>测试规模</h1><p>小型：单元测试</p>
-<p>中型：集成测试</p>
-<p>大型：系统测试 </p>
-<h1 id="测开SET"><a href="#测开SET" class="headerlink" title="测开SET"></a>测开SET</h1><p>角色定位：SE在代码库上的合作伙伴</p>
-<p>关注重点：质量提升和测试覆盖率的增加</p>
-<p>实际参与项目时间点：项目初期</p>
-<p>测试规模：小型、中型</p>
-<p>工作重心：</p>
-<ul>
-<li>代码的可测试性</li>
-<li>通用测试基础框架的设计和构建（单元测试框架和自动化测试的框架）</li>
-</ul>
-<h1 id="测试TE"><a href="#测试TE" class="headerlink" title="测试TE"></a>测试TE</h1><p>角色定位：产品专家、质量顾问和分线分析师</p>
-<p>关注重点：把用户放在第一位来思考，代表用户的利益</p>
-<p>实际参与项目的时间：项目的中后期</p>
-<p>测试规模：中型、大型</p>
-<p>工作重心：</p>
-<ul>
-<li>驱动测试执行，构建端到端的自动化测试（TE会使用SET已经构建好的自动化测试框架来构建端到端的自动化测试）</li>
-<li>组织整体质量事件，粉刺测试运行结果</li>
-</ul>
+          测试规模小型：单元测试
+中型：集成测试
+大型：系统测试 
+测开SET角色定位：SE在代码库上的合作伙伴
+关注重点：质量提升和测试覆盖率的增加
+实际参与项目时间点：项目初期
+测试规模：小型、中型
+工作重心：
 
-          
+代码的可测试性
+通用测试基础框架的设计和构建（单元测试框架和自动化测试的框架）
+
+测试TE角
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/13/今日充电——开发、测开、测试之间的区别与联系/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1806,60 +1478,20 @@
       
         
           
-            <h1 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h1><p>今儿面试的时候被面试官的kill给噎住了，感觉很难受。于是想写下kill，然后就写到了信号。于是有了这篇blog。</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>例举一个典型的场景：</p>
-<ol>
-<li>用户输入命令，在shell启动了一个前台进程。</li>
-<li>用户按下了Ctrl + C组合键。此时在这个键盘输入产生了一个硬件中断。</li>
-<li>如果CPU正在执行当前这个进程的代码，则该进程的用户空间代码暂停执行。CPU从用户态切换到内核态道处理硬件中断。</li>
-<li>终端的驱动程序将Ctrl+C解释成一个SIGINT信号，记在该进程的PCB中（也可以说成发送了一个SIGINT信号到该进程).</li>
-<li>在某个时刻，内核要返回到用户空间继续执行代码了，首先他会处理PCB中记录的信号，发现有一个SIGINT的信号在等待处理，而且这个信号的默认处理动作是终止进程，所以会直接终止进程，而不再返回它的用户空间代码执行。</li>
-</ol>
-<blockquote>
-<p>信号想对于进程的控制流程来说是异步的。也就是说前台进程在运行过程中随时都有可能因为收到SIGINT信号而终止。也可以说信号就是软件层面上实现的软中断。</p>
-<p>只有前台的程序才能接受到Ctrl+C这样的控制键产生的信号。</p>
-<p>进程收到的所有信号，都是由内核负责发送和处理的。</p>
-<p>使用<code>kill -l</code>命令可以查看系统定义的信号列表</p>
-</blockquote>
-<h2 id="信号的产生"><a href="#信号的产生" class="headerlink" title="信号的产生"></a>信号的产生</h2><h3 id="通过终端按键产生信号"><a href="#通过终端按键产生信号" class="headerlink" title="通过终端按键产生信号"></a>通过终端按键产生信号</h3><p>比如当我们按下Ctrl+C就会给前台程序发送SIGINT信号，SIGKILL的默认处理动作是终止进程，SIGQUIT的默认动作是终止进程并且Core Dump。</p>
-<blockquote>
-<p>常见控制键产生的信号：</p>
-<p>Ctrl+c：SIGINT信号。代表终止进程，默认的动作是终止进程。</p>
-<p>Ctrl+\：SIGQUIT信号。代表退出进程，默认动作是终止进程并且Core Dump。</p>
-<p>Ctrl+z：SIGSTP信号。代表终止进程，默认动作是终止进程，和SIGINT不同的是SIGSTP不能被捕获。</p>
-<p>Ctrl+d：不发送信号，但是能表示一个特殊的二进制值——EOF。</p>
-</blockquote>
-<p>Core Dump</p>
-<blockquote>
-<p>当一个进程要终止的时候，可以选择把进程的用户空间内存数据全部保存到硬盘上，文件名通常是core，这个过程叫做Core Dump。事后我们可以使用core进行Debug等操作。</p>
-</blockquote>
-<h3 id="通过系统调用函数"><a href="#通过系统调用函数" class="headerlink" title="通过系统调用函数"></a>通过系统调用函数</h3><p>就是用kill命令。kill命令是通过调用kill函数来实现的，kill函数可以给指定的进程发送指定的信号。除过kill命令之外，还有一个raise函数，可以给当前进程发送指定的信号。还有个abort函数可以让程序直接异常终止。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kill</span><span class="params">(<span class="keyword">pid_t</span> pid,<span class="keyword">int</span> signo)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">raise</span><span class="params">(<span class="keyword">int</span> signo)</span></span>;</span><br><span class="line"><span class="comment">//两个程序一样，成功返回0，错误返回-1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">abort</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">//就像exit函数，abort总是执行成功，所以就没必要有返回值</span></span><br></pre></td></tr></table></figure>
-<h3 id="软件条件产生"><a href="#软件条件产生" class="headerlink" title="软件条件产生"></a>软件条件产生</h3><p>SIGPIPE是一种由软件条件产生的信号，这里会主要讲一下alarm函数和SIGALRM。</p>
-<p><strong>alarm函数</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">alarm</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> second)</span></span>;</span><br><span class="line"><span class="comment">//调用alarm函数可以设定一个闹钟，也就是高速内核在seconds秒之后发送给当前进程SIGALRM信号，这个信号的默认动作是终止当前进程</span></span><br></pre></td></tr></table></figure>
-<p>注意：</p>
-<ul>
-<li>函数的返回值是0或者之前设定还剩余的秒数。</li>
-<li>一个进程只能有一个闹钟时间，如果在调用alarm之前已经设定过闹钟，那么之前的设定会被新设定的值取代。</li>
-<li>信号由内核产生，由于进程调度的延迟，所以进程得到信号到处理还是需要一些时间的。</li>
-<li>如果second的值是0，代表的是取消之前设定的值。</li>
-<li>出错返回 -1</li>
-</ul>
-<h2 id="阻塞信号"><a href="#阻塞信号" class="headerlink" title="阻塞信号"></a>阻塞信号</h2><blockquote>
-<p>相关概念</p>
-<ul>
-<li>实际执行信号的处理动作称为信号递达（Delivery）</li>
-<li>信号从产生到递达之间的状态称为信号未决（Pending）</li>
-<li>进程可以选择阻塞（Block）这个信号。</li>
-<li>被阻塞的信号产生时保持在未决状态，直到进程解除对此信号的阻塞，才执行递达的动作。</li>
-<li>阻塞和忽略并不同，信号只要被阻塞就不会递达，但是忽略是递达之后可选的一种处理动作。</li>
-</ul>
-</blockquote>
-<p><strong>信号在内核中的表示示意图</strong></p>
-<p><img src="https://i.loli.net/2019/09/19/NWdSU7KqTpEJ3wP.png" alt></p>
+          信号今儿面试的时候被面试官的kill给噎住了，感觉很难受。于是想写下kill，然后就写到了信号。于是有了这篇blog。
+基本概念例举一个典型的场景：
 
-          
+用户输入命令，在shell启动了一个前台进程。
+用户按下了Ctrl + C组合键。此时在这个键盘输入产生了一个硬件中断。
+如果CPU正在执行当前这个
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/11/Linux——信号/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

@@ -313,21 +313,16 @@
       
         
           
-            <h1 id="kill命令探究"><a href="#kill命令探究" class="headerlink" title="kill命令探究"></a>kill命令探究</h1><h2 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h2><p>kill [参数] [进程号]</p>
-<h2 id="命令功能"><a href="#命令功能" class="headerlink" title="命令功能"></a>命令功能</h2><p>发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用<code>kill -9 pid</code>用来发送SIGKILL信号来强制结束进程。可是使用<code>jobs</code>或者<code>ps</code>命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。</p>
-<p>一般来说，在尝试kill掉一个进程的时候是先尝试<code>kill -15 pid</code>如果一段时间后程序仍然在后台运行没有终止的话，再使用<code>kill -9 pid</code>。这种能够防止丢失掉未保存的工作进度。</p>
-<h2 id="SIGTERM"><a href="#SIGTERM" class="headerlink" title="SIGTERM"></a>SIGTERM</h2><p>此信号是请求一个进程停止运行，是可以被忽略的。进程可以用一段时间来正常关闭，在这段时间内可能会保存一下工作的进度并释放资源。它并不是强制停止的。退出前可以是被阻塞或者回调处理。并且它是Linux缺省的程序中断信号。不过一般来说，当我们去尝试kill掉一个程序的时候，使用SIGTERM不太可能会管用，多半会被阻塞、忽略。</p>
-<h2 id="SIGKILL"><a href="#SIGKILL" class="headerlink" title="SIGKILL"></a>SIGKILL</h2><p>此信号会强制进程立刻停止运行，而且程序不能忽略此信号，后果是未保存的工作进度都将会丢失。</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>可以看到我的电脑上正跑着一个校园网的登录脚本。我尝试向对应的进程发送SIGTERM信号，在等待了一段时间之后。程序并没有自动终止。所以可以不难推断出我的信号被程序忽略掉了。</p>
-<p><img src="https://i.loli.net/2019/09/11/WfumlX4MyseboDA.png" alt></p>
-<p>但是当我发送SIGKILL的信号之后。程序就立即被强制终止了。</p>
-<p><img src="https://i.loli.net/2019/09/11/8jXiFOGeErcRkdx.png" alt></p>
-<h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p>上述的SIGKILL和SIGTERM是最最常用的两个信号，但是也还有一些其他的常用命令在日常实际使用中其实也会用到。比如：</p>
-<p>SIGINT：默认的处理动作是终止进程。</p>
-<p>SIGQUIT：默认的处理处理动作是终止进程并且Core Dump.</p>
-<p>算了不写了。我专门写个信号的博客吧。刚好复习（预习）一下知识。</p>
-
-          
+          kill命令探究命令格式kill [参数] [进程号]
+命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/11/Linux——kill命令详解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -445,46 +440,36 @@
       
         
           
-            <h1 id="初级"><a href="#初级" class="headerlink" title="初级"></a>初级</h1><ul>
-<li>测试定义（基础的概念）</li>
-<li>测试方法</li>
-<li>测试生命周期</li>
-<li>测试执行</li>
-<li>测试管理工具</li>
-</ul>
-<h1 id="中级"><a href="#中级" class="headerlink" title="中级"></a>中级</h1><ul>
-<li>测试用例</li>
-<li>Linux</li>
-<li>MySQL</li>
-<li>loadrunner</li>
-<li>测试管理工具</li>
-<li>selenium</li>
-<li>appium</li>
-<li>jenkins</li>
-</ul>
-<h1 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h1><ul>
-<li>暂时先不写</li>
-</ul>
-<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="软件测试的目的和原则"><a href="#软件测试的目的和原则" class="headerlink" title="软件测试的目的和原则"></a>软件测试的目的和原则</h2><p>目的：验证软件有或者没有问题</p>
-<p>原则：遵循软件测试的规范，流程，标准和要求</p>
-<h2 id="什么是需求"><a href="#什么是需求" class="headerlink" title="什么是需求"></a>什么是需求</h2><p>满足用户期望或者正式规定文档所具有的条件和权能。其中包含了用户需求和软件需求。</p>
-<p>用户需求：可以简单理解为甲方的要求，会详细的描述开发人员必须实现的功能。</p>
-<p>软件需求：或者叫功能需求，该需求会详细描述开发人员必须实现的软件功能。</p>
-<p>软件需求是测试人员进行测试工作的基本依据。</p>
-<h2 id="什么是BUG"><a href="#什么是BUG" class="headerlink" title="什么是BUG"></a>什么是BUG</h2><p>当程序没有实现其最终用户合理预期的功能要求时，那就是软件错误 or called BUG。</p>
-<h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><p>测试用例是为了实施测试而向被测试系统提供的一组集合。这组集合中包括：测试环境、操作步骤、测试数据、预期的结果等等。</p>
-<p>测试用例可能会遇到的问题</p>
-<ul>
-<li>不知道是否较全面的测试了所有的功能</li>
-<li>测试的覆盖率无法衡量</li>
-<li>对新版本的重复测试比较难以实施</li>
-<li>存在大量的冗余测试影响测试效率</li>
-</ul>
-<h2 id="软件的生命周期"><a href="#软件的生命周期" class="headerlink" title="软件的生命周期"></a>软件的生命周期</h2><p>包括软件产品的设想开始到软件不再使用而结束的时间。可以分为6个阶段，即：需求分析、计划、设计、编码、测试、运维</p>
-<h2 id="瀑布模型"><a href="#瀑布模型" class="headerlink" title="瀑布模型"></a>瀑布模型</h2><p>start–&gt;需求分析–&gt;计划–&gt;设计–&gt;编码–&gt;测试–&gt;end</p>
-<p>瀑布模型在软件工程中占有重要地位，是所有其他模型的基础框架。它的每个阶段之执行一次，因此是线性顺序进行的软件开发模式。</p>
+          初级
+测试定义（基础的概念）
+测试方法
+测试生命周期
+测试执行
+测试管理工具
 
-          
+中级
+测试用例
+Linux
+MySQL
+loadrunner
+测试管理工具
+selenium
+appium
+jenkins
+
+高级
+暂时先不写
+
+概念软件测试的目的和原则目的：验证软件有或者没有问题
+原则：遵循软件测试的
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/11/测试——01入门概念/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -602,48 +587,17 @@
       
         
           
-            <h1 id="Load-Average"><a href="#Load-Average" class="headerlink" title="Load Average"></a>Load Average</h1><h2 id="一些探究"><a href="#一些探究" class="headerlink" title="一些探究"></a>一些探究</h2><p>简单的说就是用来查看当前系统的负载情况。可以使用<code>uptime</code>或者<code>w</code>/或者<code>top</code>命令来查看。</p>
-<p><img src="https://i.loli.net/2019/09/11/H9PpA4hdW2ey1TN.png" alt></p>
-<p>这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个数字来判断系统在指定时间内的负载情况。</p>
-<p>所以我们说：平均负载就是单位时间内，CPU的使用率对吗？其实并不全是这样的。我们可以通过<code>man uptime</code>来了解平均负载的详细解释.</p>
-<p><img src="https://i.loli.net/2019/09/11/fogQvhVPJuApHEm.png" alt></p>
-<p>简单来说，平均负载是指单位时间内，系统处于<strong>可运行状态</strong>和<strong>不可中断状态</strong>的平均进程数，也就是说<strong>平均活跃进程数</strong>，和CPU的使用率并没有直接的关系。</p>
-<blockquote>
-<p>可运行状态就是我们用ps命令可以看到的处于R（Running或者Runnable状态）的进程。</p>
-<p>不可中断状态是正处于内核态关键流程中的进程，并且这些流程是不可中断的。比如常见的等待硬件设备的I/O响应，也就是在ps命令中看到的D状态。比如一个进程向磁盘读写数据的时候，为了保证数据的一致性，在得到磁盘的响应之前，肯定是不能被打断的。加入进程被打断，就容易出现磁盘数据和进程数据不一致的问题。</p>
-<p>不可中断状态实际上是系统对进程和硬件设备的一种保护机制。</p>
-<p>（思考一下，其实在日常使用电脑的时候，在非高计算的场景下，我们的电脑有时也会出现的比较严重的卡顿。此时引起这种状况的原因往往就是因为磁盘的性能下降，而我们的进程正在向磁盘进行IO操作且处于不可中断状态。一般我们可以通过更换硬盘来解决）</p>
-</blockquote>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们可以通过以上的叙述，简单的将平均负载理解为平均活跃进程数，也就是单位时间内的活跃进程数。</p>
-<blockquote>
-<p>这里更加严谨的定义应该是活跃进程数的指数衰减平均值，这里不再做更加深入的探究了。</p>
-</blockquote>
-<h2 id="平均负载的合理区间"><a href="#平均负载的合理区间" class="headerlink" title="平均负载的合理区间"></a>平均负载的合理区间</h2><p>假如是双核的CPU，那么当平均负载为2时，表示的意思就是刚好所有的CPU资源都被完全占用，在四核的系统上，就表示CPU有50%的空闲。在单核的系统上则表示，有一半的进程都竞争不到CPU资源。</p>
-<p>那我们的平均负载在多少的时候才合理呢？</p>
-<p>首先，我们需要知道我们有几个CPU。我们可以通过TOP命令或者从<code>/proc/cpuinfo</code>中来读取：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">'model name'</span> /proc/cpuinfo | wc -l</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/09/11/pNu1sMTXSg3KFxV.png" alt></p>
-<p>喔，突然想到。在mac上我很推荐另外一个图形化的软件<code>iStat Menus</code>在这个软件中，我们可以以图表的方式，直观的了解到最近1小时到最近30天的系统负载情况。</p>
-<p><img src="https://i.loli.net/2019/09/11/79mSkVU6LOpPNYf.png" alt></p>
-<p>言归正传！我查了很多资料之后，大家一致比较推荐的，是在平均负载高于CPU理论最高负载的70%之后，就要开始解决和排查负载高的问题。但是70%并不是一个绝对数字。</p>
-<h2 id="平均负载与CPU使用率"><a href="#平均负载与CPU使用率" class="headerlink" title="平均负载与CPU使用率"></a>平均负载与CPU使用率</h2><p>相信大家和之前的我一样，单纯的把负载就看做为CPU的使用率。但是其实并不是的。追根溯源还是要回到概念：</p>
-<p>平均负载是单位时间内处于R状态和不可中断状态的进程数。这其中包含了正在使用CPU的进程，该包括等待CPU和等待IO的进程。</p>
-<p>CPU使用率是单位时间内CPU繁忙的情况。和平均负载并不完全一致。</p>
-<blockquote>
-<p>在前文我提到的那个例子就挺合适的，当卡顿的情况发生，此时系统中Runing态的进程基本都处在不可中断的内核态，平均负载会上升，但是CPU其实并不繁忙，反倒是很空闲。因为大家都在等磁盘的响应了。总结一下；</p>
-<ul>
-<li>CPU密集型的进程，会导致平均负载升高，CPU负载也会升高，此时两者的趋势是一致的，</li>
-<li>IO密集型的进程，等待IO也会导致平均负载升高，但是CPU的使用率不一定很高，而且有大概率的可能是比较空闲的</li>
-<li>大量的CPU进程调度也会导致平均负载升高，此时的CPU使用率也会比较高。</li>
-</ul>
-</blockquote>
-<p>参考文章：</p>
-<ul>
-<li>《<a href="https://scoutapm.com/blog/understanding-load-averages" target="_blank" rel="noopener">Understanding Linux CPU Load - when should you be worried?</a>》</li>
-<li>《<a href="https://en.wikipedia.org/wiki/Load_%28computing%29" target="_blank" rel="noopener">Load(computing)</a>》</li>
-</ul>
+          Load Average一些探究简单的说就是用来查看当前系统的负载情况。可以使用uptime或者w/或者top命令来查看。
 
-          
+这个信息依次为：当前时间，当前系统已运行时间，当前已登录用户数，在这个信息的后半部分，有三个数字。意思就是在之前1分钟、5分钟、15分钟之内的系统平均负载。我们可以通过这三个
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/09/Linux——系统负荷/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -761,8 +715,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/09/C++—C-11新特性之基于范围的for循环/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -880,44 +841,20 @@
       
         
           
-            <h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><h2 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h2><p>子进程在父进程未调用wait()或者waitpid() 的时候退出。就称为僵尸进程</p>
-<h2 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h2><p>父进程退出，但是子进程此时还在运行。那么子进程就会变为孤儿进程，孤儿进程将会由init进程对其进行收集工作。</p>
-<p>僵尸进程会导致资源的浪费，但是孤儿进程不会。</p>
-<h1 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h1><h2 id="Unix进程间的通信方式"><a href="#Unix进程间的通信方式" class="headerlink" title="Unix进程间的通信方式"></a>Unix进程间的通信方式</h2><ol>
-<li>管道</li>
-<li>命名管道</li>
-<li>信号</li>
-<li>消息队列</li>
-<li>共享内存</li>
-<li>内存映射</li>
-<li>信号量</li>
-<li>套接字</li>
-</ol>
-<h2 id="Unix线程间的通信方式"><a href="#Unix线程间的通信方式" class="headerlink" title="Unix线程间的通信方式"></a>Unix线程间的通信方式</h2><p>线程间的通信主要目的是用于线程同步，所以线程没有像进程通信中的用于数据交换的通信机制。</p>
-<ol>
-<li><strong>锁机制</strong>：包括了互斥锁、条件变量、读写锁<br> <strong>互斥锁</strong> 提供了以排他方式防止数据结构被并发修改的方法<br> <strong>读写锁</strong> 允许多个线程同时共享数据，而对写操作是互斥的<br> <strong>条件变量</strong> 可以以院子的方式阻塞进程，直到某个特定条件为真为止。对条件的测试是在互斥锁的保护下进行的。条件变量始终与互斥锁一起使用。</li>
-<li><strong>信号量</strong>：包括了无名线程信号量和命名线程信号量</li>
-<li><strong>条件变量</strong>：类似进程间的信号处理</li>
-</ol>
-<h1 id="文件和磁盘"><a href="#文件和磁盘" class="headerlink" title="文件和磁盘"></a>文件和磁盘</h1><h2 id="七种文件类型"><a href="#七种文件类型" class="headerlink" title="七种文件类型"></a>七种文件类型</h2><ol>
-<li>普通文件：ASCII还有二进制的都是普通文件。文件第一属性为 [ - ]</li>
-<li>目录文件：属性为 [ d ]</li>
-<li>字符设备或者快设备文件：就是硬盘。属性为 [ b ]</li>
-<li>套接字文件：这类文件通常用来网络数据连接中。属性为 [ s ]</li>
-<li>管道文件：FIFO也是一种特殊的文件类型 。属性为 [ p ]</li>
-<li>链接文件：就是快捷方式 。属性为 [ l ]</li>
-<li>字符设备：串行接口设备。键盘鼠标。属性为 [ c ]</li>
-</ol>
-<h2 id="软硬链接"><a href="#软硬链接" class="headerlink" title="软硬链接"></a>软硬链接</h2><p><strong>硬链接：</strong>多个文件名指向同一索引结点，这种连接就是硬连接。硬连接的作用是允许一个文件拥有多个有效路径名。用户就可以建立硬连接到重要文件，达到防止误删的目的。</p>
-<p><strong>软链接：</strong>也叫符号链接。类似与windows的快捷方式。实际上是一个特殊的文件。在符号链接中，实际上是一个文本文件，其中包含另一文件的位置信息，</p>
-<p>删除原始文件之后，硬链接不受影响，但是软链接会失效。</p>
-<p>参考文章：</p>
-<ul>
-<li>《<a href="https://blog.csdn.net/kobejayandy/article/details/18863543" target="_blank" rel="noopener">Linux的进程/线程间通信方式总结</a>》</li>
-</ul>
-<p>​        </p>
+          进程线程僵尸进程子进程在父进程未调用wait()或者waitpid() 的时候退出。就称为僵尸进程
+孤儿进程父进程退出，但是子进程此时还在运行。那么子进程就会变为孤儿进程，孤儿进程将会由init进程对其进行收集工作。
+僵尸进程会导致资源的浪费，但是孤儿进程不会。
+通信Unix进程间的通信方式
+管道
 
-          
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/07/面试准备——06 操作系统/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1035,29 +972,19 @@
       
         
           
-            <h1 id="三大范式"><a href="#三大范式" class="headerlink" title="三大范式"></a>三大范式</h1><h2 id="第一范式"><a href="#第一范式" class="headerlink" title="第一范式"></a>第一范式</h2><p>1NF</p>
-<p>数据表中的所有字段都是不可分割的原子值。字段值还可以继续拆分的，就不满足第一范式。</p>
-<p>范式，设计的越详细，对于某些实际的操作可能更好，但是不一定都是好处。</p>
-<h2 id="第二范式"><a href="#第二范式" class="headerlink" title="第二范式"></a>第二范式</h2><p>2NF</p>
-<p> 必须是满足第一范式的前提下。第二范式要求，除主键外的每一列都必须完全依赖与主键。如果要是出现不完全依赖，只可能发生在联合主键的情况下。 </p>
-<p>问题：除过主键以外的其他列，只依赖于主键的部分字段，应该怎么做？</p>
-<p>答：拆表。</p>
-<h2 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a>第三范式</h2><p>3NF</p>
-<p>必须先满足第二范式，除开主键其他列之间不能有传递依赖的关系。</p>
-<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><p>SQL共有四种连接查询</p>
-<h2 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h2><p>inner join或者 join</p>
-<p>内联查询：本质上来说就是两张表中的数据，通过某个字段相等来查询出相关记录数据。</p>
-<p>EG：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from person inner join card on person.cardId=card.id;</span><br></pre></td></tr></table></figure>
-<h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><ol>
-<li>左连接：left join或者left outer join</li>
-<li>右连接：right join或者right outer join</li>
-<li>完全外连接：full join或者full outer join</li>
-</ol>
-<p>## </p>
-<p>## </p>
-
-          
+          三大范式第一范式1NF
+数据表中的所有字段都是不可分割的原子值。字段值还可以继续拆分的，就不满足第一范式。
+范式，设计的越详细，对于某些实际的操作可能更好，但是不一定都是好处。
+第二范式2NF
+ 必须是满足第一范式的前提下。第二范式要求，除主键外的每一列都必须完全依赖与主键。如果要是出现不完全依赖，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/07/面试准备——05 数据库/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1175,30 +1102,37 @@
       
         
           
-            <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><h2 id="常见的排序算法"><a href="#常见的排序算法" class="headerlink" title="常见的排序算法"></a>常见的排序算法</h2><ul>
-<li>插入排序<ul>
-<li>直接插入排序</li>
-<li>希尔排序</li>
-</ul>
-</li>
-<li>选择排序<ul>
-<li>选择排序</li>
-<li>堆排</li>
-</ul>
-</li>
-<li>交换排序<ul>
-<li>冒泡排序</li>
-<li>快速排序</li>
-</ul>
-</li>
-<li>归并排序<ul>
-<li>归并排序</li>
-</ul>
-</li>
-</ul>
-<h2 id="常见排序算法的时间空间复杂度"><a href="#常见排序算法的时间空间复杂度" class="headerlink" title="常见排序算法的时间空间复杂度"></a>常见排序算法的时间空间复杂度</h2><p><img src="https://i.loli.net/2019/09/07/DaOmsyVdwULv1nC.jpg" alt></p>
+          排序常见的排序算法
+插入排序
+直接插入排序
+希尔排序
+
+
+选择排序
+选择排序
+堆排
+
+
+交换排序
+冒泡排序
+快速排序
+
+
+归并排序
+归并排序
+
+
+
+常见排序算法的时间空间复杂度
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/07/面试准备——04  算法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1316,15 +1250,21 @@
       
         
           
-            <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="数组和链表的区别"><a href="#数组和链表的区别" class="headerlink" title="数组和链表的区别"></a>数组和链表的区别</h2><ul>
-<li>数组在内存上是连续的，链表不一定连续</li>
-<li>数组可以随机访问，链表不行</li>
-<li>数组大小固定，不能动态扩展</li>
-<li>数组可能会浪费内存,但是链表不会。</li>
-</ul>
-<h2 id="数组和指针的区别"><a href="#数组和指针的区别" class="headerlink" title="数组和指针的区别"></a>数组和指针的区别</h2><p>9月份在西电参加宣讲，快手面试官还是前apple的员工。提了这样一个基础的问题。不过全场没有一个人能给他满意的答案。他让我们自己google。</p>
+          链表数组和链表的区别
+数组在内存上是连续的，链表不一定连续
+数组可以随机访问，链表不行
+数组大小固定，不能动态扩展
+数组可能会浪费内存,但是链表不会。
 
-          
+数组和指针的区别9月份在西电参加宣讲，快手面试官还是前apple的员工。提了这样一个基础的问题。不过全场没有一个人能给他满意的答案。他让我们自己g
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/31/面试准备——03 数据结构/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1442,47 +1382,18 @@
       
         
           
-            <h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><h2 id="指针和引用的区别"><a href="#指针和引用的区别" class="headerlink" title="指针和引用的区别"></a>指针和引用的区别</h2><p>引用本质上就是对象的另外一个名字。<code>int a =10,int &amp;b = a; b = 15</code>相当于<code>a = 15</code></p>
-<p>以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。</p>
-<ol>
-<li>指针本身就是一个对象，允许对指针的赋值和拷贝。还可以先后指向不同的对象。</li>
-<li>指针无需在定义的时候赋值。引用的时候必须要初始化。</li>
-<li>引用不可以改变指向。</li>
-<li>引用的大小是所指向变量的大小，指针的大小是指针本身的大小</li>
-<li>引用比指针更加的安全。因为不存在空引用。</li>
-</ol>
-<h2 id="常量指针和指针常量"><a href="#常量指针和指针常量" class="headerlink" title="常量指针和指针常量"></a>常量指针和指针常量</h2><p>可以这么记；常量的指针，指针是常量；</p>
-<p>常量指针指向内容不变，指针常量指向不变。</p>
-<p>左定值右定向：const在*左边就是定值</p>
-<p>其实最好的方法就是看代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> * p; <span class="keyword">int</span> <span class="keyword">const</span> * p;</span><br><span class="line"><span class="comment">// 上边两个，第一个修饰的是 int* p 第二个修饰的是 *p</span></span><br><span class="line"><span class="comment">// 两个都是内容，所以就是常量指针</span></span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p</span><br><span class="line"><span class="comment">// 上边的const，修饰的是p。p是指针。所以这就是个指针常量</span></span><br></pre></td></tr></table></figure>
-<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="new和malloc的区别"><a href="#new和malloc的区别" class="headerlink" title="new和malloc的区别"></a>new和malloc的区别</h2><ol>
-<li>开辟在内存的不同位置。new从自由存储区上开辟，malloc在堆上开辟。</li>
-<li>new和delete会调用构造函数和析构函数对对象进行初始化和销毁</li>
-<li>operator new/delete可以进行重载。</li>
-<li>返回类型的安全性</li>
-</ol>
-<h1 id="General"><a href="#General" class="headerlink" title="General"></a>General</h1><h2 id="构造函数和析构函数可以是虚函数吗"><a href="#构造函数和析构函数可以是虚函数吗" class="headerlink" title="构造函数和析构函数可以是虚函数吗"></a>构造函数和析构函数可以是虚函数吗</h2><p>结论：构造函数不可以是虚函数，但是析构函数可以是</p>
-<h2 id="C-11新特性"><a href="#C-11新特性" class="headerlink" title="C++11新特性"></a>C++11新特性</h2><ul>
-<li>基于范围的for循环</li>
-<li>自动类型推断auto</li>
-<li>匿名函数Lambda表达式</li>
-<li>后置返回类型</li>
-<li>显示重写</li>
-<li>空指针的常量nullptr</li>
-<li>long long int类型</li>
-<li>模板的别名</li>
-<li>允许sizeof运算符可以在类型成员上使用，无需明确对象</li>
-<li>线程支持</li>
-<li>元组类型</li>
-<li>新增了正则表达式库</li>
-</ul>
-<p>本文参考：</p>
-<ul>
-<li>《<a href="https://blog.csdn.net/FX677588/article/details/70157088" target="_blank" rel="noopener">十大必掌握C++11新特性</a>》</li>
-</ul>
+          指针指针和引用的区别引用本质上就是对象的另外一个名字。int a =10,int &amp;b = a; b = 15相当于a = 15
+以下差别都可以被归结为：指针指向一块内存，它的内容是所指内存的地址；但是引用则是某块内存的别名，不能改变指向。
 
-          
+指针本身就是一个对象，允许对指针的赋值和拷贝。还
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/31/面试准备——02 C++/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1600,60 +1511,16 @@
       
         
           
-            <p>目的是为了归纳梳理一下知识。</p>
-<h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用的过程中体现出一些不同</p>
-<ul>
-<li>最直观的区别是GET把参数包含在URL中，POST通过request body传递参数。</li>
-<li>GET产生一个数据包，POST产生两个数据包（对于GET方式的请求，浏览器会把http header和data一并发出去。服务器响应200，firefox不同，firefox只发送一个）</li>
-<li>对于POST，浏览器会先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok</li>
-<li>GET的参数在URL中，POST的参数在Request body中。</li>
-<li>Get只接受ASCII字符，但是POST没有限制。</li>
-<li>GET比POST更加的不安全，因为GET的参数会直接暴露在URL上。</li>
-</ul>
-<blockquote>
-<p>虽说GET和POST在本质上没有区别，但是浏览器通常都会限制URL长度在2k个字节，大多数服务器最多处理64K大小的URL，超过的部分不会被处理。所以我们要是在URL中藏了“货”，如果数据较多那么就很有可能无法发送，或者被服务器正确接收或处理。</p>
-<p>之所以用两次包来传输POST请求，是因为两次包的TCP在验证数据包完整性上是很有优势的。</p>
-</blockquote>
-<h2 id="三次握手过程中可以携带数据吗"><a href="#三次握手过程中可以携带数据吗" class="headerlink" title="三次握手过程中可以携带数据吗"></a>三次握手过程中可以携带数据吗</h2><p>结论：前两次握手的时候不可以携带，第三次握手允许携带数据。</p>
-<p>RFC193文档中提到了” Data or controls which were queued for transmission may be included”</p>
-<p>详细的解释可以参见这篇文章：《<a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">TCP 连接建立的三次握手过程可以携带数据吗？</a>》写的非常详细，真的很赞！</p>
-<p>具体的意思就是，当TCP_SYN_TECV状态收到合法的二次握手包之后，socket的状态就会立即设置为TCP_ESTABLISHED状态。然后接下来就会处理其中包含的数据。</p>
-<p>在大多数情况下，三次握手的过程中是不带数据的。</p>
-<p>什么时候带？也可以看上边的文章。嘿嘿，我看不懂。或者说是太笨了。</p>
-<h2 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h2><p>概述：TCP和UDP都属于传输层的协议，其中TCP能提供IP环境下的可靠传输，流量控制和差错恢复的功能。UDP则不为IP提供可靠性和流控、差错控制的功能。一般来说，TCP对应的是可靠性要求高的应用，UDP对应的则是可靠性要求低，传输流量大，传输速度快的的应用。</p>
-<p>区别：</p>
-<ul>
-<li>面向连接&amp;无连接。TCP有三次握手的连接过程，UDP是和消息的多播发送。</li>
-<li>可靠性。TCP利用握手，ACK和重传机制，提供了可靠性保证。而UDP可能丢失。</li>
-<li>有序性。TCP利用序列号保证了消息包的顺序交付，到达可能无序，但是TCP会排序。</li>
-<li>速度。TCP速度比较慢，因为需要创建连接来保证消息的可靠性和有序性，UDP更加适合做对速度比较敏感的应用，比如多人在线游戏，电视广播，还有在线视频媒体等</li>
-<li>重量级。TCP为重量级，UDP是轻量级。体现在元数据的头大小，TCP是20字节，UDP是8字节。</li>
-</ul>
-<p>上层协议：</p>
-<ul>
-<li>使用TCP协议的上层协议：Telnet、FTP、SMTP、HTTP、HTTPS</li>
-<li>使用UDP的上层协议：DNS</li>
-</ul>
-<p>使用场景：</p>
-<ul>
-<li>UDP：需要用到NAT穿透的时候</li>
-</ul>
-<h2 id="OSI中常见的协议"><a href="#OSI中常见的协议" class="headerlink" title="OSI中常见的协议"></a>OSI中常见的协议</h2><ol>
-<li>物理层：RJ45,CLOCK,IEEE802.3</li>
-<li>数据链路层：PPP,FR,HDLC,VLAN,MAC</li>
-<li>网络层：IP,ICMP,ARP,RARP,OSPF,IPX,RIP,IGRP</li>
-<li>传输层：TCP,UDP,SPX</li>
-<li>会话层：NFS,SQL,NETBIOS,RPC</li>
-<li>表示层：JPEG,MPEG,ASCII</li>
-<li>应用层：DNS,Telnet,SMTP,HTTP,www,NFS</li>
-</ol>
-<h2 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h2><p>数据包在网络传输过程中的最长生命周期，一般以跳为单位。TTL减为0还没有到达的话就会被丢弃。</p>
-<p>本文参考：</p>
-<ul>
-<li><a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">《TCP 连接建立的三次握手过可以携带数据吗？》</a></li>
-</ul>
-
-          
+          目的是为了归纳梳理一下知识。
+GET和POST的区别GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/28/面试准备——01网络/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

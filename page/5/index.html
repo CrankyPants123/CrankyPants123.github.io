@@ -313,49 +313,16 @@
       
         
           
-            <h2 id="继承中构造和析构的顺序"><a href="#继承中构造和析构的顺序" class="headerlink" title="继承中构造和析构的顺序"></a>继承中构造和析构的顺序</h2><p>看程序</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Base()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Base 构造"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Base()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Base 析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Inherit()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Inherit 构造"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Inherit()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Inherit 析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果是：</p>
-<p><img src="https://i.loli.net/2019/07/21/5d34235c7a75a24000.png" alt></p>
-<p>所以可以得出构造和析构的顺序为：</p>
-<ol>
-<li>基类构造</li>
-<li>子类构造</li>
-<li>子类析构</li>
-<li>父类析构</li>
-</ol>
-<h2 id="继承中同名成员处理方式"><a href="#继承中同名成员处理方式" class="headerlink" title="继承中同名成员处理方式"></a>继承中同名成员处理方式</h2><p>当子类与父类出现同名成员，如何通过子类对象来访问父类中的同名数据呢？</p>
-<ul>
-<li><p>子类中的直接访问</p>
-</li>
-<li><p>父类中的同名成员需要加作用域</p>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;i.a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;i.Base::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-<p>很简单的程序，输出是2，1。作用域的格式记住不能写错喽！</p>
-<p>类中的方法同理。</p>
-<p>提一点就是会发生重载的时候，想在基类中重载也是需要加作用域的。要不然就会提示参数过多发生错误。官方一点的说法是：</p>
-<p>如果派生类中出现和基类同名的成员函数，派生类的同名成员会隐藏掉基类中所有的同名成员。在加上基类作用域的时候才会暴露出来。</p>
-<h2 id="同名静态成员的处理方式"><a href="#同名静态成员的处理方式" class="headerlink" title="同名静态成员的处理方式"></a>同名静态成员的处理方式</h2><p>小小的复习一下</p>
-<p>静态成员（static成员）变量的特点：</p>
-<ul>
-<li>所有对象都共享同一份数据</li>
-<li>编译阶段就分配内存</li>
-<li>类内声明，类外初始化</li>
-</ul>
-<p>静态成员函数的特点：</p>
-<ul>
-<li>只能访问静态的成员函数，非静态的不能访问</li>
-<li>所有对象都共享同一份函数实例</li>
-<li>类加载的时候就分配内存</li>
-<li>不传递this指针，所以通常被用来操作类的静态数据</li>
-</ul>
-<p>代码和上边案例中相同。就是加个static。</p>
-<p>所以。。。。。。处理方式也是相同的。</p>
-<h2 id="通过类名来访问静态成员"><a href="#通过类名来访问静态成员" class="headerlink" title="通过类名来访问静态成员"></a>通过类名来访问静态成员</h2><p>静态成员可以通过类名来访问，而不需要实例化出一个对象。看下面的例子；</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> Test::a=<span class="number">1</span>;	<span class="comment">//需要注意，静态成员需要在类外做初始化</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;Test::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;Inherit::Base::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">//这段程序蛮有意思，Inherit是Base的子类。这句的意思是通过Inherit类来访问他的父类中Base的静态成员变量。</span></span><br></pre></td></tr></table></figure>
-
-          
+          继承中构造和析构的顺序看程序
+123456789101112131415161718192021222324252627282930class Base&#123;public:	Base()	&#123;		cout&lt;&lt;"Base 构造"&lt;&lt;endl;	&#125;	~Ba
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/21/C++——继承中的一些问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -473,22 +440,16 @@
       
         
           
-            <h1 id="查看被编译器隐藏的父类私有成员属性"><a href="#查看被编译器隐藏的父类私有成员属性" class="headerlink" title="查看被编译器隐藏的父类私有成员属性"></a>查看被编译器隐藏的父类私有成员属性</h1><h2 id="子类会继承父类的所有非静态成员。"><a href="#子类会继承父类的所有非静态成员。" class="headerlink" title="子类会继承父类的所有非静态成员。"></a>子类会继承父类的所有非静态成员。</h2><p>先简单看段代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> m_a=<span class="string">"this is a pubic member"</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> m_b=<span class="string">"this is a protected member"</span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">string</span> m_c=<span class="string">"this is a private member"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;m_a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Inherit i;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(i)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>直接说答案，这个程序的输出结果是72。</p>
-<p>Why 72？明明父类中的m_c是私有的，就算是public继承也不能在Inherit中访问的呀？</p>
-<p>这是我刚刚开始时候的疑惑。</p>
-<p>So 结论：一个string的大小是24。三个24刚好是72。也就是说父类中所有的非静态成员都被子类继承了。但是！我们在子类中是访问不到的——编译器隐藏了私有成员的属性。所以我们访问不了，但是不代表子类没有继承。</p>
-<h2 id="查看被编译器隐藏的父类private成员"><a href="#查看被编译器隐藏的父类private成员" class="headerlink" title="查看被编译器隐藏的父类private成员"></a>查看被编译器隐藏的父类private成员</h2><p>以下是查看的方法（win环境）：</p>
-<p>我没有win本&amp;我的mac跑不动虚拟机,所以就直接用了老师的截图。</p>
-<ul>
-<li>打开vs自带的开发人员命令提示工具</li>
-<li>跳转到项目目录</li>
-<li><code>cl /dl reportsingleClassLayoutInherit file</code>(也就是报告单个类的布局的意思,Inherit是要查看的类名。)<br>  <img src="https://i.loli.net/2019/07/21/5d340bbbd249c48575.jpeg" alt></li>
-</ul>
-<p>可以看到上图，Son类继承自Base类。继承了m_A,m_B,m_C。自带的成员是m_D。m_C是Base类中的私有属性。所以可以证实子类确实会证实父类中的私有属性也会被子类继承。</p>
-
-          
+          查看被编译器隐藏的父类私有成员属性子类会继承父类的所有非静态成员。先简单看段代码
+1234567891011121314151617181920212223class Base&#123;public:	string m_a="this is a pubic member";protected:	s
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -606,14 +567,17 @@
       
         
           
-            <h1 id="HSTS"><a href="#HSTS" class="headerlink" title="HSTS"></a>HSTS</h1><h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><p>HSTS：HTTP Strict Transport Security (HTPP严格传输安全)是一种互联网安全策略机制，目的是让浏览器强制使用HTTPS与网站进行通信。用来减少会话劫持的风险。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>抵御SSL剥离攻击。防止攻击者阻止用户进入HTTPS页面，窃取信息。</p>
-<h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><p>当用户首次访问某网站是不受HSTS保护的。因为这个时候浏览器还没有收到HSTS，所以仍旧有可能通过HTTP明文来访问。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>这种不足目前有两种解决办法。</p>
-<p>一是现代浏览器内置的预加载HSTS，也就是在浏览器内置一个HSTS的列表。当用户发起HTTP请求时，如果域名在预加载HSTS列表内，那么浏览器就会自动重定向到HTTPS。目前chrome，firefox，Safari这些主流浏览器都支持了。</p>
-<p>二是将HSTS信息加入到域名系统记录中，但是这也需要保证DNS的安全性。由于建设复杂度高，目前这个方案还没有大规模部署。</p>
-
-          
+          HSTS解释HSTS：HTTP Strict Transport Security (HTPP严格传输安全)是一种互联网安全策略机制，目的是让浏览器强制使用HTTPS与网站进行通信。用来减少会话劫持的风险。
+作用抵御SSL剥离攻击。防止攻击者阻止用户进入HTTPS页面，窃取信息。
+不足当用户首次访问
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/17/网络——HSTS简单探究/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -731,37 +695,20 @@
       
         
           
-            <blockquote>
-<p>引自Wikipedia:</p>
-<p>DNS(Domain Name System)。是互联网的一项服务。他作为将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网。</p>
-</blockquote>
-<h1 id="DNS处理顺序"><a href="#DNS处理顺序" class="headerlink" title="DNS处理顺序"></a>DNS处理顺序</h1><p>以chrome为例，整理一下DNS的完整处理顺序。</p>
-<h2 id="1-Chrome搜索自身的DNS缓存"><a href="#1-Chrome搜索自身的DNS缓存" class="headerlink" title="1. Chrome搜索自身的DNS缓存"></a>1. Chrome搜索自身的DNS缓存</h2><p>在浏览器的地址栏，我们输入了<code>www.baidu.com</code>，按下回车键，浏览器对于我们URL的解析就开始了。假如在我们最近曾经访问过<code>www.baidu.com</code>，那么浏览器就会有关于<code>www.baidu.com</code>的DNS缓存。如果查找到了这项，那么解析过程就结束了。直接使用IP进行访问。没有找到的话就调用系统库函数进行查询。</p>
-<p>但是这个缓存是有诸多限制的。比如：大小限制，缓存的时间限制。通常情况下，这些情况由<a href="https://baike.baidu.com/item/TTL/130248" target="_blank" rel="noopener">TTL</a>来决定。Chrome对每个域名都会默认缓存60S</p>
-<blockquote>
-<p>在有的情况下，可能会存在一个域名解析出了多个IP的情况。在这种情况下，Chrome会优先向第一个IP发起HTTP请求。如果不通，再向后面的IP发起HTTP请求</p>
-</blockquote>
-<h2 id="2-搜索操作系统自身的DNS缓存"><a href="#2-搜索操作系统自身的DNS缓存" class="headerlink" title="2.搜索操作系统自身的DNS缓存"></a>2.搜索操作系统自身的DNS缓存</h2><p>如果在用户的浏览器中没有找到这个域名对应的缓存，那么浏览器就会在操作系统中查找是否有这个域名对应的解析结果。操作系统DNS缓存的位置在内存中。一关机就没了。</p>
-<h2 id="3-读取本地的HOSTS文件"><a href="#3-读取本地的HOSTS文件" class="headerlink" title="3.读取本地的HOSTS文件"></a>3.读取本地的HOSTS文件</h2><blockquote>
-<p>hosts——主机名静态查询表</p>
-</blockquote>
-<p>hosts在windows、OS X、Linux中都是没有后缀名的。hosts文件在windows中的位置在<code>C:\Windows\System32\drivers\etc\hosts</code>下，OS X在<code>/etc/hosts/</code>，Linux也在<code>/etc/hosts</code>下。(不同发行版本的Linux中，可能会有所不同)。hosts本质上来说就是一张表，上边记录了一个域名和一个或者多个IP对应的关系。</p>
-<blockquote>
-<p> 我们可以通过手动修改hosts文件的方式来修改某个域名的解析地址。在GFW建成早期，在大陆访问google的时候，主要就是通过修改hosts文件。</p>
-<p>不过hosts文件修改后不会立即生效。具体的原因可以参见博文：</p>
-<p><a href="https://www.cnblogs.com/hustskyking/p/hosts-modify.html" target="_blank" rel="noopener">修改HOSTS为何不生效，是DNS缓存？</a></p>
-</blockquote>
-<p>在OS X环境下，hosts文件如下：</p>
-<p><img src="https://i.loli.net/2019/07/14/5d2adce4be5c565538.png" alt></p>
-<h2 id="4-在LDNS服务器中查找"><a href="#4-在LDNS服务器中查找" class="headerlink" title="4. 在LDNS服务器中查找"></a>4. 在LDNS服务器中查找</h2><p>在浏览器的DNS、操作系统自身的DNS缓存还有本地的HOSTS文件中都没有找到的情况下。操作系统就会把这个域名发送给LDNS（L是Local的意思），也就是我们所设置的DNS服务器。如果在LDNS上成功查询到了这个域名对应的IP，那么这次的解析也就到此结束，返回IP值给所请求的用户并标记为非权威服务器的应答。假如我们使用的是学校的校园网，那么我们的DNS服务器肯定在校内，家里的则一般是ISP（移动、联通等等）提供的DNS解析服务。</p>
-<p>Linux环境下可以使用指令<code>cat /etc/resolv.conf</code>来查看DNS服务器的地址，Window使用<code>ipconfig</code>查看，在OS X上可以使用<code>nslookup www.baidu.com</code>指令来查看自己的DNS服务器地址。</p>
-<p><img src="https://i.loli.net/2019/07/14/5d2af637e1b0921322.png" alt></p>
-<blockquote>
-<p>通常意义上的DNS劫持一般就发生在这个环节，攻击者利用其他攻击手段，篡改了某个域名的解析结果，是的指向改域名的IP变成了另外一个IP。实现非法牟利或者达到其他非法目的 。</p>
-</blockquote>
-<h2 id="5-使用根域名服务器解析"><a href="#5-使用根域名服务器解析" class="headerlink" title="5. 使用根域名服务器解析"></a>5. 使用根域名服务器解析</h2><p>LDNS若是还没有命中，那么LDNS就会向Root Server域名服务器请求解析。精力有限在此不详细对根域名服务器的解析过程做更加深入的研究。根域名进行解析之后会将结果返回给LDNS，LDNS接受返回的IP值和TTL并返回给用户。用户根据TTL将解析结构存在本地的系统缓存中。域名解析结束。</p>
-
           
+引自Wikipedia:
+DNS(Domain Name System)。是互联网的一项服务。他作为将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网。
+
+DNS处理顺序以chrome为例，整理一下DNS的完整处理顺序。
+1. Chrome搜索自身的DNS缓存在浏览器的地址栏，我们
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/14/网络——DNS处理顺序/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -879,35 +826,16 @@
       
         
           
-            <h1 id="MarkDown指南"><a href="#MarkDown指南" class="headerlink" title="MarkDown指南"></a>MarkDown指南</h1><p>一直用Typeora写markdown。快捷键用多了反倒是觉得不方便了。有的时候要为缩进、引用等问题调整好一会。不如不用快捷键。还有有的时候快捷键实在是复杂记不下来。为了解决这些问题，打算学点基础的markdown的语法。最终的目的还是为了效率。</p>
-<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">#### 五级标题</span><br></pre></td></tr></table></figure>
-<p>标题就不做效果展示了影响排版。</p>
-<h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线~~"></a>删除线~~</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~~text~~</span><br></pre></td></tr></table></figure>
-<p>​                <del>text</del></p>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 有序列表</span><br><span class="line">2. 有序列表2</span><br><span class="line">- 无序列表</span><br><span class="line">- 无序列表2</span><br><span class="line">- [ ] 任务列表1</span><br><span class="line">- [ ] 任务列表2</span><br></pre></td></tr></table></figure>
-<ol>
-<li>有序列表</li>
-<li>有序列表2</li>
-</ol>
-<ul>
-<li>无序列表</li>
-<li>无序列表2</li>
-<li style="list-style: none"><input type="checkbox"> 任务列表1</li>
-<li style="list-style: none"><input type="checkbox"> 任务列表2</li>
-</ul>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; 一级引用</span><br><span class="line">&gt; </span><br><span class="line">&gt; &gt; 二级引用</span><br><span class="line">&gt;</span><br><span class="line">&gt;    哎我又回到了一级引用</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>一级引用</p>
-<blockquote>
-<p>二级引用</p>
-</blockquote>
-<p>   哎我又回到了一级引用</p>
-</blockquote>
-<p>引用区块内也可以使用markdown的语法</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是在`句中代码`的效果演示</span><br></pre></td></tr></table></figure>
-<p>这是在<code>句中代码</code>的效果演示</p>
-
-          
+          MarkDown指南一直用Typeora写markdown。快捷键用多了反倒是觉得不方便了。有的时候要为缩进、引用等问题调整好一会。不如不用快捷键。还有有的时候快捷键实在是复杂记不下来。为了解决这些问题，打算学点基础的markdown的语法。最终的目的还是为了效率。
+标题12345# 一级标题## 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/11/日常充电——MarkDown指南/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1025,30 +953,16 @@
       
         
           
-            <h1 id="在Hexo使用草稿功能"><a href="#在Hexo使用草稿功能" class="headerlink" title="在Hexo使用草稿功能"></a>在Hexo使用草稿功能</h1><p>在开始使用Hexo的时候，就知道这个草稿功能。当时觉得没什么用就没使过。</p>
-<p>不过，在使用了一段时间之后发现这个东西还是挺重要的。因为有的时候是两篇文章一起开始写的。一篇完成了，post上去了。然后另外一篇还没有完成。这就导致会在自己的网站上看到还没有完成的文章。对我来说，这是不可忍受的！</p>
-<p><img src="https://i.loli.net/2019/07/10/5d2593d06536f74025.png" alt></p>
-<p>这玩意儿相当于一个.gitignore。</p>
-<h2 id="建立一个草稿"><a href="#建立一个草稿" class="headerlink" title="建立一个草稿"></a>建立一个草稿</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new draft 文章名</span><br></pre></td></tr></table></figure>
-<p>在hexo的目录中输入上述指令就会在<code>source/_draft</code>下生成一个草稿文章。你在这里可以继续编辑。不会被generate和deploy</p>
-<h2 id="本地预览草稿"><a href="#本地预览草稿" class="headerlink" title="本地预览草稿"></a>本地预览草稿</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo S --draft</span><br></pre></td></tr></table></figure>
-<p>一个对我来说没什么卵用的功能。这个指令的功能是在本地server预览界面。</p>
-<p>不过我都是用typeora来写的。故diss。</p>
-<blockquote>
-<p>有点意思的是，在这里可以使用<code>hexo-browsersync plugins</code>来一边写文章，一边在浏览器上实时预览。不过我没用过。</p>
-</blockquote>
-<h2 id="发布草稿"><a href="#发布草稿" class="headerlink" title="发布草稿"></a>发布草稿</h2><p>写完了就该发布了。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo P 文章名</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>文章后边不加.md</p>
-</blockquote>
-<p>之后直接generate&amp;deploy</p>
-<blockquote>
-<p>我觉得这里其实还是有一点小小的不方便。</p>
-<p>就是没有文章名的自动补全。每次我还要手动输入的完整的文章名。不过还好能忍。</p>
-</blockquote>
-
-          
+          在Hexo使用草稿功能在开始使用Hexo的时候，就知道这个草稿功能。当时觉得没什么用就没使过。
+不过，在使用了一段时间之后发现这个东西还是挺重要的。因为有的时候是两篇文章一起开始写的。一篇完成了，post上去了。然后另外一篇还没有完成。这就导致会在自己的网站上看到还没有完成的文章。对我来说，这是不可
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/10/Hexo——在Hexo使用草稿/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1166,19 +1080,19 @@
       
         
           
-            <h1 id="基于环形队列的生产消费模型"><a href="#基于环形队列的生产消费模型" class="headerlink" title="基于环形队列的生产消费模型"></a>基于环形队列的生产消费模型</h1><ul>
-<li>环形队列采用数组模拟，用模运算来模拟环状特性</li>
-<li>环形结构起始状态和结束状态都是一样的，不好判断为空或者为满，所以就需要通过计数器或者标记位来判断满或空。另外也可以预留一个空的位置，作为满的状态<br><img src="https://i.loli.net/2019/07/10/5d25909b54c5993724.png" alt></li>
-<li>消费者总是跟在生产者的后边，且不会超过生产者</li>
-<li>生产者一直在消费者的前边，且不会超过消费者一圈</li>
-<li>head和tail指向同一个位置的时候，队列为空</li>
-<li>当head在tail的下一个位置时，环形队列为满<br>  <img src="https://i.loli.net/2019/07/10/5d25906f4969f13819.png" alt></li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*#####  ringqueue.cc   ####*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"test.hpp"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> num=<span class="number">16</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">consume_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">int</span> d;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		q-&gt;PopData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"consume done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">product_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">long</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> d=rand()%<span class="number">100</span>+<span class="number">1</span>;</span><br><span class="line">		q-&gt;PushData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Product done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=<span class="keyword">new</span> RingQueue(num);</span><br><span class="line">	<span class="keyword">pthread_t</span> c,p;</span><br><span class="line">	pthread_create(&amp;c,<span class="literal">NULL</span>,consume_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line">	pthread_create(&amp;p,<span class="literal">NULL</span>,product_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	pthread_join(&amp;c,<span class="literal">NULL</span>);</span><br><span class="line">	pthread_join(&amp;p,<span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">delete</span>(q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******   test.hpp   *******/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __TEST_HPP__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __TEST_HPP__</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RingQueue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ring;</span><br><span class="line">	<span class="keyword">int</span> cap;</span><br><span class="line">	<span class="keyword">sem_t</span> blank_sem;</span><br><span class="line">	<span class="keyword">sem_t</span> data_sem;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">int</span> c_step;										<span class="comment">//consume在圈中的位置</span></span><br><span class="line">	<span class="keyword">int</span> p_step;		  								<span class="comment">//product在圈中的位置</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_wait(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">V</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_post(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	RingQueue(<span class="keyword">int</span> cap_):cap(cap_),ring(cap_)</span><br><span class="line">	&#123;</span><br><span class="line">		c_step=p_step=<span class="number">0</span>;							<span class="comment">//初始时c_step和p_step在同一格</span></span><br><span class="line">		sem_init(&amp;blank_sem,<span class="number">0</span>,cap);				<span class="comment">//初始时需要写入的输入是整个圈的容量</span></span><br><span class="line">		sem_init(&amp;data_sem,<span class="number">0</span>,<span class="number">0</span>);					<span class="comment">//初始时需要consume的值为0</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PushData</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; data)</span>					<span class="comment">//进行数据生产</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(blank_sem);</span><br><span class="line">		ring[p_step]=data;							<span class="comment">//把数据放进去</span></span><br><span class="line">		V(data_sem);</span><br><span class="line">		p_step++;</span><br><span class="line">		p_step%=cap;								<span class="comment">//进行模运算来模拟环形特性</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PopData</span><span class="params">(<span class="keyword">int</span> &amp;data  )</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(data_sem);								<span class="comment">//申请数据资源</span></span><br><span class="line">		data=ring[c_step];							<span class="comment">//拿到数据</span></span><br><span class="line">		V(blank_sem);								<span class="comment">//空出格子</span></span><br><span class="line">		c_step++;</span><br><span class="line">		c_step%=cap;</span><br><span class="line">	&#125;</span><br><span class="line">	~RingQueue()</span><br><span class="line">	&#123;</span><br><span class="line">		sem_destroy(&amp;blank_sem);</span><br><span class="line">		sem_destroy(&amp;data_sem);</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">******   makefile   ******</span><br><span class="line"> </span><br><span class="line">ringqueue:ringqueue.cc</span><br><span class="line">	g++ -o  $@ $^ -lpthread -fpermissive</span><br><span class="line">.PHONY:clean</span><br><span class="line">clean:</span><br><span class="line">	rm -f ringqueue</span><br></pre></td></tr></table></figure>
-
-          
+          基于环形队列的生产消费模型
+环形队列采用数组模拟，用模运算来模拟环状特性
+环形结构起始状态和结束状态都是一样的，不好判断为空或者为满，所以就需要通过计数器或者标记位来判断满或空。另外也可以预留一个空的位置，作为满的状态
+消费者总是跟在生产者的后边，且不会超过生产者
+生产者一直在消费者的前边，且不会超
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/09/C++—基于环形队列的生产者消费者模型/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1296,19 +1210,19 @@
       
         
           
-            <h1 id="基于环形队列的生产消费模型"><a href="#基于环形队列的生产消费模型" class="headerlink" title="基于环形队列的生产消费模型"></a>基于环形队列的生产消费模型</h1><ul>
-<li>环形队列采用数组模拟，用模运算来模拟环状特性</li>
-<li>环形结构起始状态和结束状态都是一样的，不好判断为空或者为满，所以就需要通过计数器或者标记位来判断满或空。另外也可以预留一个空的位置，作为满的状态<br><img src="https://i.loli.net/2019/07/10/5d25909b54c5993724.png" alt></li>
-<li>消费者总是跟在生产者的后边，且不会超过生产者</li>
-<li>生产者一直在消费者的前边，且不会超过消费者一圈</li>
-<li>head和tail指向同一个位置的时候，队列为空</li>
-<li>当head在tail的下一个位置时，环形队列为满<br>  <img src="https://i.loli.net/2019/07/10/5d25906f4969f13819.png" alt></li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*#####  ringqueue.cc   ####*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"test.hpp"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> num=<span class="number">16</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">consume_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">int</span> d;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		q-&gt;PopData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"consume done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">product_routine</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=(RingQueue*)arg;</span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">long</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="keyword">for</span>(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> d=rand()%<span class="number">100</span>+<span class="number">1</span>;</span><br><span class="line">		q-&gt;PushData(d);</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Product done,data is..."</span>&lt;&lt;d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	RingQueue *q=<span class="keyword">new</span> RingQueue(num);</span><br><span class="line">	<span class="keyword">pthread_t</span> c,p;</span><br><span class="line">	pthread_create(&amp;c,<span class="literal">NULL</span>,consume_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line">	pthread_create(&amp;p,<span class="literal">NULL</span>,product_routine,(<span class="keyword">void</span>*)q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	pthread_join(&amp;c,<span class="literal">NULL</span>);</span><br><span class="line">	pthread_join(&amp;p,<span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">delete</span>(q);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******   test.hpp   *******/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __TEST_HPP__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __TEST_HPP__</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RingQueue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ring;</span><br><span class="line">	<span class="keyword">int</span> cap;</span><br><span class="line">	<span class="keyword">sem_t</span> blank_sem;</span><br><span class="line">	<span class="keyword">sem_t</span> data_sem;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">int</span> c_step;										<span class="comment">//consume在圈中的位置</span></span><br><span class="line">	<span class="keyword">int</span> p_step;		  								<span class="comment">//product在圈中的位置</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_wait(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">V</span><span class="params">(<span class="keyword">sem_t</span> &amp;sem)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sem_post(&amp;sem);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	RingQueue(<span class="keyword">int</span> cap_):cap(cap_),ring(cap_)</span><br><span class="line">	&#123;</span><br><span class="line">		c_step=p_step=<span class="number">0</span>;							<span class="comment">//初始时c_step和p_step在同一格</span></span><br><span class="line">		sem_init(&amp;blank_sem,<span class="number">0</span>,cap);				<span class="comment">//初始时需要写入的输入是整个圈的容量</span></span><br><span class="line">		sem_init(&amp;data_sem,<span class="number">0</span>,<span class="number">0</span>);					<span class="comment">//初始时需要consume的值为0</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PushData</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; data)</span>					<span class="comment">//进行数据生产</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(blank_sem);</span><br><span class="line">		ring[p_step]=data;							<span class="comment">//把数据放进去</span></span><br><span class="line">		V(data_sem);</span><br><span class="line">		p_step++;</span><br><span class="line">		p_step%=cap;								<span class="comment">//进行模运算来模拟环形特性</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PopData</span><span class="params">(<span class="keyword">int</span> &amp;data  )</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		P(data_sem);								<span class="comment">//申请数据资源</span></span><br><span class="line">		data=ring[c_step];							<span class="comment">//拿到数据</span></span><br><span class="line">		V(blank_sem);								<span class="comment">//空出格子</span></span><br><span class="line">		c_step++;</span><br><span class="line">		c_step%=cap;</span><br><span class="line">	&#125;</span><br><span class="line">	~RingQueue()</span><br><span class="line">	&#123;</span><br><span class="line">		sem_destroy(&amp;blank_sem);</span><br><span class="line">		sem_destroy(&amp;data_sem);</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">******   makefile   ******</span><br><span class="line"> </span><br><span class="line">ringqueue:ringqueue.cc</span><br><span class="line">	g++ -o  $@ $^ -lpthread -fpermissive</span><br><span class="line">.PHONY:clean</span><br><span class="line">clean:</span><br><span class="line">	rm -f ringqueue</span><br></pre></td></tr></table></figure>
-
-          
+          基于环形队列的生产消费模型
+环形队列采用数组模拟，用模运算来模拟环状特性
+环形结构起始状态和结束状态都是一样的，不好判断为空或者为满，所以就需要通过计数器或者标记位来判断满或空。另外也可以预留一个空的位置，作为满的状态
+消费者总是跟在生产者的后边，且不会超过生产者
+生产者一直在消费者的前边，且不会超
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/09/Hexo——参数与选项/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1426,19 +1340,26 @@
       
         
           
-            <h1 id="坐标系统"><a href="#坐标系统" class="headerlink" title="坐标系统"></a>坐标系统</h1><ul>
-<li>左上角是原点</li>
-<li>子窗口的原点相对的是父窗口客户区（空白区）的左上角</li>
-<li>boss窗口的原点是屏幕的左上角。(boss窗口这个词是我自己发明的)</li>
-<li>没了</li>
-<li>b站的黑马老师就讲了这么点</li>
-<li>没有详细讲说明不重要</li>
-<li>其实是懒得再去详细了解。</li>
-<li>我好困</li>
-<li>发上来凑个数反正没人看</li>
-</ul>
+          坐标系统
+左上角是原点
+子窗口的原点相对的是父窗口客户区（空白区）的左上角
+boss窗口的原点是屏幕的左上角。(boss窗口这个词是我自己发明的)
+没了
+b站的黑马老师就讲了这么点
+没有详细讲说明不重要
+其实是懒得再去详细了解。
+我好困
+发上来凑个数反正没人看
+
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/07/Qt——05坐标系统/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1556,29 +1477,15 @@
       
         
           
-            <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>10点来学习，现在已经10:40还没状态。昨晚睡的略晚，因为被昨晚的high hanging fruits听的心潮澎湃，激动的好久不能睡着。讲的是一个纽约的程序员跑马完成了7+2的故事。我后来微博翻出了他的微博，叫那可。7+2就是七大洲加两极。在撒哈拉跑过超级马拉松，也在南极洲北极洲跑过。北极圈有陆地，但是准确的说北极是没有陆地的。所以我就很好奇。他们是怎么跑的。</p>
-<p><img src="https://i.loli.net/2019/07/07/5d21636ce0e9727789.jpg" alt></p>
-<p>是在冰上跑的！先开个飞机过去地点在北纬89°左右，空投一波人和拖拉机，铲出一个冰上飞机跑道和马拉松赛道。然后后续的比赛人员再坐飞机降落。听着简单实则操作难度相当大。那里都是大浮冰，今儿你在东经35°，睡一觉起来可能就到东经50°了。还有不确定的洋流等等。铲出的冰上跑道隔三差五就要裂。运气好能来，但是不一定有好运气回去。都多多少少有点怂，只有俄罗斯人粗枝大叶的去裂开的口子舀一缸子的水，说着”Oh！Taste this.Good for your health!”后来主持问跑马的那位大哥七大洲跑马的经历，对他个人的性格有什么改变？还有对他的生活有没有明显的好处？大哥很直白的说了一句：”没有”。听笑了我。</p>
-<p>套用一下<a href="https://zh.wikipedia.org/wiki/%E9%9C%80%E6%B1%82%E5%B1%82%E6%AC%A1%E7%90%86%E8%AE%BA" target="_blank" rel="noopener">马斯洛的需求模型</a>，在尊重需求，社交需求等等都满足的情况下。人是应该去追求自我实现的。</p>
-<p><img src="https://i.loli.net/2019/07/07/5d2163b9549e812740.jpg" alt></p>
-<p>真的羡慕！跑遍七大洲。想想都好玩。在马丘比丘跑，在撒哈拉跑，在乔治王岛跑。肯定是很好玩的经历。</p>
-<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><blockquote>
-<p>Because we can!</p>
-</blockquote>
-<p>Big Bang里4个人用笔记本发出一个信号，信号绕地球一圈后点亮了桌上的一盏台灯。Penny 问他们为什么要这样做，他们是这样回答的。</p>
-<p>在我看来这是一句实力催化之下自然而然的自信表达，有意思！</p>
-<h1 id="3"><a href="#3" class="headerlink" title="3"></a>3</h1><p>我思想保守。高晓松说人，年轻的偏左，老的偏右。这一观点的前半部分在我身边被真切证实。让大家愤慨的很多社会事件在我看来几乎都有其发生的原因。主观的不公平说不定就是客观的公平。这些问题导致我很矛盾。思考不出答案。大众是愚蠢的。我讨厌大众。大众的论点容易使人迷惑，从而看不清事物的本质。他们喜欢固执的将事件打上对与错的标签！我觉得以对错来区别本身就是错的。不过我也不能自圆自说。看来，我也是愚蠢的大众。</p>
-<p>我已经开始刻意的不去看一些东西，不去和别人争论某些话题，因为没有意义。或许能让我有参与感，但是这份参与感对于我来说也很可悲，投入产出完全不成比例。要是继续下去那真的是沉没成本谬误了。</p>
-<p>最近慢慢的有了一种奇怪的想法。就是开始慢慢的去羡慕一些自己曾经定义为loser的人。我要是一个目光短浅的人该多好。做着枯燥的工作，整天抱怨，但是下班之后一杯饮料打着游戏就很满足，不去思考奋斗和磨砺。对外边的世界也毫无兴趣。</p>
-<p>其实我很想去追求感官上的刺激。比如爬爬珠峰。提前一年开始适应性的训练和体能的训练正常人是完全可以的。当时故意把这想法假装不经意的在我爸面前提了一下，我爸瞬间脸色就有点不正常了。</p>
-<p>现在是21世纪了，无氧登顶的人都这么多了。科学的力量让人类无比的强大。选择适当的窗口期，爬爬不是很难。又不是什么爬Meru，或者徒手攀登酋长岩。听起来还8844米海拔呢！但是珠峰大本营海拔就5200m了。算下来，也就是爬1.5个华山而已啦。提前适应下缺氧环境，还有夏尔巴人这种无氧生物和你一起。只要不遇上雪崩，就算是你去一心求死估计都是有点难度的。</p>
-<h1 id="4"><a href="#4" class="headerlink" title="4"></a>4</h1><p>发现了一个很有意思的独立音乐人Cosmo Sheldrake</p>
-<p>我知道的名字里有Sheld的好像都是英国人。就像名字带Berg的都是犹太人。</p>
-<h1 id="5"><a href="#5" class="headerlink" title="5"></a>5</h1><p>2019-08-01</p>
-<p>加上时间戳吧。可以用来持续的记录。就当日记本了。</p>
-<p>刚刚想到了一件事，本来要写的。但是被加时间戳扰乱了思绪。忘了是什么事了，也忘了刚才的事是令我欣喜还是悲伤。脑子不好，时常是这样。</p>
-
-          
+          110点来学习，现在已经10:40还没状态。昨晚睡的略晚，因为被昨晚的high hanging fruits听的心潮澎湃，激动的好久不能睡着。讲的是一个纽约的程序员跑马完成了7+2的故事。我后来微博翻出了他的微博，叫那可。7+2就是七大洲加两极。在撒哈拉跑过超级马拉松，也在南极洲北极洲跑过。北极圈有
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/07/胡言乱语——记录下即将被抛出脑子的闲杂思绪/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
