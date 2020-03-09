@@ -21,17 +21,17 @@
   </script>
 
   <meta name="description" content="信号今儿面试的时候被面试官的kill给噎住了，感觉很难受。于是想写下kill，然后就写到了信号。于是有了这篇blog。 基本概念例举一个典型的场景：  用户输入命令，在shell启动了一个前台进程。 用户按下了Ctrl + C组合键。此时在这个键盘输入产生了一个硬件中断。 如果CPU正在执行当前这个进程的代码，则该进程的用户空间代码暂停执行。CPU从用户态切换到内核态道处理硬件中断。 终端的驱动程">
-<meta name="keywords" content="Linux">
+<meta name="keywords" content="操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux——信号">
+<meta property="og:title" content="信号">
 <meta property="og:url" content="47.168.200.88/2019/09/11/Linux——信号/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="信号今儿面试的时候被面试官的kill给噎住了，感觉很难受。于是想写下kill，然后就写到了信号。于是有了这篇blog。 基本概念例举一个典型的场景：  用户输入命令，在shell启动了一个前台进程。 用户按下了Ctrl + C组合键。此时在这个键盘输入产生了一个硬件中断。 如果CPU正在执行当前这个进程的代码，则该进程的用户空间代码暂停执行。CPU从用户态切换到内核态道处理硬件中断。 终端的驱动程">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/09/19/NWdSU7KqTpEJ3wP.png">
-<meta property="og:updated_time" content="2019-09-19T15:52:56.000Z">
+<meta property="og:updated_time" content="2020-03-09T06:52:00.082Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux——信号">
+<meta name="twitter:title" content="信号">
 <meta name="twitter:description" content="信号今儿面试的时候被面试官的kill给噎住了，感觉很难受。于是想写下kill，然后就写到了信号。于是有了这篇blog。 基本概念例举一个典型的场景：  用户输入命令，在shell启动了一个前台进程。 用户按下了Ctrl + C组合键。此时在这个键盘输入产生了一个硬件中断。 如果CPU正在执行当前这个进程的代码，则该进程的用户空间代码暂停执行。CPU从用户态切换到内核态道处理硬件中断。 终端的驱动程">
 <meta name="twitter:image" content="https://i.loli.net/2019/09/19/NWdSU7KqTpEJ3wP.png">
 
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Linux——信号 | Andrew's Blog</title>
+  <title>信号 | Andrew's Blog</title>
   
 
 
@@ -165,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux——信号
+          信号
         </h1>
 
         <div class="post-meta">
@@ -182,7 +182,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-19 23:52:56" itemprop="dateModified" datetime="2019-09-19T23:52:56+08:00">2019-09-19</time>
+                <time title="Modified: 2020-03-09 14:52:00" itemprop="dateModified" datetime="2020-03-09T14:52:00+08:00">2020-03-09</time>
               </span>
 
           
@@ -257,7 +257,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
           </div>
 
         
@@ -266,11 +266,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/09/11/Linux——kill命令详解/" rel="prev" title="Linux——kill命令详解">
-      <i class="fa fa-chevron-left"></i> Linux——kill命令详解
+    <a href="/2019/09/11/Linux——kill命令详解/" rel="prev" title="kill命令详解">
+      <i class="fa fa-chevron-left"></i> kill命令详解
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/09/13/今日充电——开发、测开、测试之间的区别与联系/" rel="next" title="开发、测开、测试之间的区别与联系">
+    <a href="/2019/09/13/开发、测开、测试之间的区别与联系/" rel="next" title="开发、测开、测试之间的区别与联系">
       开发、测开、测试之间的区别与联系 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -346,7 +346,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -357,7 +357,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

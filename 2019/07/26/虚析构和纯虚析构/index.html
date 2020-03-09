@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"47.168.200.88","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="虚析构和纯虚析构症状：抽象类的析构函数要是不是虚函数，那么其派生类要是在堆区开辟的空间就会出现无法释放的情况（原因是因为在析构的时候只会调用基类的析构函数，而不会调用派生类的析构函数）。导致内存泄露。        应用场景：在多态的使用中，如果子类有属性开辟到堆区。那么父类指针在释放时无法调用到子类的析构代码。这个时候，我们就应该使用虚析构和纯虚析构了。 解决办法：将父类中的析构函数改为虚析构或">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚析构和纯虚析构">
+<meta property="og:url" content="47.168.200.88/2019/07/26/虚析构和纯虚析构/index.html">
+<meta property="og:site_name" content="Andrew&#39;s Blog">
+<meta property="og:description" content="虚析构和纯虚析构症状：抽象类的析构函数要是不是虚函数，那么其派生类要是在堆区开辟的空间就会出现无法释放的情况（原因是因为在析构的时候只会调用基类的析构函数，而不会调用派生类的析构函数）。导致内存泄露。        应用场景：在多态的使用中，如果子类有属性开辟到堆区。那么父类指针在释放时无法调用到子类的析构代码。这个时候，我们就应该使用虚析构和纯虚析构了。 解决办法：将父类中的析构函数改为虚析构或">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-09T06:45:15.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚析构和纯虚析构">
+<meta name="twitter:description" content="虚析构和纯虚析构症状：抽象类的析构函数要是不是虚函数，那么其派生类要是在堆区开辟的空间就会出现无法释放的情况（原因是因为在析构的时候只会调用基类的析构函数，而不会调用派生类的析构函数）。导致内存泄露。        应用场景：在多态的使用中，如果子类有属性开辟到堆区。那么父类指针在释放时无法调用到子类的析构代码。这个时候，我们就应该使用虚析构和纯虚析构了。 解决办法：将父类中的析构函数改为虚析构或">
+
+<link rel="canonical" href="47.168.200.88/2019/07/26/虚析构和纯虚析构/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>虚析构和纯虚析构 | Andrew's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Andrew's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">This Blog is served to post some articles.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/26/虚析构和纯虚析构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          虚析构和纯虚析构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-26 17:22:38" itemprop="dateCreated datePublished" datetime="2019-07-26T17:22:38+08:00">2019-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:45:15" itemprop="dateModified" datetime="2020-03-09T14:45:15+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="虚析构和纯虚析构"><a href="#虚析构和纯虚析构" class="headerlink" title="虚析构和纯虚析构"></a>虚析构和纯虚析构</h1><p>症状：抽象类的析构函数要是不是虚函数，那么其派生类要是在堆区开辟的空间就会出现无法释放的情况（原因是因为在析构的时候只会调用基类的析构函数，而不会调用派生类的析构函数）。导致内存泄露。<br>        应用场景：在多态的使用中，如果子类有属性开辟到堆区。那么父类指针在释放时无法调用到子类的析构代码。这个时候，我们就应该使用虚析构和纯虚析构了。</p>
+<p>解决办法：将父类中的析构函数改为虚析构或者纯虚析构</p>
+<p>虚析构和纯虚析构的共性：</p>
+<ul>
+<li>都可以用做父类释放子类的对象</li>
+<li>都需要有具体的函数来实现</li>
+</ul>
+<p>虚析构和纯虚析构的区别：</p>
+<ul>
+<li>如果是纯虚函数的话，那么这个类就属于抽象类。是无法实例化出对象的。（但是要是基类中要是已经有了其他的纯虚函数的时候，那么用纯虚虚构，或者虚析构的作用就是一样的了）</li>
+</ul>
+<p>看一下错误写法的示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Animal()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Main class is building..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Animal()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Deconstructing main class"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span>:</span><span class="keyword">public</span> Animal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Cat(<span class="built_in">string</span> name)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Sub class is building ..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		m_Name = <span class="keyword">new</span> <span class="built_in">string</span>(name);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;*m_Name&lt;&lt;<span class="string">" cat is barking."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">string</span> *m_Name;</span><br><span class="line">	~Cat()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(m_Name!=<span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> m_Name;</span><br><span class="line">			m_Name=<span class="literal">NULL</span>;</span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">"堆区变量已经清除"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Animal *cat=<span class="keyword">new</span> Cat(<span class="string">"Tom"</span>);</span><br><span class="line">	cat-&gt;speak();</span><br><span class="line">	<span class="keyword">delete</span> cat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Animal</code>是抽象基类<code>Cat</code>是派生类。<code>Cat</code>类中在栈上开辟了空间用来储存<code>m_Name</code>，那么我们在析构的时候就需要释放掉这一部分的空间。然而，要是按照上述的写法，程序在运行的时候会提示非法析构（Mac+gcc环境下），在Win环境下会显示析构了<code>Animal</code>但是<code>Cat</code>的析构没有调用。说明上述的写法时候问题的。问题是派生类的析构函数没有调用，导致内存泄露。</p>
+<p>改进的方法是将基类的析构函数改为虚析构函数。那么在编译的时候，就能做到地址的晚绑定，从而成功的调用派生类的析构函数，析构派生类释放堆上空间。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Animal()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Main class is building..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">virtual</span> ~Animal()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Deconstructing main class"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span>:</span><span class="keyword">public</span> Animal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Cat(<span class="built_in">string</span> name)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Sub class is building ..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		m_Name = <span class="keyword">new</span> <span class="built_in">string</span>(name);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;*m_Name&lt;&lt;<span class="string">" cat is barking."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">string</span> *m_Name;</span><br><span class="line">	~Cat()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(m_Name!=<span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> m_Name;</span><br><span class="line">			m_Name=<span class="literal">NULL</span>;</span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">"堆区变量已经清除"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Animal *cat=<span class="keyword">new</span> Cat(<span class="string">"Tom"</span>);</span><br><span class="line">	cat-&gt;speak();</span><br><span class="line">	<span class="keyword">delete</span> cat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，程序在结束时酒可以成功的析构了。析构的顺序为：</p>
+<ul>
+<li>基类构造</li>
+<li>派生类构造</li>
+<li>派生类析构</li>
+<li>基类析构</li>
+</ul>
+<h1 id="纯虚析构"><a href="#纯虚析构" class="headerlink" title="纯虚析构"></a>纯虚析构</h1><p>有了虚析构，按道理来说就应该有个纯虚析构了。作用和纯虚函数一样，用来要求子类强制重写。那我们按照纯虚函数那样写写试试吧</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Animal()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Main class is building..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">virtual</span> ~Animal()=<span class="number">0</span>;</span><br><span class="line">	<span class="comment">// &#123;</span></span><br><span class="line">	<span class="comment">// 	cout&lt;&lt;"Deconstructing main class"&lt;&lt;endl;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>不过程序却在这个时候报错了。(图床又挂了没法截图了。。。)</p>
+<p>gcc提示在链接的时候出现了错误。</p>
+<p>原因其实不难理解，假设父类中，我们也有在堆区开辟的空间，那么要是纯虚析构没有具体的实现，那么我们依旧是会出现内存泄露的。所以，不同于纯虚函数，纯虚析构在声明为纯虚析构之后，依然需要具体的实现。要不然就会链接错误！！！！</p>
+<p>将程序进行相应的修改：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Animal()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Main class is building..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">virtual</span> ~Animal()=<span class="number">0</span>;</span><br><span class="line">	<span class="comment">// &#123;</span></span><br><span class="line">	<span class="comment">// 	cout&lt;&lt;"Deconstructing main class"&lt;&lt;endl;</span></span><br><span class="line">	<span class="comment">// &#125;</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line">Animal::~Animal()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"纯虚析构调用"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意！<code>~Animal()</code>在类中实现的话会提示重复声明。所以我们需要在像上述写法一样，在类外重写。</p>
+<p>还有一点就是，我们在有了纯虚析构之后，这个类也是属于抽象类，无法被实例化。</p>
+<p>总结：</p>
+<ul>
+<li>虚析构或者纯虚析构就是用来解决通过父类指针释放子类对象</li>
+<li>如果子类中没有堆区数据，那么就可以不写为虚析构或者纯虚析构</li>
+<li>拥有纯虚析构函数的类也属于抽象类</li>
+</ul>
+<p>参考Blog：</p>
+<ul>
+<li>《<a href="https://www.cnblogs.com/chio/archive/2007/09/10/888260.html" target="_blank" rel="noopener">虚析构函数(√)、纯虚析构函数(√)、虚构造函数(X)</a>》</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/24/C++—纯虚函数和抽象类/" rel="prev" title="纯虚函数和抽象类">
+      <i class="fa fa-chevron-left"></i> 纯虚函数和抽象类
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/27/C++—多态案例2/" rel="next" title="多态案例2">
+      多态案例2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚析构和纯虚析构"><span class="nav-number">1.</span> <span class="nav-text">虚析构和纯虚析构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#纯虚析构"><span class="nav-number">2.</span> <span class="nav-text">纯虚析构</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Andrew Pit</p>
+  <div class="site-description" itemprop="description">个人博客，写点自己想写的就酱！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">陕ICP备20001882号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew Pit</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

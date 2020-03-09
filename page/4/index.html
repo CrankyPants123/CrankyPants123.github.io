@@ -148,7 +148,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/01/STL——迭代器/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/27/zsh配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -162,279 +162,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/01/STL——迭代器/" class="post-title-link" itemprop="url">STL——容器&算法&迭代器</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-01 19:43:08" itemprop="dateCreated datePublished" datetime="2019-08-01T19:43:08+08:00">2019-08-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-02 16:09:34" itemprop="dateModified" datetime="2019-08-02T16:09:34+08:00">2019-08-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="初识"><a href="#初识" class="headerlink" title="初识"></a>初识</h1><p>最常用的容器肯定是vector了。直接上实例，尝试向容器中插入数据并遍历这个容器。</p>
-<p>容器：<code>vector</code>(就当是数组就行)</p>
-<p>算法：<code>for_each</code>（遍历）</p>
-<p>迭代器：<code>vector&lt;int&gt;::iterator</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;	//标准算法头文件</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;val&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//创建了一个vector的数组</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="comment">// 向容器中插入数据</span></span><br><span class="line">	v.push_back(<span class="number">10</span>);</span><br><span class="line">	v.push_back(<span class="number">20</span>);</span><br><span class="line">	v.push_back(<span class="number">30</span>);</span><br><span class="line">	v.push_back(<span class="number">40</span>);</span><br><span class="line">	<span class="comment">// 通过迭代器来访问容器中的数据</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator itBegain=v.begin();<span class="comment">//起始迭代器，指向容器中的第一个元素</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator itEnd=v.end();<span class="comment">//结束迭代器，指向容器中最后一个元素的下一个位置</span></span><br><span class="line">	<span class="comment">// 第一种遍历方式</span></span><br><span class="line">	<span class="keyword">while</span>(itBegain!=itEnd)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;*itBegain&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		itBegain++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 第二种遍历方式</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it=v.begin();it!=itEnd;it++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;*it&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 第三种遍历方式</span></span><br><span class="line">	for_each(v.begin(),v.end(),Print);</span><br><span class="line">	<span class="comment">// Print得是全局函数，这里用到了回调函数</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>遍历方式有三种，第三种最Fancy，不过algorithm库记得一定要引用。这里用到了回调函数。源码简单看了一下，底层还是用for循环来实现的。还有那个Print函数要注意一下传参的问题。类型要和v的类型匹配。</p>
-<h2 id="vector中存放自定义数据类型"><a href="#vector中存放自定义数据类型" class="headerlink" title="vector中存放自定义数据类型"></a>vector中存放自定义数据类型</h2><p>自定义一个数据类型，then打印</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Person(<span class="built_in">string</span> name,<span class="keyword">int</span> age):m_name(name),m_age(age)&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Name:"</span>&lt;&lt;m_name&lt;&lt;<span class="string">"    Age:"</span>&lt;&lt;m_age&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> m_name;</span><br><span class="line">	<span class="keyword">int</span> m_age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_Val</span><span class="params">(Person p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;p.m_age&lt;&lt;p.m_name&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Person <span class="title">p1</span><span class="params">(<span class="string">"aaa"</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line">	<span class="function">Person <span class="title">p2</span><span class="params">(<span class="string">"bbb"</span>,<span class="number">2</span>)</span></span>;</span><br><span class="line">	<span class="function">Person <span class="title">p3</span><span class="params">(<span class="string">"ccc"</span>,<span class="number">3</span>)</span></span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;Person&gt; v;</span><br><span class="line">	v.push_back(p1);</span><br><span class="line">	v.push_back(p2);</span><br><span class="line">	v.push_back(p3);</span><br><span class="line">	<span class="comment">// 第一种遍历方式</span></span><br><span class="line">	for_each(v.begin(),v.end(),Print_Val);</span><br><span class="line">	<span class="comment">// 第二种遍历方式</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;Person&gt;::iterator it=v.begin();it!=v.end();it++)</span><br><span class="line">	&#123;</span><br><span class="line">		(*it).Print();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 第三种遍历方式</span></span><br><span class="line">	<span class="comment">// </span></span><br><span class="line">	<span class="built_in">vector</span>&lt;Person&gt;::iterator it=v.begin();</span><br><span class="line">	<span class="keyword">while</span>(it!=v.end())</span><br><span class="line">	&#123;</span><br><span class="line">		it-&gt;Print();</span><br><span class="line">		it++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 我真无聊</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="vector容器嵌套容器"><a href="#vector容器嵌套容器" class="headerlink" title="vector容器嵌套容器"></a>vector容器嵌套容器</h2><p>vector要是看做数组，那嵌套着容器的容器就是二维数组了</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"Val is "</span>&lt;&lt;val&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_Vector</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; m_v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	for_each(m_v.begin(),m_v.end(),Print);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 创建一个二维的容器</span></span><br><span class="line">	<span class="built_in">vector</span>&lt; <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 创建四个小容器</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v2;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v3;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v4;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 向小的容器中插入数据</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		v1.push_back(i);</span><br><span class="line">		v2.push_back(i*<span class="number">10</span>);</span><br><span class="line">		v3.push_back(i*<span class="number">100</span>);</span><br><span class="line">		v4.push_back(i*<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 把小容器插入到大的容器中</span></span><br><span class="line">	v.push_back(v1);</span><br><span class="line">	v.push_back(v2);</span><br><span class="line">	v.push_back(v3);</span><br><span class="line">	v.push_back(v4);</span><br><span class="line">	<span class="comment">// 第一种遍历方式</span></span><br><span class="line">	<span class="comment">// for_each(v.begin(),v.end(),Print_Vector);</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 第二种遍历方式</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;::iterator it=v.begin();it!=v.end();it++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it2=(*it).begin();it2!=(*it).end();it2++)</span><br><span class="line">		&#123;	</span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;*it2&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不难，挺好理解的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/01/STL——写写概念/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/01/STL——写写概念/" class="post-title-link" itemprop="url">STL——写写概念</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-08-01 14:50:11 / Modified: 19:42:35" itemprop="dateCreated datePublished" datetime="2019-08-01T14:50:11+08:00">2019-08-01</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
-<li>提升代码的复用性</li>
-<li>减少重复造轮子</li>
-</ul>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
-<li>Standard Template Library：标准模板库</li>
-<li>STL从广义上分为：容器，算法，迭代器</li>
-<li>容器和算法之间通过迭代器来进行无缝的连接</li>
-<li>STL几乎所有代码用的的是模板类或者模板函数</li>
-</ul>
-<h2 id="六大组件"><a href="#六大组件" class="headerlink" title="六大组件"></a>六大组件</h2><p>容器、算法、迭代器、仿函数、适配器、空间配置器</p>
-<ol>
-<li>容器：各种数据结构，比如：vector、list、deque、set、map。用来存数据</li>
-<li>算法：各种常用的算法，比如：sort、find、copy、for_each等</li>
-<li>迭代器：容器和算法之间的胶合剂</li>
-<li>仿函数：行为类似函数，可以看做是算法的某种策略</li>
-<li>适配器：用来修饰容器或者仿函数或迭代器接口的东西</li>
-<li>空间配置器：负责空间的配置和管理</li>
-</ol>
-<h2 id="容器、算法、迭代器"><a href="#容器、算法、迭代器" class="headerlink" title="容器、算法、迭代器"></a>容器、算法、迭代器</h2><p><strong>容器</strong>：就是个存放数据的东西<br>        STL容器就是将运用最广泛的一些数据结构实现出来。</p>
-<p>常用的数据结构：数组，链表，树，栈，队列，集合，映射表等</p>
-<p>这些容器分为序列式容器和关联式容器两种：</p>
-<p>​        序列式容器：强调值的排序，序列式容器中的每个元素都有固定的位置</p>
-<p>​        关联式容器：二叉树结构，各元素之间没有物理上严格的顺序关系    </p>
-<p><strong>算法</strong>：就是解决问题的方法</p>
-<p>用有限的步骤，解决逻辑或者数学上的问题。</p>
-<p>分为质变算法和非质变算法。</p>
-<p>​        质变算法：运算过程中会更改区间内的元素的内容，比如拷贝、替换、删除等等</p>
-<p>​        非质变算法：运算过程中不会更改区间的元素内容，比如查找、计数、遍历等等</p>
-<p><strong>迭代器</strong>：容器和算法之间的粘合剂</p>
-<p>提供一种方法，使之能够依序寻访某个容器所含的各个元素，而又无需暴露该容器的内部表示方式。</p>
-<p>每个容器都有自己专属的迭代器</p>
-<p>使用方法和指针很类似。在初学可以就理解为指针。</p>
-<p>迭代器种类：</p>
-<table>
-<thead>
-<tr>
-<th>种类</th>
-<th>功能</th>
-<th>支持的运算</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>输入迭代器</td>
-<td>对数据的只读访问</td>
-<td>只读，支持++、==、！=</td>
-</tr>
-<tr>
-<td>输出迭代器</td>
-<td>对数据的只写访问</td>
-<td>只写，支持++</td>
-</tr>
-<tr>
-<td>前向迭代器</td>
-<td>读写操作，并能向前推进迭代器</td>
-<td>读写，支持++、==、！=</td>
-</tr>
-<tr>
-<td>双向迭代器</td>
-<td>读写操作，并能向前和向后操作</td>
-<td>读写，支持++，–</td>
-</tr>
-<tr>
-<td>随机访问迭代器</td>
-<td>读写操作，可以以跳跃的方式访问任意数据，功能最强</td>
-<td>读写，支持++，—，[n],-n，&lt;，&lt;=,&gt;,&gt;=</td>
-</tr>
-</tbody>
-</table>
-<p>常用的容器种类为双向迭代器和随机访问迭代器。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/01/今日充电——更改国内源/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/01/今日充电——更改国内源/" class="post-title-link" itemprop="url">更改国内源</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-01 01:31:59" itemprop="dateCreated datePublished" datetime="2019-08-01T01:31:59+08:00">2019-08-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-09 14:37:26" itemprop="dateModified" datetime="2020-03-09T14:37:26+08:00">2020-03-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>近两日频繁使用包工具下载东西，梯子全局挂国外节点速度虽然可以，不过仍旧不喜人。遂更换国内中国科技大学源。瞬间满速！</p>
-<p>记录一下防止之后还能用的到。</p>
-<h2 id="brew"><a href="#brew" class="headerlink" title="brew"></a>brew</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd "$(brew --repo)"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line">cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line">cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line">brew update</span><br><span class="line">echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' &gt;&gt; ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' &gt;&gt; ~/.zshrc</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/27/今日充电——zsh配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/27/今日充电——zsh配置/" class="post-title-link" itemprop="url">zsh配置</a>
+            <a href="/2019/07/27/zsh配置/" class="post-title-link" itemprop="url">zsh配置</a>
         </h1>
 
         <div class="post-meta">
@@ -451,7 +179,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-09 14:37:59" itemprop="dateModified" datetime="2020-03-09T14:37:59+08:00">2020-03-09</time>
+                <time title="Modified: 2020-03-09 14:53:19" itemprop="dateModified" datetime="2020-03-09T14:53:19+08:00">2020-03-09</time>
               </span>
 
           
@@ -496,7 +224,7 @@
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br><span class="line">brew install zsh-autosuggestions</span><br><span class="line">source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>autojump：常用目录快速跳转</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew install autojump</span><br><span class="line">vim ~/.zshrc</span><br><span class="line"><span class="meta">#</span>把以上插件添加到plugins中</span><br><span class="line">plugins=(</span><br><span class="line">  git incr zsh-autosuggestions autojump</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew install autojump</span><br><span class="line">vim ~/.zshrc</span><br><span class="line"><span class="meta">#</span><span class="bash">把以上插件添加到plugins中</span></span><br><span class="line">plugins=(</span><br><span class="line">  git incr zsh-autosuggestions autojump</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ul>
@@ -541,7 +269,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/27/C++—多态案例2/" class="post-title-link" itemprop="url">C++——多态案例2</a>
+            <a href="/2019/07/27/C++—多态案例2/" class="post-title-link" itemprop="url">多态案例2</a>
         </h1>
 
         <div class="post-meta">
@@ -558,7 +286,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-01 14:41:45" itemprop="dateModified" datetime="2019-08-01T14:41:45+08:00">2019-08-01</time>
+                <time title="Modified: 2020-03-09 14:48:23" itemprop="dateModified" datetime="2020-03-09T14:48:23+08:00">2020-03-09</time>
               </span>
 
           
@@ -600,7 +328,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/26/C++—虚析构和纯虚析构/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/26/虚析构和纯虚析构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -614,7 +342,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/26/C++—虚析构和纯虚析构/" class="post-title-link" itemprop="url">C++——虚析构和纯虚析构</a>
+            <a href="/2019/07/26/虚析构和纯虚析构/" class="post-title-link" itemprop="url">虚析构和纯虚析构</a>
         </h1>
 
         <div class="post-meta">
@@ -631,7 +359,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-01 14:41:11" itemprop="dateModified" datetime="2019-08-01T14:41:11+08:00">2019-08-01</time>
+                <time title="Modified: 2020-03-09 14:45:15" itemprop="dateModified" datetime="2020-03-09T14:45:15+08:00">2020-03-09</time>
               </span>
 
           
@@ -720,7 +448,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/24/C++—纯虚函数和抽象类/" class="post-title-link" itemprop="url">C++——纯虚函数和抽象类</a>
+            <a href="/2019/07/24/C++—纯虚函数和抽象类/" class="post-title-link" itemprop="url">纯虚函数和抽象类</a>
         </h1>
 
         <div class="post-meta">
@@ -737,7 +465,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-01 14:42:03" itemprop="dateModified" datetime="2019-08-01T14:42:03+08:00">2019-08-01</time>
+                <time title="Modified: 2020-03-09 14:48:14" itemprop="dateModified" datetime="2020-03-09T14:48:14+08:00">2020-03-09</time>
               </span>
 
           
@@ -803,7 +531,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/24/C++—内存划分/" class="post-title-link" itemprop="url">C++——内存划分</a>
+            <a href="/2019/07/24/C++—内存划分/" class="post-title-link" itemprop="url">内存划分</a>
         </h1>
 
         <div class="post-meta">
@@ -820,7 +548,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-06 20:09:56" itemprop="dateModified" datetime="2019-08-06T20:09:56+08:00">2019-08-06</time>
+                <time title="Modified: 2020-03-09 14:48:32" itemprop="dateModified" datetime="2020-03-09T14:48:32+08:00">2020-03-09</time>
               </span>
 
           
@@ -882,7 +610,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/23/C++—多态案例/" class="post-title-link" itemprop="url">C++——多态案例</a>
+            <a href="/2019/07/23/C++—多态案例/" class="post-title-link" itemprop="url">多态案例</a>
         </h1>
 
         <div class="post-meta">
@@ -899,7 +627,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-01 14:41:52" itemprop="dateModified" datetime="2019-08-01T14:41:52+08:00">2019-08-01</time>
+                <time title="Modified: 2020-03-09 14:48:19" itemprop="dateModified" datetime="2020-03-09T14:48:19+08:00">2020-03-09</time>
               </span>
 
           
@@ -1050,6 +778,274 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——多继承和菱形继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/21/C++——多继承和菱形继承/" class="post-title-link" itemprop="url">多继承和菱形继承</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-21 21:54:32" itemprop="dateCreated datePublished" datetime="2019-07-21T21:54:32+08:00">2019-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:48:05" itemprop="dateModified" datetime="2020-03-09T14:48:05+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h1><p>语法：<code>class 子类 :继承方式 父类1，继承方式 父类2</code></p>
+<blockquote>
+<p>多继承比较容易遇到同名成员，需要加上作用域来区分。</p>
+<p>我看网上说，实际开发中不建议使用多继承。确实，想想就麻烦。</p>
+</blockquote>
+<p>示例程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">100</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base2</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> b=<span class="number">200</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base1,<span class="keyword">public</span> base2</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;a&lt;&lt;b&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	i.test();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="菱形继承"><a href="#菱形继承" class="headerlink" title="菱形继承"></a>菱形继承</h1><p>概念：</p>
+<ul>
+<li>两个派生类继承自同一基类 </li>
+<li>某个类又继承了这俩派生类</li>
+</ul>
+<p>这种继承就被称作菱形继承，或者钻石继承。</p>
+<p>解决办法：加作用域呗。</p>
+<p>不过还有个更加高大上的解决办法——虚继承！</p>
+<p>看代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> m_a=<span class="number">100</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 两个派生类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit1</span>:</span><span class="keyword">virtual</span> <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">// int m_a;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit2</span>:</span><span class="keyword">virtual</span> <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">// int m_a;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span>:</span><span class="keyword">public</span> Inherit1,<span class="keyword">public</span> Inherit2</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Son s;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;s.m_a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在继承方式前边加一个关键字<code>virtual</code>这个继承就变成了虚继承。</p>
+<p>Base被称为：虚基类</p>
+<p>这里有一个概念，叫做<code>vbptr</code>虚基类指针（virtual base point）。它会指向<code>vbtable</code>虚基类表（virtual base table）</p>
+<p>虚基类的原理就是，Inherit1和Inherit2虽然都是Base的派生类，但是都没有真正的去继承基类的数据。而是继承了两个指针，两个指针会通过偏移量来找到唯一的数据。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——继承中的一些问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/21/C++——继承中的一些问题/" class="post-title-link" itemprop="url">继承中的一些问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-21 16:14:16" itemprop="dateCreated datePublished" datetime="2019-07-21T16:14:16+08:00">2019-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:48:10" itemprop="dateModified" datetime="2020-03-09T14:48:10+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="继承中构造和析构的顺序"><a href="#继承中构造和析构的顺序" class="headerlink" title="继承中构造和析构的顺序"></a>继承中构造和析构的顺序</h2><p>看程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Base()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Base 构造"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Base()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Base 析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Inherit()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Inherit 构造"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~Inherit()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Inherit 析构"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果是：</p>
+<p><img src="https://i.loli.net/2019/07/21/5d34235c7a75a24000.png" alt></p>
+<p>所以可以得出构造和析构的顺序为：</p>
+<ol>
+<li>基类构造</li>
+<li>子类构造</li>
+<li>子类析构</li>
+<li>父类析构</li>
+</ol>
+<h2 id="继承中同名成员处理方式"><a href="#继承中同名成员处理方式" class="headerlink" title="继承中同名成员处理方式"></a>继承中同名成员处理方式</h2><p>当子类与父类出现同名成员，如何通过子类对象来访问父类中的同名数据呢？</p>
+<ul>
+<li><p>子类中的直接访问</p>
+</li>
+<li><p>父类中的同名成员需要加作用域</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Inherit i;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;i.a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;i.Base::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>很简单的程序，输出是2，1。作用域的格式记住不能写错喽！</p>
+<p>类中的方法同理。</p>
+<p>提一点就是会发生重载的时候，想在基类中重载也是需要加作用域的。要不然就会提示参数过多发生错误。官方一点的说法是：</p>
+<p>如果派生类中出现和基类同名的成员函数，派生类的同名成员会隐藏掉基类中所有的同名成员。在加上基类作用域的时候才会暴露出来。</p>
+<h2 id="同名静态成员的处理方式"><a href="#同名静态成员的处理方式" class="headerlink" title="同名静态成员的处理方式"></a>同名静态成员的处理方式</h2><p>小小的复习一下</p>
+<p>静态成员（static成员）变量的特点：</p>
+<ul>
+<li>所有对象都共享同一份数据</li>
+<li>编译阶段就分配内存</li>
+<li>类内声明，类外初始化</li>
+</ul>
+<p>静态成员函数的特点：</p>
+<ul>
+<li>只能访问静态的成员函数，非静态的不能访问</li>
+<li>所有对象都共享同一份函数实例</li>
+<li>类加载的时候就分配内存</li>
+<li>不传递this指针，所以通常被用来操作类的静态数据</li>
+</ul>
+<p>代码和上边案例中相同。就是加个static。</p>
+<p>所以。。。。。。处理方式也是相同的。</p>
+<h2 id="通过类名来访问静态成员"><a href="#通过类名来访问静态成员" class="headerlink" title="通过类名来访问静态成员"></a>通过类名来访问静态成员</h2><p>静态成员可以通过类名来访问，而不需要实例化出一个对象。看下面的例子；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> Test::a=<span class="number">1</span>;	<span class="comment">//需要注意，静态成员需要在类外做初始化</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;Test::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;Inherit::Base::a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">//这段程序蛮有意思，Inherit是Base的子类。这句的意思是通过Inherit类来访问他的父类中Base的静态成员变量。</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/21/C++——查看被编译器隐藏的父类私有成员属性/" class="post-title-link" itemprop="url">查看被编译器隐藏的父类私有成员属性</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-21 14:31:42" itemprop="dateCreated datePublished" datetime="2019-07-21T14:31:42+08:00">2019-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:47:59" itemprop="dateModified" datetime="2020-03-09T14:47:59+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="查看被编译器隐藏的父类私有成员属性"><a href="#查看被编译器隐藏的父类私有成员属性" class="headerlink" title="查看被编译器隐藏的父类私有成员属性"></a>查看被编译器隐藏的父类私有成员属性</h1><h2 id="子类会继承父类的所有非静态成员。"><a href="#子类会继承父类的所有非静态成员。" class="headerlink" title="子类会继承父类的所有非静态成员。"></a>子类会继承父类的所有非静态成员。</h2><p>先简单看段代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> m_a=<span class="string">"this is a pubic member"</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> m_b=<span class="string">"this is a protected member"</span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">string</span> m_c=<span class="string">"this is a private member"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inherit</span>:</span><span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;m_a&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Inherit i;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(i)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接说答案，这个程序的输出结果是72。</p>
+<p>Why 72？明明父类中的m_c是私有的，就算是public继承也不能在Inherit中访问的呀？</p>
+<p>这是我刚刚开始时候的疑惑。</p>
+<p>So 结论：一个string的大小是24。三个24刚好是72。也就是说父类中所有的非静态成员都被子类继承了。但是！我们在子类中是访问不到的——编译器隐藏了私有成员的属性。所以我们访问不了，但是不代表子类没有继承。</p>
+<h2 id="查看被编译器隐藏的父类private成员"><a href="#查看被编译器隐藏的父类private成员" class="headerlink" title="查看被编译器隐藏的父类private成员"></a>查看被编译器隐藏的父类private成员</h2><p>以下是查看的方法（win环境）：</p>
+<p>我没有win本&amp;我的mac跑不动虚拟机,所以就直接用了老师的截图。</p>
+<ul>
+<li>打开vs自带的开发人员命令提示工具</li>
+<li>跳转到项目目录</li>
+<li><code>cl /dl reportsingleClassLayoutInherit file</code>(也就是报告单个类的布局的意思,Inherit是要查看的类名。)<br>  <img src="https://i.loli.net/2019/07/21/5d340bbbd249c48575.jpeg" alt></li>
+</ul>
+<p>可以看到上图，Son类继承自Base类。继承了m_A,m_B,m_C。自带的成员是m_D。m_C是Base类中的私有属性。所以可以证实子类确实会证实父类中的私有属性也会被子类继承。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1120,7 +1116,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1131,7 +1127,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

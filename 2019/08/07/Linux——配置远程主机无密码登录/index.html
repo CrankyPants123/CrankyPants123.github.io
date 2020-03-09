@@ -23,14 +23,14 @@
   <meta name="description" content="配置远程主机无密码登录开始之前的知识储备  查看SSH的简介我们可以知道SSH协议的加密是通过RSA非对称加密，因此会有公钥和私钥，登录的原理简单来讲就是：  利用密钥生成器制作一对密钥——公钥+私钥。 将公钥添加到服务器的某个账户上。 在客户端使用私钥即可免密登录。  注意：将公钥复制到其他账户或者主机也可以照常登录。也就是说你可以很简单的使用一个密钥就登录很多主机。  步骤12345#1.本地">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux——配置远程主机无密码登录">
+<meta property="og:title" content="配置远程主机无密码登录">
 <meta property="og:url" content="47.168.200.88/2019/08/07/Linux——配置远程主机无密码登录/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="配置远程主机无密码登录开始之前的知识储备  查看SSH的简介我们可以知道SSH协议的加密是通过RSA非对称加密，因此会有公钥和私钥，登录的原理简单来讲就是：  利用密钥生成器制作一对密钥——公钥+私钥。 将公钥添加到服务器的某个账户上。 在客户端使用私钥即可免密登录。  注意：将公钥复制到其他账户或者主机也可以照常登录。也就是说你可以很简单的使用一个密钥就登录很多主机。  步骤12345#1.本地">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-19T12:16:59.000Z">
+<meta property="og:updated_time" content="2020-03-09T06:51:32.564Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux——配置远程主机无密码登录">
+<meta name="twitter:title" content="配置远程主机无密码登录">
 <meta name="twitter:description" content="配置远程主机无密码登录开始之前的知识储备  查看SSH的简介我们可以知道SSH协议的加密是通过RSA非对称加密，因此会有公钥和私钥，登录的原理简单来讲就是：  利用密钥生成器制作一对密钥——公钥+私钥。 将公钥添加到服务器的某个账户上。 在客户端使用私钥即可免密登录。  注意：将公钥复制到其他账户或者主机也可以照常登录。也就是说你可以很简单的使用一个密钥就登录很多主机。  步骤12345#1.本地">
 
 <link rel="canonical" href="47.168.200.88/2019/08/07/Linux——配置远程主机无密码登录/">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Linux——配置远程主机无密码登录 | Andrew's Blog</title>
+  <title>配置远程主机无密码登录 | Andrew's Blog</title>
   
 
 
@@ -163,7 +163,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux——配置远程主机无密码登录
+          配置远程主机无密码登录
         </h1>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-19 20:16:59" itemprop="dateModified" datetime="2019-09-19T20:16:59+08:00">2019-09-19</time>
+                <time title="Modified: 2020-03-09 14:51:32" itemprop="dateModified" datetime="2020-03-09T14:51:32+08:00">2020-03-09</time>
               </span>
 
           
@@ -209,14 +209,13 @@
 <p>接下来<code>ssh user@host</code>测试即可。一切正常的话就能直接登录了。</p>
 <p>Then，我们可以打开本地shell，配置一个简便的alias语句，就可以很方便的登录啦。</p>
 <h2 id="踩雷了"><a href="#踩雷了" class="headerlink" title="踩雷了"></a>踩雷了</h2><p>push代码的时候，github提交果然需要密码了。。。。。</p>
-<p>刚刚试行<code>ssh-keygen</code>的时候提示我本地已经有一个私钥了。我毫不犹豫就删掉了。后来想想那好像是我的git密钥。。痛苦果然大部分都是由于自己的愚蠢造成的。</p>
+<p>刚刚试行<code>ssh-keygen</code>的时候提示我本地已经有一个私钥了。我毫不犹豫就删掉了。后来想想那好像是我的git密钥。。痛苦都是由于自己的愚蠢造成的。</p>
 <p><code>hexo deploy</code>也失效了，本地部署的时候提示需要输入密码。</p>
 <h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><p>上两步本质上都是因为服务器端的公钥和本地的私钥对不上了。所以，解决办法就是重新配置github和hexo上的公钥。问题就能解决。</p>
 <p><strong>github:</strong><br>        github在setting界面可以设置上传自己的SSH key。打开本地用户目录下的<code>.ssh</code>文件夹，找到id_rsa.pub文件，密钥复制进去就OK了。</p>
 <p><strong>hexo</strong></p>
 <p>我的hexo博客是在我的远程服务器上部署的。通过在服务器上建立了一个git用户来deploye博客上去。公钥也在git用户目录下。先scp把公钥拷贝到git用户目录下，然后<code>cat id_rsa.pub &gt; authorize_keys</code>把公钥重定向进去就行。</p>
 <p>好了，完了。</p>
-<p>## </p>
 
     </div>
 
@@ -235,12 +234,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/08/06/Linux——常用指令/" rel="prev" title="Linux——常用指令">
-      <i class="fa fa-chevron-left"></i> Linux——常用指令
+    <a href="/2019/08/06/Linux——常用指令/" rel="prev" title="Linux常用指令">
+      <i class="fa fa-chevron-left"></i> Linux常用指令
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/08/11/Linux——进程、线程、协程/" rel="next" title="Linux——进程&线程&协程">
-      Linux——进程&线程&协程 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/08/11/Linux——进程、线程、协程/" rel="next" title="进程&线程&协程">
+      进程&线程&协程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -315,7 +314,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -326,7 +325,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

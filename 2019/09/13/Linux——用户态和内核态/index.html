@@ -21,16 +21,16 @@
   </script>
 
   <meta name="description" content="用户态和内核态在信号的那篇blog中曾经写到，当接收到硬件中断的时候，CPU会从用户态切换到内核态来处理硬件中断。那么问题来了——为什么CPU非得要切换到内核态才能来处理硬件中断呢？ 概念首先来说说概念： 内核态：CPU可以访问内存的所有数据，包括了外围设备，CPU也可以将自己从一个程序切换到另一个程序。此时所占用的处理机是不允许被抢占的。 用户态：只能访问受限的内存，而且不允许去访问外围设备，占">
-<meta name="keywords" content="Linux">
+<meta name="keywords" content="操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux——用户态和内核态">
+<meta property="og:title" content="用户态和内核态">
 <meta property="og:url" content="47.168.200.88/2019/09/13/Linux——用户态和内核态/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="用户态和内核态在信号的那篇blog中曾经写到，当接收到硬件中断的时候，CPU会从用户态切换到内核态来处理硬件中断。那么问题来了——为什么CPU非得要切换到内核态才能来处理硬件中断呢？ 概念首先来说说概念： 内核态：CPU可以访问内存的所有数据，包括了外围设备，CPU也可以将自己从一个程序切换到另一个程序。此时所占用的处理机是不允许被抢占的。 用户态：只能访问受限的内存，而且不允许去访问外围设备，占">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-16T08:55:47.000Z">
+<meta property="og:updated_time" content="2020-03-09T06:52:10.906Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux——用户态和内核态">
+<meta name="twitter:title" content="用户态和内核态">
 <meta name="twitter:description" content="用户态和内核态在信号的那篇blog中曾经写到，当接收到硬件中断的时候，CPU会从用户态切换到内核态来处理硬件中断。那么问题来了——为什么CPU非得要切换到内核态才能来处理硬件中断呢？ 概念首先来说说概念： 内核态：CPU可以访问内存的所有数据，包括了外围设备，CPU也可以将自己从一个程序切换到另一个程序。此时所占用的处理机是不允许被抢占的。 用户态：只能访问受限的内存，而且不允许去访问外围设备，占">
 
 <link rel="canonical" href="47.168.200.88/2019/09/13/Linux——用户态和内核态/">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Linux——用户态和内核态 | Andrew's Blog</title>
+  <title>用户态和内核态 | Andrew's Blog</title>
   
 
 
@@ -163,7 +163,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux——用户态和内核态
+          用户态和内核态
         </h1>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-16 16:55:47" itemprop="dateModified" datetime="2019-09-16T16:55:47+08:00">2019-09-16</time>
+                <time title="Modified: 2020-03-09 14:52:10" itemprop="dateModified" datetime="2020-03-09T14:52:10+08:00">2020-03-09</time>
               </span>
 
           
@@ -259,7 +259,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
           </div>
 
         
@@ -268,12 +268,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/09/13/今日充电——开发、测开、测试之间的区别与联系/" rel="prev" title="开发、测开、测试之间的区别与联系">
+    <a href="/2019/09/13/开发、测开、测试之间的区别与联系/" rel="prev" title="开发、测开、测试之间的区别与联系">
       <i class="fa fa-chevron-left"></i> 开发、测开、测试之间的区别与联系
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/09/19/Linux——内存的页面置换算法/" rel="next" title="Linux——内存的页面置换算法">
-      Linux——内存的页面置换算法 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/09/23/Linux——进程控制/" rel="next" title="Linux——进程">
+      Linux——进程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -348,7 +348,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -359,7 +359,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

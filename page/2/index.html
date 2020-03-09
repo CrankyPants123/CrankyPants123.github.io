@@ -148,77 +148,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/Linux——kill命令详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/11/Linux——kill命令详解/" class="post-title-link" itemprop="url">Linux——kill命令详解</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-09-11 19:20:34 / Modified: 20:55:51" itemprop="dateCreated datePublished" datetime="2019-09-11T19:20:34+08:00">2019-09-11</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="kill命令探究"><a href="#kill命令探究" class="headerlink" title="kill命令探究"></a>kill命令探究</h1><h2 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h2><p>kill [参数] [进程号]</p>
-<h2 id="命令功能"><a href="#命令功能" class="headerlink" title="命令功能"></a>命令功能</h2><p>发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用<code>kill -9 pid</code>用来发送SIGKILL信号来强制结束进程。可是使用<code>jobs</code>或者<code>ps</code>命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。</p>
-<p>一般来说，在尝试kill掉一个进程的时候是先尝试<code>kill -15 pid</code>如果一段时间后程序仍然在后台运行没有终止的话，再使用<code>kill -9 pid</code>。这种能够防止丢失掉未保存的工作进度。</p>
-<h2 id="SIGTERM"><a href="#SIGTERM" class="headerlink" title="SIGTERM"></a>SIGTERM</h2><p>此信号是请求一个进程停止运行，是可以被忽略的。进程可以用一段时间来正常关闭，在这段时间内可能会保存一下工作的进度并释放资源。它并不是强制停止的。退出前可以是被阻塞或者回调处理。并且它是Linux缺省的程序中断信号。不过一般来说，当我们去尝试kill掉一个程序的时候，使用SIGTERM不太可能会管用，多半会被阻塞、忽略。</p>
-<h2 id="SIGKILL"><a href="#SIGKILL" class="headerlink" title="SIGKILL"></a>SIGKILL</h2><p>此信号会强制进程立刻停止运行，而且程序不能忽略此信号，后果是未保存的工作进度都将会丢失。</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>可以看到我的电脑上正跑着一个校园网的登录脚本。我尝试向对应的进程发送SIGTERM信号，在等待了一段时间之后。程序并没有自动终止。所以可以不难推断出我的信号被程序忽略掉了。</p>
-<p><img src="https://i.loli.net/2019/09/11/WfumlX4MyseboDA.png" alt></p>
-<p>但是当我发送SIGKILL的信号之后。程序就立即被强制终止了。</p>
-<p><img src="https://i.loli.net/2019/09/11/8jXiFOGeErcRkdx.png" alt></p>
-<h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p>上述的SIGKILL和SIGTERM是最最常用的两个信号，但是也还有一些其他的常用命令在日常实际使用中其实也会用到。比如：</p>
-<p>SIGINT：默认的处理动作是终止进程。</p>
-<p>SIGQUIT：默认的处理处理动作是终止进程并且Core Dump.</p>
-<p>算了不写了。我专门写个信号的博客吧。刚好复习（预习）一下知识。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/大型网站架构演化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -422,7 +351,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/09/Linux——系统负荷/" class="post-title-link" itemprop="url">Linux——Load Average</a>
+            <a href="/2019/09/09/Linux——系统负荷/" class="post-title-link" itemprop="url">Load Average</a>
         </h1>
 
         <div class="post-meta">
@@ -439,7 +368,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-11 11:43:54" itemprop="dateModified" datetime="2019-09-11T11:43:54+08:00">2019-09-11</time>
+                <time title="Modified: 2020-03-09 14:51:48" itemprop="dateModified" datetime="2020-03-09T14:51:48+08:00">2020-03-09</time>
               </span>
 
           
@@ -526,7 +455,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/09/C++—C-11新特性之基于范围的for循环/" class="post-title-link" itemprop="url">C++——C++11新特性之基于范围的for循环</a>
+            <a href="/2019/09/09/C++—C-11新特性之基于范围的for循环/" class="post-title-link" itemprop="url">C++11新特性之基于范围的for循环</a>
         </h1>
 
         <div class="post-meta">
@@ -535,10 +464,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-09-09 20:10:33 / Modified: 20:13:37" itemprop="dateCreated datePublished" datetime="2019-09-09T20:10:33+08:00">2019-09-09</time>
+              <time title="Created: 2019-09-09 20:10:33" itemprop="dateCreated datePublished" datetime="2019-09-09T20:10:33+08:00">2019-09-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:48:36" itemprop="dateModified" datetime="2020-03-09T14:48:36+08:00">2020-03-09</time>
+              </span>
 
           
 
@@ -570,7 +505,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试准备——06 操作系统/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/操作系统/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -584,7 +519,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/07/面试准备——06 操作系统/" class="post-title-link" itemprop="url">操作系统</a>
+            <a href="/2019/09/07/操作系统/" class="post-title-link" itemprop="url">操作系统</a>
         </h1>
 
         <div class="post-meta">
@@ -670,7 +605,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试准备——05 数据库/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/数据库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -684,7 +619,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/07/面试准备——05 数据库/" class="post-title-link" itemprop="url">数据库</a>
+            <a href="/2019/09/07/数据库/" class="post-title-link" itemprop="url">数据库</a>
         </h1>
 
         <div class="post-meta">
@@ -755,7 +690,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/07/面试准备——04  算法/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/31/数据结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -769,93 +704,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/07/面试准备——04  算法/" class="post-title-link" itemprop="url">算法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-09-07 11:54:38" itemprop="dateCreated datePublished" datetime="2019-09-07T11:54:38+08:00">2019-09-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-09 14:38:30" itemprop="dateModified" datetime="2020-03-09T14:38:30+08:00">2020-03-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><h2 id="常见的排序算法"><a href="#常见的排序算法" class="headerlink" title="常见的排序算法"></a>常见的排序算法</h2><ul>
-<li>插入排序<ul>
-<li>直接插入排序</li>
-<li>希尔排序</li>
-</ul>
-</li>
-<li>选择排序<ul>
-<li>选择排序</li>
-<li>堆排</li>
-</ul>
-</li>
-<li>交换排序<ul>
-<li>冒泡排序</li>
-<li>快速排序</li>
-</ul>
-</li>
-<li>归并排序<ul>
-<li>归并排序</li>
-</ul>
-</li>
-</ul>
-<h2 id="常见排序算法的时间空间复杂度"><a href="#常见排序算法的时间空间复杂度" class="headerlink" title="常见排序算法的时间空间复杂度"></a>常见排序算法的时间空间复杂度</h2><p><img src="https://i.loli.net/2019/09/07/DaOmsyVdwULv1nC.jpg" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/31/面试准备——03 数据结构/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/31/面试准备——03 数据结构/" class="post-title-link" itemprop="url">数据结构</a>
+            <a href="/2019/08/31/数据结构/" class="post-title-link" itemprop="url">数据结构</a>
         </h1>
 
         <div class="post-meta">
@@ -912,7 +761,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/31/面试准备——02 C++/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/31/C++/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -926,7 +775,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/31/面试准备——02 C++/" class="post-title-link" itemprop="url">C++</a>
+            <a href="/2019/08/31/C++/" class="post-title-link" itemprop="url">C++</a>
         </h1>
 
         <div class="post-meta">
@@ -996,6 +845,194 @@
 <ul>
 <li>《<a href="https://blog.csdn.net/FX677588/article/details/70157088" target="_blank" rel="noopener">十大必掌握C++11新特性</a>》</li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/28/网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/28/网络/" class="post-title-link" itemprop="url">网络</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-28 21:49:43" itemprop="dateCreated datePublished" datetime="2019-08-28T21:49:43+08:00">2019-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:38:12" itemprop="dateModified" datetime="2020-03-09T14:38:12+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>目的是为了归纳梳理一下知识。</p>
+<h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用的过程中体现出一些不同</p>
+<ul>
+<li>最直观的区别是GET把参数包含在URL中，POST通过request body传递参数。</li>
+<li>GET产生一个数据包，POST产生两个数据包（对于GET方式的请求，浏览器会把http header和data一并发出去。服务器响应200，firefox不同，firefox只发送一个）</li>
+<li>对于POST，浏览器会先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok</li>
+<li>GET的参数在URL中，POST的参数在Request body中。</li>
+<li>Get只接受ASCII字符，但是POST没有限制。</li>
+<li>GET比POST更加的不安全，因为GET的参数会直接暴露在URL上。</li>
+</ul>
+<blockquote>
+<p>虽说GET和POST在本质上没有区别，但是浏览器通常都会限制URL长度在2k个字节，大多数服务器最多处理64K大小的URL，超过的部分不会被处理。所以我们要是在URL中藏了“货”，如果数据较多那么就很有可能无法发送，或者被服务器正确接收或处理。</p>
+<p>之所以用两次包来传输POST请求，是因为两次包的TCP在验证数据包完整性上是很有优势的。</p>
+</blockquote>
+<h2 id="三次握手过程中可以携带数据吗"><a href="#三次握手过程中可以携带数据吗" class="headerlink" title="三次握手过程中可以携带数据吗"></a>三次握手过程中可以携带数据吗</h2><p>结论：前两次握手的时候不可以携带，第三次握手允许携带数据。</p>
+<p>RFC193文档中提到了” Data or controls which were queued for transmission may be included”</p>
+<p>详细的解释可以参见这篇文章：《<a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">TCP 连接建立的三次握手过程可以携带数据吗？</a>》写的非常详细，真的很赞！</p>
+<p>具体的意思就是，当TCP_SYN_TECV状态收到合法的二次握手包之后，socket的状态就会立即设置为TCP_ESTABLISHED状态。然后接下来就会处理其中包含的数据。</p>
+<p>在大多数情况下，三次握手的过程中是不带数据的。</p>
+<p>什么时候带？也可以看上边的文章。嘿嘿，我看不懂。或者说是太笨了。</p>
+<h2 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h2><p>概述：TCP和UDP都属于传输层的协议，其中TCP能提供IP环境下的可靠传输，流量控制和差错恢复的功能。UDP则不为IP提供可靠性和流控、差错控制的功能。一般来说，TCP对应的是可靠性要求高的应用，UDP对应的则是可靠性要求低，传输流量大，传输速度快的的应用。</p>
+<p>区别：</p>
+<ul>
+<li>面向连接&amp;无连接。TCP有三次握手的连接过程，UDP是和消息的多播发送。</li>
+<li>可靠性。TCP利用握手，ACK和重传机制，提供了可靠性保证。而UDP可能丢失。</li>
+<li>有序性。TCP利用序列号保证了消息包的顺序交付，到达可能无序，但是TCP会排序。</li>
+<li>速度。TCP速度比较慢，因为需要创建连接来保证消息的可靠性和有序性，UDP更加适合做对速度比较敏感的应用，比如多人在线游戏，电视广播，还有在线视频媒体等</li>
+<li>重量级。TCP为重量级，UDP是轻量级。体现在元数据的头大小，TCP是20字节，UDP是8字节。</li>
+</ul>
+<p>上层协议：</p>
+<ul>
+<li>使用TCP协议的上层协议：Telnet、FTP、SMTP、HTTP、HTTPS</li>
+<li>使用UDP的上层协议：DNS</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>UDP：需要用到NAT穿透的时候</li>
+</ul>
+<h2 id="OSI中常见的协议"><a href="#OSI中常见的协议" class="headerlink" title="OSI中常见的协议"></a>OSI中常见的协议</h2><ol>
+<li>物理层：RJ45,CLOCK,IEEE802.3</li>
+<li>数据链路层：PPP,FR,HDLC,VLAN,MAC</li>
+<li>网络层：IP,ICMP,ARP,RARP,OSPF,IPX,RIP,IGRP</li>
+<li>传输层：TCP,UDP,SPX</li>
+<li>会话层：NFS,SQL,NETBIOS,RPC</li>
+<li>表示层：JPEG,MPEG,ASCII</li>
+<li>应用层：DNS,Telnet,SMTP,HTTP,www,NFS</li>
+</ol>
+<h2 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h2><p>数据包在网络传输过程中的最长生命周期，一般以跳为单位。TTL减为0还没有到达的话就会被丢弃。</p>
+<p>本文参考：</p>
+<ul>
+<li><a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">《TCP 连接建立的三次握手过可以携带数据吗？》</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/20/C——fprintf-sprintf-printf的区别使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/20/C——fprintf-sprintf-printf的区别使用/" class="post-title-link" itemprop="url">fprintf,sprintf,printf的区别使用</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-20 13:19:30" itemprop="dateCreated datePublished" datetime="2019-08-20T13:19:30+08:00">2019-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:48:46" itemprop="dateModified" datetime="2020-03-09T14:48:46+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="C——fprintf、sprintf、printf的区别使用"><a href="#C——fprintf、sprintf、printf的区别使用" class="headerlink" title="C——fprintf、sprintf、printf的区别使用"></a>C——fprintf、sprintf、printf的区别使用</h1><p>以上函数所需头文件均为<code>stdio.h</code></p>
+<h2 id="fprintf"><a href="#fprintf" class="headerlink" title="fprintf"></a>fprintf</h2><p>用于格式化信息输入到指定的文件流中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fprintf</span><span class="params">(FILE *stream,<span class="keyword">const</span> <span class="keyword">char</span> *format,...)</span></span>;</span><br><span class="line"><span class="comment">//成功返回输出的字节数，失败返回EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//EX</span></span><br><span class="line">FILE* out;</span><br><span class="line">out=fopen(<span class="string">"output.txt"</span>,<span class="string">"w"</span>);</span><br><span class="line"><span class="keyword">if</span>(out!=<span class="literal">NULL</span>)</span><br><span class="line"><span class="built_in">fprintf</span>(out,<span class="string">"Hello%s\n"</span>,name);</span><br><span class="line"><span class="comment">//EX2</span></span><br><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Failed to connect to database: Error: %s\n"</span>,mysql_error(&amp;mysql));</span><br></pre></td></tr></table></figure>
+<h2 id="sprintf"><a href="#sprintf" class="headerlink" title="sprintf"></a>sprintf</h2><p>用于把结果输入到指定的字符串中。只能用stdout</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sprintf</span><span class="params">(<span class="keyword">char</span> *buffer,<span class="keyword">const</span> <span class="keyword">char</span> *format[,argument])</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//EX</span></span><br><span class="line"><span class="keyword">char</span>* a[<span class="number">20</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="built_in">sprintf</span>(a,<span class="string">"123,"</span>test<span class="string">","</span>你好<span class="string">");</span></span><br></pre></td></tr></table></figure>
+<h2 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h2><p>输出结果到屏幕</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int printf ( const char * format, ... );</span><br><span class="line">//正确返回字符总数，错误返回0</span><br></pre></td></tr></table></figure>
+<p>我觉得printf的本质上就是一个<code>fprintf(stdout,...)</code>。就像HR的本质就是一个复读机（狗头。(&amp;)</p>
 
       
     </div>
@@ -1081,7 +1118,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1092,7 +1129,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

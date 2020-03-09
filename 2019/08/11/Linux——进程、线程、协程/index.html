@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"47.168.200.88","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Linux——进程&amp;amp;线程&amp;amp;协程进程线程老生常谈了。主要写写协程。主要是因为面试官问到我了，而我还是一问三不知，听都没听过。本文方向主要是写写三者的基础概念以及区别。 进程进程（process）是一块包含了某些资源的内存区域。操作系统利用进程把它的工作划分为一些功能单元。进程还拥有一个私有的虚拟地址空间。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内">
-<meta name="keywords" content="Linux">
+  <meta name="description" content="进程&amp;amp;线程&amp;amp;协程进程线程老生常谈了。主要写写协程。主要是因为面试官问到我了，而我还是一问三不知，听都没听过。本文方向主要是写写三者的基础概念以及区别。 进程进程（process）是一块包含了某些资源的内存区域。操作系统利用进程把它的工作划分为一些功能单元。进程还拥有一个私有的虚拟地址空间。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内存。文件句柄等">
+<meta name="keywords" content="操作系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux——进程&amp;线程&amp;协程">
+<meta property="og:title" content="进程&amp;线程&amp;协程">
 <meta property="og:url" content="47.168.200.88/2019/08/11/Linux——进程、线程、协程/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
-<meta property="og:description" content="Linux——进程&amp;amp;线程&amp;amp;协程进程线程老生常谈了。主要写写协程。主要是因为面试官问到我了，而我还是一问三不知，听都没听过。本文方向主要是写写三者的基础概念以及区别。 进程进程（process）是一块包含了某些资源的内存区域。操作系统利用进程把它的工作划分为一些功能单元。进程还拥有一个私有的虚拟地址空间。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内">
+<meta property="og:description" content="进程&amp;amp;线程&amp;amp;协程进程线程老生常谈了。主要写写协程。主要是因为面试官问到我了，而我还是一问三不知，听都没听过。本文方向主要是写写三者的基础概念以及区别。 进程进程（process）是一块包含了某些资源的内存区域。操作系统利用进程把它的工作划分为一些功能单元。进程还拥有一个私有的虚拟地址空间。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内存。文件句柄等">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-11T14:43:23.000Z">
+<meta property="og:updated_time" content="2020-03-09T06:50:22.052Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux——进程&amp;线程&amp;协程">
-<meta name="twitter:description" content="Linux——进程&amp;amp;线程&amp;amp;协程进程线程老生常谈了。主要写写协程。主要是因为面试官问到我了，而我还是一问三不知，听都没听过。本文方向主要是写写三者的基础概念以及区别。 进程进程（process）是一块包含了某些资源的内存区域。操作系统利用进程把它的工作划分为一些功能单元。进程还拥有一个私有的虚拟地址空间。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内">
+<meta name="twitter:title" content="进程&amp;线程&amp;协程">
+<meta name="twitter:description" content="进程&amp;amp;线程&amp;amp;协程进程线程老生常谈了。主要写写协程。主要是因为面试官问到我了，而我还是一问三不知，听都没听过。本文方向主要是写写三者的基础概念以及区别。 进程进程（process）是一块包含了某些资源的内存区域。操作系统利用进程把它的工作划分为一些功能单元。进程还拥有一个私有的虚拟地址空间。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内存。文件句柄等">
 
 <link rel="canonical" href="47.168.200.88/2019/08/11/Linux——进程、线程、协程/">
 
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Linux——进程&线程&协程 | Andrew's Blog</title>
+  <title>进程&线程&协程 | Andrew's Blog</title>
   
 
 
@@ -163,7 +163,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux——进程&线程&协程
+          进程&线程&协程
         </h1>
 
         <div class="post-meta">
@@ -172,10 +172,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-08-11 08:52:17 / Modified: 22:43:23" itemprop="dateCreated datePublished" datetime="2019-08-11T08:52:17+08:00">2019-08-11</time>
+              <time title="Created: 2019-08-11 08:52:17" itemprop="dateCreated datePublished" datetime="2019-08-11T08:52:17+08:00">2019-08-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:50:22" itemprop="dateModified" datetime="2020-03-09T14:50:22+08:00">2020-03-09</time>
+              </span>
 
           
 
@@ -188,7 +194,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Linux——进程-amp-线程-amp-协程"><a href="#Linux——进程-amp-线程-amp-协程" class="headerlink" title="Linux——进程&amp;线程&amp;协程"></a>Linux——进程&amp;线程&amp;协程</h1><p>进程线程老生常谈了。主要写写协程。主要是因为面试官问到我了，而我还是一问三不知，听都没听过。本文方向主要是写写三者的基础概念以及区别。</p>
+        <h1 id="进程-amp-线程-amp-协程"><a href="#进程-amp-线程-amp-协程" class="headerlink" title="进程&amp;线程&amp;协程"></a>进程&amp;线程&amp;协程</h1><p>进程线程老生常谈了。主要写写协程。主要是因为面试官问到我了，而我还是一问三不知，听都没听过。本文方向主要是写写三者的基础概念以及区别。</p>
 <h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程（process）是一块包含了某些资源的内存区域。操作系统利用进程把它的工作划分为一些功能单元。进程还拥有一个私有的虚拟地址空间。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内存。文件句柄等）比较大，但是相对比较稳定安全。</p>
 <h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>线程是进程的实体，是CPU调度和分派的基本单位，是比进程更小的能独立运行的单位。线程基本上不拥有系统的资源，只拥有一点在运行中必不可少的资源（程序计数器。一组寄存器和栈），但是它可与同属一个进程的其他线程共享该进程所拥有的全部资源。线程间通信主要通过共享内存，上下文切换很快，资源开销小，但是相比进程不够稳定容易丢失数据。</p>
 <h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><p>协程是一种用户态的轻量级线程，协程的调度完全是由用户来控制。协程拥有自己的寄存器上下文和栈空间。协程调度切换的时候，将寄存器上下文和栈保存到其他地方，在切回来的时候，回复先前保存的寄存器上下文和栈，直接操作栈则基本没有内核切换的开销，可以不加所的访问全局变量。所以上下文切换特别快。</p>
@@ -228,7 +234,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
           </div>
 
         
@@ -237,11 +243,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/08/07/Linux——配置远程主机无密码登录/" rel="prev" title="Linux——配置远程主机无密码登录">
-      <i class="fa fa-chevron-left"></i> Linux——配置远程主机无密码登录
+    <a href="/2019/08/07/Linux——配置远程主机无密码登录/" rel="prev" title="配置远程主机无密码登录">
+      <i class="fa fa-chevron-left"></i> 配置远程主机无密码登录
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/08/11/算法——二分查找/" rel="next" title="二分查找">
+    <a href="/2019/08/11/二分查找/" rel="next" title="二分查找">
       二分查找 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -303,7 +309,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux——进程-amp-线程-amp-协程"><span class="nav-number">1.</span> <span class="nav-text">Linux——进程&amp;线程&amp;协程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">1.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">1.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程"><span class="nav-number">1.3.</span> <span class="nav-text">协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人理解"><span class="nav-number">1.4.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程优点"><span class="nav-number">1.5.</span> <span class="nav-text">协程优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程缺点"><span class="nav-number">1.6.</span> <span class="nav-text">协程缺点</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程-amp-线程-amp-协程"><span class="nav-number">1.</span> <span class="nav-text">进程&amp;线程&amp;协程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">1.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">1.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程"><span class="nav-number">1.3.</span> <span class="nav-text">协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人理解"><span class="nav-number">1.4.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程优点"><span class="nav-number">1.5.</span> <span class="nav-text">协程优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程缺点"><span class="nav-number">1.6.</span> <span class="nav-text">协程缺点</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -317,7 +323,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -328,7 +334,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

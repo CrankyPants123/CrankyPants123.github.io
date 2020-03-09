@@ -23,16 +23,16 @@
   <meta name="description" content="kill命令探究命令格式kill [参数] [进程号] 命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs或者ps命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。 一般来">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux——kill命令详解">
+<meta property="og:title" content="kill命令详解">
 <meta property="og:url" content="47.168.200.88/2019/09/11/Linux——kill命令详解/index.html">
 <meta property="og:site_name" content="Andrew&#39;s Blog">
 <meta property="og:description" content="kill命令探究命令格式kill [参数] [进程号] 命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs或者ps命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。 一般来">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2019/09/11/WfumlX4MyseboDA.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/11/8jXiFOGeErcRkdx.png">
-<meta property="og:updated_time" content="2019-09-11T12:55:51.000Z">
+<meta property="og:updated_time" content="2020-03-09T06:52:30.480Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux——kill命令详解">
+<meta name="twitter:title" content="kill命令详解">
 <meta name="twitter:description" content="kill命令探究命令格式kill [参数] [进程号] 命令功能发送指定的信号到相应的进程。一共有60多种信号可以供我们来使用。不指定信号的时候默认发送SIGTERM(15)来终止指定的进程。如果仍然无法终止该程序可使用kill -9 pid用来发送SIGKILL信号来强制结束进程。可是使用jobs或者ps命令来查看进程号。root用户可以影响用户的进程，非root用户只能影响自己的进程。 一般来">
 <meta name="twitter:image" content="https://i.loli.net/2019/09/11/WfumlX4MyseboDA.png">
 
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>Linux——kill命令详解 | Andrew's Blog</title>
+  <title>kill命令详解 | Andrew's Blog</title>
   
 
 
@@ -166,7 +166,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux——kill命令详解
+          kill命令详解
         </h1>
 
         <div class="post-meta">
@@ -175,10 +175,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-09-11 19:20:34 / Modified: 20:55:51" itemprop="dateCreated datePublished" datetime="2019-09-11T19:20:34+08:00">2019-09-11</time>
+              <time title="Created: 2019-09-11 19:20:34" itemprop="dateCreated datePublished" datetime="2019-09-11T19:20:34+08:00">2019-09-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:52:30" itemprop="dateModified" datetime="2020-03-09T14:52:30+08:00">2020-03-09</time>
+              </span>
 
           
 
@@ -226,8 +232,8 @@
       <i class="fa fa-chevron-left"></i> 大型网站架构演化
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/09/11/Linux——信号/" rel="next" title="Linux——信号">
-      Linux——信号 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/09/11/Linux——信号/" rel="next" title="信号">
+      信号 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -302,7 +308,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -313,7 +319,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
