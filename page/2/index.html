@@ -219,7 +219,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/测试——01入门概念/">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/大型网站架构演化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -233,7 +233,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/09/11/测试——01入门概念/" class="post-title-link" itemprop="url">测试——入门概念</a>
+            <a href="/2019/09/11/大型网站架构演化/" class="post-title-link" itemprop="url">大型网站架构演化</a>
         </h1>
 
         <div class="post-meta">
@@ -250,7 +250,94 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-11 23:17:29" itemprop="dateModified" datetime="2019-10-11T23:17:29+08:00">2019-10-11</time>
+                <time title="Modified: 2020-03-09 14:23:47" itemprop="dateModified" datetime="2020-03-09T14:23:47+08:00">2020-03-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>知识储备：</p>
+<blockquote>
+<ul>
+<li>二八定律：80%的业务访问集中在20%的数据。</li>
+</ul>
+</blockquote>
+<p>大型网站都是从小型网站发展而来，网站架构也是一样从简单到复杂。刚开始的时候访问量少可能只需要一台服务器就绰绰有余了。此时的网站架构基本就是LAMP了。Linux+Apache+MySQL+PHP。此时数据库、程序还有文件都<strong>储存在同一台服务器</strong>上。</p>
+<h2 id="应用服务和数据分离"><a href="#应用服务和数据分离" class="headerlink" title="应用服务和数据分离"></a>应用服务和数据分离</h2><p>当访问用户越来越多的时候，开始逐渐出现性能问题。</p>
+<ul>
+<li>应用程序需要处理大量业务逻辑，因此需要更加强大的cpu。</li>
+<li>数据库需要更快的硬盘和更大的内存。</li>
+<li>文件服务器需要更大的容量</li>
+</ul>
+<p>单机无法承受这样的性能要求，于是一台服务器被拆分成了三台，应用服务器，文件服务器和数据库服务器。不同特性的服务器承担了不同的服务角色，网站的并发能力大大增强，网站业务进一步发展，并发继续增高。性能问题又再一次面临挑战，此时问题容易出现在数据库服务器上，由于压力太大导致访问延迟，用户体验收到影响。此时就需要对网站的架构再进行优化了。</p>
+<h2 id="使用缓存改善网站性能"><a href="#使用缓存改善网站性能" class="headerlink" title="使用缓存改善网站性能"></a>使用缓存改善网站性能</h2><p>参见二八定律。既然大部分的业务访问只集中在一小部分的数据上，那么我们就可以考虑把这20%的数据缓存在内存里，缓存高频数据，提高性能。网站的缓存基本可以分为两种：</p>
+<ul>
+<li>缓存在应用服务器上的本地缓存</li>
+<li>缓存在专门的分布式缓存服务器上的分布式缓存</li>
+</ul>
+<p>两者各自的相对优缺点也很明显，本地缓存有限但是很快，分布式的远程缓存没有理论上的容量限制，但是要通过网络就会相对本地缓存慢一些。最高频的小数据放在本地缓存，次之放在分布式的缓存服务器中，接下来的80%就可以放在文件服务器中啦！</p>
+<p>使用缓存之后，数据库的访问压力暂时就解决了。不过此时的应用服务器还只是一台。单机能处理的连接有限。访问高峰的时候，应用服务器的性能就又会成为网站的性能瓶颈。</p>
+<h2 id="使用应用服务器集群改善网站的并发处理能力"><a href="#使用应用服务器集群改善网站的并发处理能力" class="headerlink" title="使用应用服务器集群改善网站的并发处理能力"></a>使用应用服务器集群改善网站的并发处理能力</h2><p>应用服务器实现集群是网站可伸缩架构设计中较为简单成熟的一种。用户的请求通过负载均衡调度服务器来将用户的访问请求分发 到应用服务器集群之中。用户再增加，那就往集群中加入更多的服务器。此时，应用服务器的压力不再成为整个网站的性能瓶颈。那伴随着访问量的继续增长，下一个性能瓶颈是什么呢？</p>
+<h2 id="数据库读写分离"><a href="#数据库读写分离" class="headerlink" title="数据库读写分离"></a>数据库读写分离</h2><p>虽然大多数的数据操作访问不通过数据库就能完成</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/09/11/测试入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/11/测试入门/" class="post-title-link" itemprop="url">测试入门</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-11 11:53:39" itemprop="dateCreated datePublished" datetime="2019-09-11T11:53:39+08:00">2019-09-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:21:30" itemprop="dateModified" datetime="2020-03-09T14:21:30+08:00">2020-03-09</time>
               </span>
 
           
@@ -912,122 +999,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/08/28/面试准备——01网络/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/28/面试准备——01网络/" class="post-title-link" itemprop="url">面试准备——01 网络</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-28 21:49:43" itemprop="dateCreated datePublished" datetime="2019-08-28T21:49:43+08:00">2019-08-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-07 14:45:57" itemprop="dateModified" datetime="2019-09-07T14:45:57+08:00">2019-09-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>目的是为了归纳梳理一下知识。</p>
-<h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>GET和POST是HTTP请求的两种基本方法。HTTP基于TCP/IP。也就是说GET和POST都是TCP链接。GET和POST所能做的事情也是一模一样的。其实我们在使用GET方法的时候也可以在body中藏点“货”。使用POST的时候也可以在URL中夹带一些参数。所以我们可以得出结论：GET和POST本质上就是TCP链接，并无差别，但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用的过程中体现出一些不同</p>
-<ul>
-<li>最直观的区别是GET把参数包含在URL中，POST通过request body传递参数。</li>
-<li>GET产生一个数据包，POST产生两个数据包（对于GET方式的请求，浏览器会把http header和data一并发出去。服务器响应200，firefox不同，firefox只发送一个）</li>
-<li>对于POST，浏览器会先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok</li>
-<li>GET的参数在URL中，POST的参数在Request body中。</li>
-<li>Get只接受ASCII字符，但是POST没有限制。</li>
-<li>GET比POST更加的不安全，因为GET的参数会直接暴露在URL上。</li>
-</ul>
-<blockquote>
-<p>虽说GET和POST在本质上没有区别，但是浏览器通常都会限制URL长度在2k个字节，大多数服务器最多处理64K大小的URL，超过的部分不会被处理。所以我们要是在URL中藏了“货”，如果数据较多那么就很有可能无法发送，或者被服务器正确接收或处理。</p>
-<p>之所以用两次包来传输POST请求，是因为两次包的TCP在验证数据包完整性上是很有优势的。</p>
-</blockquote>
-<h2 id="三次握手过程中可以携带数据吗"><a href="#三次握手过程中可以携带数据吗" class="headerlink" title="三次握手过程中可以携带数据吗"></a>三次握手过程中可以携带数据吗</h2><p>结论：前两次握手的时候不可以携带，第三次握手允许携带数据。</p>
-<p>RFC193文档中提到了” Data or controls which were queued for transmission may be included”</p>
-<p>详细的解释可以参见这篇文章：《<a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">TCP 连接建立的三次握手过程可以携带数据吗？</a>》写的非常详细，真的很赞！</p>
-<p>具体的意思就是，当TCP_SYN_TECV状态收到合法的二次握手包之后，socket的状态就会立即设置为TCP_ESTABLISHED状态。然后接下来就会处理其中包含的数据。</p>
-<p>在大多数情况下，三次握手的过程中是不带数据的。</p>
-<p>什么时候带？也可以看上边的文章。嘿嘿，我看不懂。或者说是太笨了。</p>
-<h2 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h2><p>概述：TCP和UDP都属于传输层的协议，其中TCP能提供IP环境下的可靠传输，流量控制和差错恢复的功能。UDP则不为IP提供可靠性和流控、差错控制的功能。一般来说，TCP对应的是可靠性要求高的应用，UDP对应的则是可靠性要求低，传输流量大，传输速度快的的应用。</p>
-<p>区别：</p>
-<ul>
-<li>面向连接&amp;无连接。TCP有三次握手的连接过程，UDP是和消息的多播发送。</li>
-<li>可靠性。TCP利用握手，ACK和重传机制，提供了可靠性保证。而UDP可能丢失。</li>
-<li>有序性。TCP利用序列号保证了消息包的顺序交付，到达可能无序，但是TCP会排序。</li>
-<li>速度。TCP速度比较慢，因为需要创建连接来保证消息的可靠性和有序性，UDP更加适合做对速度比较敏感的应用，比如多人在线游戏，电视广播，还有在线视频媒体等</li>
-<li>重量级。TCP为重量级，UDP是轻量级。体现在元数据的头大小，TCP是20字节，UDP是8字节。</li>
-</ul>
-<p>上层协议：</p>
-<ul>
-<li>使用TCP协议的上层协议：Telnet、FTP、SMTP、HTTP、HTTPS</li>
-<li>使用UDP的上层协议：DNS</li>
-</ul>
-<p>使用场景：</p>
-<ul>
-<li>UDP：需要用到NAT穿透的时候</li>
-</ul>
-<h2 id="OSI中常见的协议"><a href="#OSI中常见的协议" class="headerlink" title="OSI中常见的协议"></a>OSI中常见的协议</h2><ol>
-<li>物理层：RJ45,CLOCK,IEEE802.3</li>
-<li>数据链路层：PPP,FR,HDLC,VLAN,MAC</li>
-<li>网络层：IP,ICMP,ARP,RARP,OSPF,IPX,RIP,IGRP</li>
-<li>传输层：TCP,UDP,SPX</li>
-<li>会话层：NFS,SQL,NETBIOS,RPC</li>
-<li>表示层：JPEG,MPEG,ASCII</li>
-<li>应用层：DNS,Telnet,SMTP,HTTP,www,NFS</li>
-</ol>
-<h2 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h2><p>数据包在网络传输过程中的最长生命周期，一般以跳为单位。TTL减为0还没有到达的话就会被丢弃。</p>
-<p>本文参考：</p>
-<ul>
-<li><a href="http://www.0xffffff.org/2015/04/15/36-The-TCP-three-way-handshake-with-data/" target="_blank" rel="noopener">《TCP 连接建立的三次握手过可以携带数据吗？》</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1098,7 +1069,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1109,7 +1080,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

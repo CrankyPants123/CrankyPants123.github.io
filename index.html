@@ -148,6 +148,64 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="47.168.200.88/2020/03/09/索引/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andrew Pit">
+      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrew's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/09/索引/" class="post-title-link" itemprop="url">索引</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-09 14:19:19 / Modified: 14:21:01" itemprop="dateCreated datePublished" datetime="2020-03-09T14:19:19+08:00">2020-03-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="47.168.200.88/2020/02/13/日常充电——域名解析扫盲/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -277,86 +335,6 @@
 <li>项目部署到了github pages，ping了一下github的服务器在荷兰。so买了一个xyz域名。</li>
 <li>备案通过之后申请了免费的ssl证书，正在申请中，cdn加速目前工信部的信息还没有刷新过来</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="47.168.200.88/2019/10/29/大型网站架构演化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Andrew Pit">
-      <meta itemprop="description" content="个人博客，写点自己想写的就酱！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrew's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/29/大型网站架构演化/" class="post-title-link" itemprop="url">Untitled</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-10-29 20:55:12" itemprop="dateCreated datePublished" datetime="2019-10-29T20:55:12+08:00">2019-10-29</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>知识储备：</p>
-<blockquote>
-<ul>
-<li>二八定律：80%的业务访问集中在20%的数据。</li>
-</ul>
-</blockquote>
-<p>大型网站都是从小型网站发展而来，网站架构也是一样从简单到复杂。刚开始的时候访问量少可能只需要一台服务器就绰绰有余了。此时的网站架构基本就是LAMP了。Linux+Apache+MySQL+PHP。此时数据库、程序还有文件都<strong>储存在同一台服务器</strong>上。</p>
-<h2 id="应用服务和数据分离"><a href="#应用服务和数据分离" class="headerlink" title="应用服务和数据分离"></a>应用服务和数据分离</h2><p>当访问用户越来越多的时候，开始逐渐出现性能问题。</p>
-<ul>
-<li>应用程序需要处理大量业务逻辑，因此需要更加强大的cpu。</li>
-<li>数据库需要更快的硬盘和更大的内存。</li>
-<li>文件服务器需要更大的容量</li>
-</ul>
-<p>单机无法承受这样的性能要求，于是一台服务器被拆分成了三台，应用服务器，文件服务器和数据库服务器。不同特性的服务器承担了不同的服务角色，网站的并发能力大大增强，网站业务进一步发展，并发继续增高。性能问题又再一次面临挑战，此时问题容易出现在数据库服务器上，由于压力太大导致访问延迟，用户体验收到影响。此时就需要对网站的架构再进行优化了。</p>
-<h2 id="使用缓存改善网站性能"><a href="#使用缓存改善网站性能" class="headerlink" title="使用缓存改善网站性能"></a>使用缓存改善网站性能</h2><p>参见二八定律。既然大部分的业务访问只集中在一小部分的数据上，那么我们就可以考虑把这20%的数据缓存在内存里，缓存高频数据，提高性能。网站的缓存基本可以分为两种：</p>
-<ul>
-<li>缓存在应用服务器上的本地缓存</li>
-<li>缓存在专门的分布式缓存服务器上的分布式缓存</li>
-</ul>
-<p>两者各自的相对优缺点也很明显，本地缓存有限但是很快，分布式的远程缓存没有理论上的容量限制，但是要通过网络就会相对本地缓存慢一些。最高频的小数据放在本地缓存，次之放在分布式的缓存服务器中，接下来的80%就可以放在文件服务器中啦！</p>
-<p>使用缓存之后，数据库的访问压力暂时就解决了。不过此时的应用服务器还只是一台。单机能处理的连接有限。访问高峰的时候，应用服务器的性能就又会成为网站的性能瓶颈。</p>
-<h2 id="使用应用服务器集群改善网站的并发处理能力"><a href="#使用应用服务器集群改善网站的并发处理能力" class="headerlink" title="使用应用服务器集群改善网站的并发处理能力"></a>使用应用服务器集群改善网站的并发处理能力</h2><p>应用服务器实现集群是网站可伸缩架构设计中较为简单成熟的一种。用户的请求通过负载均衡调度服务器来将用户的访问请求分发 到应用服务器集群之中。用户再增加，那就往集群中加入更多的服务器。此时，应用服务器的压力不再成为整个网站的性能瓶颈。那伴随着访问量的继续增长，下一个性能瓶颈是什么呢？</p>
-<h2 id="数据库读写分离"><a href="#数据库读写分离" class="headerlink" title="数据库读写分离"></a>数据库读写分离</h2><p>虽然大多数的数据操作访问不通过数据库就能完成</p>
 
       
     </div>
@@ -1297,7 +1275,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1308,7 +1286,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
