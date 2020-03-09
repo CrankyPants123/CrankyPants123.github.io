@@ -366,7 +366,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/01/今日充电——更改国内源/" class="post-title-link" itemprop="url">日常充电——更改国内源</a>
+            <a href="/2019/08/01/今日充电——更改国内源/" class="post-title-link" itemprop="url">更改国内源</a>
         </h1>
 
         <div class="post-meta">
@@ -375,10 +375,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-08-01 01:31:59 / Modified: 14:36:57" itemprop="dateCreated datePublished" datetime="2019-08-01T01:31:59+08:00">2019-08-01</time>
+              <time title="Created: 2019-08-01 01:31:59" itemprop="dateCreated datePublished" datetime="2019-08-01T01:31:59+08:00">2019-08-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-09 14:37:26" itemprop="dateModified" datetime="2020-03-09T14:37:26+08:00">2020-03-09</time>
+              </span>
 
           
 
@@ -391,7 +397,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>近两日频繁使用包工具下载东西，梯子全局挂国外节点速度虽然可以，不过仍旧不喜人。遂更换国内中国科技大学源。网速瞬间4M/s！！！</p>
+          <p>近两日频繁使用包工具下载东西，梯子全局挂国外节点速度虽然可以，不过仍旧不喜人。遂更换国内中国科技大学源。瞬间满速！</p>
 <p>记录一下防止之后还能用的到。</p>
 <h2 id="brew"><a href="#brew" class="headerlink" title="brew"></a>brew</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd "$(brew --repo)"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line">cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line">cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask"</span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line">brew update</span><br><span class="line">echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' &gt;&gt; ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' &gt;&gt; ~/.zshrc</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
@@ -428,7 +434,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/27/今日充电——zsh配置/" class="post-title-link" itemprop="url">日常充电——zsh配置</a>
+            <a href="/2019/07/27/今日充电——zsh配置/" class="post-title-link" itemprop="url">zsh配置</a>
         </h1>
 
         <div class="post-meta">
@@ -445,7 +451,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-01 14:37:11" itemprop="dateModified" datetime="2019-08-01T14:37:11+08:00">2019-08-01</time>
+                <time title="Modified: 2020-03-09 14:37:59" itemprop="dateModified" datetime="2020-03-09T14:37:59+08:00">2020-03-09</time>
               </span>
 
           
@@ -490,7 +496,7 @@
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br><span class="line">brew install zsh-autosuggestions</span><br><span class="line">source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>autojump：常用目录快速跳转</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew install autojump</span><br><span class="line">vim ~/.zshrc</span><br><span class="line"><span class="meta">#</span><span class="bash">把以上插件添加到plugins中</span></span><br><span class="line">plugins=(</span><br><span class="line">  git incr zsh-autosuggestions autojump</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew install autojump</span><br><span class="line">vim ~/.zshrc</span><br><span class="line"><span class="meta">#</span>把以上插件添加到plugins中</span><br><span class="line">plugins=(</span><br><span class="line">  git incr zsh-autosuggestions autojump</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ul>
@@ -1125,7 +1131,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
