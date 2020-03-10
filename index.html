@@ -181,10 +181,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-09 14:19:19 / Modified: 17:57:19" itemprop="dateCreated datePublished" datetime="2020-03-09T14:19:19+08:00">2020-03-09</time>
+              <time title="Created: 2020-03-09 14:19:19" itemprop="dateCreated datePublished" datetime="2020-03-09T14:19:19+08:00">2020-03-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-10 14:40:59" itemprop="dateModified" datetime="2020-03-10T14:40:59+08:00">2020-03-10</time>
+              </span>
 
           
 
@@ -200,17 +206,33 @@
           <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>索引是帮助MySQL高效获取数据的排好序的数据结构</p>
 <p>索引数据结构</p>
 <ul>
-<li><p>二叉树</p>
+<li><p>二叉查找树：对于某些情况，二叉查找树会退化成一个有n个节点的线性链表，比如你选择的根节点数据刚好是最小/大数的时候，那么这个二叉树就完全退化成了一个线性结构。</p>
 </li>
-<li><p>红黑树</p>
+<li><p>红黑树：比二叉查找树要强，但是在数据量很大的情况下那树的高度还是会很高，查找的时间对应也就上来了。</p>
 </li>
 <li><p>Hash表</p>
 </li>
 <li><p>B树</p>
 <blockquote>
 <p>结论：目前索引用的最多的数据结构还是B/B+树。</p>
+<blockquote>
+<p>在索引中红黑树的性能要比查找二叉树的性能好</p>
+</blockquote>
 </blockquote>
 </li>
+</ul>
+<h2 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B-Tree"></a>B-Tree</h2><ul>
+<li>B(Balance)树是红黑树改造而来，只不过就是在每个节点中储存的更多的数据</li>
+<li>叶节点具有相同的深度，叶节点的指针为空</li>
+<li>所有索引元素不重复</li>
+<li>节点中的数据元素从左到右递增排列</li>
+</ul>
+<h2 id="B-Tree-1"><a href="#B-Tree-1" class="headerlink" title="B+-Tree"></a>B+-Tree</h2><ul>
+<li>B树的变种</li>
+<li>非叶子节点不存储data，只存储索引，可以放更多的索引。</li>
+<li>索引是有冗余的</li>
+<li>叶子节点包含所有索引字段</li>
+<li>叶子节点用指针连接，提高区间访问的性能</li>
 </ul>
 
       
